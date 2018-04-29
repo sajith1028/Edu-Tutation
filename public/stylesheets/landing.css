@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Gothic+A1:200');
+@import url('https://fonts.googleapis.com/css?family=Raleway:500');
+
 @media (min-width: 1200px) {
     .container{
         max-width: 970px;
@@ -71,6 +74,10 @@ li{
     margin: auto;
 }
 
+p{
+	font-family: 'Raleway', sans-serif;
+}
+
 .c1{
     margin: auto;
 }
@@ -80,12 +87,7 @@ li{
 }
 
 .about{
-    margin-top: 10%;
-}
-
-h3{
-    margin-top: 10%;
-    margin-bottom: 5%;
+    margin-top: 3%;
 }
 
 .contact{
@@ -131,6 +133,55 @@ h3{
     background-size: cover;
 }
 
+
+.intro{
+  margin-top: 50px;
+  height:510px;
+}
+
+.left{
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  background-color:rgba(0,0,0,0.3);
+  height : 100%;
+  color : #FFF;
+  float:left;
+  width: 50%;
+  z-index: auto;
+}
+
+.left img{
+	top: 0;
+	height: 100px;
+	float: left;
+}
+
+.right{
+  display : flex;
+  align-items : center;
+  background-color:rgba(200,0,0,0.3);
+  height : 100%;
+  color : #3d231b;
+  padding-left: 100px;
+  padding-right: 100px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.about h1{
+	font-family: 'Gothic A1', sans-serif;
+}
+
+.right h2{
+	font-family: 'Gothic A1', sans-serif;
+}
+
+.about p{
+	font-size: 20px;
+	font-family: 'Raleway', sans-serif;
+}
+
 #footer{
     background-color: lime;
     /*bottom: 0;*/
@@ -160,6 +211,7 @@ h3{
 
 .parallax h1{
 	color: white;
+	font-family: 'Gothic A1', sans-serif;
 }
 
 element.style {
