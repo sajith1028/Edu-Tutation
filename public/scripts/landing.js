@@ -21,7 +21,7 @@ $(function() { // toggling active in navbar
 
 $(document).scroll(function () {
     var y = $(this).scrollTop();
-    if (y > 400){
+    if (y > 1200){
       $('.card-img-top').fadeIn(2000)
       $('.card-body').slideDown(2000);
     }
