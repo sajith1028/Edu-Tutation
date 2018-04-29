@@ -78,7 +78,11 @@ app.get("/logout",function(req, res) {
 
 app.get("/home",function(req, res) {
     res.render("home");
-})
+});
+
+app.get("/a",function(req,res){
+    res.render("abc");
+});
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Akura server has started ...");
