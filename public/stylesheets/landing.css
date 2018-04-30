@@ -47,6 +47,10 @@ html, body {
      height: 20%;
 }
 
+#head{
+	padding-top: 3%;
+}
+
 .custombtn {
   border-color: rgba(255,255,255,.7);
   color: rgba(255,255,255,.7);
@@ -84,10 +88,6 @@ p{
 
 .cardsTop{
     margin-top: 5%;
-}
-
-.about{
-    margin-top: 3%;
 }
 
 .contact{
@@ -133,7 +133,6 @@ p{
     background-size: cover;
 }
 
-
 .intro{
   margin-top: 50px;
   height:510px;
@@ -143,30 +142,33 @@ p{
   display : flex;
   justify-content : center;
   align-items : center;
-  background-color:rgba(0,0,0,0.3);
+  background-color:rgba(178,178,178,0.8);
   height : 100%;
   color : #FFF;
   float:left;
-  width: 50%;
   z-index: auto;
 }
 
 .left img{
 	top: 0;
 	height: 100px;
-	float: left;
 }
 
 .right{
   display : flex;
   align-items : center;
-  background-color:rgba(200,0,0,0.3);
+  background-color:rgba(238,178,178,0.9);
   height : 100%;
   color : #3d231b;
   padding-left: 100px;
   padding-right: 100px;
-  text-align: justify;
-  text-justify: inter-word;
+  float: left;
+}
+
+#jus{
+	font-size: 1.2vw;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .about h1{
@@ -178,7 +180,7 @@ p{
 	font-family: 'Gothic A1', sans-serif;
 }
 
-.about p{
+.about h3{
 	font-size: 23px;
 	font-family: 'Raleway', sans-serif;
 	text-align: center;
@@ -212,6 +214,7 @@ p{
 }
 
 .parallax h1{
+	text-align: center;
 	color: white;
 	font-family: 'Gothic A1', sans-serif;
 }
@@ -296,16 +299,16 @@ element.style {
 }
 
 .footer-distributed ::-webkit-input-placeholder {
-	color:  #5c666b;
+	color:  rgba(255,255,255,0.7);
 }
 
 .footer-distributed ::-moz-placeholder {
-	color:  #5c666b;
+	color:  rgba(255,255,255,0.7);
 	opacity: 1;
 }
 
 .footer-distributed :-ms-input-placeholder{
-	color:  #5c666b;
+	color:  rgba(255,255,255,0.7);
 }
 
 
@@ -379,43 +382,6 @@ element.style {
 
 .footer-distributed .footer-right{
 	width: 30%;
-}
-
-.footer-distributed .footer-company-about{
-	line-height: 20px;
-	color:  #92999f;
-	font-size: 13px;
-	font-weight: normal;
-	margin: 0;
-}
-
-.footer-distributed .footer-company-about span{
-	display: block;
-	color:  #ffffff;
-	font-size: 14px;
-	font-weight: bold;
-	margin-bottom: 20px;
-}
-
-.footer-distributed .footer-icons{
-	margin-top: 25px;
-}
-
-.footer-distributed .footer-icons a{
-	display: inline-block;
-	width: 35px;
-	height: 35px;
-	cursor: pointer;
-	background-color:  #33383b;
-	border-radius: 2px;
-
-	font-size: 20px;
-	color: #ffffff;
-	text-align: center;
-	line-height: 35px;
-
-	margin-right: 3px;
-	margin-bottom: 5px;
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */
