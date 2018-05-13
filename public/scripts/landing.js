@@ -29,3 +29,11 @@ $(document).scroll(function () {
       $('.card-body').slideDown(2000);
     }
 });
+
+$(document).ready(function(){
+    $(".threeFeatures").hover(function(){
+        $(".threeFeaturesTop").css("box-shadow", "0 4px 10px 5px rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(79, 42, 24, 0.19)");
+        }, function(){
+        $(".threeFeaturesTop").css("box-shadow", "0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19)");
+    });
+});

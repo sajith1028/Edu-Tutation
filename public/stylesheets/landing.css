@@ -134,10 +134,23 @@ p{
     background-size: cover;
 }
 
+.achievment{
+    height: 30%;    
+}
+
 .threeFeatures {
+    float: left;
     display: none;
     border:0 !important;
-    background-color: rgba(255,235,215,7) !important;
+    background-color: rgba(255,235,215,.5) !important;
+    box-shadow: 0 4px 15px 10px rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.threeFeaturesTop{
+    padding: 5px 0;
+    background-color: white !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: box-shadow .6s;
 }
 
 .parallax2 {
@@ -163,7 +176,7 @@ p{
   display : flex;
   justify-content : center;
   align-items : center;
-  background-color:rgba(136,123,176,0.7);
+  background-color:rgba(136,123,176,0.6);
   height : 100%;
   color : #FFF;
   float:left;
@@ -178,7 +191,7 @@ p{
 .right{
   display : flex;
   align-items : center;
-  background-color:rgba(238,178,178,0.9);
+  background-color:rgba(238,178,178,0.6);
   height : 100%;
   color : #3d231b;
   padding-left: 100px;
@@ -187,7 +200,7 @@ p{
 }
 
 #jus{
-	font-size: 1.2vw;
+	font-size: 18px;
     text-align: justify;
     text-justify: inter-word;
 }
