@@ -244,7 +244,7 @@ p{
     margin-bottom: 0 !important;
     vertical-align: center;
     float: left;
-     border-right: 2px solid white;
+    border-right: 1px solid white;
 }
 
 element.style {
