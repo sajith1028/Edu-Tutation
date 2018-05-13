@@ -1,5 +1,11 @@
 <% include ./partials/header %>
 
+<!--Calculating the years for hisroty-->
+<% var startDate = new Date("8/1/2012"); %>
+<% var today = new Date(); %>
+<% var years = today.getFullYear() - startDate.getFullYear();   %>
+<!--End of calculating the years for hisroty-->
+
 <link rel="stylesheet" type="text/css" href="/stylesheets/landing.css"> 
 
 <div class="content">
@@ -58,10 +64,13 @@
       <div class="col-md-4 col-lg-4">
         <div class="card c1" style="width: 18rem;">
           <div class="card-body threeFeatures">
-            <center><h1><i class="fas fa-tv"></i></h1>
+            <center><h1><i class="fas fa-bullseye"></i></h1>
             <br>
-            <h5 class="card-title">Our technology</h5></center>
-            <p class="card-text">Explore our fantastic opportunities for you to conduct classes in a world class atmosphere.</p>
+            <h5 class="card-title">Our Mision</h5></center>
+            <br>
+            <div id="jus">
+              <p class="card-text">The mission of Akura Institute is to provide innovative educational environments, opportunities, and experiences that enable individuals, communities, and the region to grow, thrive, and prosper.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -71,8 +80,11 @@
           <div class="card-body threeFeatures">
             <center><h1><i class="fas fa-history"></i></h1>
             <br>
-            <h5 class="card-title">Our history</h5></center>
-            <p class="card-text">Explore our fantastic opportunities for you to conduct classes in a world class atmosphere.</p>
+            <h5 class="card-title">Our History</h5></center>
+            <br>
+            <div id="jus">
+              <p class="card-text">The Akura Institute with its legacy of more than <%=years%> years in the business of educating and developing personal skills of the youth in Sri Lanka surves you beyond limits to accomplish your goals.</p>
+            </div>
           </div>
         </div>  
       </div>
@@ -80,8 +92,13 @@
       <div class="col-md-4 col-lg-4">
       <div class="card c1" style="width: 18rem;">
           <div class="card-body threeFeatures">
-            <h5 class="card-title">Are you a lecturer?</h5>
-            <p class="card-text">Explore our fantastic opportunities for you to conduct classes in a world class atmosphere.</p>
+            <center><h1><i class="fas fa-tv"></i></h1>
+            <br>
+            <h5 class="card-title">Our Ttechnology</h5></center>
+            <br>
+            <div id="jus">
+              <p class="card-text">Explore our fantastic opportunities for you to conduct classes in a world class atmosphere.</p>
+            </div>
           </div>
         </div>  
       </div>

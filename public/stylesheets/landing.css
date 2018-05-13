@@ -145,7 +145,7 @@ p{
     background-image: url("https://i.imgur.com/7PfzLV2.jpg");
 
     /* Set a specific height */
-    min-height: 600px; 
+    min-height: 570px; 
     padding-top: 80px;
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
