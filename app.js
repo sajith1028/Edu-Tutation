@@ -1,13 +1,25 @@
 var express         =   require("express");
 var app             =   express(),
     bodyParser  = require("body-parser");
+var mysql           =   require("mysql");
 var mongoose        =   require("mongoose");
 var passport        =   require("passport"),
     LocalStrategy   =   require("passport-local"),
     User            =   require("./models/user");
 var flash           =   require("connect-flash");
+var con             =   mysql.createConnection({
+                        user: "tharushi96",
+                        password: ""
+                        });
+
+con.connect(function(err){
+    if(err) throw err;
+    console.log("Connected!");
+});
 
 mongoose.connect("mongodb://localhost/akura"); //Connect to the mongoDB
+
+
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.set("view engine","ejs");
