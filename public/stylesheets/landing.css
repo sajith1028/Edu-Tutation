@@ -220,6 +220,10 @@ p{
 	text-align: center;
 }
 
+#abouts{
+    padding-top: 0.5%;
+}
+
 #footer{
     background-color: lime;
     /*bottom: 0;*/
