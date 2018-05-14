@@ -21,7 +21,7 @@ $(function() { // toggling active in navbar
 
 $(document).scroll(function () {
     var y = $(this).scrollTop();
-    if (y > 400){
+    if (y > 300){
       $('.left img').animate({ height:'500px' }, 1000);
     }
     if (y > 1200){
