@@ -6,12 +6,13 @@ var mysql           =   require("mysql"),
 var flash           =   require("connect-flash");
 
 var con             =   mysql.createConnection({
-                        user: "tharushi96",
+                        user: "nimesha",
                         password: ""
                         });
 
 con.connect(function(err){
-    if(err) throw err;
+    if(err) 
+        throw err;
     console.log("Connected to mysql!");
 });
 

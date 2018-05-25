@@ -24,7 +24,10 @@ $(document).scroll(function () {
     if (y > 300){
       $('.left img').animate({ height:'500px' }, 1000);
     }
-    if (y > 1200){
+    if(y > 1000){
+      $(".threeFeatures").fadeIn(1000);
+    }
+    if (y > 2100){
       $('.card-img-top').fadeIn(2000)
       $('.card-body').slideDown(2000);
     }
