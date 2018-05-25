@@ -1,8 +1,4 @@
-body{
-    background-image: url(https://i.imgur.com/7PfzLV2.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
+@import url('https://fonts.googleapis.com/css?family=Gothic+A1:200');
 
 .bg {
     position: absolute;
@@ -49,5 +45,52 @@ body{
 }
 
 .container{
-    margin-top: 10%;
+    font-family: 'Gothic A1', sans-serif;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.5);
+    padding-top : 2%;
+    padding-bottom : 2%;
+    width: 35%;
+}
+
+.input-group{
+    margin-top:15px;
+}
+
+.formStyle{
+    width: 70%; 
+    margin: 25px auto;
+}
+
+@media (max-width: 1000px){
+    .container{
+        width: 90%
+    }
+}
+
+.custombtn {
+    font-size: 15px;
+  border-color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.8);
+  background-color: rgba(0,0,0,.7);
+  width: 50%;
+  height: 40px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-outline-primary:hover {
+    color: #fff !important;
+    background-color: rgba(0,0,0,.4);;
+    border-color: #fff;
+}
+
+#pwf{
+    margin-top: 10px;
+    text-align: right !important;
+    color: #000;
+    float: left;
 }
