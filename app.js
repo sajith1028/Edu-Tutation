@@ -4,7 +4,7 @@ var app             =   express(),
 var mysql           =   require("mysql"),
     User            =   require("./models/user");
 var flash           =   require("connect-flash");
-
+/*
 var con             =   mysql.createConnection({
                         host: "localhost",
                         user: "nimesha",
@@ -17,6 +17,10 @@ con.connect(function(err){
         throw err;
     console.log("Connected to mysql!");
 });
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 482362836ebaf9b94aa7abce9754921bfb36fa59
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -82,6 +86,6 @@ app.get("/home",function(req, res) {
 });
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(8080, function(){
     console.log("Akura server has started ...");
 });
