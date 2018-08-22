@@ -6,9 +6,11 @@ var mysql           =   require("mysql"),
 var flash           =   require("connect-flash");
 
 var con             =   mysql.createConnection({
+                        host: "localhost",
                         user: "nimesha",
-                        password: ""
-                        });
+                        password: "",
+                        database: "akura"
+});
 
 con.connect(function(err){
     if(err) 
@@ -16,8 +18,8 @@ con.connect(function(err){
     console.log("Connected to mysql!");
 });
 
-
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 app.set("view engine","ejs");
 app.use(express.static('public')); //for css files
@@ -30,13 +32,18 @@ app.use(require("express-session")({
 }));
 
 
-app.use(function(req, res, next){
-   res.locals.currentUser = req.user;
-   res.locals.error=req.flash("error");
-   res.locals.success=req.flash("success");
-   next();
+// app.use(function(req, res, next){
+//   res.locals.currentUser = req.user;
+//   res.locals.error=req.flash("error");
+//   res.locals.success=req.flash("success");
+//   next();
+// });
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
-
+var router = express.Router();
 
 app.get("/", function(req,res){
     res.render("landing");
@@ -52,6 +59,10 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register",function(req,res){
+    console.log("req",req.body);
+});
+
+app.post("/login",function(req,res){
     
 });
 

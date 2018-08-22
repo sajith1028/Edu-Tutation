@@ -21,10 +21,7 @@ $(function() { // toggling active in navbar
 
 $(document).scroll(function () {
     var y = $(this).scrollTop();
-    if (y > 300){
-      $('.left img').animate({ height:'500px' }, 1000);
-    }
-    if(y > 1000){
+    if(y > 1200){
       $(".threeFeatures").fadeIn(1000);
     }
     if (y > 2100){
@@ -34,9 +31,10 @@ $(document).scroll(function () {
 });
 
 $(document).ready(function(){
-    $(".threeFeatures").hover(function(){
+    $(".threeFeatures").hover(
+      function(){
         $(".threeFeaturesTop").css("box-shadow", "0 4px 10px 5px rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(79, 42, 24, 0.19)");
-        }, function(){
+      },function(){
         $(".threeFeaturesTop").css("box-shadow", "0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19)");
     });
 });
