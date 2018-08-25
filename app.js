@@ -13,7 +13,7 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
-
+//ok
 con.connect(function(err){
     if(err) 
         throw err;
