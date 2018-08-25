@@ -4,7 +4,7 @@ var app             =   express(),
 var mysql           =   require("mysql"),
     User            =   require("./models/user");
 var flash           =   require("connect-flash");
-/*
+
 var con             =   mysql.createConnection({
                         host: "localhost",
                         user: "nimesha",
@@ -17,10 +17,6 @@ con.connect(function(err){
         throw err;
     console.log("Connected to mysql!");
 });
-<<<<<<< HEAD
-=======
-*/
->>>>>>> 482362836ebaf9b94aa7abce9754921bfb36fa59
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -36,18 +32,12 @@ app.use(require("express-session")({
 }));
 
 
-// app.use(function(req, res, next){
-//   res.locals.currentUser = req.user;
-//   res.locals.error=req.flash("error");
-//   res.locals.success=req.flash("success");
-//   next();
-// });
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+app.use(function(req, res, next){
+  res.locals.currentUser = req.user;
+  res.locals.error=req.flash("error");
+  res.locals.success=req.flash("success");
+  next();
 });
-var router = express.Router();
 
 app.get("/", function(req,res){
     res.render("landing");
@@ -63,7 +53,7 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register",function(req,res){
-    console.log("req",req.body);
+   
 });
 
 app.post("/login",function(req,res){
@@ -74,6 +64,9 @@ app.get("/login", function(req,res){
     res.render("login");
 });
 
+app.get("/profile", function(req,res){
+    res.render("profile");
+});
 
 app.get("/logout",function(req, res) {
    req.logout();
@@ -86,6 +79,6 @@ app.get("/home",function(req, res) {
 });
 
 
-app.listen(8080, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Akura server has started ...");
 });
