@@ -4,7 +4,8 @@ var app             =   express(),
 var mysql           =   require("mysql"),
     User            =   require("./models/user");
 var flash           =   require("connect-flash");
-
+var Cryptr          =   require("cryptr"),
+    cryptr          =   new Cryptr("nimma is a sonta");
 var con             =   mysql.createConnection({
                         host: "localhost",
                         user: "nimesha",
@@ -12,11 +13,16 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
+
 con.connect(function(err){
     if(err) 
         throw err;
     console.log("Connected to mysql!");
 });
+
+//handles exports of login & registration routes
+//var authenticateController=require('./controllers/authenticate-controller');
+//var registerController=require('./controllers/register-controller');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -53,11 +59,64 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register",function(req,res){
-   
+    //encrypt the password using cryptr
+   var encryptedString = cryptr.encrypt(req.body.password);
+   var users={
+        "username":req.body.username,
+        "password":encryptedString
+             }
+    //insert  details into the db
+   con.query("INSERT INTO users SET ?",users,function (error, results, fields){
+       if(error){
+           res.json({
+               status:false,
+               message: "there is some error with the query"
+           })
+       } else {
+           res.json({
+               status:true,
+               data:results,
+               message:"user registered successfully"
+           })
+       }
+   });
+
 });
 
 app.post("/login",function(req,res){
-    
+  var username = req.body.username;
+  var password = req.body.password;
+  
+  con.query("SELECT * FROM users where username=?",[username],function (error, results, fields){
+      if(error){
+          res.json({
+              status:false,
+              message:"there is some error with the query"
+          })
+      }else{
+          if(results.length>0){
+              var decryptedString = cryptr.decrypt(results[0].password);
+              if(password==decryptedString)
+              {
+                 res.render("profile");
+              } else {
+                  res.json({
+                      status:false,
+                      message:"Email & password do not match"
+                  });
+              }
+          }
+          else{
+              res.json({
+                  status:false,
+                  message:"Email does not exist"
+              });
+          }
+      }
+  });
+  
+  
+  
 });
 
 app.get("/login", function(req,res){

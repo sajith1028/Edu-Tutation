@@ -6,7 +6,6 @@
     <!--  All snippets are MIT license https://bootdey.com/license -->
     <title>My Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
 </head>
@@ -14,13 +13,20 @@
 
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar">___</span>
+        <span class="icon-bar">___</span>
+        <span class="icon-bar">___</span>
+      </button>
       <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
-
+    </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        
       <ul class="navbar-nav nav-link">
-        <a>Home</a>
+        <a class="links">Home</a>
       </ul>
       <ul class="nav navbar-nav navbar-right">
             <a  id="register"href="/login">
@@ -287,5 +293,6 @@
     <!-- end wrapper -->
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="scripts/profile.js"></script>
 <% include ./partials/footer %>
