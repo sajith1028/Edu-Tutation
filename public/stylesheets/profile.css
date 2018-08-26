@@ -32,6 +32,7 @@ h3 {
 }
 
 .navbar-nav{
+  margin-top: 15px !important;
   margin-bottom: 0px !important;
 }
 
@@ -73,7 +74,7 @@ h3 {
 }
 
 .custombtn {
-  margin-top:10px;
+  margin-top:-3px;
   max-height: 30px;
   border-color: rgba(255,255,255,.7);
   color: rgba(255,255,255,.7);
@@ -104,6 +105,7 @@ h3 {
 
 .navbar {
     margin-top: -20px;
+    margin-bottom: 22px;
     max-height: 55px;
     padding-right: 15px;
     padding-bottom: 8px;
@@ -332,11 +334,9 @@ input{
   -webkit-border-radius: 6px 6px 0px 0px;
   background-color: rgba(49, 126, 235, 0.4);
   border-radius: 6px 6px 0px 0px;
-  height: 100%;
   left: 0px;
   position: absolute;
   top: 0px;
-  width: 100%;
 }
 .bg-picture {
   -webkit-background-size: cover;
@@ -498,11 +498,4 @@ input{
 .tabs-vertical-env .nav.tabs-vertical li.active > a {
   border: none;
 }
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-.nav-tabs > li.active > a:hover,
-.tabs-vertical > li.active > a,
-.tabs-vertical > li.active > a:focus,
-.tabs-vertical > li.active > a:hover {
-  color: #6e8cd7 !important;
-}
+
