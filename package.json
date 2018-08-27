@@ -9,6 +9,7 @@
   "author": "T.K. Jayasekara, T.N. Wickramasinghe",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
     "cryptr": "^4.0.0",

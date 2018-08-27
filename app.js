@@ -4,8 +4,8 @@ var app             =   express(),
 var mysql           =   require("mysql"),
     User            =   require("./models/user");
 var flash           =   require("connect-flash");
-var Cryptr          =   require("cryptr"),
-    cryptr          =   new Cryptr("nimma is a sonta");
+var bcrypt          =   require("bcrypt");
+
 var con             =   mysql.createConnection({
                         host: "localhost",
                         user: "nimesha",
@@ -59,13 +59,15 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register",function(req,res){
-    //encrypt the password using cryptr
-   var encryptedString = cryptr.encrypt(req.body.password);
-   var users={
+    
+    //encrypt the password using bcrypt
+   bcrypt.hash(req.body.password, 10, function(err, hash) {
+      //hash contains the encrypted password 
+       var users={
         "username":req.body.username,
-        "password":encryptedString
-             }
-    //insert  details into the db
+        "password":hash }
+             
+            //insert  details into the db
    con.query("INSERT INTO users SET ?",users,function (error, results, fields){
        if(error){
            res.json({
@@ -79,7 +81,13 @@ app.post("/register",function(req,res){
                message:"user registered successfully"
            })
        }
-   });
+   }); 
+             
+             
+  
+});
+   
+
 
 });
 
@@ -95,16 +103,20 @@ app.post("/login",function(req,res){
           })
       }else{
           if(results.length>0){
-              var decryptedString = cryptr.decrypt(results[0].password);
-              if(password==decryptedString)
-              {
-                 res.render("profile");
+              //Compare the entered password with the one that is hashed in the DB
+              bcrypt.compare(password, results[0].password, function(err, res2) {
+              if(res2) {
+                    // Passwords match
+                    res.render("profile");
               } else {
-                  res.json({
+                   // Passwords don't match
+                    res.json({
                       status:false,
                       message:"Email & password do not match"
                   });
-              }
+             } 
+            });
+            
           }
           else{
               res.json({
