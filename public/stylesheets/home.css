@@ -1,6 +1,8 @@
-    body {
+@import url('https://fonts.googleapis.com/css?family=Raleway:500');
+
+body {
   font-family: 'Roboto', sans-serif; 
-        background-color: #475163;
+        background-color: #e6f1fc;
     }
 
 h1 {
@@ -53,6 +55,12 @@ p {
 
 .dark-bg {
   background: #252a33; }
+
+@media(max-width:900px){
+  .col-lg-3{
+    padding-top: 0px !important;
+  }
+}
 
 /* ==============================================================
    Navbar
@@ -138,13 +146,40 @@ p {
 /* ==============================================================
    Menu
    ============================================================== */
+#topic{
+  text-align: center;
+  padding-top: 100px;
+  color:black;
+  font-family: Raleway;
+}
+
+#overlay{
+  position: absolute;
+}
+
+.image{
+  height:200px;    
+  overflow:hidden;
+}
+
+.image img{
+  min-width:100%;
+}
+
+.col-lg-3{
+  padding-top:50px;
+}
+
 .featured-place-wrap {
   background: #fff;
   margin: 0 0 30px;
   -webkit-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  position: relative; }
+  position: relative;
+  box-shadow: .5px 2px 20px 1px #888888;
+  
+}
   .featured-place-wrap:hover {
     -webkit-transform: translateY(-6px);
     -ms-transform: translateY(-6px);

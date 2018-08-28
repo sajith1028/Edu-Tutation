@@ -26,6 +26,16 @@
     #map{
         width:100%;
     }
+    
+    .parallax2{
+        height:100px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .parallax2{
+        height:100px;
+    }
 }
 
 html, body {
