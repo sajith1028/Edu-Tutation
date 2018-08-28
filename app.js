@@ -149,6 +149,9 @@ app.get("/home",function(req, res) {
     res.render("home");
 });
 
+app.get("/student/new",function(req, res) {
+    res.render("newstudent");
+});
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Akura server has started ...");
