@@ -14,6 +14,7 @@ var con             =   mysql.createConnection({
 });
 
 var nodemailer = require('nodemailer'); //for mailing purposes
+var randomstring = require("randomstring"); //to generate random strings as passwords
 
 //ok
 con.connect(function(err){
@@ -62,8 +63,9 @@ app.get("/register", function(req, res) {
 
 app.post("/register",function(req,res){
     
+    var randomPassword=randomstring.generate(10);
     //encrypt the password using bcrypt
-   bcrypt.hash(req.body.password, 10, function(err, hash) {
+   bcrypt.hash(randomPassword, 10, function(err, hash) {
       //hash contains the encrypted password 
        var users={
         "username":req.body.username,
@@ -93,31 +95,9 @@ app.post("/register",function(req,res){
         
            var mailOptions = {
              from: 'studentenrolmentnsbm@gmail.com',
-             to: 'nimesha1996@gmail.com',
-             subject: 'Sending Email using Node.js',
-             html:  <div>
-                        <p>Welcome to Akura Institute. Please enter the password given below at the initial login</p>
-                        <p>Password : <span><strong></strong></span></p>
-                        <a href="http://"
-                            style=
-                                "background-color:#a0e5f8;
-                                border:1px solid #0f4b66;
-                                border-radius:18px;
-                                color:#2f353e;
-                                display:inline-block;
-                                font-family:sans-serif;
-                                font-size:13px;
-                                font-weight:bold;
-                                line-height:36px;
-                                text-align:center;
-                                text-decoration:none;
-                                width:200px;
-                                -webkit-text-size-adjust:none;
-                                mso-hide:all;"
-                        >
-                            Click Me
-                        </a>
-                    </div>
+             to: 'tharushi68@gmail.com',
+             subject: 'Login Credentails',
+             html:  '<div> <p>Dear student,<br>Welcome to Akura Institute. Please enter the password given below at the initial login</p> <p>Password : <span id><strong>'+ randomPassword +'</strong></span></p> <br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br>Akura Team. </div>'
            };
         
            transporter.sendMail(mailOptions, function(error, info){
