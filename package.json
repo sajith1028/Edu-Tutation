@@ -17,6 +17,8 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.3.0",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "nodemailer": "^4.6.8",
+    "randomstring": "^1.1.5"
   }
 }

@@ -13,6 +13,8 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
+var nodemailer = require('nodemailer'); //for mailing purposes
+
 //ok
 con.connect(function(err){
     if(err) 
@@ -80,14 +82,54 @@ app.post("/register",function(req,res){
                data:results,
                message:"user registered successfully"
            })
-       }
-   }); 
-             
-             
-  
+           
+           var transporter = nodemailer.createTransport({
+           service: 'gmail',
+           auth: {
+              user: 'studentenrolmentnsbm@gmail.com',
+                pass: 'studentenrolmentnsbm123'
+           }
+           });
+        
+           var mailOptions = {
+             from: 'studentenrolmentnsbm@gmail.com',
+             to: 'nimesha1996@gmail.com',
+             subject: 'Sending Email using Node.js',
+             html:  <div>
+                        <p>Welcome to Akura Institute. Please enter the password given below at the initial login</p>
+                        <p>Password : <span><strong></strong></span></p>
+                        <a href="http://"
+                            style=
+                                "background-color:#a0e5f8;
+                                border:1px solid #0f4b66;
+                                border-radius:18px;
+                                color:#2f353e;
+                                display:inline-block;
+                                font-family:sans-serif;
+                                font-size:13px;
+                                font-weight:bold;
+                                line-height:36px;
+                                text-align:center;
+                                text-decoration:none;
+                                width:200px;
+                                -webkit-text-size-adjust:none;
+                                mso-hide:all;"
+                        >
+                            Click Me
+                        </a>
+                    </div>
+           };
+        
+           transporter.sendMail(mailOptions, function(error, info){
+             if (error) {
+               console.log(error);
+             } else {
+               console.log('Email sent: ' + info.response);
+             }
+           });
+        }
+   });
 });
-   
-
 
 });
 
