@@ -1,13 +1,30 @@
 body{
     margin-top:20px;
-    background:#f5f9ff !important;
+    background:#e6f1fc !important;
 }
 
 .text-white {
     color: #ffffff;
 }
+
 h3 {
     line-height: 30px;
+}
+
+#overlay{
+  margin-top: 77px;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.container{
+  box-shadow: 0 1px 20px 1px #888888;
+  margin-bottom: 20px;
+  background-color:rgba(12, 71, 131, .1);
+}
+
+p, h5{
+  color:black;
 }
 
 /* ==============

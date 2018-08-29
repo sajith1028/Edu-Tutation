@@ -50,12 +50,6 @@ p {
     .main-block {
       padding: 45px 0; } }
 
-.light-bg {
-  background: #f3f4f7; }
-
-.dark-bg {
-  background: #252a33; }
-
 @media(max-width:900px){
   .col-lg-3{
     padding-top: 0px !important;

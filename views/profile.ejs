@@ -8,6 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
+    
+    <!-- Particles -->    
+        <link rel="stylesheet" href="/stylesheets/particles.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+        <script>
+            particlesJS.load('particles-js', '/json/particles.json')
+        </script>
+    <!-- End of Particles --> 
 </head>
 <body> 
 
@@ -26,7 +37,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         
       <ul class="navbar-nav nav-link">
-        <a class="links">Home</a>
+        <a class="links" href="/home">Home</a>
       </ul>
       <ul class="nav navbar-nav navbar-right">
             <a  id="register"href="/login">
@@ -37,7 +48,9 @@
   </div><!-- /.container-fluid -->
 </nav>
 
+<div id="particles-js">
     <div class="wrapper">
+        <div id="overlay">
         <div class="container">
     
             <div class="wraper">
@@ -86,22 +99,22 @@
                                                 <div class="about-info-p">
                                                     <strong>Full Name</strong>
                                                     <br>
-                                                    <p class="text-muted">Johnathan Deo</p>
+                                                    <p>Johnathan Deo</p>
                                                 </div>
                                                 <div class="about-info-p">
                                                     <strong>Mobile</strong>
                                                     <br>
-                                                    <p class="text-muted">(123) 123 1234</p>
+                                                    <p>(123) 123 1234</p>
                                                 </div>
                                                 <div class="about-info-p">
                                                     <strong>Email</strong>
                                                     <br>
-                                                    <p class="text-muted">johnathandeon @moltran.com</p>
+                                                    <p>johnathandeon @moltran.com</p>
                                                 </div>
                                                 <div class="about-info-p m-b-0">
                                                     <strong>District</strong>
                                                     <br>
-                                                    <p class="text-muted">Colombo</p>
+                                                    <p>Colombo</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,26 +254,14 @@
                         </div>
                     </div>
                 </div>
-    
-                <!-- Footer -->
-                <footer class="footer text-right">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ul class="pull-right list-inline m-b-0">
-                                    <li>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
                 <!-- End Footer -->
             </div>
             <!-- end container -->
         </div>
         <!-- end wrapper -->
     </div>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="scripts/profile.js"></script>

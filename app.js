@@ -107,7 +107,7 @@ app.post("/login",function(req,res){
               bcrypt.compare(password, results[0].password, function(err, res2) {
               if(res2) {
                     // Passwords match
-                    res.render("profile");
+                    res.render("home");
               } else {
                    // Passwords don't match
                     res.json({

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+        <!-- Bootstrap -->
+            <!-- Responsive screen size -->
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+            <!-- End of responsive screen size -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            
+        <!-- End of Bootstrap -->
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <!-- Simple line Icon -->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/newstudent.css"> 
+        <link rel="stylesheet" href="/stylesheets/particles.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+        <script>
+            particlesJS.load('particles-js', '/json/particles.json')
+        </script>
+    </head>
+<body>
+<div id="particles-js">
+    <div id="overlay">
+<div class="container" style="margin-top:10%">
+    <div class="row">
+        <h1 style="text-align: center">Register</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/student/new" method="POST">
+                <div class="form-group">
+                    <h5>E-mail:</h5>
+                    <input class="form-control" type="text" name="email" placeholder="email">
+                </div>
+                <div class="form-group">
+                    <h5>Medium:</h5>
+                    
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="radio" name="medium" aria-label="Sinhala">
+                            </div>
+                            <span class="input-group-text" id="">Sinhala</span>
+                        </div>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="radio"  name="medium" aria-label="English">
+                            </div>
+                            <span class="input-group-text" id="">English</span>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Add Student!</button>
+                </div>
+            </form>
+            <a href="/landing">Go Back</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<% include ./partials/footer %>
