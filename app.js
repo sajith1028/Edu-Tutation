@@ -95,10 +95,10 @@ app.post("/register",function(req,res){
         
            var mailOptions = {
              from: 'studentenrolmentnsbm@gmail.com',
-             to: 'tharushi68@gmail.com',
+             to: 'nimesha1996@gmail.com',
              subject: 'Login Credentails',
-             html:  '<div> <p>Dear student,<br>Welcome to Akura Institute. Please enter the password given below at the initial login</p> <p>Password : <span id><strong>'+ randomPassword +'</strong></span></p> <br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br>Akura Team. </div>'
            };
+             html:  '<center><div><p>Welcome to Akura Institute.</p><p>Please enter the password given below at the initial login</p> <p>Password : <strong>'+ randomPassword +'</strong></p> <br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br>Akura Team.</div><center>'
         
            transporter.sendMail(mailOptions, function(error, info){
              if (error) {
@@ -148,17 +148,18 @@ app.post("/login",function(req,res){
           }
       }
   });
-  
-  
-  
 });
 
 app.get("/login", function(req,res){
     res.render("login");
 });
 
-app.get("/profile", function(req,res){
-    res.render("profile");
+app.get("/studentProfile", function(req,res){
+    res.render("studentProfile");
+});
+
+app.get("/lecturerProfile", function(req,res){
+    res.render("studentProfile");
 });
 
 app.get("/logout",function(req, res) {
@@ -167,8 +168,20 @@ app.get("/logout",function(req, res) {
    res.redirect("/landing");
 });
 
-app.get("/home",function(req, res) {
-    res.render("home");
+app.get("/student",function(req, res) {
+    res.render("studentHome");
+});
+
+app.get("/lecturer",function(req, res) {
+    res.render("lecturerHome");
+});
+
+app.get("/admin",function(req, res) {
+    res.render("adminHome");
+});
+
+app.get("/superAdmin",function(req, res) {
+    res.render("superAdminHome");
 });
 
 app.get("/student/new",function(req, res) {
@@ -177,4 +190,4 @@ app.get("/student/new",function(req, res) {
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Akura server has started ...");
-});
+}); 

@@ -1,3 +1,9 @@
+@media (max-width: 700px) {
+    .tabs li.tab {
+      font-size: 70px;
+      width: 80px !important;
+    }
+}
 body{
     margin-top:20px;
     background:#e6f1fc !important;
@@ -26,7 +32,6 @@ h3 {
 p, h5{
   color:black;
 }
-
 /* ==============
   Navbar
 ===================*/
@@ -356,25 +361,21 @@ input{
   top: 0px;
 }
 .bg-picture {
-  -webkit-background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background:#00b5ec;
   margin-top: -22px;
   padding: 100px 0px;
   position: relative;
+  max-height: 460px;
 }
 .bg-picture > .bg-picture-overlay {
-  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0, rgba(0, 0, 0, 0.4) 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(rgba(0, 0, 0, 0.4)));
-  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0, rgba(0, 0, 0, 0.4) 100%);
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, rgba(0, 0, 0, 0.4) 100%);
+  background-image:url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/S8QtKbypitbuumz4/abstract-geometry-plexus-background-with-connected-particles_hrwmdlrt_thumbnail-full01.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   bottom: 0;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
+  max-height: 460px;
 }
 .profile-info-name {
   position: relative;
@@ -385,10 +386,14 @@ input{
   margin-top: 35px;
 }
 .user-tabs {
-  background-color: #ffffff;
+  background-color: #f5f5f5;
+  border-bottom: gray 1px dotted !important;
+  border-left: gray 1px dotted !important;
+  border-right: gray 1px dotted !important;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   margin-left: 0;
   margin-right: 0px;
+  min-height: 55px;
 }
 .user-tabs .nav.nav-tabs {
   box-shadow: none !important;
@@ -406,7 +411,6 @@ input{
   font-size: 16px;
 }
 .tabs {
-  background-color: #ffffff;
   margin: 0 auto;
   padding: 0px;
   position: relative;
@@ -414,10 +418,10 @@ input{
   width: 100%;
 }
 .tabs li.tab {
-  background-color: #ffffff;
   display: block;
   float: left;
   margin: 0;
+  width: 180px !important;
   text-align: center;
 }
 .tabs li.tab a {
@@ -472,7 +476,7 @@ input{
   border: 0;
 }
 .tabs-vertical-env .nav.tabs-vertical li > a {
-  color: #333333;
+  color: #fff;
   text-align: center;
   white-space: nowrap;
 }
@@ -488,7 +492,7 @@ input{
   color: #333333 !important;
   cursor: pointer;
   line-height: 50px;
-  font-weight: 700;
+  font-weight: 600;
   padding: 0px 20px;
 }
 .nav.nav-tabs > li > a:hover,
