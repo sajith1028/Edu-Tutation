@@ -24,9 +24,9 @@ h3 {
 }
 
 .container{
-  box-shadow: 0 1px 20px 1px #888888;
+  box-shadow: 0 1px 20px 1px #020836;
   margin-bottom: 20px;
-  background-color:rgba(12, 71, 131, .1);
+  background-color:rgba(12, 71, 131, .05); 
 }
 
 p, h5{

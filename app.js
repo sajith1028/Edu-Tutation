@@ -13,6 +13,9 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
+
+
+
 var nodemailer = require('nodemailer'); //for mailing purposes
 var randomstring = require("randomstring"); //to generate random strings as passwords
 
@@ -113,144 +116,22 @@ app.post("/register",function(req,res){
 
 });
 
-app.post("/login",function(req,res){
-  var username = req.body.username;
-  var password = req.body.password;
-  
-  con.query("SELECT * FROM users where username=?",[username],function (error, results, fields){
-      if(error){
-          res.json({
-              status:false,
-              message:"there is some error with the query"
-          })
-      }else{
-          if(results.length>0){
-              //Compare the entered password with the one that is hashed in the DB
-              bcrypt.compare(password, results[0].password, function(err, res2) {
-              if(res2) {
-                    // Passwords match
-                    res.render("home");
-              } else {
-                   // Passwords don't match
-                    res.json({
-                      status:false,
-                      message:"Email & password do not match"
-                  });
-             } 
-            });
-            
-          }
-          else{
-              res.json({
-                  status:false,
-                  message:"Email does not exist"
-              });
-          }
-      }
-  });
-});
-
-app.get("/login", function(req,res){
-    res.render("login");
-});
-
-/*****************************************************
- * Student Routes
-******************************************************/
-app.get("/student",function(req, res) {
-    res.render("student/studentHome");
-});
-
-app.get("/student/profile", function(req,res){
-    res.render("student/studentProfile");
-});
-
-app.get("/student/payments", function(req,res){
-    res.render("student/studentPayment");
-});
-
-app.get("/student/content", function(req,res){
-    res.render("student/studentContent");
-});
-
-app.get("/student/newsfeeds", function(req,res){
-    res.render("student/studentNewsfeed");
-});
-
-/******************************************************/
 
 
+var loginRoutes = require("./routes/login");
+app.use("/login", loginRoutes);
 
-/*****************************************************
- * Lecturer Routes
-******************************************************/
-app.get("/lecturer",function(req, res) {
-    res.render("lecturer/lecturerHome");
-});
+var studentRoutes    = require("./routes/student");
+app.use("/student", studentRoutes);
 
-app.get("/lecturer/profile", function(req,res){
-    res.render("lecturer/lecturerProfile");
-});
+var lecturerRoutes    = require("./routes/lecturer");
+app.use("/lecturer", lecturerRoutes);
 
-app.get("/lecturer/income", function(req,res){
-    res.render("lecturer/lecturerIncome");
-});
+var adminRoutes    = require("./routes/admin");
+app.use("/admin", adminRoutes);
 
-app.get("/lecturer/classes", function(req,res){
-    res.render("lecturer/lecturerClasses");
-});
-
-app.get("/lecturer/newsfeeds", function(req,res){
-    res.render("lecturer/lecturerNewsfeed");
-});
-
-/******************************************************/
-
-
-
-/*****************************************************
- * Admin Routes
-******************************************************/
-app.get("/admin",function(req, res) {
-    res.render("admin/adminHome");
-});
-
-app.get("/admin/register", function(req,res){
-    res.render("admin/adminRegister");
-});
-
-app.get("/admin/payments", function(req,res){
-    res.render("admin/adminPayment");
-});
-
-app.get("/admin/attendance", function(req,res){
-    res.render("admin/adminAttendance");
-});
-
-app.get("/admin/newsfeeds", function(req,res){
-    res.render("admin/adminNewsfeed");
-});
-
-/******************************************************/
-
-
-
-/*****************************************************
- * super admin Routes
-******************************************************/
-app.get("/superAdmin",function(req, res) {
-    res.render("superadmin/superAdminHome");
-});
-
-app.get("/superAdmin/income", function(req,res){
-    res.render("superadmin/superAdminIncome");
-});
-
-app.get("/superAdmin/payments", function(req,res){
-    res.render("superadmin/superAdminResults");
-});
-
-/******************************************************/
+var superAdminRoutes    = require("./routes/superadmin");
+app.use("/superAdmin", superAdminRoutes);
 
 app.get("/logout",function(req, res) {
    req.logout();
