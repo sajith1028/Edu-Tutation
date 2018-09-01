@@ -1,0 +1,37 @@
+<div class="table-bg">
+	<div class="container-table100">
+		<div class="wrap-table100">
+			<div class="table100">
+				<table>
+					<thead>
+						<tr class="table100-head">
+							<th class="column1">#</th>
+							<th class="column2">Select</th>
+							<th class="column3">Subject</th>
+							<th class="column4">Lecturer</th>
+							<th class="column5">Day</th>
+							<th class="column6">Time</th>
+							<th class="column7">Medium</th>
+						</tr>
+					</thead>
+					<tbody>
+	
+	                    <% subjects.forEach(function(subject){ %>
+	                        <% var i=1; %>
+	                        <tr>
+	                            <td class="column1"><%= i++ %></td>
+	                        	<td class="column2"><input type='checkbox' name='subject' class="cbx" value='<%=subject.subname%>'></td>
+	                        	<td class="column3"><%=subject.subname%></td>
+	                        	<td class="column4"><%=subject.name%></td>
+	                        	<td class="column5"><%=subject.day%></td>
+	                        	<td class="column6"><%=subject.time%></td>
+	                        	<td class="column7"><%=subject.medium%></td>
+	                        </tr>
+	                    <% }); %>
+	                    
+	                </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
