@@ -164,6 +164,11 @@ p {
   padding-top:50px;
 }
 
+#particles-js{
+    height:95vh;
+    margin-top: 10px;
+}
+
 .featured-place-wrap {
   background: #fff;
   margin: 0 0 30px;

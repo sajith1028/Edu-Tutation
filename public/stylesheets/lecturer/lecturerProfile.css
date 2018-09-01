@@ -91,7 +91,7 @@ p, h5{
 }
 
 .links{
-  color: rgba(255,255,255,.75) !important;
+  color: rgba(255,255,255,.8) !important;
   font-size : 15px;
 }
 
@@ -117,7 +117,7 @@ p, h5{
 }
 
 .links:hover, .links:active {
-    color: #fff;
+    color: #fff !important;
     cursor:pointer;
 }
 

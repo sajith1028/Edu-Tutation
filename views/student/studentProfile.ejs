@@ -7,16 +7,16 @@
     <title>My Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/lecturerProfile.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/student/studentProfile.css">
     
     <!-- Particles -->    
-        <link rel="stylesheet" href="/stylesheets/particles.css">
+        <link rel="stylesheet" href="../stylesheets/particles.css">
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         
         <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
         <script>
-            particlesJS.load('particles-js', '/json/particles.json')
+            particlesJS.load('particles-js', '../json/particles.json')
         </script>
     <!-- End of Particles --> 
 </head>
@@ -35,10 +35,19 @@
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        
       <ul class="navbar-nav nav-link">
-        <a class="links" href="/home">Home</a>
+        <a class="links" href="/student">Home</a>
       </ul>
+      <ul class="navbar-nav nav-link">
+        <a class="links" href="/student/payments">Payments</a>
+      </ul>
+      <ul class="navbar-nav nav-link">
+        <a class="links" href="/student/content">Course Content</a>
+      </ul>
+      <ul class="navbar-nav nav-link">
+        <a class="links" href="/student/newsfeeds">Newsfeed</a>
+      </ul>
+      
       <ul class="nav navbar-nav navbar-right">
             <a  id="register"href="/login">
               <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
@@ -261,5 +270,5 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="scripts/profile.js"></script>
-<% include ./partials/footer %>
+<script src="../scripts/profile.js"></script>
+<% include ../partials/footer %>

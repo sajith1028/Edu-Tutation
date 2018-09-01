@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:500');
+
+@media (max-width: 700px) {
+    .navbar-collapse{
+    margin-top: 5px;
+    background-color: rgba(0,0,0,0.9);
+    padding-bottom: 10px;
+    padding-left: 10px;
+    }
+    
+    .custombtn{
+        margin-top:55px;
+        margin-left:15px;
+    }
+}
+
+body {
+    font-family: 'Roboto', sans-serif; 
+    background-color: #e6f1fc;
+}
+
+/* ==============================================================
+   Navbar
+   ============================================================== */
+
+.bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.bg-dark {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.navbar-brand img{
+    height: 25px;
+    margin-top:-5px;
+}
+.content{
+	text-align: center;}
+	
+.white{
+   width: auto;
+   white-space:nowrap; 
+}
+
+.d-block{
+    max-width: 100%;
+    max-height: 100vh;
+    height: auto;
+}
+
+#AkuraBrand{
+     height: 20%;
+     padding-left: 20px;
+     margin-right: 20px;
+}
+
+#head{
+	padding-top: 3%;
+}
+
+.custombtn {
+  border-color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.7);
+  width: 100px;
+  margin-top: 5px;
+}
+
+.btn-outline-primary:hover {
+    color: #5383d3 !important;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.btn-outline-primary:active {
+    background-color: #5383d3 !important;
+    color: black !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:active {
+    color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255, .8);
+}
+
+.navbar {
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.links{
+  color: rgba(255,255,255,.8) !important;
+  font-size : 15.5px;
+}
+
+.custombtn {
+  margin-top:-3px;
+  max-height: 30px;
+  border-color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.7);
+  background-color:rgba(0, 0, 0, 0.9); 
+  width: 100px;
+  font-size: 14px;
+}
+
+.btn-outline-primary:hover {
+    color: #5383d3 !important;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.btn-outline-primary:active {
+    background-color: #5383d3 !important;
+    color: black !important;
+}
+
+.links:hover, .links:active {
+    color: #fff !important;
+    cursor:pointer;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255, .8);
+}
+
+.navbar {
+    margin-bottom: 20px;
+    max-height: 55px;
+    padding-right: 15px;
+    padding-left: 10px;
+    border-radius: 0px;
+}
+
+.links:hover, .links:active {
+    color: #fff !important;
+    cursor:pointer;
+}
+
+.links{
+  color: rgba(255,255,255,.8) !important;
+  font-size : 15px;
+}
+
+h2 {
+  font-size: 47px; }
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 34px; } }
+
+#topic{
+  text-align: center !important;
+  padding-top: 100px;
+  color:black;
+  font-family: Raleway;
+}
+
+#particles-js{
+    height:95vh;
+}
+
+#overlay{
+  position: absolute;
+  width: 100% !important;
+}
+
+.container{
+  box-shadow: 0 1px 20px 1px #888888;
+  margin-bottom: 20px;
+  background-color:rgba(12, 71, 131, .1);
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Register</title>
+        <!-- Bootstrap -->
+            <!-- Responsive screen size -->
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+            <!-- End of responsive screen size -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            
+        <!-- End of Bootstrap -->
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <!-- Simple line Icon -->
+        <link rel="stylesheet" type="text/css" href="../stylesheets/admin/register.css"> 
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+        <script>
+            particlesJS.load('particles-js', '../json/particles.json')
+        </script>
+    </head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/student">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/student/profile">Profile</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/student/content">Course Content</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/student/newsfeeds">Newsfeed</a>
+          </ul>
+        </ul>
+        
+        <a  id="register"href="/login">
+          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
+        </a>
+      </div>
+    </nav>
+
+<div id="particles-js">
+    <div id="overlay">
+        <h2 id="topic">REGISTER</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="/student/new" method="POST">
+                        <div class="form-group">
+                            <h5>E-mail:</h5>
+                            <div class="input-group-append">
+                                <input class="form-control" type="text" name="email" placeholder="email">
+                                <span class="input-group-text">.com</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>Medium:</h5>
+                            
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="radio" name="medium" aria-label="Sinhala">
+                                    </div>
+                                    <span class="input-group-text" id="">Sinhala</span>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="radio"  name="medium" aria-label="English">
+                                    </div>
+                                    <span class="input-group-text" id="">English</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                    Maths
+                                    Tharushi Jayasekara
+                                    First Year
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-primary btn-block">Add Student!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
