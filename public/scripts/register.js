@@ -1,4 +1,4 @@
-$('#alyear').change(function(){
+$('#alyear1, #alyear2').change(function(){
     $.ajax({
         url: "/admin/register/alyear",
         type: "POST",
@@ -10,8 +10,15 @@ $('#alyear').change(function(){
     })
 });
 
-var changeTable = function(alyears){
+$('.nav-item').click(function(){
     var div = $("#table");
     div.html(''); 
+});
+
+var changeTable = function(alyears){
+    var div = $("#table");
+    div.html('');
+    div.hide();
     div.append(alyears);
+    div.fadeIn(1000)
 };

@@ -23,6 +23,14 @@ body {
   width: 100%;
 }
 
+.btn-primary{
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fff;
+  background-color: #4f5563;
+  border-color: #000;
+}
 /* ==============================================================
    Navbar
    ============================================================== */
@@ -180,6 +188,8 @@ h2 {
 }
 
 .container{
+  height:fit-content;
+  border-radius: .25rem;
   margin-top: 30px;
   padding-top: 20px;
   box-shadow: 0 5px 20px 1px #020836;
@@ -190,6 +200,19 @@ h2 {
 /* ==============
   Panels
 ===================*/
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #ffffff;
+    background-color: #36304a;
+}
+
+.nav-tabs .nav-link{
+  border:none;
+}
+
+a{
+  color: #36304a;
+}
+
 ::placeholder{
   font-size:12px;
 }
@@ -205,6 +228,7 @@ input{
 .label{
   padding-top: 5px;
   font-weight: normal;
+  font-size: 13px;
 }
 
 .panel {
@@ -216,6 +240,9 @@ input{
   margin-bottom: 20px;
 }
 .panel .panel-body {
+  border-radius: .25rem;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
   background-color: white;
   padding-top: 20px;
   padding-left: 20px;
@@ -229,22 +256,24 @@ input{
   margin-top: 15px;
 }
 .panel-heading {
-  border-radius: 0;
+  border-radius: .25rem;
+  border-bottom-left-radius: 0rem;
+  border-bottom-right-radius: 0rem;
   border: none !important;
   padding: 10px 20px;
 }
 .panel-default > .panel-heading {
-  background-color: #f5f5f5 !important;
+  background-color: #36304a !important;
   border: gray 1px dotted !important;
   border-bottom: none;
-  color: #000;
+  color: #fff;
 }
 .panel-title {
-  font-size: 14px;
-  font-weight: 600;
+  color: #fff;
+  font-family: raleway;
+  font-size: 16px;
   margin-bottom: 0;
   margin-top: 0;
-  text-transform: uppercase;
 }
 .panel-footer {
   background: #fafafa;
@@ -342,6 +371,12 @@ input{
 /* ==============================================================
    Table
    ============================================================== */
+#content-background{
+  border-radius: .25rem;
+  background-color:rgba(0,0,0,0.1);
+  padding:30px 10px 0 10px;
+}
+
 
 * {
 	margin: 0px; 
@@ -383,7 +418,6 @@ ul, li {
 
 
 /* ------------------------------------ */
-
 textarea {
   display: block;
   outline: none;
@@ -422,7 +456,8 @@ checkbox{
 .container-table100 {
   width: 100%;
   min-height: auto;
-
+  margin-top: 30px;
+  margin-bottom: 20px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -430,19 +465,16 @@ checkbox{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 33px 30px;
 }
 
 .wrap-table100 {
-  width: 1170px;
+  width: 100%;
 }
 
 table {
+  border-radius: .25rem;
   font-family: raleway;
-  border-spacing: 1;
-  border-collapse: collapse;
   background: white;
-  border-radius: 10px;
   overflow: hidden;
   width: 100%;
   margin: 0 auto;
@@ -455,8 +487,9 @@ table td, table th {
   padding-left: 8px;
 }
 table thead tr {
-  height: 60px;
+  height: 45px;
   background: #36304a;
+  border: gray 1px dotted !important;
 }
 table tbody tr {
   height: 50px;
@@ -477,16 +510,16 @@ table td.r, table th.r {
   text-align: center;
 }
 
-.table-bg{
-  background-color:red;
-}
-
 .table100-head th{
-  font-family: Raleway;
+  font-family: inherit;
   font-size: 14px;
   color: #fff;
   line-height: 1.2;
   font-weight: unset;
+}
+
+tbody{
+  border: gray 1px dotted !important;
 }
 
 tbody tr:nth-child(even) {
@@ -494,7 +527,7 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr {
-  font-family: Raleway;
+  font-family: inherit;
   font-size: 15px;
   color: #808080;
   line-height: 1.2;
@@ -513,7 +546,7 @@ tbody tr:hover {
 }
 
 .column2 {
-  width: 250px;
+  width: 150px;
 }
 
 .cbx{
@@ -521,7 +554,7 @@ tbody tr:hover {
 }
 
 .column3 {
-  width: 150px;
+  width: 250px;
 }
 
 .column4 {
@@ -564,7 +597,7 @@ tbody tr:hover {
     margin-bottom: 0;
   }
   table tbody tr td:before {
-    font-family: raleway;
+    font-family: inherit;
     font-size: 14px;
     color: #999999;
     line-height: 1.2;
@@ -574,33 +607,48 @@ tbody tr:hover {
     left: 30px;
     top: 0;
   }
-
-.column1,
-.column2,
-.column3,
-.column4,
-.column5,
-.column6 {
-    text-align: center;
-  }
-
+  
   .column4,
   .column5,
   .column6,
   .column1,
   .column2,
-  .column3 {
+  .column3,
+  .column7 {
+    text-align: left;
     width: 100%;
   }
 
   tbody tr {
     font-size: 14px;
   }
-}
-
-@media (max-width: 576px) {
-  .container-table100 {
-    padding-left: 15px;
-    padding-right: 15px;
+  
+  table tbody tr td:nth-child(1):before {
+    content: "#";
+    text-align: left;
+  }
+  table tbody tr td:nth-child(2):before {
+    content: "Select";
+    text-align: left;
+  }
+  table tbody tr td:nth-child(3):before {
+    content: "Subject";
+    text-align: left;
+  }
+  table tbody tr td:nth-child(4):before {
+    content: "Lecturer";
+    text-align: left;
+  }
+  table tbody tr td:nth-child(5):before {
+    content: "Day";
+    text-align: left;
+  }
+  table tbody tr td:nth-child(6):before {
+    content: "Time";
+    text-align: left;
+  }
+  table tbody tr td:nth-child(7):before {
+    content: "Medium";
+    text-align: left;
   }
 }

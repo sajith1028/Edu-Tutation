@@ -13,7 +13,7 @@
     <!-- Simple line Icon -->
         <link rel="stylesheet" type="text/css" href="../stylesheets/admin/register.css"> 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
         <script>
@@ -35,16 +35,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/student">Home</a>
+            <a class="links" href="/admin">Home</a>
           </ul>
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/student/profile">Profile</a>
+            <a class="links" href="/admin/payments">Payments</a>
           </ul>
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/student/content">Course Content</a>
+            <a class="links" href="/admin/attendance">Attendance</a>
           </ul>
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/student/newsfeeds">Newsfeed</a>
+            <a class="links" href="/admin/newsfeeds">Newsfeed</a>
           </ul>
         </ul>
         
@@ -60,57 +60,114 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="tab-pane" id="settings-2">
-                        <div class="panel panel-default panel-fill">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Student Information</h3>
-                            </div>
-                            <form action="/student/new" method="POST">
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <label class="col-sm-1 control-label label">F. Name</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="First Name" class="form-control">
-                                            </div>
-                                            <div class="col-sm-2"></div>
-                                            <label class="col-sm-1 control-label label">L. Name</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="Last Name" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <label class="col-sm-1 control-label label">Email</label>
-                                            <div class="col-sm-4 input-group-append">
-                                                <input class="form-control" type="email" name="email" placeholder="Email">
-                                            </div>
-                                            <div class="col-sm-2"></div>
-                                            <label class="col-sm-1 control-label label">A/L Year</label>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <select class="form-control combobox" id="alyear">
-                                                        <%for(var i=years; i<(years+4) ;i++){ %>   
-                                                            <option><%=i%></option>
-                                                        <% } %>
-                                                    </select>
-                                                  </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#newStudent">New Student</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#curStudent">Existing Student</a>
+                      </li>
+                    </ul>
+                </div>    
+            </div>
+            <div id="content-background">
+                <div class="tab-content">
+                    <div class="row tab-pane active" id="newStudent">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">New Student's Information</h3>
                                 </div>
-                            </form>
+                                <form action="/admin/register" method="POST">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">F. Name</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" placeholder="First Name" class="form-control">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">L. Name</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" placeholder="Last Name" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Email</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input class="form-control" type="email" name="email" placeholder="Email">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">A/L Year</label>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <select class="form-control combobox" id="alyear1">
+                                                            <%for(var i=years; i<(years+4) ;i++){ %>   
+                                                                <option><%=i%></option>
+                                                            <% } %>
+                                                        </select>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     
+                    
+                    <div class="row tab-pane fade"  id="curStudent">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Existing Student's Information</h3>
+                                </div>
+                                <form action="/student/new" method="POST">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Student #</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" placeholder="Student ID" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Name</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input class="form-control" type="text" name="name" placeholder="Name">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">A/L Year</label>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <select class="form-control combobox" id="alyear2">
+                                                            <%for(var i=years; i<(years+4) ;i++){ %>   
+                                                                <option><%=i%></option>
+                                                            <% } %>
+                                                        </select>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                            
                     <div id="table">
                     </div>
-                    
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Add Student</button>
-                    </div>    
-                </div>
+                    <center>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">ADD STUDENT</button>
+                        </div>
+                    </center>
+                </div> 
             </div>
         </div>
     </div>
