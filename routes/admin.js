@@ -35,18 +35,43 @@ router.get("/register", function(req,res){
 });
 
 router.post("/register/new",function(req, res) {
-   
+   console.log(req.body);
    var name=req.body.firstname+" "+req.body.lastname;
    var email=req.body.email;
    var ALyear=req.body.ALYear;
-   var stID="S03";
-   var subject=req.body.subject;
    
-   var sql="INSERT INTO student (stID,name,email) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+");";
-   con.query(sql, function (err, result) {
+ //************************************************
+ //HARD CODED STID
+ //***********************************************
+   
+   
+   var stID="s006";
+   var subjects=req.body.subject;
+   
+   var sql="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
+  con.query(sql, function (err, result) {
      if (err) throw err;
-     console.log("1 record inserted");
+     console.log("Inserted into student");
  });
+ console.log(sql);
+ 
+    if(Array.isArray(subjects)){
+        
+    subjects.forEach(function(subject){
+        
+        var sql2="INSERT INTO enrolment values("+SqlString.escape(subject)+","+SqlString.escape(stID)+");";
+        con.query(sql2, function (err, result) {
+        if (err) throw err;
+        console.log("Inserted into enrolment");
+ });
+         console.log(sql2);
+    });
+    }
+    else
+    {
+        var sql3="INSERT INTO enrolment values("+SqlString.escape(subjects)+","+SqlString.escape(stID)+");";
+        console.log(sql3);
+    }
 });
 
 router.post("/register/alyear", function(req,res){

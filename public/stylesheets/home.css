@@ -303,3 +303,8 @@ p {
     -ms-flex: 100%;
     flex: 100%; }
   }
+  
+.modal-header{
+  font-size:15px;
+  padding: 10px 10px 10px 20px;
+}
