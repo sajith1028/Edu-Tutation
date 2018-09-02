@@ -11,14 +11,18 @@ $('#alyear1, #alyear2').change(function(){
 });
 
 $('.nav-item').click(function(){
-    var div = $("#table");
+    var div = $(".table");
     div.html(''); 
 });
 
 var changeTable = function(alyears){
-    var div = $("#table");
+    var div = $(".table");
     div.html('');
     div.hide();
     div.append(alyears);
     div.fadeIn(1000)
 };
+
+$('#submitbtn').click(function(){
+     document.getElementById("registernew").submit();
+ });

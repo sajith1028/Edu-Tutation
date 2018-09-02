@@ -31,6 +31,30 @@ body {
   background-color: #4f5563;
   border-color: #000;
 }
+
+.btn-primary:hover{
+  background-color:#6a707f!important;
+}
+
+.btn-primary:active{
+  color:#fff;
+  background-color:#1d222c!important;
+}
+
+.cancel{
+  color:#000;
+  background-color:white;
+}
+
+.cancel:hover{
+  color:#000;
+  background-color:#c47676 !important;
+}
+
+.cancel:active{
+  color:#000;
+  background-color:#bc3442 !important;
+}
 /* ==============================================================
    Navbar
    ============================================================== */
@@ -85,6 +109,7 @@ body {
   color: rgba(255,255,255,.7);
   width: 100px;
   margin-top: 5px;
+  margin-right: 20px;
 }
 
 .btn-outline-primary:hover {
@@ -194,7 +219,7 @@ h2 {
   padding-top: 20px;
   box-shadow: 0 5px 20px 1px #020836;
   margin-bottom: 20px;
-  background-color:rgba(12, 71, 131, .05);
+  background-color:rgb(230, 241, 252);
 }
 
 /* ==============

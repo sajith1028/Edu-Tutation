@@ -14,18 +14,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% var i=1; %>
                     <% subjects.forEach(function(subject){ %>
                         <tr>
-                            <td class="column1"><%= i %></td>
-                        	<td class="column2"><input type='checkbox' name='subject' class="cbx" value='<%=subject.subname%>'></td>
+                            <td class="column1"><%= subject.subID %></td>
+                        	<td class="column2"><input type='checkbox' name='subject' class="cbx" value='<%=subject.subID%>'></td>
                         	<td class="column3"><%=subject.subname%></td>
                         	<td class="column4"><%=subject.name%></td>
                         	<td class="column5"><%=subject.day%></td>
                         	<td class="column6"><%=subject.time%></td>
                         	<td class="column7"><%=subject.medium%></td>
                         </tr>
-                        <% i=i+1; %>
                     <% }); %>
                     
                 </tbody>

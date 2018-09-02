@@ -11,7 +11,7 @@
         <!-- End of Bootstrap -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
-        <link rel="stylesheet" type="text/css" href="../stylesheets/payments.css"> 
+        <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
         
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -24,7 +24,7 @@
     <!-- End of Particles -->    
     </head>
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,11 +40,12 @@
         <a class="links" href="/lecturer/profile">Profile</a>
       </ul>
       <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer/classes">My Classes</a>
+        <a class="links" href="/lecturer/content">My Classes</a>
       </ul>
       <ul class="navbar-nav nav-link">
         <a class="links" href="/lecturer/newsfeeds">Newsfeed</a>
       </ul>
+    </ul>
     
     <a  id="register"href="/login">
       <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
@@ -56,25 +57,79 @@
         <h2 id="topic">PAYMENTS</h2>
         <div class="wrapper">
             <div class="container">
-                <div class="panel panel-default panel-fill">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">User info</h3>
-                    </div>
-                    <div class="panel-body">
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">School</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">District</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div class="container-table100" style="margin-top:0px;">
+            			<div class="wrap-table100">
+            				<div class="table100">
+            					<table>
+            						<thead>
+            							<tr class="table100-head">
+            								<th class="column1">Date</th>
+            								<th class="column2">Order ID</th>
+            								<th class="column3">Name</th>
+            								<th class="column4">Price</th>
+            								<th class="column5">Quantity</th>
+            								<th class="column6">Total</th>
+            							</tr>
+            						</thead>
+            						<tbody>
+            								<tr>
+            									<td class="column1">2017-09-29 01:22</td>
+            									<td class="column2">200398</td>
+            									<td class="column3">iPhone X 64Gb Grey</td>
+            									<td class="column4">$999.00</td>
+            									<td class="column5">1</td>
+            									<td class="column6">$999.00</td>
+            								</tr>
+            								<tr>
+            									<td class="column1">2017-09-28 05:57</td>
+            									<td class="column2">200397</td>
+            									<td class="column3">Samsung S8 Black</td>
+            									<td class="column4">$756.00</td>
+            									<td class="column5">1</td>
+            									<td class="column6">$756.00</td>
+            								</tr>
+            								<tr>
+            									<td class="column1">2017-09-26 05:57</td>
+            									<td class="column2">200396</td>
+            									<td class="column3">Game Console Controller</td>
+            									<td class="column4">$22.00</td>
+            									<td class="column5">2</td>
+            									<td class="column6">$44.00</td>
+            								</tr>
+            								<tr>
+            									<td class="column1">2017-09-25 23:06</td>
+            									<td class="column2">200392</td>
+            									<td class="column3">USB 3.0 Cable</td>
+            									<td class="column4">$10.00</td>
+            									<td class="column5">3</td>
+            									<td class="column6">$30.00</td>
+            								</tr>
+            								<tr>
+            									<td class="column1">2017-09-24 05:57</td>
+            									<td class="column2">200391</td>
+            									<td class="column3">Smartwatch 4.0 LTE Wifi</td>
+            									<td class="column4">$199.00</td>
+            									<td class="column5">6</td>
+            									<td class="column6">$1494.00</td>
+            								</tr>
+            								<tr>
+            									<td class="column1">2017-09-23 05:57</td>
+            									<td class="column2">200390</td>
+            									<td class="column3">Camera C430W 4k</td>
+            									<td class="column4">$699.00</td>
+            									<td class="column5">1</td>
+            									<td class="column6">$699.00</td>
+            								</tr>
+            						</tbody>
+            					</table>
+            				</div>
+            		</div>
+            	</div>
+            	
+            <center>
+              <a href="/student"><button class="btn btn-primary" style="width:100px;margin-bottom:20px;">OKAY</button></a>
+            </center>
+            </div>
             </div>
         </div>
     </div>

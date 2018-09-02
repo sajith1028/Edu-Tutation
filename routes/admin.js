@@ -1,6 +1,7 @@
 var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
+var SqlString       =   require('sqlstring');
 
 var pool = mysql.createPool({
   host: "localhost",
@@ -9,6 +10,14 @@ var pool = mysql.createPool({
   database: "akura",
   charset: "utf8"
 });
+
+var con             =   mysql.createConnection({
+                        host: "localhost",
+                        user: "nimesha",
+                        password: "",
+                        database: "akura"
+});
+
 
 router.get("/",function(req, res) {
     res.render("admin/adminHome");
@@ -23,6 +32,21 @@ router.get("/register", function(req,res){
         if(err) throw err;
             res.render("admin/adminRegister",{subjects:res2});
     });    
+});
+
+router.post("/register/new",function(req, res) {
+   
+   var name=req.body.firstname+" "+req.body.lastname;
+   var email=req.body.email;
+   var ALyear=req.body.ALYear;
+   var stID="S03";
+   var subject=req.body.subject;
+   
+   var sql="INSERT INTO student (stID,name,email) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+");";
+   con.query(sql, function (err, result) {
+     if (err) throw err;
+     console.log("1 record inserted");
+ });
 });
 
 router.post("/register/alyear", function(req,res){

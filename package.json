@@ -19,6 +19,7 @@
     "jsonwebtoken": "^8.3.0",
     "mysql": "^2.15.0",
     "nodemailer": "^4.6.8",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "sqlstring": "^2.3.1"
   }
 }

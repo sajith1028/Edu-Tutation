@@ -103,11 +103,14 @@ p {
 	padding-top: 3%;
 }
 
+.navbar{
+  padding-top: 8px !important;
+}
+
 .custombtn {
   border-color: rgba(255,255,255,.7);
   color: rgba(255,255,255,.7);
   width: 100px;
-  margin-top: 5px;
 }
 
 .btn-outline-primary:hover {

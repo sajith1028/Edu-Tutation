@@ -11,7 +11,7 @@
         <!-- End of Bootstrap -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
-        <link rel="stylesheet" type="text/css" href="../stylesheets/payments.css"> 
+        <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
         
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -25,69 +25,96 @@
     </head>
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
-  
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-              <ul class="navbar-nav nav-link">
-        <a class="links" href="/admin">Home</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/admin/register">Register</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/attendance">Attendance</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/admin/newsfeeds">Newsfeed</a>
-      </ul>
-    </ul>
+      <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     
-    <a  id="register"href="/login">
-      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-    </a>
-  </div>
-</nav>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/register">Register</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/attendance">Attendance</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/newsfeeds">Newsfeed</a>
+          </ul>
+        </ul>
+        
+        <a  id="register"href="/login">
+          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
+        </a>
+      </div>
+    </nav>
 <div id="particles-js">
     <div id="overlay">
         <h2 id="topic">PAYMENTS</h2>
         <div class="wrapper">
             <div class="container">
-              <center><h3>Index:<input type='text' name='index'></h3></center>
-              <center><input type='submit' value='view'></center>
-                <div class="panel panel-default panel-fill">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">User info</h3>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form action="/admin/register" method="POST">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Select Student</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-sm-1 control-label label">Student #</label>
+                                            <div class="col-sm-4">
+                                                <div class="input-group mb-3">
+                                                  <input type="text" class="form-control" placeholder="Enter Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                  <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            <label class="col-sm-1 control-label label">Name</label>
+                                            <div class="col-sm-4 input-group-append">
+                                                <input class="form-control" type="text" name="name" placeholder="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                            <div id="table">
+                            </div>
+                                    
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Payment Details</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <table>
+                                            <%payments.forEach(function(payment){%>
+                                            <% console.log(payment.subname ) %>
+                                            <tr>
+                                              <td><%=payment.subname%></td>
+                                              <td><%=payment.month%></td>
+                                              <td><%=payment.fee%></td>
+                                            </tr>
+                                            <% }); %>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <center>
+                              <button class="btn btn-primary" style="width:100px">SAVE</button>
+                              <button class="btn btn-primary cancel" style="width:100px">CANCEL</button>
+                            </center>
+                        </form>
                     </div>
-                    <div class="panel-body">
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">School</label>
-                        <table>
-                        <%payments.forEach(function(payment){%>
-                        <% console.log(payment.subname ) %>
-                        <tr>
-                          <td><%=payment.subname%></td>
-                          <td><%=payment.month%></td>
-                          <td><%=payment.fee%></td>
-                        </tr>
-                        <% }); %>
-                        </table>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">District</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>

@@ -2,20 +2,29 @@
 <html lang="en">
     <head>
         <title>Register</title>
+        <!-- Responsive screen size -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+        <!-- End of responsive screen size -->
+        
         <!-- Bootstrap -->
-            <!-- Responsive screen size -->
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-            <!-- End of responsive screen size -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            
-        <!-- End of Bootstrap -->
+        <!-- End of Bootstrap -->    
+    
+        <!-- Google fonts -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
-    <!-- Simple line Icon -->
-        <link rel="stylesheet" type="text/css" href="../stylesheets/admin/register.css"> 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
+        <!-- Custom Stylesheet -->
+            <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
+        <!-- End of Custom Stylesheet -->    
+        
+        <!-- jQuery -->
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <!-- End of jQuery -->  
+        
+        <!-- particles -->
+            <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <!-- End of particles -->  
+    
         <script>
             particlesJS.load('particles-js', '../json/particles.json');
         </script>
@@ -78,18 +87,18 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">New Student's Information</h3>
                                 </div>
-                                <form action="/admin/register" method="POST">
+                                <form action="/admin/register/new" id="registernew" method="POST">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">F. Name</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" placeholder="First Name" class="form-control">
+                                                    <input type="text" name="firstname" placeholder="First Name" class="form-control">
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">L. Name</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" placeholder="Last Name" class="form-control">
+                                                    <input type="text" name="lastname" placeholder="Last Name" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -103,7 +112,7 @@
                                                 <label class="col-sm-1 control-label label">A/L Year</label>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <select class="form-control combobox" id="alyear1">
+                                                        <select class="form-control combobox" name="ALYear" id="alyear1">
                                                             <%for(var i=years; i<(years+4) ;i++){ %>   
                                                                 <option><%=i%></option>
                                                             <% } %>
@@ -113,6 +122,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                                    <div class="table">
+                                                    </div>
+                    
                                 </form>
                             </div>
                         </div>
@@ -125,13 +137,18 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Existing Student's Information</h3>
                                 </div>
-                                <form action="/student/new" method="POST">
+                                <form action="/admin/register" method="POST">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Student #</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" placeholder="Student ID" class="form-control">
+                                                    <div class="input-group mb-3">
+                                                      <input type="text" class="form-control" placeholder="Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                      <div class="input-group-append">
+                                                        <button class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                      </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,16 +172,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                                     <div class="table">
+                                                    </div>
+                    
                                 </form>
                             </div>
                         </div>
                     </div>
                             
-                    <div id="table">
-                    </div>
+                   
                     <center>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">ADD STUDENT</button>
+                            <button type="submit" id="submitbtn" class="btn btn-primary">ADD STUDENT</button>
                         </div>
                     </center>
                 </div> 
