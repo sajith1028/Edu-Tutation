@@ -9,9 +9,15 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
+var sess;
+
 router.post("/",function(req,res){
   var username = req.body.username;
   var password = req.body.password;
+  
+  sess=req.session;
+  sess.username=username;
+  
   
   con.query("SELECT * FROM users where username=?",[username],function (error, results, fields){
       if(error){

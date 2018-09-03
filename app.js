@@ -5,7 +5,7 @@ var mysql           =   require("mysql"),
     User            =   require("./models/user");
 var flash           =   require("connect-flash");
 var bcrypt          =   require("bcrypt");
-
+var session         =   require('express-session');
 var con             =   mysql.createConnection({
                         host: "localhost",
                         user: "nimesha",
@@ -36,6 +36,7 @@ app.use(bodyParser.json());
 app.set("view engine","ejs");
 app.use(express.static('public')); //for css files
 app.use(flash());
+//app.use(session({secret: 'ssshhhhh'}));
 
 app.use(require("express-session")({
     secret:"Nimetha is a sudu baba",
@@ -51,7 +52,22 @@ app.use(function(req, res, next){
   next();
 });
 
+function isLoggedIn(req, res, next){
+if(req.isAuthenticated()){
+        return next();
+    }
+res.redirect("/login");
+}
+
+
+
+
+
+
+var sess;
+
 app.get("/", function(req,res){
+   
     res.render("landing");
 });
 
@@ -61,7 +77,11 @@ app.get("/landing", function(req,res){
 
 
 app.get("/register", function(req, res) {
+    // sess=req.session;
+    // if(sess.email)
     res.render("register");
+    // else
+    // res.render("landing");
 });
 
 app.post("/register",function(req,res){

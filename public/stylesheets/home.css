@@ -305,6 +305,18 @@ p {
   }
   
 .modal-header{
+  background-color: rgba(0,0,0,0.8);
+  color:white;
   font-size:15px;
   padding: 10px 10px 10px 20px;
+}
+
+.modal-content{
+  background-color: #e6f1fc;
+  border:none;
+}
+
+.inner-title{
+  height:80px;
+  text-align: center;
 }

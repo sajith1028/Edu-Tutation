@@ -18,19 +18,24 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
-
+var sess;
 router.get("/",function(req, res) {
+    
     res.render("admin/adminHome");
 });
 
-
 /*****************************************************/
 router.get("/register", function(req,res){
+    
+    sess=req.session;
+    
+    
     var sql ="SELECT distinct s.subname,l.name,s.year FROM subject s, lecturer l where s.lecID=l.lecID";
 
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
-            res.render("admin/adminRegister",{subjects:res2});
+        if(sess.username)
+            res.render("admin/adminRegister",{subjects:res2,user:sess.username});
     });    
 });
 
