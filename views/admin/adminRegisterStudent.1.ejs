@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Register</title>
+        <!-- Responsive screen size -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+        <!-- End of responsive screen size -->
+        
+        <!-- Bootstrap -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- End of Bootstrap -->    
+    
+        <!-- Google fonts -->
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+
+        <!-- Custom Stylesheet -->
+            <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
+        <!-- End of Custom Stylesheet -->    
+        
+        <!-- jQuery -->
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <!-- End of jQuery -->  
+        
+        <!-- particles -->
+            <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <!-- End of particles -->  
+    
+        <script>
+            particlesJS.load('particles-js', '../json/particles.json');
+        </script>
+    </head>
+<body>
+<!--Calculationfor A/L Year-->
+    <% var years = new Date().getFullYear();   %>
+<!--End of calculating the years for hisroty-->
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/payments">Payments</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/attendance">Attendance</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/newsfeeds">Newsfeed</a>
+          </ul>
+        </ul>
+        
+        <a  id="register"href="/login">
+          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
+        </a>
+      </div>
+    </nav>
+
+<div id="particles-js">
+    <div id="overlay">
+        <h2 id="topic">REGISTER <%=user%></h2>
+            
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#newStudent">New Student</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#curStudent">Existing Student</a>
+                      </li>
+                    </ul>
+                </div>    
+            </div>
+            <div id="content-background">
+                <div class="tab-content">
+                    <div class="row tab-pane active" id="newStudent">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">New Student's Information</h3>
+                                </div>
+                                <form action="/admin/register/new" id="registernew" method="POST">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">F. Name</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" name="firstname" placeholder="First Name" class="form-control">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">L. Name</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" name="lastname" placeholder="Last Name" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Email</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input class="form-control" type="email" name="email" placeholder="Email">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">A/L Year</label>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <select class="form-control combobox" name="ALYear" id="alyear1">
+                                                            <%for(var i=years; i<(years+4) ;i++){ %>   
+                                                                <option><%=i%></option>
+                                                            <% } %>
+                                                        </select>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                    <div class="table">
+                                                    </div>
+                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row tab-pane fade"  id="curStudent">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Existing Student's Information</h3>
+                                </div>
+                                <form action="/admin/register" method="POST">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Student #</label>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group mb-3">
+                                                      <input type="text" class="form-control" placeholder="Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                      <div class="input-group-append">
+                                                        <button class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Name</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input class="form-control" type="text" name="name" placeholder="Name">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">A/L Year</label>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <select class="form-control combobox" id="alyear2">
+                                                            <%for(var i=years; i<(years+4) ;i++){ %>   
+                                                                <option><%=i%></option>
+                                                            <% } %>
+                                                        </select>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                     <div class="table">
+                                                    </div>
+                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                            
+                   
+                    <center>
+                        <div class="form-group">
+                            <button type="submit" id="submitbtn" class="btn btn-primary">ADD STUDENT</button>
+                        </div>
+                    </center>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../scripts/register.js"></script>
+<% include ../partials/footer %>

@@ -303,7 +303,11 @@ p {
     -ms-flex: 100%;
     flex: 100%; }
   }
-  
+
+.modal{
+  background-color: rgba(0,0,0,0.5);
+}  
+
 .modal-header{
   background-color: rgba(0,0,0,0.8);
   color:white;

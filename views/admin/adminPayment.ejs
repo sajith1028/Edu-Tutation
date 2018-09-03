@@ -12,6 +12,7 @@
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
         <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
+        <link rel="stylesheet" type="text/css" href="../stylesheets/home.css"> 
         
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -36,8 +37,8 @@
           <ul class="navbar-nav nav-link">
             <a class="links" href="/admin">Home</a>
           </ul>
-          <ul class="navbar-nav nav-link">
-            <a class="links" href="/admin/register">Register</a>
+          <ul class="navbar-nav nav-link"  data-toggle="modal" data-target="#stulec">
+            <a class="links" href="#stulec">Register</a>
           </ul>
           <ul class="navbar-nav nav-link">
             <a class="links" href="/admin/attendance">Attendance</a>
@@ -52,6 +53,64 @@
         </a>
       </div>
     </nav>
+    
+    
+    <div class="modal fade" id="stulec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">Select User</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span>
+                    </button>
+                </div>
+        
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                <div class="featured-place-wrap">
+                                    <a href="/admin/register/lecturer">
+                                        <div class="image">
+                                            <img src="https://s3-ap-southeast-1.amazonaws.com/images.humanresourcesonline.net/wp-content/uploads/2017/03/Wani-7-Mar-Lecturers-123RF-700x420.jpg" style="height:100%" class="img-fluid" alt="#">
+                                        </div>
+                                        <div class="featured-title-box inner-title">
+                                            <h6 style="margin:-10px">Lecturer</h6>
+                                            <ul>
+                                                <li><span class="icon-location-pin"></span>
+                                                    <p>Register a new Lecturer</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                <div class="featured-place-wrap">
+                                    <a href="/admin/register/student">
+                                        <div class="image">
+                                            <img src="https://s16815.pcdn.co/wp-content/uploads/2017/06/iStock-609683672-studying.jpg" style="height:100%" class="img-fluid" alt="#">
+                                        </div>
+                                        <div class="featured-title-box inner-title">
+                                            <h6 style="margin:-10px">Student</h6>
+                                            <ul>
+                                                <li><span class="icon-location-pin"></span>
+                                                    <p>Register a new Student</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
 <div id="particles-js">
     <div id="overlay">
         <h2 id="topic">PAYMENTS</h2>

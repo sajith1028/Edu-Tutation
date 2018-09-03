@@ -51,7 +51,7 @@
                     <div class="row detail-options-wrap">
                         <div class="col-md-6 col-lg-3 featured-responsive c2 c1">
                             <div class="featured-place-wrap" data-toggle="modal" data-target="#stulec">
-                                <a>
+                                <a href="#">
                                     <div class="image">
                                         <img src="https://profiles.sulekha.com/mstore/24036103/albums/default/thumbnailfull/e-register.jpg" class="img-fluid" alt="#">
                                     </div>
@@ -89,7 +89,7 @@
                                     <div class="modal-header">
                                         <h6 class="modal-title" id="exampleModalLabel">Select User</h6>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true" style="color:white;">&times;</span>
                                         </button>
                                     </div>
                             
@@ -98,32 +98,36 @@
                                             <div class="row" style="margin-top:20px;">
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <div class="image">
-                                                            <img src="https://s3-ap-southeast-1.amazonaws.com/images.humanresourcesonline.net/wp-content/uploads/2017/03/Wani-7-Mar-Lecturers-123RF-700x420.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                        </div>
-                                                        <div class="featured-title-box inner-title">
-                                                            <h6 style="margin:-10px">Lecturer</h6>
-                                                            <ul>
-                                                                <li><span class="icon-location-pin"></span>
-                                                                    <p>Register a new Lecturer</p>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                        <a href="/admin/register/lecturer">
+                                                            <div class="image">
+                                                                <img src="https://s3-ap-southeast-1.amazonaws.com/images.humanresourcesonline.net/wp-content/uploads/2017/03/Wani-7-Mar-Lecturers-123RF-700x420.jpg" style="height:100%" class="img-fluid" alt="#">
+                                                            </div>
+                                                            <div class="featured-title-box inner-title">
+                                                                <h6 style="margin:-10px">Lecturer</h6>
+                                                                <ul>
+                                                                    <li><span class="icon-location-pin"></span>
+                                                                        <p>Register a new Lecturer</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <div class="image">
-                                                            <img src="https://s16815.pcdn.co/wp-content/uploads/2017/06/iStock-609683672-studying.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                        </div>
-                                                        <div class="featured-title-box inner-title">
-                                                            <h6 style="margin:-10px">Student</h6>
-                                                            <ul>
-                                                                <li><span class="icon-location-pin"></span>
-                                                                    <p>Register a new Student</p>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                        <a href="/admin/register/student">
+                                                            <div class="image">
+                                                                <img src="https://s16815.pcdn.co/wp-content/uploads/2017/06/iStock-609683672-studying.jpg" style="height:100%" class="img-fluid" alt="#">
+                                                            </div>
+                                                            <div class="featured-title-box inner-title">
+                                                                <h6 style="margin:-10px">Student</h6>
+                                                                <ul>
+                                                                    <li><span class="icon-location-pin"></span>
+                                                                        <p>Register a new Student</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -168,8 +172,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-3 featured-responsive c2">
-                            <div class="featured-place-wrap">
-                                <a href="/admin/attendance">
+                            <div class="featured-place-wrap"  data-toggle="modal" data-target="#classes">
+                                <a href="#classes">
                                     <div class="image">
                                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5_nSuG8iHI_ZYD1Mxo_nsD8kvLJI2HA7vQRGFqNTb6EJOVDgQqQ" class="img-fluid" alt="#">
                                     </div>
@@ -200,6 +204,66 @@
                                 </a>
                             </div>
                         </div>
+                        
+                        <div class="modal fade" id="classes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLabel">Select Class</h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="color:white;">&times;</span>
+                                        </button>
+                                    </div>
+                            
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row" style="margin-top:20px;">
+                                                
+                                                
+                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                                    <div class="featured-place-wrap">
+                                                        <a href="/admin/register/lecturer">
+                                                            <div class="image">
+                                                                <img src="" style="height:100%" class="img-fluid" alt="#">
+                                                            </div>
+                                                            <div class="featured-title-box inner-title">
+                                                                <h6 style="margin:-10px">Lecturer</h6>
+                                                                <ul>
+                                                                    <li><span class="icon-location-pin"></span>
+                                                                        <p>Register a new Lecturer</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                                    <div class="featured-place-wrap">
+                                                        <a href="/admin/register/student">
+                                                            <div class="image">
+                                                                <img src="" style="height:100%" class="img-fluid" alt="#">
+                                                            </div>
+                                                            <div class="featured-title-box inner-title">
+                                                                <h6 style="margin:-10px">Student</h6>
+                                                                <ul>
+                                                                    <li><span class="icon-location-pin"></span>
+                                                                        <p>Register a new Student</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
                         <div class="col-md-6 col-lg-3 featured-responsive">
                             <div class="featured-place-wrap">
                                 <a href="/admin.newsfeeds">
