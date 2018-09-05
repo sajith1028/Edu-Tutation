@@ -315,6 +315,10 @@ p {
   padding: 10px 10px 10px 20px;
 }
 
+.modal-body{
+  padding-bottom: 0 !important;
+}
+
 .modal-content{
   background-color: #e6f1fc;
   border:none;
@@ -323,4 +327,12 @@ p {
 .inner-title{
   height:80px;
   text-align: center;
+}
+
+.class-menu{
+  max-width:1200px !important;
+}
+
+.class-menu-lec{
+  max-width:820px !important;
 }

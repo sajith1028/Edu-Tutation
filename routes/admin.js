@@ -18,7 +18,6 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
-var sess;
 router.get("/",function(req, res) {
     
     res.render("admin/adminHome");
@@ -26,17 +25,12 @@ router.get("/",function(req, res) {
 
 /*****************************************************/
 router.get("/register/student", function(req,res){
-    
-    sess=req.session;
-    
-    
-    var sql ="SELECT distinct s.subname,l.name,s.year FROM subject s, lecturer l where s.lecID=l.lecID";
+    // var sql ="SELECT distinct s.subname,l.name,s.year FROM subject s, lecturer l where s.lecID=l.lecID";
 
-    pool.query(sql, (err, res2, cols)=>{
-        if(err) throw err;
-        if(sess.username)
-            res.render("admin/adminRegisterStudent",{subjects:res2,user:sess.username});
-    });    
+    // pool.query(sql, (err, res2, cols)=>{
+    //     if(err) throw err;
+    // });
+    res.render("admin/adminRegisterStudent");
 });
 
 router.post("/register/student/new",function(req, res) {
@@ -133,17 +127,12 @@ router.post("/register/alyear", function(req,res){
 
 /*****************************************************/
 router.get("/register/lecturer", function(req,res){
-    res.render("admin/adminRegisterLectuerer");
-});
-    /*sess=req.session;
-    
-    
+    res.render("admin/adminRegisterLecturer");});
+    /*
     var sql ="SELECT distinct s.subname,l.name,s.year FROM subject s, lecturer l where s.lecID=l.lecID";
 
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
-        if(sess.username)
-            res.render("admin/adminRegisterStudent",{subjects:res2,user:sess.username});
     });    
 });
 
