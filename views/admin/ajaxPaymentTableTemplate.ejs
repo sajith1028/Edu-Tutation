@@ -1,0 +1,27 @@
+<div class="container-table100">
+	<div class="wrap-table100">
+		<div class="table100">
+			<table>
+				<thead>
+					<tr class="table100-head">
+						<th class="column3">Select</th>
+						<th class="column3">Subject</th>
+						<th class="column4">Last Paid Month</th>
+						<th class="column5">Fee</th>
+					</tr>
+				</thead>
+				<tbody>
+                    <% payments.forEach(function(p){ %>
+                        <tr>
+                        	<td class="column2"><input type='checkbox' name='subject' class="cbx" value=<%=p.subID%>,<%=p.month%>,<%=p.fee%>></td>
+                        	<td class="column3"><%=p.subname%></td>
+                        	<td class="column3"><%=p.month%></td>
+                        	<td class="column4"><%=p.fee%></td>
+                        </tr>
+                    <% }); %>
+                    
+                </tbody>
+			</table>
+		</div>
+	</div>
+</div>

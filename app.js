@@ -17,9 +17,6 @@ var con             =   mysql.createConnection({
 
 var fileUpload      = require('express-fileupload'); //for images
 
-var nodemailer      = require('nodemailer'); //for mailing purposes
-var randomstring    = require("randomstring"); //to generate random strings as passwords
-
 //ok
 con.connect(function(err){
     if(err) 

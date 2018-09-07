@@ -88,19 +88,8 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, username, password, done) { // callback with email and password from our form
-        var type = username.substring(0,1);
-        var table;
-        
-        if(type==="S") //student
-            table="studentUser";
-        if(type==="L") //lecturer
-            table="lecturerUser";
-        if(type==="A") //admin
-            table="adminUser";
-        if(type==="M") //Management
-            table="superAdminUser";
             
-        connection.query("SELECT * FROM " +table+" WHERE username = '" + username + "';",function(err,rows){
+        connection.query("SELECT * FROM user WHERE username = '" + username + "';",function(err,rows){
     		if (err)
                 return done(err);
     		if (!rows.length) {

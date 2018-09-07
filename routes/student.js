@@ -7,7 +7,7 @@ router.get("/",function(req, res) {
 
 
 router.get("/profile", function(req,res){
-    console.log(req.user);
+    console.log(req.params.id);
     res.render("student/studentProfile");
 });
 

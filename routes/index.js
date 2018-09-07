@@ -5,6 +5,15 @@ var mysql           =   require("mysql");
 var flash           =   require("connect-flash");
 var SqlString       =   require('sqlstring');
 var bcrypt          =   require("bcrypt");
+
+var pool = mysql.createPool({
+  host: "localhost",
+  user: "nimesha",
+  password: "",
+  database: "akura",
+  charset: "utf8"
+});
+
 var con             =   mysql.createConnection({
                         host: "localhost",
                         user: "nimesha",
@@ -14,7 +23,7 @@ var con             =   mysql.createConnection({
 
 router.post("/login", passport.authenticate("local-login", 
     {
-successRedirect: "/landing",
+successRedirect: "/student/profile",
 failureRedirect: "/login"
     }), function(req, res){
         
@@ -25,12 +34,13 @@ router.get("/login",function(req,res)
     res.render("login");
 });
 
-router.get("/landing",function(req, res) {
-    res.render("landing");
-});
-
 router.get("/", function(req,res){
-    res.render("landing");
+    var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID;";
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+            res.render("landing",{'classes':res2});
+            res.end();
+    });
 });
 
 router.get("/register", function(req,res){
@@ -48,7 +58,7 @@ router.post("/register",function(req,res){
         "password":hash }
              
             //insert  details into the db
-        con.query("INSERT INTO adminUser SET ?",users,function (error, results, fields){
+        con.query("INSERT INTO user SET ?",users,function (error, results, fields){
             if(error){
                 res.json({
                     status:false,
@@ -70,7 +80,7 @@ router.post("/register",function(req,res){
 router.get('/logout', (req, res)=>{
     req.logout();
     req.flash("success","You logged out!");
-    res.redirect("/landing");
+    res.redirect("/");
 });
 
 module.exports = router;
