@@ -153,10 +153,15 @@
 
 <div class="content parallax">
   <section id="team" class="pb-5">
-    <div class="container">
+    <div class="team-container">
         <h5 class="section-title h1">Come. Join Us.</h5>
         <div class="row">
-            <%for(var i=0; i<classes.length(); i=+){%>
+            <% var lecName = "";%>
+            
+            <%for(var i=0; i<classes.length; i++){%>
+              <% if(lecName!=classes[i].name){ %>
+                <% lecName=classes[i].name; %>
+                <% var source ="/images/users/" + classes[i].lecID + ".jpg"; %>
                 <!-- Team member -->
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
@@ -164,24 +169,51 @@
                             <div class="frontside">
                                 <div class="card">
                                     <div class="card-body text-center">
-                                        <p><img class=" img-fluid" src="/public/images/users/L-AKURA-01.jpg"alt="card image"></p>
+                                        <p><img class=" img-fluid" src=<%= source %> alt="card image"></p><br>
                                         <h4 class="card-title"><%= classes[i].subname %></h4>
-                                        <p class="card-text">Sooti Booti<br>(BSc Physical Science)</p>
+                                        <p class="card-text"><%= classes[i].name %><br>(<%= classes[i].qualification %>)</p>
                                         <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="backside">
+                            <div class="backside" style="width:100%">
                                 <div class="card">
                                     <div class="card-body text-center mt-4">
                                         <h4 class="card-title">Schedule</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                        <div class="container-table100">
+                                      	<div class="wrap-table100">
+                                      		<div class="table100">
+                                      			<table>
+                                      				<thead>
+                                      					<tr class="table100-head">
+                                      						<th class="column1">Year</th>
+                                      						<th class="column2">Day</th>
+                                      						<th class="column3">From</th>
+                                      						<th class="column4">To</th>
+                                      					</tr>
+                                      				</thead>
+                                      				<tbody>
+                                      				  <% for(var j=i; j<classes.length && lecName==classes[j].name; j++){%> 
+                                                  <tr>
+                                                    <td class="column1"><%= classes[j].year %></td>
+                                                  	<td class="column2"><%= classes[j].day %></td>
+                                                  	<td class="column3"><%= classes[j].fromTime.substring(0, classes[j].fromTime.lastIndexOf(":")) %></td>
+                                                  	<td class="column4"><%= classes[j].toTime.substring(0, classes[j].toTime.lastIndexOf(":")) %></td>
+                                                  </tr> 
+                                                <% lecName=classes[j].name; %> 
+                                                <% } %>
+                                              </tbody>
+                                      			</table>
+                                      		</div>
+                                      	</div>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+              <% } %>
                 <!-- ./Team member -->
             <% } %>
         </div>

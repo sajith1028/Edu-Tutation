@@ -213,6 +213,7 @@ h2 {
 }
 
 .container{
+   max-width:90%;
   height:fit-content;
   border-radius: .25rem;
   margin-top: 30px;

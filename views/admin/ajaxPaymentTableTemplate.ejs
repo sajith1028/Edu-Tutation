@@ -13,13 +13,20 @@
 				<tbody>
                     <% payments.forEach(function(p){ %>
                         <tr>
-                        	<td class="column2"><input type='checkbox' name='subject' class="cbx" value=<%=p.subID%>,<%=p.month%>,<%=p.fee%>></td>
+                        	<td class="column2"><input type='checkbox' name='subject' onclick="getValue(this)" value="<%= p.fee %>"></td>
                         	<td class="column3"><%=p.subname%></td>
                         	<td class="column3"><%=p.month%></td>
                         	<td class="column4"><%=p.fee%></td>
                         </tr>
                     <% }); %>
-                    
+                    <thead>
+	                    <tr  class="table100-head" style="color:white;">
+	                    	<td></td>
+	                        <td class="column1">Total</td>
+	                        <td></td>
+	                        <td class="column2"><div id="total">0000.00</div></td>
+	                    </tr>
+	                </thead>
                 </tbody>
 			</table>
 		</div>

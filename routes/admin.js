@@ -142,6 +142,19 @@ router.get("/payments", function(req,res){
 
 var studentID;
 
+router.post("/payments/name",function(req, res) {
+   studentID=req.body.stID.stID;
+
+   var sql1="SELECT name from student where stID='"+req.body.stID.stID+"'";
+  
+   pool.query(sql1, (err, res2, cols)=>{
+        if(err) throw err;
+        var name=res2[0].name;
+        res.render("admin/ajaxUpdateName", {name:res2[0].name});
+        res.end();
+    });
+});
+
 router.post("/payments/id",function(req, res) {
 //   var sql1="SELECT name from student where stID='"+req.body.stID.stID+"'";
 
@@ -153,7 +166,7 @@ router.post("/payments/id",function(req, res) {
     
    studentID=req.body.stID.stID;
 
-   var sql="SELECT s.subID,s.subname,p.month,s.fee from subject s,payment p where p.stID='"+req.body.stID.stID+"' && p.subID=s.subID group by s.subID order by date desc" ;
+   var sql="SELECT st.name, s.subID,s.subname,p.month,s.fee from subject s,payment p, student st where p.stID='"+req.body.stID.stID+"' && p.subID=s.subID && st.stID='"+req.body.stID.stID+"' group by s.subID order by date desc" ;
   
    pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
@@ -163,51 +176,50 @@ router.post("/payments/id",function(req, res) {
 });
 
 router.post("/payments/new",function(req, res) {
-   
-   var subjects=req.body.subject;
+    var subjects=req.body.subject;
     if(Array.isArray(subjects)){
-   subjects.forEach(function(sub){
-       var subsplit=sub.split(',');
-       var subject =subsplit[0];
-       var month=subsplit[1];
-       var fee=subsplit[2];
+        subjects.forEach(function(sub){
+        var subsplit=sub.split(',');
+        var subject =subsplit[0];
+        var month=subsplit[1];
+        var fee=subsplit[2];
        
-       var nos;
-    var paymentID="P";
-    
-    var sql="select count(pID) as numberOfPayments from payment;";   
-    pool.query(sql, (err, res2, cols)=>{
-        if(err)
-            throw err;
-        nos=parseInt(res2[0].numberOfPayments, 10)+1;
+        var nos;
+        var paymentID="P";
         
-        if(nos<10)
-            paymentID = paymentID+"00"+nos;
-        else if(nos<100)
-            paymentID = paymentID+"0"+nos;
-        else if(nos<1000)
-            paymentID = paymentID+""+nos;
-         
-       var sql2="SELECT curdate() as current;";
-       
-       pool.query(sql2, (err, res2, cols)=>{
-        if(err)
-            throw err;
-            var curDate=res2[0].current;
-            var months=['January','February','March','April','May','June','July','September','October','November','December'];
-            
-            var newIndex=months.indexOf(month)+1;
-            if(newIndex>11) newIndex=0;
-            
-            var newMonth=months[newIndex];
-            
-            var sql3="INSERT INTO payment values('"+paymentID+"','2018-08-22','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"');";
-            console.log(sql3);
-            pool.query(sql3, (err, res3, cols)=>{
-                if(err)
+        var sql="select count(pID) as numberOfPayments from payment;";   
+        pool.query(sql, (err, res2, cols)=>{
+            if(err)
                 throw err;
-                res.redirect("/admin/payments");
-      });
+            nos=parseInt(res2[0].numberOfPayments, 10)+1;
+            
+            if(nos<10)
+                paymentID = paymentID+"00"+nos;
+            else if(nos<100)
+                paymentID = paymentID+"0"+nos;
+            else if(nos<1000)
+                paymentID = paymentID+""+nos;
+             
+           var sql2="SELECT curdate() as current;";
+           
+           pool.query(sql2, (err, res2, cols)=>{
+            if(err)
+                throw err;
+                var curDate=res2[0].current;
+                var months=['January','February','March','April','May','June','July','September','October','November','December'];
+                
+                var newIndex=months.indexOf(month)+1;
+                if(newIndex>11) newIndex=0;
+                
+                var newMonth=months[newIndex];
+                
+                var sql3="INSERT INTO payment values('"+paymentID+"','2018-08-22','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"');";
+                console.log(sql3);
+                pool.query(sql3, (err, res3, cols)=>{
+                    if(err)
+                    throw err;
+                    res.redirect("/admin/payments");
+          });
        });
    });
    });   
