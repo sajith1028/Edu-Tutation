@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>View Results</title>
+        <!-- Bootstrap -->
+            <!-- Responsive screen size -->
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+            <!-- End of responsive screen size -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            
+        <!-- End of Bootstrap -->
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <!-- Simple line Icon -->
+        <link rel="stylesheet" type="text/css" href="../../stylesheets/form.css"> 
+        <link rel="stylesheet" type="text/css" href="../../stylesheets/home.css"> 
+        <script src="../../scripts/viewResults.js"></script>
+    <!-- Particles -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+        <script>
+            particlesJS.load('particles-js', '../../json/particles.json')
+        </script>
+    <!-- End of Particles -->  
+    
+    <!-- For Charts -->  
+        <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+		<script> 
+		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+		</script>
+	<!-- End of For Charts -->  
+    
+    </head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link"  data-toggle="modal" data-target="#stulec">
+            <a class="links" href="#stulec">Register</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/attendance">Attendance</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/admin/newsfeeds">Newsfeed</a>
+          </ul>
+        </ul>
+        
+        <a  id="register"href="/login">
+          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
+        </a>
+      </div>
+    </nav>
+    
+<div id="particles-js">
+    <div id="overlay">
+        <h2 id="topic">VIEW RESULTS</h2>
+        <div class="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form action="/admin/payments/new" id="newpayment" method="POST">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Select Assignment</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-4"></div>
+                                                <label class="col-sm-1 control-label label">Assignment</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control combobox" name="ALYear" id="alyear1">
+                                                        <%//for(var i=years; i<(years+4) ;i++){ %>   
+                                                            <!--<option><%=//i%></option>-->
+                                                        <% //} %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id='myChart'><a class="zc-ref"></a></div>
+                            <div class="table">
+                            </div>
+                                   
+                            <!--<div id="table">-->
+                            <!--</div>-->
+                                    
+                            <!--<div class="panel panel-default panel-fill">-->
+                            <!--    <div class="panel-heading">-->
+                            <!--        <h3 class="panel-title">Payment Details</h3>-->
+                            <!--    </div>-->
+                            <!--    <div class="panel-body">-->
+                            <!--        <div class="form-group">-->
+                            <!--            <table>-->
+                            <!--                <%//payments.forEach(function(payment){%>-->
+                            <!--                <%//console.log(payment.subname ) %>-->
+                            <!--                <tr>-->
+                            <!--                  <td><%=//payment.subname%></td>-->
+                            <!--                  <td><%=//payment.month%></td>-->
+                            <!--                  <td><%=//payment.fee%></td>-->
+                            <!--                </tr>-->
+                            <!--                <%// }); %>-->
+                            <!--            </table>-->
+                            <!--        </div>-->
+                            <!--    </div>-->
+                            <!--</div>-->
+                            <center>
+                              <button id="saveBtn" class="btn btn-primary" style="width:100px">SAVE</button>
+                               
+                              <button class="btn btn-primary cancel" style="width:100px">CANCEL</button>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>       
+
+<script>
+    var myConfig = {
+      type: "area",
+      stacked: true,
+      title: {
+        text: "Soota's Lisals",
+        fontColor: "#424242",
+        adjustLayout: true,
+        marginTop: 15
+      },
+      subtitle: {
+        text: "In thousands (k)",
+        fontColor: "#616161",
+        adjustLayout: true,
+        marginTop: 45
+      },
+      plot: {
+        aspect: "spline",
+        alphaArea: 0.6
+      },
+      plotarea: {
+        margin: "dynamic"
+      },
+      tooltip: {
+        visible: false
+      },
+      scaleY: {
+        short: true,
+        shortUnit: 'k',
+        lineColor: "#AAA5A5",
+        tick: {
+          lineColor: "#AAA5A5"
+        },
+        item: {
+          fontColor: "#616161",
+          paddingRight: 5
+        },
+        guide: {
+          lineStyle: "dotted",
+          lineColor: "#AAA5A5"
+        },
+        label: {
+          text: "Quantity",
+          fontColor: "#616161"
+        }
+      },
+      scaleX: {
+        lineColor: "#AAA5A5",
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+        tick: {
+          lineColor: "#AAA5A5"
+        },
+        item: {
+          fontColor: "#616161",
+          paddingTop: 5
+        },
+        label: {
+          text: "2018",
+          fontColor: "#616161"
+        }
+      },
+      crosshairX: {
+        lineColor: "#AAA5A5",
+        plotLabel: {
+          backgroundColor: "#EBEBEC",
+          borderColor: "#AAA5A5",
+          borderWidth: 2,
+          borderRadius: 2,
+          thousandsSeparator: ',',
+          fontColor: '#616161'
+        },
+        scaleLabel: {
+          backgroundColor: "#EBEBEC",
+          borderColor: "#AAA5A5",
+          fontColor: "#424242"
+        }
+      },
+      series: [{
+        values: [3435, 4212, 1627, 3189, 2325, 1334, 1567, 2685],
+        text: "Footware",
+        backgroundColor: "#4CAF50",
+        lineColor: "#4CAF50",
+        marker: {
+          backgroundColor: "#4CAF50",
+          borderColor: "#4CAF50"
+
+        }
+      }
+      ]
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+    });
+  </script>
+  
+<script src="/scripts/payment.js"></script>
+<% include ../partials/footer %>

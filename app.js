@@ -24,16 +24,11 @@ con.connect(function(err){
     console.log("Connected to mysql!");
 });
 
+
+app.use(CookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-app.use(CookieParser());
 app.use(fileUpload());
-
-app.set("view engine","ejs");
-app.use(express.static('public')); //for css files
-app.use(flash());
-passportConfig(passport);
-
 app.use(require("express-session")({
     secret:"Nimetha is a sudu baba",
     resave:false,
@@ -41,6 +36,13 @@ app.use(require("express-session")({
 })); 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.set("view engine","ejs");
+app.use(express.static('public')); //for css files
+app.use(flash());
+passportConfig(passport);
+
+
 
 app.use(function(req, res, next){
   res.locals.currentUser = req.user;

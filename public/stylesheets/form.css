@@ -678,3 +678,8 @@ tbody tr:hover {
     text-align: left;
   }
 }
+
+/*** results ***/
+.zc-ref {
+  display: none;
+}

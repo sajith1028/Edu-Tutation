@@ -2,9 +2,9 @@ var sum=0;
 
 var getValue = function(cb) {
     if(cb.checked)
-        sum+=parseInt(cb.value);
+        sum+=parseInt(cb.value.split(',')[2]);
     else
-        sum-=parseInt(cb.value);
+        sum-=parseInt(cb.value.split(',')[2]);
     
     var div = document.getElementById('total');
     div.innerHTML = sum;

@@ -13,7 +13,7 @@
 				<tbody>
                     <% payments.forEach(function(p){ %>
                         <tr>
-                        	<td class="column2"><input type='checkbox' name='subject' onclick="getValue(this)" value="<%= p.fee %>"></td>
+                        	<td class="column2"><input type='checkbox' name='subject' onclick="getValue(this)" value=<%= p.subID %>,<%= p.month %>,<%= p.fee %>></td>
                         	<td class="column3"><%=p.subname%></td>
                         	<td class="column3"><%=p.month%></td>
                         	<td class="column4"><%=p.fee%></td>

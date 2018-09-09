@@ -5,6 +5,8 @@ var SqlString       =   require('sqlstring');
 var nodemailer      = require('nodemailer'); //for mailing purposes
 var randomstring    = require("randomstring"); //to generate random strings as passwords
 var bcrypt          =   require("bcrypt");
+var dateTime = require('get-date');
+ 
 
 var pool = mysql.createPool({
   host: "localhost",
@@ -180,51 +182,43 @@ router.post("/payments/new",function(req, res) {
     if(Array.isArray(subjects)){
         subjects.forEach(function(sub){
         var subsplit=sub.split(',');
+        console.log(subsplit);
         var subject =subsplit[0];
         var month=subsplit[1];
         var fee=subsplit[2];
-       
-        var nos;
-        var paymentID="P";
-        
-        var sql="select count(pID) as numberOfPayments from payment;";   
-        pool.query(sql, (err, res2, cols)=>{
-            if(err)
-                throw err;
-            nos=parseInt(res2[0].numberOfPayments, 10)+1;
-            
-            if(nos<10)
-                paymentID = paymentID+"00"+nos;
-            else if(nos<100)
-                paymentID = paymentID+"0"+nos;
-            else if(nos<1000)
-                paymentID = paymentID+""+nos;
-             
-           var sql2="SELECT curdate() as current;";
-           
-           pool.query(sql2, (err, res2, cols)=>{
-            if(err)
-                throw err;
-                var curDate=res2[0].current;
-                var months=['January','February','March','April','May','June','July','September','October','November','December'];
+        var curDate=""+dateTime();
+        curDate=curDate.split('/').join('-');
+        console.log(curDate);
+        var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
                 
                 var newIndex=months.indexOf(month)+1;
+                console.log("newIndex"+newIndex);
                 if(newIndex>11) newIndex=0;
                 
                 var newMonth=months[newIndex];
                 
-                var sql3="INSERT INTO payment values('"+paymentID+"','2018-08-22','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"');";
+                console.log("Last month:"+month);
+                console.log("newIndex"+newIndex);
+                console.log("NewMonth"+newMonth);
+                
+        //   var sql2="SELECT curdate() as current;";
+           
+        //   pool.query(sql2, (err, res2, cols)=>{
+        //     if(err)
+        //         throw err;
+        //         var curDate=res2[0].current;
+        
+                
+                var sql3="INSERT INTO payment(date,month,amount,stID,subID) values('"+curDate+"','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"');";
                 console.log(sql3);
-                pool.query(sql3, (err, res3, cols)=>{
-                    if(err)
-                    throw err;
-                    res.redirect("/admin/payments");
-          });
+        //         pool.query(sql3, (err, res3, cols)=>{
+        //             if(err)
+        //             throw err;
+                    
+        //   });
        });
-   });
-   });   
     }
-    
+    res.redirect("/admin/payments");
 
 });
 
@@ -244,7 +238,15 @@ router.post("/register/alyear", function(req,res){
             res.end();
     });
 });
-/*****************************************************/
+
+
+
+
+
+
+
+
+
 
 router.get("/attendance", function(req,res){
     res.render("admin/adminAttendance");

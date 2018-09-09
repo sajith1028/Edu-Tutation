@@ -1,5 +1,14 @@
 var express         =   require("express");
 var router          =   express.Router();
+var mysql           =   require("mysql");
+var pool = mysql.createPool({
+  host: "localhost",
+  user: "nimesha",
+  password: "",
+  database: "akura",
+  charset: "utf8"
+});
+
 
 router.get("/",function(req, res) {
     res.render("student/studentHome");
@@ -7,12 +16,23 @@ router.get("/",function(req, res) {
 
 
 router.get("/profile", function(req,res){
-    console.log(req.params.id);
     res.render("student/studentProfile");
 });
 
 router.get("/payments", function(req,res){
-    res.render("student/studentPayment");
+    //If logged in
+    if(req.user){
+    var stID=req.user.username;
+    
+    //var sql="select s.subname, p.date, p.month, p.amount from payment p, subject s where s.subID=p.subID group by s.subname order by date desc ";
+    var sql="select s.subname, p.date, p.month, p.amount from payment p, subject s where s.subID=p.subID order by date desc ";
+    
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+            res.render("student/studentPayment",{payments:res2});
+            res.end();
+    });
+    }
 });
 
 router.get("/content", function(req,res){ 

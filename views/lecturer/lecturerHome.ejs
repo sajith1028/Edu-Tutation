@@ -7,12 +7,13 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
             <!-- End of responsive screen size -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
             
         <!-- End of Bootstrap -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
-        <link rel="stylesheet" type="text/css" href="../stylesheets/home.css"> 
-        
+        <link rel="stylesheet" type="text/css" href="../stylesheets/home.css">  
+        <script src="../scripts/lecturerHome.js"></script>
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         
@@ -53,30 +54,27 @@
                             <div class="featured-place-wrap">
                                 <a href="/lecturer/profile">
                                     <div class="image">
-                                        <img src="https://dyn.web.whatsapp.com/pp?e=https%3A%2F%2Fpps.whatsapp.net%2Fv%2Ft61.11540-24%2F39353094_532854930473127_2813491195659943936_n.jpg%3Foe%3D5B863D16%26oh%3D1ddce157041e8a693605dbada69a39d8&t=l&u=94770088515%40c.us&i=1534485533" class="img-fluid" alt="#">
+                                        <img src="../images/users/L-AKURA-04.jpg" class="img-fluid" alt="#">
                                     </div>
-                                    <span class="featured-rating-orange ">6.5</span>
+                                    <span class="featured-rating"><i class="fas fa-user"></i></span>
                                     <div class="featured-title-box">
-                                        <h6>Profile</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
+                                        <h6><%= myself[0].name %></h6>
+                                        <p><%= myself[0].qualification %> </p> <span> • </span>
+                                        <p> (Hons)</p>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li><span><i class="fas fa-user-tag inner-icons"></i></span>
+                                                <p><%= myself[0].lecID %></p>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li><span><i class="fas fa-envelope inner-icons"></i></span>
+                                                <p><%= myself[0].email %></p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li><span><i class="fas fa-phone inner-icons"></i></span>
+                                                <p><%= myself[0].tele %></p>
                                             </li>
 
                                         </ul>
                                         <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
+                                            <div class="closed-now">Click Here to Edit Your Profile</div>
                                         </div>
                                     </div>
                                 </a>
@@ -88,28 +86,24 @@
                                     <div class="image">
                                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2dQmm_DJztz3W7e8cWJcBB0C89EJnjxudW0G8HNXS9fP37Cri" style="height:100%" class="img-fluid" alt="#">
                                     </div>
-                                    <span class="featured-rating">3.2</span>
+                                    <span class="featured-rating-yellow"><i class="fas fa-money-bill-alt"></i></span>
                                     <div class="featured-title-box">
                                         <h6>Income</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
+                                        <p>Check your monthly income </p>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li><span><i class="fas fa-money-check-alt inner-icons"></i></span>
+                                                <p>Gross Income</p>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li><span><i class="fas fa-hotel inner-icons"></i></span>
+                                                <p>Amount Paid to The Instititute</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li><span><i class="fas fa-funnel-dollar inner-icons"></i></span>
+                                                <p>Net Income</p>
                                             </li>
 
                                         </ul>
                                         <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
+                                            <div class="closed-now">Click Here to View Your Income</div>
                                         </div>
                                     </div>
                                 </a>
@@ -121,28 +115,26 @@
                                     <div class="image">
                                         <img src="https://us.123rf.com/450wm/prapassp/prapassp1711/prapassp171100019/90328125-the-science-professor-writes-on-the-board-while-having-a-blackboard-and-a-blackboard-.jpg?ver=6" class="img-fluid" alt="#">
                                     </div>
-                                    <span class="featured-rating-green">9.5</span>
+                                    <span class="featured-rating-green"><i class="fas fa-book-open"></i></span>
                                     <div class="featured-title-box">
                                         <h6>My Classes</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
+                                        <% for(var i=0; i<myself.length; i++){ %>
+                                            <p>A/L Year <%= myself[i].year %></p> <span>• </span>
+                                        <% } %>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                        <% for(var i=0; i<myself.length; i++){ %>                                            
+                                            <li><span><i class="fas fa-graduation-cap inner-icons"></i></span>
+                                                <p><%= myself[i].year+"  "+myself[i].subname%></p>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                        <% } %>
+                                        <% for(i; i<3; i++){ %>                                            
+                                            <li><span></span>
+                                                <p></p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-    
+                                        <% } %>
                                         </ul>
                                         <div class="bottom-icons">
-                                            <div class="open-now">OPEN NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
+                                            <div class="closed-now">Click Here to Check Your Classes</div>
                                         </div>
                                     </div>
                                 </a>
@@ -162,41 +154,24 @@
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <div class="row" style="margin-top:20px;">
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
-                                                        <a href="#">
-                                                            <div class="image">
-                                                                <img src="https://www.tutors.gr/sites/default/files/maths_blackboard.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Maths - 2019 A/L</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Register a new Lecturer</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
+                                                <% for(var i=0; i<myself.length; i++){ %>
+                                                    <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                                        <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
+                                                            <a href="#" class="class-btn" onclick="getClass(this)" id="S001">
+                                                                <div class="image">
+                                                                    <img src="../images/subjects/maths<%= i%3 %>.jpg" style="height:100%" class="img-fluid" alt="#">
+                                                                </div>
+                                                                <div class="featured-title-box inner-title">
+                                                                    <h6 style="margin:-10px"><%= myself[i].year+" - "+myself[i].subname%></h6>
+                                                                    <div class="bottom-icons">
+                                                                        <div class="closed-now">Click Here to Go to The Menu</div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
-                                                        <a href="#">
-                                                            <div class="image">
-                                                                <img src="http://c1.thejournal.ie/media/2013/06/maths-equation-one-million-dollars-390x285.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Maths - 2016 A/L</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Register a new Student</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                <% } %>
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>
@@ -218,14 +193,14 @@
                                             <div class="row" style="margin-top:20px;">
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <a href="/admin/register/lecturer">
+                                                        <a href="#" onclick="addAssignment()">
                                                             <div class="image">
                                                                 <img src="https://cdn-images-1.medium.com/max/1000/1*pQUTGu0kiDZEQxUslhhR2A.jpeg" style="height:100%" class="img-fluid" alt="#">
                                                             </div>
                                                             <div class="featured-title-box inner-title">
                                                                 <h6 style="margin:-10px">Add Assignment Marks</h6>
                                                                 <ul>
-                                                                    <li><span class="icon-location-pin"></span>
+                                                                    <li><span></span>
                                                                         <p>Add a new assignment and add marks</p>
                                                                     </li>
                                                                 </ul>
@@ -235,14 +210,14 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <a href="/admin/register/lecturer">
+                                                        <a href="#" onclick="addCourseContent()">
                                                             <div class="image">
                                                                 <img src="https://itradeico.com/wp-content/uploads/2018/06/books-1024x535.png" style="height:100%" class="img-fluid" alt="#">
                                                             </div>
                                                             <div class="featured-title-box inner-title">
                                                                 <h6 style="margin:-10px">Add Course Content</h6>
                                                                 <ul>
-                                                                    <li><span class="icon-location-pin"></span>
+                                                                    <li><span></span>
                                                                         <p>Add course related notes</p>
                                                                     </li>
                                                                 </ul>
@@ -254,14 +229,14 @@
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <a href="/admin/register/student">
+                                                        <a href="#" onclick="viewResults()">
                                                             <div class="image">
                                                                 <img src="https://t4.ftcdn.net/jpg/02/11/17/47/240_F_211174724_KySKzehbIX8TfHHY95TuwUmTVswFzp09.jpg" style="height:100%" class="img-fluid" alt="#">
                                                             </div>
                                                             <div class="featured-title-box inner-title">
                                                                 <h6 style="margin:-10px">View Results</h6>
                                                                 <ul>
-                                                                    <li><span class="icon-location-pin"></span>
+                                                                    <li><span></span>
                                                                         <p>View an analysis of results</p>
                                                                     </li>
                                                                 </ul>
@@ -271,14 +246,14 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <a href="/admin/register/student">
+                                                        <a href="#" onclick="Forums()">
                                                             <div class="image">
                                                                 <img src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/4/29/1367244760480/Some-unis-are-making-effo-007.jpg" style="height:100%" class="img-fluid" alt="#">
                                                             </div>
                                                             <div class="featured-title-box inner-title">
                                                                 <h6 style="margin:-10px">Discussion Forums</h6>
                                                                 <ul>
-                                                                    <li><span class="icon-location-pin"></span>
+                                                                    <li><span></span>
                                                                         <p>Answer questions of your pupils</p>
                                                                     </li>
                                                                 </ul>
@@ -300,28 +275,24 @@
                                     <div class="image">
                                         <img src="https://www.yicaiglobal.com/sites/default/files/%E4%BA%92%E8%81%94%E7%BD%91%E6%96%B0%E9%97%BB%E4%BF%A1%E6%81%AF%E6%9C%8D%E5%8A%A1%E6%96%B0%E8%A7%84%EF%BC%9A%E9%9D%9E%E5%85%AC%E6%9C%89%E8%B5%84%E6%9C%AC%E4%B8%8D%E5%BE%97%E4%BB%8B%E5%85%A5%E9%87%87%E7%BC%96%E4%B8%9A%E5%8A%A1.jpg" class="img-fluid" alt="#">
                                     </div>
-                                    <span class="featured-rating-green">9.5</span>
+                                    <span class="featured-rating-blue"><i class="fas fa-newspaper"></i></span>
                                     <div class="featured-title-box">
                                         <h6>News Feed</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
+                                        <p>See what's happening at Akura </p>
                                         <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
+                                            <li><span><i class="fas fa-calendar-alt inner-icons"></i></span>
+                                                <p>Holiday notifications</p>
                                             </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
+                                            <li><span><i class="fas fa-clock inner-icons"></i></span>
+                                                <p>Class Rescheduling</p>
                                             </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
+                                            <li><span><i class="fas fa-clipboard-list inner-icons"></i></span>
+                                                <p>Special Notices</p>
                                             </li>
 
                                         </ul>
                                         <div class="bottom-icons">
-                                            <div class="closed-now">CLOSED NOW</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
+                                            <div class="closed-now">Click Here to Read Latest News</div>
                                         </div>
                                     </div>
                                 </a>
