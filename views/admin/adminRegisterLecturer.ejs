@@ -72,10 +72,10 @@
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs">
                       <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#newStudent">New Student</a>
+                        <a class="nav-link active" data-toggle="tab" href="#newStudent">New Lecturer</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#curStudent">Existing Student</a>
+                        <a class="nav-link" data-toggle="tab" href="#curStudent">Assign Class</a>
                       </li>
                     </ul>
                 </div>    
@@ -86,9 +86,9 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">New Student's Information</h3>
+                                    <h3 class="panel-title">New Lecturer's Information</h3>
                                 </div>
-                                <form action="/admin/register/new" id="registernew" method="POST">
+                                <form action="/admin/register/lecturer/new" id="registernew" method="POST">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
@@ -110,21 +110,14 @@
                                                     <input class="form-control" type="email" name="email" placeholder="Email">
                                                 </div>
                                                 <div class="col-sm-2"></div>
-                                                <label class="col-sm-1 control-label label">A/L Year</label>
+                                                <label class="col-sm-1 control-label label">NIC</label>
                                                 <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <select class="form-control combobox" name="ALYear" id="alyear1">
-                                                            <%for(var i=years; i<(years+4) ;i++){ %>   
-                                                                <option><%=i%></option>
-                                                            <% } %>
-                                                        </select>
-                                                      </div>
+                                                    <input type="text" name="nic" placeholder="NIC" class="form-control">
                                                 </div>
+                                               
                                             </div>
                                         </div>
                                     </div>
-                                                    <div class="table">
-                                                    </div>
                     
                                 </form>
                             </div>
@@ -184,7 +177,7 @@
                    
                     <center>
                         <div class="form-group">
-                            <button type="submit" id="submitbtn" class="btn btn-primary">ADD STUDENT</button>
+                            <button type="submit" id="submitbtn" class="btn btn-primary">ADD LECTURER</button>
                         </div>
                     </center>
                 </div> 
@@ -193,5 +186,5 @@
     </div>
 </div>
 
-<script src="/scripts/register.js"></script>
+<script src="/scripts/lecRegister.js"></script>
 <% include ../partials/footer %>

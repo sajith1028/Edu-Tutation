@@ -9,6 +9,12 @@ var pool = mysql.createPool({
   charset: "utf8"
 });
 
+function isLoggedIn(req, res, next){
+if(req.isAuthenticated() && req.user.username.charAt(0)=='S' ){
+        return next();
+    }
+res.redirect("/login");
+}
 
 router.get("/",function(req, res) {
     res.render("student/studentHome");

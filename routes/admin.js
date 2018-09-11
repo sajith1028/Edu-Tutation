@@ -7,6 +7,12 @@ var randomstring    = require("randomstring"); //to generate random strings as p
 var bcrypt          =   require("bcrypt");
 var dateTime = require('get-date');
  
+function isLoggedIn(req, res, next){
+if(req.isAuthenticated() && req.user.username.charAt(0)=='A' ){
+        return next();
+    }
+res.redirect("/login");
+}
 
 var pool = mysql.createPool({
   host: "localhost",
@@ -24,7 +30,6 @@ var con             =   mysql.createConnection({
 });
 
 router.get("/",function(req, res) {
-    
     res.render("admin/adminHome");
 });
 
@@ -225,6 +230,86 @@ router.post("/payments/new",function(req, res) {
 
 router.get("/register/lecturer", function(req,res){
     res.render("admin/adminRegisterLecturer");
+    
+});
+    
+router.get("/register/lecturer", function(req,res){
+    res.render("admin/adminRegisterLecturer");
+    
+});
+    
+router.post("/register/lecturer/new", function(req,res){
+    var name=req.body.firstname+" "+req.body.lastname;
+    var email=req.body.email;
+    var nic=req.body.nic;
+    
+    var nos;
+    var lecID="L-AKURA-";
+    
+    var sql="select count(lecID) as numberOfLecturers from lecturer;";   
+    pool.query(sql, (err, res2, cols)=>{
+        if(err)
+            throw err;
+        nos=parseInt(res2[0].numberOfLecturers, 10)+1;
+        
+        if(nos<10)
+            lecID = lecID+"00"+nos;
+        else if(nos<100)
+            lecID = lecID+"0"+nos;
+        else if(nos<1000)
+            lecID = lecID+""+nos;
+            
+            
+        var subjects=req.body.subject;
+        
+       
+        var sql="INSERT INTO lecturer (lecID,NIC,name,email) values ("+SqlString.escape(lecID)+","+SqlString.escape(nic)+","+SqlString.escape(name)+","+SqlString.escape(email)+");";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+        });
+        
+        var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
+        bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
+           var users={
+            "username":lecID,
+            "password":hash }
+                 
+                //insert  details into the db
+            con.query("INSERT INTO user SET ?",users,function (error, results, fields){
+                if(error){
+                    req.flash("error","Please try again!");
+                }
+                else {
+                    
+                    var transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'studentenrolmentnsbm@gmail.com',
+                            pass: 'studentenrolmentnsbm123'
+                        }
+                    });
+                
+                    var mailOptions = {
+                        from: 'studentenrolmentnsbm@gmail.com',
+                        to: email,
+                        subject: 'Login Credentails',
+                        html: '<center><div><p>Welcome to Akura Institute.</p><p>Please enter the given credentials to login to Akura</p> <p>Username : <strong>'+ lecID +'</strong></p> <p>Password : <strong>'+ randomPassword +'</strong></p> <br></br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br></br>Akura Team.</p></div><center>'
+                    };
+        
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                  });
+                  req.flash("success","Lecturer added!");
+                  
+                }
+          });
+        });
+    });
     
 });
     

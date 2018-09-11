@@ -2,6 +2,13 @@ var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
 
+function isLoggedIn(req, res, next){
+if(req.isAuthenticated() && req.user.username.charAt(0)=='L' ){
+        return next();
+    }
+res.redirect("/login");
+}
+
 var pool = mysql.createPool({
   host: "localhost",
   user: "nimesha",
@@ -36,7 +43,12 @@ router.get("/income", function(req,res){
 
 router.get("/addAssignmentResults/:id", function(req,res){
     var id = req.params.id;
-    res.render("lecturer/lecturerAddResults", {'abc': "abc"});
+    var sql="SELECT e.*, s.* from enrolment e, student s where subID='"+id+"'and s.stID=e.stID;";
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+            res.render("lecturer/lecturerAddResults", {'enrolment': res2});
+            res.end();
+    });
 });
 
 router.get("/viewResults/:id", function(req,res){
