@@ -6,7 +6,8 @@ var nodemailer      = require('nodemailer'); //for mailing purposes
 var randomstring    = require("randomstring"); //to generate random strings as passwords
 var bcrypt          =   require("bcrypt");
 var dateTime = require('get-date');
- 
+var flash           =   require("connect-flash");
+
 function isLoggedIn(req, res, next){
 if(req.isAuthenticated() && req.user.username.charAt(0)=='A' ){
         return next();
@@ -91,17 +92,9 @@ router.post("/register/student/new",function(req, res) {
                 //insert  details into the db
             con.query("INSERT INTO user SET ?",users,function (error, results, fields){
                 if(error){
-                    res.json({
-                        status:false,
-                        message: "there is some error with the query"
-                    })
+                    req.flash("error","Please try again!");
                 }
                 else {
-                    res.json({
-                        status:true,
-                        data:results,
-                        message:"user registered successfully"
-                    })
                    
                     var transporter = nodemailer.createTransport({
                         service: 'gmail',
@@ -130,6 +123,8 @@ router.post("/register/student/new",function(req, res) {
            });
         });
     });
+    req.flash("success","Student added!");
+    res.redirect("admin/register/student");
 });
 
 router.post("/register/alyear", function(req,res){
@@ -226,16 +221,9 @@ router.post("/payments/new",function(req, res) {
     res.redirect("/admin/payments");
 
 });
-
-
-router.get("/register/lecturer", function(req,res){
-    res.render("admin/adminRegisterLecturer");
-    
-});
     
 router.get("/register/lecturer", function(req,res){
     res.render("admin/adminRegisterLecturer");
-    
 });
     
 router.post("/register/lecturer/new", function(req,res){
@@ -304,13 +292,13 @@ router.post("/register/lecturer/new", function(req,res){
                             console.log('Email sent: ' + info.response);
                         }
                   });
-                  req.flash("success","Lecturer added!");
                   
                 }
           });
         });
     });
-    
+    req.flash("success","Lecturer added!");
+    res.redirect("/admin/register/lecturer");
 });
     
 
