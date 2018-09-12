@@ -34,6 +34,7 @@
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        
       <ul class="navbar-nav nav-link">
         <a class="links" href="/student">Home</a>
       </ul>
@@ -54,7 +55,7 @@
     </a>
    <% } else { %>
    
-      <a id="user" href="#"> Signed in as
+      <a id="user" class="links" href="#"> Signed in as
       <%= currentUser.username %> 
       </a>
     <a  id="register"href="/logout">
@@ -117,22 +118,42 @@
                                                 <div class="about-info-p">
                                                     <strong>Full Name</strong>
                                                     <br>
-                                                    <p>Johnathan Deo</p>
+                                                    <p><%=details[0].name%></p>
+                                                </div>
+                                                <div class="about-info-p">
+                                                    <strong>School</strong>
+                                                    <br>
+                                                    <p><%=details[0].school%></p>
+                                                </div>
+                                                <div class="about-info-p">
+                                                    <strong>Residence</strong>
+                                                    <br>
+                                                    <p><%=details[0].teleres%></p>
                                                 </div>
                                                 <div class="about-info-p">
                                                     <strong>Mobile</strong>
                                                     <br>
-                                                    <p>(123) 123 1234</p>
+                                                    <p><%=details[0].telemob%></p>
                                                 </div>
                                                 <div class="about-info-p">
                                                     <strong>Email</strong>
                                                     <br>
-                                                    <p>johnathandeon @moltran.com</p>
+                                                    <p><%=details[0].email%></p>
                                                 </div>
-                                                <div class="about-info-p m-b-0">
-                                                    <strong>District</strong>
+                                                <div class="about-info-p">
+                                                    <strong>Gender</strong>
                                                     <br>
-                                                    <p>Colombo</p>
+                                                    <p><%=details[0].gender%></p>
+                                                </div>
+                                                <div class="about-info-p">
+                                                    <strong>Address</strong>
+                                                    <br>
+                                                    <p><%=details[0].address%></p>
+                                                </div>
+                                                <div class="about-info-p">
+                                                    <strong>A/L Year</strong>
+                                                    <br>
+                                                    <p><%=details[0].ALyear%></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,21 +212,28 @@
                             </div>
     
                             <div class="tab-pane" id="settings-2">
+                                <form  action="/student/profile" name="personalinfo" method="POST" >
                                 <div class="panel panel-default panel-fill">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">User info</h3>
+                                        <h3 class="panel-title">Personal info</h3>
                                     </div>
                                     <div class="panel-body">
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">School</label>
+                                        <label class="col-sm-2 control-label">Name</label>
                                         <div class="col-sm-10">
-                                          <input type="text" class="form-control">
+                                          <input type="text" name="name" placeholder="<%= details[0].name %>" class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">District</label>
+                                        <label class="col-sm-2 control-label">School</label>
                                         <div class="col-sm-10">
-                                          <input type="text" class="form-control">
+                                          <input type="text" name="school"class="form-control">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="col-sm-2 control-label">Gender</label>
+                                        <div class="col-sm-10">
+                                          <input type="text" name="gender"  class="form-control">
                                         </div>
                                       </div>
                                     </div>
@@ -217,27 +245,27 @@
                                     </div>
                                     <div class="panel-body">
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">Work number</label>
+                                        <label class="col-sm-2 control-label">Residence</label>
                                         <div class="col-sm-10">
-                                          <input type="tel" class="form-control">
+                                          <input type="tel" name="teleres" class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">Mobile number</label>
+                                        <label class="col-sm-2 control-label">Mobile</label>
                                         <div class="col-sm-10">
-                                          <input type="tel" class="form-control">
+                                          <input type="tel" name="telemob" class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">E-mail address</label>
+                                        <label class="col-sm-2 control-label">Email</label>
                                         <div class="col-sm-10">
-                                          <input type="email" class="form-control">
+                                          <input type="email" name="email" value="<%= details[0].email%>" class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">Work address</label>
+                                        <label class="col-sm-2 control-label">Address</label>
                                         <div class="col-sm-10">
-                                          <textarea rows="3" class="form-control"></textarea>
+                                          <textarea rows="3" name="address" class="form-control"></textarea>
                                         </div>
                                       </div>
                                     </div>
@@ -251,13 +279,13 @@
                                       <div class="form-group">
                                         <label class="col-sm-2 control-label">Current password</label>
                                         <div class="col-sm-10">
-                                          <input type="password" class="form-control">
+                                          <input type="password" name="curpwd" class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="col-sm-2 control-label">New password</label>
                                         <div class="col-sm-10">
-                                          <input type="password" class="form-control">
+                                          <input type="password" name="newpwd" class="form-control">
                                         </div>
                                       </div>
                                     </div>
@@ -267,6 +295,7 @@
                                           <button type="reset" class="btn btn-primary cancel" style="width:100px;">Cancel</button>
                                         </div></center>
                                 <!-- Personal-Information -->
+                                </form>
                             </div>
                         </div>
                     </div>

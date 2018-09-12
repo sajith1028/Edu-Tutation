@@ -345,3 +345,8 @@ p {
 .inner-icons{
   color:#537ca6;
 }
+
+.links{
+  color: rgba(255,255,255,.8) !important;
+  font-size : 15.5px;
+}

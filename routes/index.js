@@ -35,7 +35,7 @@ router.get("/login",function(req,res)
 });
 
 router.get("/", function(req,res){
-    var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID;";
+    var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID order by l.name;";
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
             res.render("landing",{'classes':res2});

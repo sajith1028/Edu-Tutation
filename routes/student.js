@@ -22,8 +22,39 @@ router.get("/",function(req, res) {
 
 
 router.get("/profile", function(req,res){
-    res.render("student/studentProfile");
+    
+    //get student details & pass it to the ejs file to be displayed
+    if(req.user){
+    var sql="select s.name,s.school,s.teleres,s.telemob,s.email,s.gender,s.address,s.ALyear from student s where s.stID='"+req.user.username+"'";
+    pool.query(sql,(err,res2,cols)=>{
+       if (err) throw err;
+       res.render("student/studentProfile",{details:res2});
+       res.end();
+    });
+    
+    
+    }
+    
+    
+    
+    
 });
+
+router.post("/profile",function(req,res){
+    if(req.body.gender)
+    console.log("yes");
+//   name: 'Tharushi Jayasekara',
+//      school: 'Musaeus College',
+//      gender: '',
+//      teleres: '',
+//      telemob: '',
+//      email: '',
+//      address: '',
+//      curpwd: '',
+//      newpwd: ''
+});
+
+
 
 router.get("/payments", function(req,res){
     //If logged in
