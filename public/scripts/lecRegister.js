@@ -1,3 +1,6 @@
 $('#submitbtn').click(function(){
-     document.getElementById("registernew").submit();
+     $('#curLecturer').on('show',function(){
+        console.log("current");  
+     });
+     //document.getElementById("registernew").submit();
  });

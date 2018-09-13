@@ -23,7 +23,6 @@ var con             =   mysql.createConnection({
 
 router.post("/login", passport.authenticate("local-login", 
     {
-//successRedirect: "/student/profile",
 failureRedirect: "/login"
     }), function(req, res){
         if(req.user.username.charAt(0)=='A')
