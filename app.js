@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(require("express-session")({
-    secret:"Nimetha is a sudu baba",
+    secret:"ahg dgdwud gyudg",
     resave:false,
     saveUninitialized:false
 })); 
@@ -52,57 +52,55 @@ app.use(function(req, res, next){
 });
 
 
-// app.post("/register",function(req,res){
+app.post("/register",function(req,res){
     
-//     var randomPassword=randomstring.generate(10);
-//     //encrypt the password using bcrypt
-//   bcrypt.hash(randomPassword, 10, function(err, hash) {
-//       //hash contains the encrypted password 
-//       var users={
-//         "username":req.body.username,
-//         "password":hash }
+    var randomPassword=req.body.password;
+    
+    //encrypt the password using bcrypt
+  bcrypt.hash(randomPassword, 10, function(err, hash) {
+      //hash contains the encrypted password 
+      var users={
+        "username":req.body.username,
+        "password":hash }
              
-//             //insert  details into the db
-//   con.query("INSERT INTO users SET ?",users,function (error, results, fields){
-//       if(error){
-//           res.json({
-//               status:false,
-//               message: "there is some error with the query"
-//           })
-//       } else {
-//           res.json({
-//               status:true,
-//               data:results,
-//               message:"user registered successfully"
-//           })
+            //insert  details into the db
+  con.query("INSERT INTO user SET ?",users,function (error, results, fields){
+      if(error){
+          throw error;
+      } else {
+          res.json({
+              status:true,
+              data:results,
+              message:"user registered successfully"
+          });
            
-//           var transporter = nodemailer.createTransport({
-//           service: 'gmail',
-//           auth: {
-//               user: 'studentenrolmentnsbm@gmail.com',
-//                 pass: 'studentenrolmentnsbm123'
-//           }
-//           });
+        //   var transporter = nodemailer.createTransport({
+        //   service: 'gmail',
+        //   auth: {
+        //       user: 'studentenrolmentnsbm@gmail.com',
+        //         pass: 'studentenrolmentnsbm123'
+        //   }
+        //   });
         
-//           var mailOptions = {
-//              from: 'studentenrolmentnsbm@gmail.com',
-//              to: 'nimesha1996@gmail.com',
-//              subject: 'Login Credentails',
-//              html: '<center><div><p>Welcome to Akura Institute.</p><p>Please enter the password given below at the initial login</p> <p>Password : <strong>'+ randomPassword +'</strong></p> <br></br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br></br>Akura Team.</p></div><center>'
-//           };
+        //   var mailOptions = {
+        //      from: 'studentenrolmentnsbm@gmail.com',
+        //      to: 'nimesha1996@gmail.com',
+        //      subject: 'Login Credentails',
+        //      html: '<center><div><p>Welcome to Akura Institute.</p><p>Please enter the password given below at the initial login</p> <p>Password : <strong>'+ randomPassword +'</strong></p> <br></br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br></br>Akura Team.</p></div><center>'
+        //   };
 
-//           transporter.sendMail(mailOptions, function(error, info){
-//              if (error) {
-//               console.log(error);
-//              } else {
-//               console.log('Email sent: ' + info.response);
-//              }
-//           });
-//         }
-//   });
-// });
+        //   transporter.sendMail(mailOptions, function(error, info){
+        //      if (error) {
+        //       console.log(error);
+        //      } else {
+        //       console.log('Email sent: ' + info.response);
+        //      }
+        //   });
+        }
+  });
+});
 
-// });
+});
 
 var indexRoutes = require("./routes/index");
 app.use("/",indexRoutes);

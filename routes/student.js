@@ -1,6 +1,8 @@
 var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
+var SqlString       =   require('sqlstring');
+
 var pool = mysql.createPool({
   host: "localhost",
   user: "nimesha",
@@ -23,7 +25,6 @@ router.get("/",function(req, res) {
 
 router.get("/profile", function(req,res){
     
-    //get student details & pass it to the ejs file to be displayed
     if(req.user){
     var sql="select s.name,s.school,s.teleres,s.telemob,s.email,s.gender,s.address,s.ALyear from student s where s.stID='"+req.user.username+"'";
     pool.query(sql,(err,res2,cols)=>{
@@ -41,17 +42,12 @@ router.get("/profile", function(req,res){
 });
 
 router.post("/profile",function(req,res){
-    if(req.body.gender)
-    console.log("yes");
-//   name: 'Tharushi Jayasekara',
-//      school: 'Musaeus College',
-//      gender: '',
-//      teleres: '',
-//      telemob: '',
-//      email: '',
-//      address: '',
-//      curpwd: '',
-//      newpwd: ''
+    var sql="Update student s set s.name="+SqlString.escape(req.body.name)+",s.school="+SqlString.escape(req.body.school)+",s.teleres="+SqlString.escape(req.body.teleres)+",s.telemob="+SqlString.escape(req.body.telemob)+",s.email="+SqlString.escape(req.body.email)+",s.gender="+SqlString.escape(req.body.gender)+",s.address="+SqlString.escape(req.body.address)+" where s.stID='"+req.user.username+"';";
+    pool.query(sql,(err,res2,cols)=>{
+        if(err) throw err;
+        
+    });
+    res.redirect("/student/profile");
 });
 
 
