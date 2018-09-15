@@ -57,7 +57,7 @@ router.get("/payments", function(req,res){
     var stID=req.user.username;
     
     //var sql="select s.subname, p.date, p.month, p.amount from payment p, subject s where s.subID=p.subID group by s.subname order by date desc ";
-    var sql="select s.subname, p.date, p.month, p.amount from payment p, subject s where s.subID=p.subID order by date desc ";
+    var sql="select s.subname,s.medium,s.day, p.date, p.month, p.amount from payment p, subject s where p.stID='"+ stID+"' and s.subID=p.subID order by date desc ";
     
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
@@ -74,7 +74,13 @@ router.get("/discussions/:id", function(req,res){
 
 router.get("/viewCourseContent/:id", function(req,res){
     var id = req.params.id;
-    res.render("student/studentCourseContent");
+    var sql="SELECT * from content where subID='"+id+"' order by section;";
+    pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+         
+        res2.id = {"id": id};
+        res.render("student/studentCourseContent", {'content': res2});
+    });
 });
 
 router.get("/viewResults/:id", function(req,res){

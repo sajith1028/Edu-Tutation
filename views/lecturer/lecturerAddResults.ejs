@@ -44,16 +44,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/admin">Home</a>
+            <a class="links" href="/lecturer">Home</a>
           </ul>
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/admin/payments">Payments</a>
+            <a class="links" href="/lecturer/income">Payments</a>
           </ul>
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/admin/attendance">Attendance</a>
-          </ul>
-          <ul class="navbar-nav nav-link">
-            <a class="links" href="/admin/newsfeeds">Newsfeed</a>
+            <a class="links" href="/lecturer/newsfeeds">Newsfeed</a>
           </ul>
         </ul>
         
@@ -82,7 +79,7 @@
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Title</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" name="firstname" placeholder="Title" class="form-control">
+                                                    <input type="text" name="title" placeholder="Title" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,7 +105,7 @@
                                                             	<td class="column2" style="width:300px"><%=enrolment[i].stID%></td>
                                                             	<td class="column3" style="width:300px"><%=enrolment[i].name%></td>
                                                             	<td class="column4" style="width:200px"><%=enrolment[i].average%></td>
-                                                            	<td class="column5" style="width:300px"><input type="text" name="marks" placeholder="Enter Mark" class="form-control" style="width:280px; margin-bottom:0;"></td>
+                                                            	<td class="column5" style="width:300px"><input type="text" name="marks" placeholder="Enter Mark" class="form-control" style="width:280px; margin-bottom:0;" required></td>
                                                             </tr>
                                                         <% } %>
                                                         

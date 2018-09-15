@@ -22,6 +22,15 @@
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
     <!-- End of Particles -->    
+    
+    <!-- For Charts -->  
+        <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+		<script> 
+		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+		</script>
+	<!-- End of For Charts --> 
+	
     </head>
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -31,95 +40,85 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer">Home</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer/profile">Profile</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer/content">My Classes</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer/newsfeeds">Newsfeed</a>
-      </ul>
-    </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/lecturer">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/lecturer/income">Payments</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/lecturer/newsfeeds">Newsfeed</a>
+          </ul>
+        </ul>
     
-    <a  id="register"href="/login">
-      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-    </a>
+    <% if(!currentUser){ %>
+            <a  id="register"href="/login">
+                <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+            </a>
+        <% } else { %>
+            <ul class="navbar-nav nav-link">
+                <a id="user" class="links" href="#"> Signed in as
+                    <%= currentUser.username %> 
+                </a>
+            </ul>
+            <ul class="navbar-nav nav-link">
+                <a  id="register"href="/logout">
+                    <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                </a>
+            </ul>
+        <% } %>
   </div>
 </nav>
 <div id="particles-js">
     <div id="overlay">
-        <h2 id="topic">PAYMENTS</h2>
+        <h2 id="topic">PAYMENTS<%=[fees[0]]%></h2>
         <div class="wrapper">
             <div class="container">
+              
+              
+              
+              
+              <!--Enter chart here -->
+                            <div id='myChart'><a class="zc-ref"></a></div>
+                            <div class="table">
+                            </div>
+              
+              
                 <div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100">
             					<table>
             						<thead>
             							<tr class="table100-head">
-            								<th class="column1">Date</th>
-            								<th class="column2">Order ID</th>
-            								<th class="column3">Name</th>
-            								<th class="column4">Price</th>
-            								<th class="column5">Quantity</th>
-            								<th class="column6">Total</th>
+            							  <th class="column1">Year</th>
+            								<th class="column1">Month</th>
+            								<th class="column2">Subject ID</th>
+            								<th class="column8">AL Year</th>
+            								<th class="column3">Subject</th>
+            								<th class="column9">Monthly Fee</th>
+            								<th class="column4">#Enrolments</th>
+            								<th class="column5">Gross Income (Rs.)</th>
+            								<th class="column6">Maintenance (Rs.)</th>
+            								<th class="column7">Net Income (Rs.)</th>
             							</tr>
             						</thead>
             						<tbody>
-            								<tr>
-            									<td class="column1">2017-09-29 01:22</td>
-            									<td class="column2">200398</td>
-            									<td class="column3">iPhone X 64Gb Grey</td>
-            									<td class="column4">$999.00</td>
-            									<td class="column5">1</td>
-            									<td class="column6">$999.00</td>
+            						  <%incomes.forEach(function(income){%>
+            						    <tr>
+            						      <td class="column1"><%=income.year%></td>
+            									<td class="column1 "><b><%=income.month%></b></td>
+            									<td class="column2"><%=income.subID%></td>
+            									<td class="column8"><%=income.ALyear%></td>
+            									<td class="column3"><%=income.subname%></td>
+            									<td class="column3"><%=income.fee%></td>
+            									<td class="column4"><%=income.num%></td>
+            									<td class="column5"><%=income.totalfee%></td>
+            									<td class="column6"><%=income.totalfee/4%></td>
+            									<td class="column7"><b><%=income.totalfee-income.totalfee/4%></b></td>
             								</tr>
-            								<tr>
-            									<td class="column1">2017-09-28 05:57</td>
-            									<td class="column2">200397</td>
-            									<td class="column3">Samsung S8 Black</td>
-            									<td class="column4">$756.00</td>
-            									<td class="column5">1</td>
-            									<td class="column6">$756.00</td>
-            								</tr>
-            								<tr>
-            									<td class="column1">2017-09-26 05:57</td>
-            									<td class="column2">200396</td>
-            									<td class="column3">Game Console Controller</td>
-            									<td class="column4">$22.00</td>
-            									<td class="column5">2</td>
-            									<td class="column6">$44.00</td>
-            								</tr>
-            								<tr>
-            									<td class="column1">2017-09-25 23:06</td>
-            									<td class="column2">200392</td>
-            									<td class="column3">USB 3.0 Cable</td>
-            									<td class="column4">$10.00</td>
-            									<td class="column5">3</td>
-            									<td class="column6">$30.00</td>
-            								</tr>
-            								<tr>
-            									<td class="column1">2017-09-24 05:57</td>
-            									<td class="column2">200391</td>
-            									<td class="column3">Smartwatch 4.0 LTE Wifi</td>
-            									<td class="column4">$199.00</td>
-            									<td class="column5">6</td>
-            									<td class="column6">$1494.00</td>
-            								</tr>
-            								<tr>
-            									<td class="column1">2017-09-23 05:57</td>
-            									<td class="column2">200390</td>
-            									<td class="column3">Camera C430W 4k</td>
-            									<td class="column4">$699.00</td>
-            									<td class="column5">1</td>
-            									<td class="column6">$699.00</td>
-            								</tr>
+            						  <%});%>
             						</tbody>
             					</table>
             				</div>
@@ -135,4 +134,105 @@
     </div>
 </div>       
 
+<script>
+    var myConfig = {
+      type: "line",
+      stacked: true,
+      title: {
+        text: "Net Income",
+        fontColor: "#424242",
+        adjustLayout: true,
+        marginTop: 15
+      },
+      plot: {
+        aspect: "spline",
+        alphaArea: 0.6
+      },
+      plotarea: {
+        margin: "dynamic"
+      },
+      tooltip: {
+        visible: false
+      },
+      scaleY: {
+        short: true,
+        shortUnit: 'k',
+        lineColor: "#AAA5A5",
+        tick: {
+          lineColor: "#AAA5A5"
+        },
+        item: {
+          fontColor: "#616161",
+          paddingRight: 5
+        },
+        guide: {
+          lineStyle: "dotted",
+          lineColor: "#AAA5A5"
+        },
+        label: {
+          text: "Rs.",
+          fontColor: "#616161"
+        }
+      },
+      scaleX: {
+        lineColor: "#AAA5A5",
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
+        tick: {
+          lineColor: "#AAA5A5"
+        },
+        item: {
+          fontColor: "#616161",
+          paddingTop: 5
+        },
+        label: {
+          text: "2018",
+          fontColor: "#616161"
+        }
+      },
+      crosshairX: {
+        lineColor: "#AAA5A5",
+        plotLabel: {
+          backgroundColor: "#EBEBEC",
+          borderColor: "#AAA5A5",
+          borderWidth: 2,
+          borderRadius: 2,
+          thousandsSeparator: ',',
+          fontColor: '#616161'
+        },
+        scaleLabel: {
+          backgroundColor: "#EBEBEC",
+          borderColor: "#AAA5A5",
+          fontColor: "#424242"
+        }
+      },
+      series: [{
+        values: [ 0, 0, 0, 0, 0, 0, 0, 0, 4000, 4000, 0, 0 ],
+        text: "Com. Math I",
+        backgroundColor: "#4CAF50",
+        lineColor: "#10594b",
+        marker: {
+          backgroundColor: "#10594b",
+          borderColor: "#4CAF50"
+
+        }
+      },{
+        values: [0,0,0,0,0,0,0,6000,6000,2000,0,0],
+        text: "Com. Math II",
+        backgroundColor: "#4CAF50",
+        lineColor: "#4caf9c",
+        marker: {
+          backgroundColor: "#4caf9c",
+          borderColor: "#4CAF50"
+
+        }
+      }
+      
+      ]
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+    });
+  </script>
 <% include ../partials/footer %>

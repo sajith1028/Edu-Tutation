@@ -41,6 +41,12 @@ body {
   background-color:#1d222c!important;
 }
 
+.btn-primary:disabled{
+  cursor:not-allowed;;
+  color:#fff;
+  background-color:#1d222c!important;
+}
+
 .cancel{
   color:#000;
   background-color:white;
@@ -198,7 +204,7 @@ h2 {
 
 #topic{
   text-align: center !important;
-  padding-top: 115px;
+  padding-top: 100px;
   color:black;
   font-family: Raleway;
 }

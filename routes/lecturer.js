@@ -39,12 +39,34 @@ router.get("/profile", function(req,res){
 }); 
 
 router.get("/income", function(req,res){
-    res.render("lecturer/lecturerIncome");
+    var sql="select p.year, count(s.subID) as num,s.subID,s.year as ALyear,s.subname,p.month,s.fee,sum(s.fee) as totalfee from subject s,payment p, lecturer l where l.lecID=s.lecID and s.subID=p.subID and l.lecID='"+req.user.username+"' group by s.subID,p.month order by s.subID;";
+    
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) 
+            throw err;
+            
+        var amts=[0,0,0,0,0,0,0,0,0,0,0,0];
+        var amts2=[0,0,0,0,0,0,0,0,0,0,0,0];
+        var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+         
+        res2.forEach(function(result){
+            var monthIndex=months.indexOf(result.month);
+            if(amts[monthIndex]==0)
+            amts[monthIndex]=result.totalfee;
+            else
+            amts2[monthIndex]=result.totalfee;
+        });    
+            
+         res.render("lecturer/lecturerIncome",{incomes:res2,fees:{amts,amts2}});
+        res.end();
+    });
+    
+   
 });
 
 router.get("/addAssignmentResults/:id", function(req,res){
     var id = req.params.id;
-    var sql="SELECT e.*, s.* from enrolment e, student s where subID='"+id+"'and s.stID=e.stID order by section;";
+    var sql="SELECT e.*, s.* from enrolment e, student s where subID='"+id+"'and s.stID=e.stID;";
     pool.query(sql, (err, res2, cols)=>{
         if(err) 
             throw err;
@@ -55,7 +77,7 @@ router.get("/addAssignmentResults/:id", function(req,res){
 
 router.get("/addCourseContent/:id", function(req,res){
     var id = req.params.id;
-    var sql="SELECT * from content where subID='"+id+"';";
+    var sql="SELECT * from content where subID='"+id+"' order by section;";
     pool.query(sql, (err, res2, cols)=>{
          if(err) throw err;
          
@@ -66,21 +88,42 @@ router.get("/addCourseContent/:id", function(req,res){
 
 router.post("/addNewCourseContent/:id", function(req,res){
     var id = req.params.id;
-    if (!req.files)
-        return console.log("upload a file");
- 
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let courseFile = req.files.courseFile;
- 
-    // Use the mv() method to place the file somewhere on your server
-    courseFile.mv('public/CourseContent/'+courseFile.name, function(err) {
-        if (err)
-            return console.log("error");
+    var sql="SELECT count(contentID) as noc from content where subID='"+id+"';";
+    pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+        
+        var noc = res2[0].noc+1;
+        
+        if (!req.files)
+            return console.log("upload a file");
      
-        return console.log("done");
+        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+        let courseFile = req.files.courseFile;
+        
+        var format = courseFile.name.substring(courseFile.name.lastIndexOf('.'));
+        
+        var fileName;
+        if(noc<10)
+            fileName = id+"-0"+noc+format;
+        else
+            fileName = id+"-"+noc+format;
+            
+        // Use the mv() method to place the file somewhere on your server
+        courseFile.mv('public/CourseContent/'+fileName, function(err) {
+            if (err)
+                return console.log("error");
+         
+            return console.log("done");
+        });
+        
+        var sql2="INSERT INTO content values ('"+fileName+"','"+req.body.section+"','"+req.body.title+"','"+req.body.desc+"','"+format+"','"+id+"');";
+        console.log(sql2);
+        con.query(sql2, function (err, result) {
+            if (err) throw err;
+        });
+        
+        res.render("lecturer/lecturerCourseContent", {'id': id});
     });
-    
-    res.render("lecturer/lecturerCourseContent", {'id': id});
 });
 
 router.get("/viewResults/:id", function(req,res){

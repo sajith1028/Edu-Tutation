@@ -78,18 +78,22 @@
             						<thead>
             							<tr class="table100-head">
             								<th class="column1">Subject</th>
-            								<th class="column2">Payment date</th>
-            								<th class="column3">Payment month</th>
-            								<th class="column4">Amount (Rs.) </th>
+            								<th class="column2">Medium</th>
+            								<th class="column3">Day</th>
+            								<th class="column4">Payment date</th>
+            								<th class="column5">Payment month</th>
+            								<th class="column6">Amount (Rs.) </th>
             							</tr>
             						</thead>
             						<tbody>
             						  <%payments.forEach(function(payment){%>
             						    <tr>
             									<td class="column1"><%=payment.subname%></td>
-            									<td class="column2"><%=payment.date%></td>
-            									<td class="column3"><%=payment.month%></td>
-            									<td class="column4"><%=payment.amount%></td>
+            									<td class="column2"><%=payment.medium%></td>
+            									<td class="column3"><%=payment.day%></td>
+            									<td class="column4"><%=(payment.date).toDateString();%></td>
+            									<td class="column5"><%=payment.month%></td>
+            									<td class="column6"><%=payment.amount%></td>
             								</tr>
             						  <%});%>
             						</tbody>

@@ -18,7 +18,8 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         
         <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
+        
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
@@ -48,9 +49,22 @@
           </ul>
         </ul>
         
-        <a  id="register"href="/login">
-          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-        </a>
+         <% if(!currentUser){ %>
+            <a  id="register"href="/login">
+                <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+            </a>
+        <% } else { %>
+            <ul class="navbar-nav nav-link">
+                <a id="user" class="links" href="#"> Signed in as
+                    <%= currentUser.username %> 
+                </a>
+            </ul>
+            <ul class="navbar-nav nav-link">
+                <a  id="register"href="/logout">
+                    <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                </a>
+            </ul>
+        <% } %>
       </div>
     </nav>
     
@@ -113,6 +127,24 @@
     
 <div id="particles-js">
     <div id="overlay">
+            <% if(error && error.length>0){%>
+                <div class="container">
+                    <div class="alert alert-danger dangers" role="alert">
+                        <%=error%>
+                    </div>
+                </div>
+            <% } %>
+   
+            <% if(success && success.length>0){%>
+                <div class="container">
+                    <a href="/invoice.pdf">
+                        <div class="alert alert-success dangers" role="alert">
+                            <%=success%>
+                        </div>
+                    </a>
+                </div>
+            <% } %>
+        
         <h2 id="topic">PAYMENTS</h2>
         <div class="wrapper">
             <div class="container">
@@ -129,7 +161,7 @@
                                             <label class="col-sm-1 control-label label">Student #</label>
                                             <div class="col-sm-4">
                                                 <div class="input-group mb-3">
-                                                  <input id="stID" name="stIDName" type="text" class="form-control" placeholder="Enter Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                  <input id="stID" name="stIDName" type="text" class="form-control" placeholder="Enter Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                                   <div class="input-group-append">
                                                     <button id="checkBtn" class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
                                                   </div>
@@ -172,7 +204,7 @@
                             <!--    </div>-->
                             <!--</div>-->
                             <center>
-                              <button id="saveBtn" class="btn btn-primary" style="width:100px">SAVE</button>
+                              <button id="saveBtn" class="btn btn-primary" style="width:100px" disabled>SAVE</button>
                                
                               <button class="btn btn-primary cancel" style="width:100px">CANCEL</button>
                             </center>

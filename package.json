@@ -21,13 +21,16 @@
     "get-date": "^1.0.2",
     "jsonwebtoken": "^8.3.0",
     "jwt-simple": "^0.5.1",
+    "localStorage": "^1.0.3",
     "mysql": "^2.15.0",
     "nodemailer": "^4.6.8",
+    "opn": "^5.3.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "randomstring": "^1.1.5",
     "sqlstring": "^2.3.1",
+    "store": "^2.0.12",
     "sweetalert": "^2.1.0",
     "sweetalert2": "^7.26.28"
   }

@@ -25,6 +25,7 @@ router.post("/login", passport.authenticate("local-login",
     {
 failureRedirect: "/login"
     }), function(req, res){
+        req.flash("success","You logged in!");
         if(req.user.username.charAt(0)=='A')
         res.redirect("/admin");
         else if(req.user.username.charAt(0)=='S')

@@ -112,7 +112,7 @@
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Section</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" name="title" placeholder="Section" class="form-control">
+                                                    <input type="text" name="section" placeholder="Section" class="form-control">
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Content Title</label>
@@ -162,6 +162,13 @@
                                 <% if (content.length!=0) { %>
                                     <center><h4>Previously Uploaded Course Content - Subject <%= content.id.id %></h4></center><br>
                                     <% var section = '' %>
+                                   <div class="panel-heading">
+                                        <h3 class="panel-title"><%= content[0].section %></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                    <% var section = content[0].section%>
+                                   
                                     <% for(var i =0; i< content.length; i++) { %>
                                     
                                         <% if (section != content[i].section) {%>
@@ -171,8 +178,9 @@
                                             <div class="panel-body">
                                         <% }%>
                                         
-                                        <% if (i%3==0) %>
+                                        <% if (i>=3 && i%4==0) {%>
                                             <div class="row">
+                                        <% } %>
                                                 
                                                 <div class="col-md-3">
                                                 	<figure class="card card-product" style="border:1px gray solid; background-color:#f5f8f9">
@@ -186,14 +194,15 @@
                                                 					<span class="price-new"><%= content[i].description %></span>
                                                 				</div> <!-- price-wrap.// -->
                                                 				<br>
-                                                				<a href="../../CourseContent/S01-01.pdf" class="btn btn-primary btn-sm float-right"> Download </a>
+                                                				<a href="../../CourseContent/<%= content[i].contentID %>" class="btn btn-primary btn-sm float-right"> Download </a>
                                                 			</div> <!-- action-wrap -->
                                                 		</figcaption>
                                                 	</figure> <!-- card // -->
                                                 </div> <!-- col // -->
-                                            </div> <!-- row.// -->
-                                        </div>
+                                        <% section = content[i].section %>
                                     <% } %>    
+                                     </div> <!-- row.// -->
+                                </div>
                                 <% }else{ %>
                                     <center><h4>Previously Uploaded Course Content Not Found - Subject <%= content.id.id %></h4></center><br>
                                     <br>
