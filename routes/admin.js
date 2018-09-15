@@ -1,13 +1,15 @@
+//Requiring the npm packages
 var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
 var SqlString       =   require('sqlstring');
 var nodemailer      = require('nodemailer'); //for mailing purposes
 var randomstring    = require("randomstring"); //to generate random strings as passwords
-var bcrypt          =   require("bcrypt");
-var dateTime = require('get-date');
+var bcrypt          =   require("bcrypt"); // for encryption
+var dateTime = require('get-date'); //returns current date
 var flash           =   require("connect-flash");
-
+var Swal            =   require('sweetalert2')
+//If the user is an Admin, redirect to the Admin home. Otherwise redirect to the login
 function isLoggedIn(req, res, next){
 if(req.isAuthenticated() && req.user.username.charAt(0)=='A' ){
         return next();
@@ -15,6 +17,7 @@ if(req.isAuthenticated() && req.user.username.charAt(0)=='A' ){
 res.redirect("/login");
 }
 
+//creates the mysql connection to the database
 var pool = mysql.createPool({
   host: "localhost",
   user: "nimesha",
@@ -31,6 +34,7 @@ var con             =   mysql.createConnection({
 });
 
 router.get("/",function(req, res) {
+    
     res.render("admin/adminHome");
 });
 
@@ -47,11 +51,13 @@ router.post("/register/student/new",function(req, res) {
     var nos;
     var stID="S-";
     
-    var sql="select count(stID) as numberOfStudents from student where ALyear="+ALyear+";";   
+    var sql="select count(stID) as numberOfStudents from student where ALyear="+ALyear+";";  
+    console.log(sql);
     pool.query(sql, (err, res2, cols)=>{
         if(err)
             throw err;
         nos=parseInt(res2[0].numberOfStudents, 10)+1;
+        console.log(nos);
         
         if(nos<10)
             stID = stID+ALyear+"-00"+nos;
@@ -64,24 +70,26 @@ router.post("/register/student/new",function(req, res) {
         var subjects=req.body.subject;
         
        
-        var sql="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-        });
+        var sql2="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
+        console.log(sql2);
+        // con.query(sql2, function (err, result) {
+        //     if (err) throw err;
+        // });
         
      
-        if(Array.isArray(subjects)){
-            subjects.forEach(function(subject){    
-                var sql2="INSERT INTO enrolment values("+SqlString.escape(subject)+","+SqlString.escape(stID)+");";
-                con.query(sql2, function (err, result) {
-                    if (err) throw err;
-                });
-            });
-        }
-        else
-        {
-            var sql3="INSERT INTO enrolment values("+SqlString.escape(subjects)+","+SqlString.escape(stID)+");";
-        }
+        // if(Array.isArray(subjects)){
+        //     subjects.forEach(function(subject){    
+        //         var sql3="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subject)+","+SqlString.escape(stID)+");";
+        //         console.log(sql3);
+        //         con.query(sql3, function (err, result) {
+        //             if (err) throw err;
+        //         });
+        //     });
+        // }
+        // else
+        // {
+        //     var sql4="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subjects)+","+SqlString.escape(stID)+");";
+        // }
         
         var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
         bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
@@ -90,41 +98,43 @@ router.post("/register/student/new",function(req, res) {
             "password":hash }
                  
                 //insert  details into the db
-            con.query("INSERT INTO user SET ?",users,function (error, results, fields){
-                if(error){
-                    req.flash("error","Please try again!");
-                }
-                else {
+        //     con.query("INSERT INTO user SET ?",users,function (error, results, fields){
+        //         if(error){
+        //             req.flash("error","Please try again!");
+        //         }
+        //         else {
                    
-                    var transporter = nodemailer.createTransport({
-                        service: 'gmail',
-                        auth: {
-                            user: 'studentenrolmentnsbm@gmail.com',
-                            pass: 'studentenrolmentnsbm123'
-                        }
-                    });
+        //             var transporter = nodemailer.createTransport({
+        //                 service: 'gmail',
+        //                 auth: {
+        //                     user: 'studentenrolmentnsbm@gmail.com',
+        //                     pass: 'studentenrolmentnsbm123'
+        //                 }
+        //             });
                 
-                    var mailOptions = {
-                        from: 'studentenrolmentnsbm@gmail.com',
-                        to: email,
-                        subject: 'Login Credentails',
-                        html: '<center><div><p>Welcome to Akura Institute.</p><p>Please enter the given credentials to login to Akura</p> <p>Username : <strong>'+ stID +'</strong></p> <p>Password : <strong>'+ randomPassword +'</strong></p> <br></br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br></br>Akura Team.</p></div><center>'
-                    };
+        //             var mailOptions = {
+        //                 from: 'studentenrolmentnsbm@gmail.com',
+        //                 to: email,
+        //                 subject: 'Login Credentails',
+        //                 html: '<center><div><p>Welcome to Akura Institute.</p><p>Please enter the given credentials to login to Akura</p> <p>Username : <strong>'+ stID +'</strong></p> <p>Password : <strong>'+ randomPassword +'</strong></p> <br></br> <a href="https://akura-nimesha.c9users.io/login" style="background-color:#a0e5f8;border:1px solid #0f4b66;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Click Here To Proceed</a><p>We wish you all the very best.<br></br>Akura Team.</p></div><center>'
+        //             };
         
-                    transporter.sendMail(mailOptions, function(error, info){
-                        if (error) {
-                            console.log(error);
-                        }
-                        else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                   });
-                }
-           });
+        //             transporter.sendMail(mailOptions, function(error, info){
+        //                 if (error) {
+        //                     console.log(error);
+        //                 }
+        //                 else {
+        //                     console.log('Email sent: ' + info.response);
+        //                 }
+        //     
+        //});
+        //         }
+        //   });
         });
+        
     });
-    req.flash("success","Student added!");
-    res.redirect("admin/register/student");
+    
+    res.redirect("/admin/register/student");
 });
 
 router.post("/register/alyear", function(req,res){

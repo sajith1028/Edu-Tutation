@@ -25,11 +25,12 @@ var con             =   mysql.createConnection({
 });
 
 router.get("/",function(req, res) {
-    var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID and l.lecID='L-AKURA-01';";
+    var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID and l.lecID='L-AKURA-001';";
     pool.query(sql, (err, res2, cols)=>{
-        if(err) throw err;
-            res.render("lecturer/lecturerHome", {'myself':res2});
-            res.end();
+        if(err) 
+            throw err;
+        res.render("lecturer/lecturerHome", {'myself':res2});
+        res.end();
     });
 });
 
@@ -43,12 +44,43 @@ router.get("/income", function(req,res){
 
 router.get("/addAssignmentResults/:id", function(req,res){
     var id = req.params.id;
-    var sql="SELECT e.*, s.* from enrolment e, student s where subID='"+id+"'and s.stID=e.stID;";
+    var sql="SELECT e.*, s.* from enrolment e, student s where subID='"+id+"'and s.stID=e.stID order by section;";
     pool.query(sql, (err, res2, cols)=>{
-        if(err) throw err;
-            res.render("lecturer/lecturerAddResults", {'enrolment': res2});
-            res.end();
+        if(err) 
+            throw err;
+        res.render("lecturer/lecturerAddResults", {'enrolment': res2});
+        res.end();
     });
+});
+
+router.get("/addCourseContent/:id", function(req,res){
+    var id = req.params.id;
+    var sql="SELECT * from content where subID='"+id+"';";
+    pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+         
+        res2.id = {"id": id};
+        res.render("lecturer/lecturerCourseContent", {'content': res2});
+    });
+});
+
+router.post("/addNewCourseContent/:id", function(req,res){
+    var id = req.params.id;
+    if (!req.files)
+        return console.log("upload a file");
+ 
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let courseFile = req.files.courseFile;
+ 
+    // Use the mv() method to place the file somewhere on your server
+    courseFile.mv('public/CourseContent/'+courseFile.name, function(err) {
+        if (err)
+            return console.log("error");
+     
+        return console.log("done");
+    });
+    
+    res.render("lecturer/lecturerCourseContent", {'id': id});
 });
 
 router.get("/viewResults/:id", function(req,res){

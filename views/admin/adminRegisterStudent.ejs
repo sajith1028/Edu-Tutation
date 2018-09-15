@@ -19,8 +19,10 @@
         
         <!-- jQuery -->
             <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <!-- End of jQuery -->  
+         <!-- End of jQuery -->  
         
+        <!-- Validation -->
+            <script type="text/javascript" src="validator.min.js"></script>
         <!-- particles -->
             <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         <!-- End of particles -->  
@@ -180,11 +182,9 @@
                             </div>
                         </div>
                     </div>
-                            
-                   
                     <center>
                         <div class="form-group">
-                            <button type="submit" id="submitbtn" class="btn btn-primary">ADD STUDENT</button>
+                            <button onclick="swal('Good job!', 'You registered a student!', 'success');" type="submit" id="submitbtn" class="btn btn-primary">ADD STUDENT</button>
                         </div>
                     </center>
                 </div> 
@@ -194,4 +194,6 @@
 </div>
 
 <script src="/scripts/register.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <% include ../partials/footer %>

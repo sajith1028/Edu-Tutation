@@ -13,14 +13,15 @@
     <!-- Simple line Icon -->
         <link rel="stylesheet" type="text/css" href="../stylesheets/home.css"> 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-            
+        
+        <script src="../scripts/studentHome.js"></script>
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         
         <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
         <script>
-            particlesJS.load('particles-js', '../json/particles.json')
+            particlesJS.load('particles-js', '../json/particles.json');
         </script>
     <!-- End of Particles -->    
     </head>
@@ -71,19 +72,17 @@
                                     <span class="featured-rating"><i class="fas fa-user"></i></span>
                                     <div class="featured-title-box">
                                         <h6>Profile</h6>
-                                        <p>Ashera Silva </p> <span>• </span>
-                                        <p>2019</p> <span> 
+                                        <p>Edit your profile </p> <span>• </span>
                                         <ul>
                                             <li><span><i class="fas fa-user-tag inner-icons"></i></span>
-                                                <p>S-2019-001</p>
+                                                <p><%= myself[0].name %></p>
                                             </li>
                                             <li><span><i class="fas fa-envelope inner-icons"></i></span>
-                                                <p>ashera@gmail.com</p>
+                                                <p><%= myself[0].email %></p>
                                             </li>
                                             <li><span><i class="fas fa-phone inner-icons"></i></span>
-                                                <p>770088515</p>
+                                                <p><%= myself[0].tele %>71283928</p>
                                             </li>
-
                                         </ul>
                                         <div class="bottom-icons">
                                             <div class="closed-now">Click Here to Edit Your Profile</div>
@@ -134,17 +133,18 @@
                                         <p>Slides</p> <span>• </span>
                                         <p>Questions</p> <span> • </span>
                                         <p>Answers</p>
+                                        
                                         <ul>
-                                           <li><span><i class="fas fa-graduation-cap inner-icons"></i></span>
-                                                <p>2019 Combined Maths</p>
-                                            </li>
+                                        <% for(var i=0; i<myself.length; i++){ %>                                            
                                             <li><span><i class="fas fa-graduation-cap inner-icons"></i></span>
-                                                <p>2020 Physics</p>
+                                                <p><%= myself[i].year+"  "+myself[i].subname%></p>
                                             </li>
-                                            <li><span><i class="fas fa-graduation-cap inner-icons"></i></span>
-                                                <p>2018 Chemistry</p>
+                                        <% } %>
+                                        <% for(i; i<3; i++){ %>                                            
+                                            <li><span></span>
+                                                <p></p>
                                             </li>
-
+                                        <% } %>
                                         </ul>
                                         <div class="bottom-icons">
                                             <div class="closed-now">View Course Content of Your Classes</div>
@@ -169,40 +169,23 @@
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <div class="row" style="margin-top:20px;">
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
-                                                        <a href="#">
-                                                            <div class="image">
-                                                                <img src="https://www.tutors.gr/sites/default/files/maths_blackboard.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Maths - 2019 A/L</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Register a new Lecturer</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
+                                                <% for(var i=0; i<myself.length; i++){ %>
+                                                    <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                                        <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
+                                                            <a href="#" class="class-btn" onclick="getClass(this)" id="<%= myself[i].subID%>">
+                                                                <div class="image">
+                                                                    <img src="../images/subjects/maths<%= i%3 %>.jpg" style="height:100%" class="img-fluid" alt="#">
+                                                                </div>
+                                                                <div class="featured-title-box inner-title">
+                                                                    <h6 style="margin:-10px"><%= myself[i].year+" - "+myself[i].subname%></h6>
+                                                                    <div class="bottom-icons">
+                                                                        <div class="closed-now">Click Here to Go to The Menu</div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
-                                                        <a href="#">
-                                                            <div class="image">
-                                                                <img src="http://c1.thejournal.ie/media/2013/06/maths-equation-one-million-dollars-390x285.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Maths - 2016 A/L</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Register a new Student</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                                <% } %>
                                             </div>
                                         </div>
                                     </div>
@@ -225,7 +208,7 @@
                                             <div class="row" style="margin-top:20px;">
                                                 <div class="col-lg-4 col-md-4 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <a href="/admin/register/lecturer">
+                                                        <a href="#" onclick="discussions()">
                                                             <div class="image">
                                                                 <img src="https://media.glassdoor.com/l/c4/b0/4d/1f/discussion-time.jpg" class="img-fluid" alt="#">
                                                             </div>
@@ -242,7 +225,7 @@
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <a href="/admin/register/lecturer">
+                                                        <a href="#" onclick="content()">
                                                             <div class="image">
                                                                 <img src="https://itradeico.com/wp-content/uploads/2018/06/books-1024x535.png" style="height:100%" class="img-fluid" alt="#">
                                                             </div>
@@ -259,7 +242,7 @@
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 featured-responsive c2">
                                                     <div class="featured-place-wrap">
-                                                        <a href="/admin/register/student">
+                                                        <a href="#" onclick="results()">
                                                             <div class="image">
                                                                 <img src="https://www.dbs.com.sg/iwov-resources/images/sgsme/dbscontent/freetext/wc-articles/financial-planning-analysis.jpg" style="height:100%" class="img-fluid" alt="#">
                                                             </div>

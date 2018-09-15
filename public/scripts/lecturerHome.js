@@ -2,7 +2,6 @@ var subjectId;
 
 function getClass(selectedClass){
     subjectId=selectedClass.id;
-    alert(subjectId);
 }
 
 function addAssignment(){

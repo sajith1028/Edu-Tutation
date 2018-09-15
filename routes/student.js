@@ -3,6 +3,7 @@ var router          =   express.Router();
 var mysql           =   require("mysql");
 var SqlString       =   require('sqlstring');
 
+
 var pool = mysql.createPool({
   host: "localhost",
   user: "nimesha",
@@ -19,7 +20,13 @@ res.redirect("/login");
 }
 
 router.get("/",function(req, res) {
-    res.render("student/studentHome");
+    var sql="SELECT st.*, s.* from subject s, student st, enrolment e where st.stID=e.stID and e.subID=s.subID and st.stID='"+req.user.username+"';";
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+        res.render("student/studentHome", {'myself':res2});
+        
+        res.end();
+    });
 });
 
 
@@ -27,18 +34,12 @@ router.get("/profile", function(req,res){
     
     if(req.user){
     var sql="select s.name,s.school,s.teleres,s.telemob,s.email,s.gender,s.address,s.ALyear from student s where s.stID='"+req.user.username+"'";
-    pool.query(sql,(err,res2,cols)=>{
-       if (err) throw err;
-       res.render("student/studentProfile",{details:res2});
-       res.end();
-    });
-    
-    
+        pool.query(sql,(err,res2,cols)=>{
+           if (err) throw err;
+           res.render("student/studentProfile",{details:res2});
+           res.end();
+        });
     }
-    
-    
-    
-    
 });
 
 router.post("/profile",function(req,res){
@@ -49,8 +50,6 @@ router.post("/profile",function(req,res){
     });
     res.redirect("/student/profile");
 });
-
-
 
 router.get("/payments", function(req,res){
     //If logged in
@@ -68,8 +67,19 @@ router.get("/payments", function(req,res){
     }
 });
 
-router.get("/content", function(req,res){ 
-    res.render("student/studentContent");
+router.get("/discussions/:id", function(req,res){
+    var id = req.params.id;
+    res.render("student/studentDiscussion");
+});
+
+router.get("/viewCourseContent/:id", function(req,res){
+    var id = req.params.id;
+    res.render("student/studentCourseContent");
+});
+
+router.get("/viewResults/:id", function(req,res){
+    var id = req.params.id;
+    res.render("student/studentViewResults");
 });
 
 router.get("/newsfeeds", function(req,res){
