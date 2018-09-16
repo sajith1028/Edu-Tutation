@@ -187,59 +187,62 @@ router.post("/payments/id",function(req, res) {
     });
 });
 
+
+var items;
+var to;
 router.post("/payments/new",function(req, res) {
-    var subjects=req.body.subject;
+    items = [];
+   var subjects=req.body.subject;
     if(Array.isArray(subjects)){
+        
         subjects.forEach(function(sub){
-        var subsplit=sub.split(',');
-        console.log(subsplit);
-        var subject =subsplit[0];
-        var month=subsplit[1];
-        var fee=subsplit[2];
-        var curDate=""+dateTime();
-        curDate=curDate.split('/').join('-');
-        console.log(curDate);
-        var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+            var subsplit=sub.split(',');
+            console.log(subsplit);
+            var subject =subsplit[0];
+            var month=subsplit[1];
+            var fee=subsplit[2];
+            var curDate=""+dateTime();
+            curDate=curDate.split('/').join('-');
+            console.log(curDate);
+            var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
                 
-                var newIndex=months.indexOf(month)+1;
-                console.log("newIndex"+newIndex);
-                if(newIndex>11) newIndex=0;
-                
-                var newMonth=months[newIndex];
-                
-                console.log("Last month:"+month);
-                console.log("newIndex"+newIndex);
-                console.log("NewMonth"+newMonth);
-                var sql3="INSERT INTO payment(date,month,amount,stID,subID,year) values('2018-09-21','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"','2018');";
-                console.log(sql3);
-                pool.query(sql3, (err, res3, cols)=>{
-                    if(err)
-                    throw err; 
-                    
-          });
-       });
+            var newIndex=months.indexOf(month)+1;
+            console.log("newIndex"+newIndex);
+            if(newIndex>11) 
+                newIndex=0;
+            
+            var newMonth=months[newIndex];
+            
+            console.log("Last month:"+month);
+            console.log("newIndex"+newIndex);
+            console.log("NewMonth"+newMonth);
+            var sql3="INSERT INTO payment(date,month,amount,stID,subID,year) values('2018-09-21','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"','2018');";
+            console.log(sql3);
+            pool.query(sql3, (err, res3, cols)=>{
+                if(err)
+                throw err; 
+            });
+            
+            /*for the invoice */
+            items.push({
+                name: subject,
+                unit_cost: fee,
+                quantity: 1
+            })
+            
+            to=studentID;
+        });
     }
     
     
     var invoice = {
         logo: "https://i.imgur.com/qpEKVBl.png",
         from: "Invoiced\n59/4  Ananda Mawatha,\nColombo 10, Sri Lanka",
-        to: "Tharushi Jayasekara",
+        to: to,
         currency: "lkr",
         number: "INV-0001",
         payment_terms: "Class Fees",
-        items: [
-            {
-                name: "Combined Maths",
-                unit_cost: 2500,
-                quantity: 1,
-            },
-            {
-                name: "Physics",
-                unit_cost: 2000,
-                quantity: 1,
-            }
-        ],
+        items: items,
         fields: {
             tax: "%"
         },
@@ -253,6 +256,9 @@ router.post("/payments/new",function(req, res) {
     };
     
     generateInvoice(invoice, 'invoice.pdf', function(){console.log("Saved invoice to invoice.pdf");}, function(error){console.error(error);});
+    
+    //move file1.htm from 'test/' to 'test/dir_1/'
+    moveFile('invoice.pdf', 'public');
     
     req.flash("success","Payment added! Click here to print an invoice.");
     res.redirect("/admin/payments");
@@ -383,12 +389,30 @@ function generateInvoice(invoice, filename, success, error) {
             }
         });
     });
+    
     req.write(postData);
     req.end();
-
+    
     if (typeof error === 'function') {
         req.on('error', error);
     }
 }
+
+//moves the $file to $dir2
+var moveFile = (file, dir2)=>{
+  //include the fs, path modules
+  var fs = require('fs');
+  var path = require('path');
+
+  //gets file name and adds it to dir2
+  var f = path.basename(file);
+  var dest = path.resolve(dir2, f);
+
+  fs.rename(file, dest, (err)=>{
+    if(err) throw err;
+    else console.log('Successfully moved');
+  });
+};
+
 
 module.exports = router;

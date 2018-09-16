@@ -5,12 +5,8 @@ $(function() { // toggling active in navbar
    });
 });
 
-function validateEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-
 $('#submitBtn').click(function(){
+    var valid=true;
     //Empty name
        if($('#name2').val()==''){
            swal({
@@ -46,14 +42,68 @@ $('#submitBtn').click(function(){
         
                         
                         if(/\S+@\S+\.\S+/.test(email)){
-                            //Valid email
-                            swal({
-                                title: "Correct format.",
-                                text:" valid email",
-                                icon: "success",
-                                dangerMode: false,
-                                });
+                            //Valid email & name
+                            var school=$('#school2').val();
                             
+                            if(school!=''){
+                                //School is not empty
+                                if(/^\d+$/.test(school))
+                                {
+                                    //Invalid school
+                                    swal({
+                                        title: "Invalid school name",
+                                        text:"Enter your school name correctly",
+                                        icon: "error",
+                                        dangerMode: true,
+                                        });
+        
+                                    $('#school2').addClass('is-invalid');
+                                    valid=false;
+                                }
+                                                        }
+                                //valid school
+                                var teleres = $('#teleres').val();
+                                var telemob = $('#telemob').val();
+                                
+                                if(teleres!=''){
+                                if(/^\d{9}$/.test(teleres)){
+                                    //correct phone numbers
+                                }
+                                else
+                                {
+                                    swal({
+                                    title: "Invalid residence number",
+                                    icon: "error",
+                                    dangerMode: true,
+                                        });
+        
+                                    $('#teleres').addClass('is-invalid');
+                                }
+                                
+                                if(telemob!=''){
+                                if(/^\d{9}$/.test(telemob)){
+                                    //correct phone numbers
+                                }
+                                else
+                                {
+                                    swal({
+                                    title: "Invalid mobile number",
+                                    icon: "error",
+                                    dangerMode: true,
+                                        });
+        
+                                    $('#telemob').addClass('is-invalid');
+                                }
+                                
+                                if(valid)
+                                {
+                                    swal({
+                                    title: "Valid",
+                                    icon: "success",
+                                    dangerMode: false,
+                                        });
+                                }
+                                }
                                             }
                         else{
                             //Invalid EMAIL
