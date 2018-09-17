@@ -14,7 +14,6 @@
         <link rel="stylesheet" type="text/css" href="../stylesheets/home.css"> 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         
-        <script src="../scripts/studentHome.js"></script>
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         
@@ -23,6 +22,7 @@
         <script>
             particlesJS.load('particles-js', '../json/particles.json');
         </script>
+        
     <!-- End of Particles -->    
     </head>
 <body>
@@ -67,7 +67,7 @@
                             <div class="featured-place-wrap">
                                 <a href="/student/profile">
                                     <div class="image">
-                                        <img src="../images/users/<%=currentUser.username%>.jpg" class="img-fluid" alt="#">
+                                        <img src="../images/users/<%=currentUser.username%>.jpg" class="img-fluid" alt="#" id="img">
                                     </div>
                                     <span class="featured-rating"><i class="fas fa-user"></i></span>
                                     <div class="featured-title-box">
@@ -300,4 +300,6 @@
     </div>
 </div>       
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../scripts/studentHome.js"></script>
 <% include ../partials/footer %>

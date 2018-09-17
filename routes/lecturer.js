@@ -56,7 +56,8 @@ router.get("/income", function(req,res){
             else
             amts2[monthIndex]=result.totalfee;
         });    
-            
+        console.log(amts);
+        console.log(amts2);
          res.render("lecturer/lecturerIncome",{incomes:res2,fees:{amts,amts2}});
         res.end();
     });
@@ -90,19 +91,23 @@ router.post("/addNewCourseContent/:id", function(req,res){
     var id = req.params.id;
     var sql="SELECT count(contentID) as noc from content where subID='"+id+"';";
     pool.query(sql, (err, res2, cols)=>{
-         if(err) throw err;
+        if(err) 
+            throw err;
         
         var noc = res2[0].noc+1;
         
         if (!req.files)
             return console.log("upload a file");
      
-        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+        // The name of the input field is used to retrieve the uploaded file
         let courseFile = req.files.courseFile;
         
+        // Get the file format
         var format = courseFile.name.substring(courseFile.name.lastIndexOf('.'));
         
         var fileName;
+        
+        // Increment content id
         if(noc<10)
             fileName = id+"-0"+noc+format;
         else
@@ -116,14 +121,15 @@ router.post("/addNewCourseContent/:id", function(req,res){
             return console.log("done");
         });
         
-        var sql2="INSERT INTO content values ('"+fileName+"','"+req.body.section+"','"+req.body.title+"','"+req.body.desc+"','"+format+"','"+id+"');";
-        console.log(sql2);
+        var sql2="INSERT INTO content values ('"+fileName+"','"+req.body.section+"','"+req.body.title+"','"+req.body.desc+"','"+id+"');";
+        
         con.query(sql2, function (err, result) {
             if (err) throw err;
         });
-        
-        res.render("lecturer/lecturerCourseContent", {'id': id});
     });
+    
+    res.redirect("/lecturer/addCourseContent/"+id);
+    
 });
 
 router.get("/viewResults/:id", function(req,res){

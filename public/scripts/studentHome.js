@@ -1,5 +1,9 @@
 var subjectId;
 
+$("img").error(function () {
+  $(this).unbind("error").attr("src", "../images/users/notFound.png");
+});
+
 function getClass(selectedClass){
     subjectId=selectedClass.id;
 }

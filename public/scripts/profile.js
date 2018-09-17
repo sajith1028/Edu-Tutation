@@ -5,10 +5,15 @@ $(function() { // toggling active in navbar
    });
 });
 
+$("img").error(function () {
+  $(this).unbind("error").attr("src", "../images/users/notFound.png");
+});
+
 $('#submitBtn').click(function(){
     var valid=true;
     //Empty name
-       if($('#name2').val()==''){
+    var name=$('#name2').val();
+       if(name==''){
            swal({
            title: "Name cannot be empty",
            icon: "error",
@@ -18,14 +23,14 @@ $('#submitBtn').click(function(){
         $('#name2').addClass('is-invalid');
                                 }                      
        else{
-           //Name not empty
+          //Name not empty
             var stname = $('#name2').val();
             var RegExpression = /^[a-zA-Z\s]*$/; 
         
             if (RegExpression.test(stname)) {
-             //correct name
+              //correct name
                     
-                       //Empty email
+                      //Empty email
                     if($('#email2').val()==''){
                         swal({
                             title: "Email cannot be empty",
@@ -45,66 +50,92 @@ $('#submitBtn').click(function(){
                             //Valid email & name
                             var school=$('#school2').val();
                             
-                            if(school!=''){
-                                //School is not empty
-                                if(/^\d+$/.test(school))
+                                //school contains letters spaces & nums
+                                if(RegExpression.test(school) || school==''  )
                                 {
-                                    //Invalid school
-                                    swal({
+                                    var teleres = $('#teleres').val();
+                                    
+                                    if(/^\d{9}$/.test(teleres) || teleres==''){
+                                    //correct res number
+                                            
+                                            var telemob = $('#telemob').val();
+                                            
+                                            if(/^\d{9}$/.test(telemob) || telemob==''){
+                                                //correct mob number
+                                            
+                                                
+                                                //everything is correct
+                                                swal({
+                                                title: "Saving ...",
+                                                text: "Updating your details!",
+                                                icon: "success",
+                                                dangerMode: false,
+                                                });         
+                                                            var gender=$('#gender').val();
+                                                            var address=$('#address2').val();
+                                                            
+                                                            var obj = {};
+                                                            obj.name=name;
+                                                            obj.school=school;
+                                                            obj.teleres=teleres;
+                                                            obj.telemob=telemob;
+                                                            obj.email=email;
+                                                            obj.gender=gender;
+                                                            obj.address=address;
+
+                                                            $.ajax({
+                                                            url: "/student/profile",
+                                                            type: "POST",
+                                                            contentType:"application/json",
+                                                            data: JSON.stringify(obj)
+                                                            }).done(function(result){
+                                                                window.location.href="https://akura-nimesha.c9users.io/student/profile";
+                                                            });
+                                                
+                                            }
+                                            else
+                                            {
+                                                swal({
+                                                title: "Invalid mobile number",
+                                                icon: "error",
+                                                dangerMode: true,
+                                                });
+        
+                                                $('#telemob').addClass('is-invalid');
+                                            }
+                                            
+                                            
+                                        
+                                    }
+                                    else
+                                    {
+                                        swal({
+                                        title: "Invalid residence number",
+                                        icon: "error",
+                                        dangerMode: true,
+                                        });
+        
+                                        $('#teleres').addClass('is-invalid');
+                                }
+                                      
+                                }
+                                else
+                                {   //invalid school
+                                  swal({
                                         title: "Invalid school name",
                                         text:"Enter your school name correctly",
                                         icon: "error",
                                         dangerMode: true,
                                         });
         
-                                    $('#school2').addClass('is-invalid');
-                                    valid=false;
+                                    $('#school2').addClass('is-invalid'); 
+                                    
                                 }
-                                                        }
-                                //valid school
-                                var teleres = $('#teleres').val();
-                                var telemob = $('#telemob').val();
+    //                                                     }
                                 
-                                if(teleres!=''){
-                                if(/^\d{9}$/.test(teleres)){
-                                    //correct phone numbers
-                                }
-                                else
-                                {
-                                    swal({
-                                    title: "Invalid residence number",
-                                    icon: "error",
-                                    dangerMode: true,
-                                        });
-        
-                                    $('#teleres').addClass('is-invalid');
-                                }
-                                
-                                if(telemob!=''){
-                                if(/^\d{9}$/.test(telemob)){
-                                    //correct phone numbers
-                                }
-                                else
-                                {
-                                    swal({
-                                    title: "Invalid mobile number",
-                                    icon: "error",
-                                    dangerMode: true,
-                                        });
-        
-                                    $('#telemob').addClass('is-invalid');
-                                }
-                                
-                                if(valid)
-                                {
-                                    swal({
-                                    title: "Valid",
-                                    icon: "success",
-                                    dangerMode: false,
-                                        });
-                                }
-                                }
-                                            }
+                        
+    //                     }
+            }
                         else{
                             //Invalid EMAIL
                             swal({
@@ -115,8 +146,9 @@ $('#submitBtn').click(function(){
                                 });
             
                             $('#email2').addClass('is-invalid');
-                            }   
                         }
+                        }   
+                        
                     }
                     else
                     {
@@ -130,7 +162,8 @@ $('#submitBtn').click(function(){
             
                         $('#name2').addClass('is-invalid');
                     }
-                }
+    //             }
+    // }
+       }
             });
-                    
-                
+            

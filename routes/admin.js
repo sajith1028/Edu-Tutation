@@ -6,7 +6,7 @@ var SqlString       =   require('sqlstring');
 var nodemailer      = require('nodemailer'); //for mailing purposes
 var randomstring    = require("randomstring"); //to generate random strings as passwords
 var bcrypt          =   require("bcrypt"); // for encryption
-var dateTime = require('get-date'); //returns current date
+var dateTime    = require('get-date'); //returns current date
 var flash           =   require("connect-flash");
 var Swal            =   require('sweetalert2')
 
@@ -15,16 +15,12 @@ var Swal            =   require('sweetalert2')
 var https   = require("https");
 var fs      = require("fs");
 
-//to open a new window
-var opn    = require("opn");
-
-
 //If the user is an Admin, redirect to the Admin home. Otherwise redirect to the login
 function isLoggedIn(req, res, next){
-if(req.isAuthenticated() && req.user.username.charAt(0)=='A' ){
+    if (req.isAuthenticated() && req.user.username.charAt(0)=='A'){
         return next();
     }
-res.redirect("/login");
+    res.redirect("/login");
 }
 
 //creates the mysql connection to the database
@@ -66,7 +62,7 @@ router.post("/register/student/new",function(req, res) {
         if(err)
             throw err;
         nos=parseInt(res2[0].numberOfStudents, 10)+1;
-        console.log(nos);
+        //console.log(nos);
         
         if(nos<10)
             stID = stID+ALyear+"-00"+nos;
@@ -89,10 +85,28 @@ router.post("/register/student/new",function(req, res) {
         if(Array.isArray(subjects)){
             subjects.forEach(function(subject){    
                 var sql3="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subject)+","+SqlString.escape(stID)+");";
-                //console.log(sql3);
+                console.log(sql3);
                 con.query(sql3, function (err, result) {
                     if (err) throw err;
                 });
+                
+                var datetime = new Date();
+                var curDate = datetime.toJSON();
+            
+                var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+                var d = new Date();
+                var curMonth = months[d.getMonth()];        
+        
+                var sql5="INSERT INTO payment (date,month,amount,stID,subID,year) values('"+curDate+"','"+curMonth+"','1000',"+SqlString.escape(stID)+","+SqlString.escape(subject)+",'2018');";
+                
+                con.query(sql5, function (err, result) {
+                    if (err) throw err;
+                });
+                
+                
+                
+                
+                
             });
         }
         else
@@ -102,11 +116,11 @@ router.post("/register/student/new",function(req, res) {
         
         var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
         bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
-           var users={
+          var users={
             "username":stID,
             "password":hash }
                  
-                //insert  details into the db
+            //insert  details into the db
             con.query("INSERT INTO user SET ?",users,function (error, results, fields){
                 if(error){
                     req.flash("error","Please try again!");
@@ -213,10 +227,12 @@ router.post("/payments/new",function(req, res) {
             
             var newMonth=months[newIndex];
             
-            console.log("Last month:"+month);
-            console.log("newIndex"+newIndex);
-            console.log("NewMonth"+newMonth);
-            var sql3="INSERT INTO payment(date,month,amount,stID,subID,year) values('2018-09-21','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"','2018');";
+            //console.log("Last month:"+month);
+            //console.log("newIndex"+newIndex);
+            //console.log("NewMonth"+newMonth);
+            var datetime = new Date();
+            var newDate = datetime.toJSON();
+            var sql3="INSERT INTO payment(date,month,amount,stID,subID,year) values('"+newDate+"','"+newMonth+"',"+fee+",'"+studentID+"','"+subject+"','2018');";
             console.log(sql3);
             pool.query(sql3, (err, res3, cols)=>{
                 if(err)
@@ -301,11 +317,13 @@ router.post("/register/lecturer/new", function(req,res){
         
         var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
         bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
-           var users={
-            "username":lecID,
-            "password":hash }
+            var users={
+                "username":lecID,
+                "password":hash 
+               
+            }
                  
-                //insert  details into the db
+            //insert  details into the db
             con.query("INSERT INTO user SET ?",users,function (error, results, fields){
                 if(error){
                     req.flash("error","Please try again!");

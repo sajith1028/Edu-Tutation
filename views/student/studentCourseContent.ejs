@@ -85,8 +85,16 @@
                                     <% var section = content[0].section%>
                                    
                                     <% for(var i =0; i< content.length; i++) { %>
-                                    
-                                        <% if (section != content[i].section) {%>
+                                    <% if (section != content[i].section && i>0) {%>
+                                            </div> <!-- row.// -->
+                                                </div>
+                                                    <br>
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title"><%= content[i].section %></h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                        <% } else if (section != content[i].section) {%>
                                             <div class="panel-heading">
                                                 <h3 class="panel-title"><%= content[i].section %></h3>
                                             </div>

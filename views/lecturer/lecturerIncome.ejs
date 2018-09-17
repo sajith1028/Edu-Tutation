@@ -97,8 +97,8 @@
             								<th class="column2">Subject ID</th>
             								<th class="column8">AL Year</th>
             								<th class="column3">Subject</th>
-            								<th class="column9">Monthly Fee</th>
-            								<th class="column4">#Enrolments</th>
+            								<th class="column9" style="width:100px;">Monthly Fee</th>
+            								<th class="column4" style="width:200px;">#Enrolments</th>
             								<th class="column5">Gross Income (Rs.)</th>
             								<th class="column6">Maintenance (Rs.)</th>
             								<th class="column7">Net Income (Rs.)</th>
@@ -112,8 +112,8 @@
             									<td class="column2"><%=income.subID%></td>
             									<td class="column8"><%=income.ALyear%></td>
             									<td class="column3"><%=income.subname%></td>
-            									<td class="column3"><%=income.fee%></td>
-            									<td class="column4"><%=income.num%></td>
+            									<td class="column3" style="width:100px;"><%=income.fee%></td>
+            									<td class="column4" style="width:200px;"><%=income.num%></td>
             									<td class="column5"><%=income.totalfee%></td>
             									<td class="column6"><%=income.totalfee/4%></td>
             									<td class="column7"><b><%=income.totalfee-income.totalfee/4%></b></td>
@@ -207,7 +207,7 @@
       },
       series: [{
         values: [ 0, 0, 0, 0, 0, 0, 0, 0, 4000, 4000, 0, 0 ],
-        text: "Com. Math I",
+        text: "S01",
         backgroundColor: "#4CAF50",
         lineColor: "#10594b",
         marker: {
@@ -217,7 +217,7 @@
         }
       },{
         values: [0,0,0,0,0,0,0,6000,6000,2000,0,0],
-        text: "Com. Math II",
+        text: "S05",
         backgroundColor: "#4CAF50",
         lineColor: "#4caf9c",
         marker: {
