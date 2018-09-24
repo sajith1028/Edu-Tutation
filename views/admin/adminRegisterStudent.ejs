@@ -79,9 +79,11 @@
             <% } %>
    
             <% if(success && success.length>0){%>
-                <div class="alert alert-success dangers show alrt" role="alert">
-                <%=success%>
-                </div>
+                    <a href="/idCard.pdf">
+                        <div class="alert alert-success dangers" role="alert">
+                            <%=success%>
+                        </div>
+                    </a>
             <% } %>
         </div>
 
@@ -178,7 +180,7 @@
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Name</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="name"  id="name" placeholder="Name" readonly>
+                                                    <input class="form-control" type="text" name="name"  id="name" placeholder="Name" disabled>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">A/L Year</label>

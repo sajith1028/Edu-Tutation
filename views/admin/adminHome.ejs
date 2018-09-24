@@ -219,47 +219,70 @@
                                             <span aria-hidden="true" style="color:white;">&times;</span>
                                         </button>
                                     </div>
-                            
+                                    
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <div class="row" style="margin-top:20px;">
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#">
-                                                            <div class="image">
-                                                                <img src="https://www.tutors.gr/sites/default/files/maths_blackboard.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Maths - 2019 A/L</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Register a new Lecturer</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
+                                                <% for(var i=0; i<today.length; i++){ %>
+                                                    <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                                        <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
+                                                            <a href="/admin/attendance/<%=today[i].subID%>" class="class-btn" onclick="getClass(this)" id="<%= today[i].subID%>">
+                                                                <div class="image">
+                                                                    <img src="../images/subjects/maths<%= i%3 %>.jpg" style="height:100%" class="img-fluid" alt="#">
+                                                                </div>
+                                                                <div class="featured-title-box inner-title">
+                                                                    <h6 style="margin:-10px"><%= today[i].year+" - "+today[i].subname%></h6>
+                                                                    <div class="bottom-icons">
+                                                                        <div class="closed-now">Click Here to Go to The Menu</div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#">
-                                                            <div class="image">
-                                                                <img src="http://c1.thejournal.ie/media/2013/06/maths-equation-one-million-dollars-390x285.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Maths - 2016 A/L</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Register a new Student</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                <% } %>
+                                            </div> 
                                         </div>
                                     </div>
+                                    <!--<div class="modal-body">-->
+                                    <!--    <div class="container-fluid">-->
+                                    <!--        <div class="row" style="margin-top:20px;">-->
+                                    <!--            <div class="col-lg-6 col-md-6 featured-responsive c2">-->
+                                    <!--                <div class="featured-place-wrap">-->
+                                    <!--                    <a href="/admin/attendance/mark">-->
+                                    <!--                        <div class="image">-->
+                                    <!--                            <img src="https://www.tutors.gr/sites/default/files/maths_blackboard.jpg" style="height:100%" class="img-fluid" alt="#">-->
+                                    <!--                        </div>-->
+                                    <!--                        <div class="featured-title-box inner-title">-->
+                                    <!--                            <h6 style="margin:-10px">Maths - 2019 A/L</h6>-->
+                                    <!--                            <ul>-->
+                                    <!--                                <li><span class="icon-location-pin"></span>-->
+                                    <!--                                    <p>Register a new Lecturer</p>-->
+                                    <!--                                </li>-->
+                                    <!--                            </ul>-->
+                                    <!--                        </div>-->
+                                    <!--                    </a>-->
+                                    <!--                </div>-->
+                                    <!--            </div>-->
+                                    <!--            <div class="col-lg-6 col-md-6 featured-responsive c2">-->
+                                    <!--                <div class="featured-place-wrap">-->
+                                    <!--                    <a href="#">-->
+                                    <!--                        <div class="image">-->
+                                    <!--                            <img src="http://c1.thejournal.ie/media/2013/06/maths-equation-one-million-dollars-390x285.jpg" style="height:100%" class="img-fluid" alt="#">-->
+                                    <!--                        </div>-->
+                                    <!--                        <div class="featured-title-box inner-title">-->
+                                    <!--                            <h6 style="margin:-10px">Maths - 2016 A/L</h6>-->
+                                    <!--                            <ul>-->
+                                    <!--                                <li><span class="icon-location-pin"></span>-->
+                                    <!--                                    <p>Register a new Student</p>-->
+                                    <!--                                </li>-->
+                                    <!--                            </ul>-->
+                                    <!--                        </div>-->
+                                    <!--                    </a>-->
+                                    <!--                </div>-->
+                                    <!--            </div>-->
+                                    <!--        </div>-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>

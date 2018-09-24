@@ -1,6 +1,10 @@
 $('#submitbtn').click(function(){
-     $('#curLecturer').on('show',function(){
-        console.log("current");  
-     });
+     // $('#curStudentr').on('show',function(){
+         swal({
+          title: "Clicked it",
+          icon: "error",
+          dangerMode: true,
+        });
+     // });
      //document.getElementById("registernew").submit();
  });

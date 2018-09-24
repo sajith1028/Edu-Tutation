@@ -24,10 +24,10 @@ var changeTable = function(alyears){
 };
 
 $('#submitbtn').click(function(){
-     document.getElementById("registernew").submit();
- });
+    document.getElementById("registernew").submit();
+});
  
- $('#checkBtn').click(function(){
+$('#checkBtn').click(function(){
     var stid = $('#stID').val();
     $.ajax({
         url: "/admin/payments/name",

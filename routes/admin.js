@@ -3,13 +3,15 @@ var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
 var SqlString       =   require('sqlstring');
-var nodemailer      = require('nodemailer'); //for mailing purposes
-var randomstring    = require("randomstring"); //to generate random strings as passwords
+var nodemailer      =   require('nodemailer'); //for mailing purposes
+var randomstring    =   require("randomstring"); //to generate random strings as passwords
 var bcrypt          =   require("bcrypt"); // for encryption
-var dateTime    = require('get-date'); //returns current date
+var dateTime        =   require('get-date'); //returns current date
 var flash           =   require("connect-flash");
-var Swal            =   require('sweetalert2')
+var Swal            =   require('sweetalert2');
 
+var pdfMake         =   require('pdfmake');  //to generate student idwork 
+var moment          =   require('moment'); //To parse, validate, manipulate, and display dates and times
 
 //for document generating
 var https   = require("https");
@@ -40,7 +42,15 @@ var con             =   mysql.createConnection({
 });
 
 router.get("/",function(req, res) {
-    res.render("admin/adminHome");
+    
+     var sql="SELECT s.* from subject s where s.day ='Monday';";
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) 
+            throw err;
+        res.render("admin/adminHome", {'today':res2});
+        res.end();
+    });
+    
 });
 
 /*****************************************************/
@@ -57,7 +67,7 @@ router.post("/register/student/new",function(req, res) {
     var stID="S-";
     
     var sql="select count(stID) as numberOfStudents from student where ALyear="+ALyear+";";  
-    console.log(sql);
+    
     pool.query(sql, (err, res2, cols)=>{
         if(err)
             throw err;
@@ -75,7 +85,7 @@ router.post("/register/student/new",function(req, res) {
         var subjects=req.body.subject;
         
        
-        var sql2="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
+        /*var sql2="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
         //console.log(sql2);
         con.query(sql2, function (err, result) {
             if (err) throw err;
@@ -102,19 +112,90 @@ router.post("/register/student/new",function(req, res) {
                 con.query(sql5, function (err, result) {
                     if (err) throw err;
                 });
-                
-                
-                
-                
-                
             });
         }
         else
         {
             var sql4="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subjects)+","+SqlString.escape(stID)+");";
-        }
+        }*/
         
-        var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
+        
+        var idCard = {
+            pageSize:{
+                width: 410,
+                height: 170
+            },
+            
+            pageMargins: [ 10, 10, 10, 0 ],
+            pageOrientation: 'landscape',
+        	
+        	content: [
+            {    
+                columns: [
+                	{
+    	                qr:stID+" "+name+" "+ALyear,
+    	                fit: 150,
+    	                width: 150,
+    	                height: 150
+                    },
+        
+                    {
+                        width: '*',
+                        alignment: 'center',
+                        stack: [
+                        {
+        	                text: [
+        	                    { 
+        	                        text: 'AKURA INSTITUTE\n\n',
+        	                        fontSize: 12
+        	                    },
+        	                    
+        	                    { 
+        	                        text: '--------------  STUDENT IDENTIFICATION CARD  --------------\n\n\n',
+        	                        fontSize: 9
+        	                    }
+        	                ]
+        	            },
+        
+        	            {    
+        	                table: {
+        	                    widths: [ 70, 20, '*' ],
+        	                    heights: [20, 20, 20, 20],
+        	                    body: [
+        	                        [ [{ alignment:'right', text: 'Student #', fontSize:10}], '-', [{alignment:'left', text: stID, fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'Name', fontSize:10}], '-', [{ alignment:'left', text: name, fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'A/L - Year', fontSize:10}], '-', [{ alignment:'left', text: ALyear, fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'E-Mail', fontSize:10}], '-', [{ alignment:'left', text: email, fontSize:10}] ]
+        	                    ]
+        	                },
+                            layout:'noBorders'
+        	            }]
+                    }
+        		],
+        		columnGap:5
+            }]
+        };
+        
+        var PdfPrinter = require('pdfmake/src/printer');
+        var fonts = {
+            Roboto: {
+                normal: './fonts/Roboto-Regular.ttf',
+                bold: './fonts/Roboto-Medium.ttf',
+                italics: './fonts/Roboto-Italic.ttf',
+                bolditalics: './fonts/Roboto-Italic.ttf'
+            }
+        };
+        
+        var printer = new PdfPrinter(fonts);
+        
+        var pdfDoc = printer.createPdfKitDocument(idCard);
+        pdfDoc.pipe(fs.createWriteStream('idCard.pdf')).on('finish',function(){
+            
+        });
+        pdfDoc.end();
+        
+        
+        /*var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
         bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
           var users={
             "username":stID,
@@ -153,10 +234,11 @@ router.post("/register/student/new",function(req, res) {
                     });
                 }
           });
-        });
-        
+        });*/
     });
-    req.flash("success","Student registration successful!");
+    
+    moveFile('idCard.pdf', 'public');
+    req.flash("success","Student registration successful! Click here to print the student ID.");
     res.redirect("/admin/register/student");
 });
 
@@ -284,8 +366,13 @@ router.post("/payments/new",function(req, res) {
 router.get("/register/lecturer", function(req,res){
     res.render("admin/adminRegisterLecturer");
 });
-    
+
+router.post("/register/lecturer/class", function(req,res){
+    console.log(req.body);
+});
+
 router.post("/register/lecturer/new", function(req,res){
+    
     var name=req.body.firstname+" "+req.body.lastname;
     var email=req.body.email;
     var nic=req.body.nic;
@@ -372,9 +459,18 @@ router.post("/register/alyear", function(req,res){
     });
 });
 
-router.get("/attendance", function(req,res){
-    res.render("admin/adminAttendance");
+router.get("/attendance/:subject", function(req,res){
+    var subID=req.params.subject;
+    
+    var sql="SELECT distinct s.subname,s.year,st.name,st.stID FROM subject s,student st,enrolment e where e.subID=s.subID and s.subID='"+subID+"' and e.stID=st.stID;";
+
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+            res.render("admin/adminMarkAttendance",{subject:res2,moment:moment});
+            res.end();
+    });
 });
+
 
 router.get("/newsfeeds", function(req,res){
     res.render("admin/adminNews");

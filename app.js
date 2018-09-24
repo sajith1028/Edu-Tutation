@@ -14,8 +14,7 @@ var con             =   mysql.createConnection({
                         password: "",
                         database: "akura"
 });
-
-var fileUpload      = require('express-fileupload'); //for images
+var fileUpload      =   require('express-fileupload'); //for images
 
 //ok
 con.connect(function(err){
