@@ -471,8 +471,27 @@ router.get("/attendance/:subject", function(req,res){
 
 
 router.get("/newsfeeds", function(req,res){
-    res.render("admin/adminNews");
+    var sql="SELECT * from sch_changes order by created desc";
+    
+    pool.query(sql,(err,res2,cols)=>{
+       res.render("admin/adminNews",{posts:res2,moment:moment});
+    });
 });
+
+router.post("/newsfeed/new",function(req, res) {
+    var title=req.body.blog.title;
+    var content=req.body.blog.body;
+    var created = new Date().toJSON();
+    
+    var sql="INSERT INTO sch_changes (title,content,created) VALUES ('"+title+"','"+content+"','"+created+"');"
+    pool.query(sql,(err,res2,cols)=>{
+       if(err) throw err;
+       res.redirect("/admin/newsfeeds");
+       res.end();
+    });
+    
+});
+
 
 function generateInvoice(invoice, filename, success, error) {
     var postData = JSON.stringify(invoice);

@@ -112,23 +112,24 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-12 comment-main rounded">
                                             <ul class="p-0">
-                                                <% for(var i=0; i<5; i++) { %>
+                                                <% for(var i=0; i<posts.length; i++) { %>
                                                     <li>
                                                         <div class="row comment-box p-1 pt-3 pr-4">
                                                             <div class="col-lg-1 col-3 user-img text-center">
-                                                                <img src="/../images/users/S-2019-001.jpg" class="main-cmt-img">
+                                                                <img src="/../images/users/notFound.png" class="main-cmt-img">
                                                             </div>
                                                             <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
                                                                 <div class="row">
                                                                     <div class="col-lg-8 col-6 border-bottom pr-0">
-                                                                        <p class="w-100 p-2 m-0 font-black">Lorem ipsum dolor sit amet.</p>
+                                                                        <h6><%=posts[i].title%></h6>
+                                                                        <p class="w-100 p-2 m-0 font-black"><%=posts[i].content%></p>
                                                                     </div>
                                                                     <div class="col-lg-4 col-6 border-bottom">
-                                                                        <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i>01 : 00</span></p>
-                                                                    </div>
+                                                                        <!--<p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i></span></p>
+                                                                    --></div>
                                                                 </div> 
                                                                 <div class="user-comment-desc p-1 pl-2" style="height:25px">
-                                                                    <p class="m-0 mr-2">Tharushi Jayasekara</p>                      
+                                                                    <p class="m-0 mr-2">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
                                                                 </div>    
                                                             </div>
                                                         </div>

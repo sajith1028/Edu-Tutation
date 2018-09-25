@@ -3,6 +3,7 @@ var router          =   express.Router();
 var mysql           =   require("mysql");
 var SqlString       =   require('sqlstring');
 
+var moment          =   require('moment'); //To parse, validate, manipulate, and display dates and times
 
 var pool = mysql.createPool({
   host: "localhost",
@@ -21,11 +22,17 @@ res.redirect("/login");
 
 router.get("/",function(req, res) {
     var sql="SELECT st.*, s.* from subject s, student st, enrolment e where st.stID=e.stID and e.subID=s.subID and st.stID='"+req.user.username+"';";
+    
+    var sql2="SELECT * from sch_changes order by created desc limit 5";
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
-        res.render("student/studentHome", {'myself':res2});
         
-        res.end();
+        pool.query(sql2,(err,res3,cols)=>{
+           res.render("student/studentHome",{'myself':res2,posts:res3,moment:moment});
+           res.end();
+            });
+        
+        
     });
 });
 
