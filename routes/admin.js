@@ -43,14 +43,13 @@ var con             =   mysql.createConnection({
 
 router.get("/",function(req, res) {
     
-     var sql="SELECT s.* from subject s where s.day ='Monday';";
+    var sql="SELECT s.* from subject s where s.day ='Monday';";
     pool.query(sql, (err, res2, cols)=>{
         if(err) 
             throw err;
         res.render("admin/adminHome", {'today':res2});
         res.end();
     });
-    
 });
 
 /*****************************************************/
@@ -65,7 +64,7 @@ router.post("/register/student/new",function(req, res) {
     
     var nos;
     var stID="S-";
-    
+    /*
     var sql="select count(stID) as numberOfStudents from student where ALyear="+ALyear+";";  
     
     pool.query(sql, (err, res2, cols)=>{
@@ -85,7 +84,7 @@ router.post("/register/student/new",function(req, res) {
         var subjects=req.body.subject;
         
        
-        /*var sql2="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
+        var sql2="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
         //console.log(sql2);
         con.query(sql2, function (err, result) {
             if (err) throw err;
@@ -133,7 +132,8 @@ router.post("/register/student/new",function(req, res) {
             {    
                 columns: [
                 	{
-    	                qr:stID+" "+name+" "+ALyear,
+    	                //qr:stID+" "+name+" "+ALyear,
+    	                qr:'S-2019-017 Tharushi Jayasekara 2019',
     	                fit: 150,
     	                width: 150,
     	                height: 150
@@ -162,10 +162,15 @@ router.post("/register/student/new",function(req, res) {
         	                    widths: [ 70, 20, '*' ],
         	                    heights: [20, 20, 20, 20],
         	                    body: [
-        	                        [ [{ alignment:'right', text: 'Student #', fontSize:10}], '-', [{alignment:'left', text: stID, fontSize:10}] ],
-        	                        [ [{ alignment:'right', text: 'Name', fontSize:10}], '-', [{ alignment:'left', text: name, fontSize:10}] ],
-        	                        [ [{ alignment:'right', text: 'A/L - Year', fontSize:10}], '-', [{ alignment:'left', text: ALyear, fontSize:10}] ],
-        	                        [ [{ alignment:'right', text: 'E-Mail', fontSize:10}], '-', [{ alignment:'left', text: email, fontSize:10}] ]
+        	                       // [ [{ alignment:'right', text: 'Student #', fontSize:10}], '-', [{alignment:'left', text: stID, fontSize:10}] ],
+        	                       // [ [{ alignment:'right', text: 'Name', fontSize:10}], '-', [{ alignment:'left', text: name, fontSize:10}] ],
+        	                       // [ [{ alignment:'right', text: 'A/L - Year', fontSize:10}], '-', [{ alignment:'left', text: ALyear, fontSize:10}] ],
+        	                       // [ [{ alignment:'right', text: 'E-Mail', fontSize:10}], '-', [{ alignment:'left', text: email, fontSize:10}] ]
+        	                       
+        	                       [ [{ alignment:'right', text: 'Student #', fontSize:10}], '-', [{alignment:'left', text: 'S-2019-017', fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'Name', fontSize:10}], '-', [{ alignment:'left', text: 'Tharushi Jayasekara', fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'A/L - Year', fontSize:10}], '-', [{ alignment:'left', text: '2019', fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'E-Mail', fontSize:10}], '-', [{ alignment:'left', text: 'tharushi68@gmail.com', fontSize:10}] ]
         	                    ]
         	                },
                             layout:'noBorders'
@@ -190,7 +195,7 @@ router.post("/register/student/new",function(req, res) {
         
         var pdfDoc = printer.createPdfKitDocument(idCard);
         pdfDoc.pipe(fs.createWriteStream('idCard.pdf')).on('finish',function(){
-            
+            moveFile('idCard.pdf', 'public');
         });
         pdfDoc.end();
         
@@ -234,10 +239,9 @@ router.post("/register/student/new",function(req, res) {
                     });
                 }
           });
-        });*/
-    });
+        });
+    });*/
     
-    moveFile('idCard.pdf', 'public');
     req.flash("success","Student registration successful! Click here to print the student ID.");
     res.redirect("/admin/register/student");
 });
