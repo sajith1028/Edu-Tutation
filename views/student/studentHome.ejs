@@ -57,75 +57,36 @@
   </div>
 </nav>
 <div id="particles-js">
-    <div id="overlay">
-    <h2 id="topic">HOME</h2>
+    <div id="overlay" style="width:100%">
+    <h2 id="topic" style="margin-bottom:20px">HOME</h2>
     <!--============================= DETAIL =============================-->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 responsive-wrap">
-                    <div class="row detail-options-wrap">
-                        <div class="col-md-6 col-lg-3 featured-responsive c2 c1">
-                            <div class="featured-place-wrap">
-                                <a href="/student/profile">
-                                    <div class="image">
-                                        <img src="../images/users/<%=currentUser.username%>.jpg" class="img-fluid" alt="#" id="img">
-                                    </div>
-                                    <span class="featured-rating"><i class="fas fa-user"></i></span>
-                                    <div class="featured-title-box">
-                                        <h6>Profile</h6>
-                                        <p>Edit your profile </p> <span>• </span>
-                                        <ul>
-                                            <li><span><i class="fas fa-user-tag inner-icons"></i></span>
-                                                <p><%= myself[0].name %></p>
-                                            </li>
-                                            <li><span><i class="fas fa-envelope inner-icons"></i></span>
-                                                <p><%= myself[0].email %></p>
-                                            </li>
-                                            <li><span><i class="fas fa-phone inner-icons"></i></span>
-                                                <p><%= myself[0].tele %>71283928</p>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">Click Here to Edit Your Profile</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 featured-responsive">
+                <div class="col-lg-4 col-md-5 responsive-wrap">
+                    <div class="row">
+                        <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;">
                             <div class="featured-place-wrap">
                                 <a href="/student/payments">
-                                    <div class="image">
+                                    <div class="image" style="height:140px;">
                                         <img src="https://i.pinimg.com/originals/a5/d2/1a/a5d21aab5e18630975ae7e02eaa37af2.jpg" class="img-fluid" alt="#">
                                     </div>
                                     <span class="featured-rating-yellow"><i class="fas fa-money-bill-alt"></i></span>
                                     <div class="featured-title-box">
                                         <h6>Payments</h6>
                                         <p>View payment history </p>
-                                        <ul>
-                                            <li><span><i class="fas fa-money-check-alt inner-icons"></i></span>
-                                                <p>Payment history</p>
-                                            </li>
-                                            <li><span><i class="fas fa-funnel-dollar inner-icons"></i></span>
-                                                <p>Upcoming payments</p>
-                                            </li>
-                                            <li><span><i class="fas fa-funnel-dollassr inner-icons"></i></span></li>
-
-                                        </ul>
                                         <div class="bottom-icons">
                                             <div class="closed-now">Click Here to View Your Payments</div>
-                                            
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 featured-responsive c2"  data-toggle="modal" data-target="#classes">
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;" data-toggle="modal" data-target="#classes">
                             <div class="featured-place-wrap">
                                 <a href="#">
-                                    <div class="image">
+                                    <div class="image" style="height:140px;">
                                         <img src="https://www.touteleurope.eu/fileadmin/_processed_/0/7/politique-euro-formation-education-a387ed0502.jpg" class="img-fluid" alt="#">
                                     </div>
                                     <span class="featured-rating-green"><i class="fas fa-book-open"></i></span>
@@ -134,162 +95,158 @@
                                         <p>Slides</p> <span>• </span>
                                         <p>Questions</p> <span> • </span>
                                         <p>Answers</p>
-                                        
-                                        <ul>
-                                        <% for(var i=0; i<myself.length; i++){ %>                                            
-                                            <li><span><i class="fas fa-graduation-cap inner-icons"></i></span>
-                                                <p><%= myself[i].year+"  "+myself[i].subname%></p>
-                                            </li>
-                                        <% } %>
-                                        <% for(i; i<3; i++){ %>                                            
-                                            <li><span></span>
-                                                <p></p>
-                                            </li>
-                                        <% } %>
-                                        </ul>
                                         <div class="bottom-icons">
                                             <div class="closed-now">View Course Content of Your Classes</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        
-                        <div class="modal fade" id="classes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="exampleModalLabel">Select Class</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" style="color:white;">&times;</span>
-                                        </button>
-                                    </div>
-                            
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row" style="margin-top:20px;">
-                                                <% for(var i=0; i<myself.length; i++){ %>
-                                                    <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                        <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
-                                                            <a href="#" class="class-btn" onclick="getClass(this)" id="<%= myself[i].subID%>">
-                                                                <div class="image">
-                                                                    <img src="../images/subjects/maths<%= i%3 %>.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                                </div>
-                                                                <div class="featured-title-box inner-title">
-                                                                    <h6 style="margin:-10px"><%= myself[i].year+" - "+myself[i].subname%></h6>
-                                                                    <div class="bottom-icons">
-                                                                        <div class="closed-now">Click Here to Go to The Menu</div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-7 responsive-wrap">
+                    <div class="row">
+                        <div class="col-lg-12" style="margin: 0 auto;">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-body" style="background-color:rgba(0,0,0,0.6); border-radius: 5px; margin-bottom:40px;">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-12 comment-main rounded">
+                                            <ul class="p-0">
+                                                <% for(var i=0; i<5; i++) { %>
+                                                    <li>
+                                                        <div class="row comment-box p-1 pt-3 pr-4">
+                                                            <div class="col-lg-1 col-3 user-img text-center">
+                                                                <img src="/../images/users/S-2019-001.jpg" class="main-cmt-img">
+                                                            </div>
+                                                            <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-6 border-bottom pr-0">
+                                                                        <p class="w-100 p-2 m-0 font-black">Lorem ipsum dolor sit amet.</p>
                                                                     </div>
-                                                                </div>
-                                                            </a>
+                                                                    <div class="col-lg-4 col-6 border-bottom">
+                                                                        <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i>01 : 00</span></p>
+                                                                    </div>
+                                                                </div> 
+                                                                <div class="user-comment-desc p-1 pl-2" style="height:25px">
+                                                                    <p class="m-0 mr-2">Tharushi Jayasekara</p>                      
+                                                                </div>    
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </li>
                                                 <% } %>
-                                            </div>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>                     
+            
                         
-                        <div class="modal fade" id="classesMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg class-menu" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="exampleModalLabel">Class Menu</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" style="color:white;">&times;</span>
-                                        </button>
-                                    </div>
-                            
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row" style="margin-top:20px;">
-                                                <div class="col-lg-4 col-md-4 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#" onclick="discussions()">
-                                                            <div class="image">
-                                                                <img src="https://media.glassdoor.com/l/c4/b0/4d/1f/discussion-time.jpg" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Discussion Forums</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Discuss problems with your friends</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#" onclick="content()">
-                                                            <div class="image">
-                                                                <img src="https://itradeico.com/wp-content/uploads/2018/06/books-1024x535.png" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">View Course Content</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>Download course related notes</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#" onclick="results()">
-                                                            <div class="image">
-                                                                <img src="https://www.dbs.com.sg/iwov-resources/images/sgsme/dbscontent/freetext/wc-articles/financial-planning-analysis.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">View Results</h6>
-                                                                <ul>
-                                                                    <li><span class="icon-location-pin"></span>
-                                                                        <p>View an analysis of results</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                        
+                        
+<div class="modal fade" id="classes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Select Class</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" style="margin-top:20px;">
+                        <% for(var i=0; i<myself.length; i++){ %>
+                            <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
+                                    <a href="#" class="class-btn" onclick="getClass(this)" id="<%= myself[i].subID%>">
+                                        <div class="image">
+                                            <img src="../images/subjects/maths<%= i%3 %>.jpg" style="height:100%" class="img-fluid" alt="#">
+                                        </div>
+                                        <div class="featured-title-box inner-title">
+                                            <h6 style="margin:-10px"><%= myself[i].year+" - "+myself[i].subname%></h6>
+                                            <div class="bottom-icons">
+                                                <div class="closed-now">Click Here to Go to The Menu</div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
-                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                         
-                        <div class="col-md-6 col-lg-3 featured-responsive">
+<div class="modal fade" id="classesMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg class-menu" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Class Menu</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-lg-4 col-md-4 featured-responsive c2">
                             <div class="featured-place-wrap">
-                                <a href="student/newsfeed">
+                                <a href="#" onclick="discussions()">
                                     <div class="image">
-                                        <img src="https://www.yicaiglobal.com/sites/default/files/%E4%BA%92%E8%81%94%E7%BD%91%E6%96%B0%E9%97%BB%E4%BF%A1%E6%81%AF%E6%9C%8D%E5%8A%A1%E6%96%B0%E8%A7%84%EF%BC%9A%E9%9D%9E%E5%85%AC%E6%9C%89%E8%B5%84%E6%9C%AC%E4%B8%8D%E5%BE%97%E4%BB%8B%E5%85%A5%E9%87%87%E7%BC%96%E4%B8%9A%E5%8A%A1.jpg" class="img-fluid" alt="#">
+                                        <img src="https://media.glassdoor.com/l/c4/b0/4d/1f/discussion-time.jpg" class="img-fluid" alt="#">
                                     </div>
-                                    <span class="featured-rating-blue"><i class="fas fa-newspaper"></i></span>
-                                    <div class="featured-title-box">
-                                        <h6>News Feed</h6>
-                                        <p>See what's happening at Akura </p>
+                                    <div class="featured-title-box inner-title">
+                                        <h6 style="margin:-10px">Discussion Forums</h6>
                                         <ul>
-                                            <li><span><i class="fas fa-calendar-alt inner-icons"></i></span>
-                                                <p>Holiday notifications</p>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>Discuss problems with your friends</p>
                                             </li>
-                                            <li><span><i class="fas fa-clock inner-icons"></i></span>
-                                                <p>Class Rescheduling</p>
-                                            </li>
-                                            <li><span><i class="fas fa-clipboard-list inner-icons"></i></span>
-                                                <p>Special Notices</p>
-                                            </li>
-
                                         </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">Click Here to Read Latest News</div>
-                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 featured-responsive c2">
+                            <div class="featured-place-wrap">
+                                <a href="#" onclick="content()">
+                                    <div class="image">
+                                        <img src="https://itradeico.com/wp-content/uploads/2018/06/books-1024x535.png" style="height:100%" class="img-fluid" alt="#">
+                                    </div>
+                                    <div class="featured-title-box inner-title">
+                                        <h6 style="margin:-10px">View Course Content</h6>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>Download course related notes</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 featured-responsive c2">
+                            <div class="featured-place-wrap">
+                                <a href="#" onclick="results()">
+                                    <div class="image">
+                                        <img src="https://www.dbs.com.sg/iwov-resources/images/sgsme/dbscontent/freetext/wc-articles/financial-planning-analysis.jpg" style="height:100%" class="img-fluid" alt="#">
+                                    </div>
+                                    <div class="featured-title-box inner-title">
+                                        <h6 style="margin:-10px">View Results</h6>
+                                        <ul>
+                                            <li><span class="icon-location-pin"></span>
+                                                <p>View an analysis of results</p>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </a>
                             </div>
@@ -299,7 +256,7 @@
             </div>
         </div>
     </div>
-</div>       
+</div>      
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="../scripts/studentHome.js"></script>

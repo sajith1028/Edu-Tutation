@@ -64,7 +64,7 @@ router.post("/register/student/new",function(req, res) {
     
     var nos;
     var stID="S-";
-    /*
+    
     var sql="select count(stID) as numberOfStudents from student where ALyear="+ALyear+";";  
     
     pool.query(sql, (err, res2, cols)=>{
@@ -116,7 +116,7 @@ router.post("/register/student/new",function(req, res) {
         else
         {
             var sql4="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subjects)+","+SqlString.escape(stID)+");";
-        }*/
+        }
         
         
         var idCard = {
@@ -132,8 +132,7 @@ router.post("/register/student/new",function(req, res) {
             {    
                 columns: [
                 	{
-    	                //qr:stID+" "+name+" "+ALyear,
-    	                qr:'S-2019-017 Tharushi Jayasekara 2019',
+    	                qr:stID+" "+name+" "+ALyear,
     	                fit: 150,
     	                width: 150,
     	                height: 150
@@ -162,15 +161,10 @@ router.post("/register/student/new",function(req, res) {
         	                    widths: [ 70, 20, '*' ],
         	                    heights: [20, 20, 20, 20],
         	                    body: [
-        	                       // [ [{ alignment:'right', text: 'Student #', fontSize:10}], '-', [{alignment:'left', text: stID, fontSize:10}] ],
-        	                       // [ [{ alignment:'right', text: 'Name', fontSize:10}], '-', [{ alignment:'left', text: name, fontSize:10}] ],
-        	                       // [ [{ alignment:'right', text: 'A/L - Year', fontSize:10}], '-', [{ alignment:'left', text: ALyear, fontSize:10}] ],
-        	                       // [ [{ alignment:'right', text: 'E-Mail', fontSize:10}], '-', [{ alignment:'left', text: email, fontSize:10}] ]
-        	                       
-        	                       [ [{ alignment:'right', text: 'Student #', fontSize:10}], '-', [{alignment:'left', text: 'S-2019-017', fontSize:10}] ],
-        	                        [ [{ alignment:'right', text: 'Name', fontSize:10}], '-', [{ alignment:'left', text: 'Tharushi Jayasekara', fontSize:10}] ],
-        	                        [ [{ alignment:'right', text: 'A/L - Year', fontSize:10}], '-', [{ alignment:'left', text: '2019', fontSize:10}] ],
-        	                        [ [{ alignment:'right', text: 'E-Mail', fontSize:10}], '-', [{ alignment:'left', text: 'tharushi68@gmail.com', fontSize:10}] ]
+        	                        [ [{ alignment:'right', text: 'Student #', fontSize:10}], '-', [{alignment:'left', text: stID, fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'Name', fontSize:10}], '-', [{ alignment:'left', text: name, fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'A/L - Year', fontSize:10}], '-', [{ alignment:'left', text: ALyear, fontSize:10}] ],
+        	                        [ [{ alignment:'right', text: 'E-Mail', fontSize:10}], '-', [{ alignment:'left', text: email, fontSize:10}] ]
         	                    ]
         	                },
                             layout:'noBorders'
@@ -200,7 +194,7 @@ router.post("/register/student/new",function(req, res) {
         pdfDoc.end();
         
         
-        /*var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
+        var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
         bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
           var users={
             "username":stID,
@@ -240,7 +234,7 @@ router.post("/register/student/new",function(req, res) {
                 }
           });
         });
-    });*/
+    });
     
     req.flash("success","Student registration successful! Click here to print the student ID.");
     res.redirect("/admin/register/student");
