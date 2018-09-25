@@ -54,9 +54,10 @@
     </a>
    <% } else { %>
     <ul class="navbar-nav nav-link">
-      <a id="user" class="links" href="#"> Signed in as
-      <%= currentUser.username %> 
-      </a>
+        <a id="user" class="links" href="/student/profile"> Signed in as
+        <%= currentUser.username %> 
+        <img src="../images/users/<%=currentUser.username%>.jpg" class="rounded-circle border" alt="profile-image" style="max-height: 50px; max-width: 50px;" id="img">
+    </a>
     </ul>
     <ul class="navbar-nav nav-link">
     <a  id="register"href="/logout">

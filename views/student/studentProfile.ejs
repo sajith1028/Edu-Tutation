@@ -59,9 +59,10 @@
     </a>
    <% } else { %>
    
-      <a id="user" class="links" href="#" style="margin-right:30px"> Signed in as
-      <%= currentUser.username %> 
-      </a>
+        <a id="user" class="links" href="/student/profile"> Signed in as
+        <%= currentUser.username %> 
+        <img src="../images/users/<%=currentUser.username%>.jpg" class="img-rounded border" alt="profile-image" style="max-height: 50px; max-width: 50px; border-radius: 50px; border-width: 5px" id="img">
+    </a>
     <a  id="register"href="/logout">
       <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
     </a>
