@@ -23,16 +23,16 @@ res.redirect("/login");
 router.get("/",function(req, res) {
     var sql="SELECT st.*, s.* from subject s, student st, enrolment e where st.stID=e.stID and e.subID=s.subID and st.stID='"+req.user.username+"';";
     
-    var sql2="SELECT * from sch_changes order by created desc limit 5";
+    var sql2="SELECT * from sch_changes order by created desc limit 4";
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
         
         pool.query(sql2,(err,res3,cols)=>{
+            if(err) 
+                throw err;
            res.render("student/studentHome",{'myself':res2,posts:res3,moment:moment});
            res.end();
-            });
-        
-        
+        });
     });
 });
 

@@ -473,15 +473,23 @@ router.get("/attendance/:subject", function(req,res){
 router.get("/newsfeeds", function(req,res){
     var sql="SELECT * from sch_changes order by created desc";
     
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var timeNow = dte.toJSON();
+    
     pool.query(sql,(err,res2,cols)=>{
-       res.render("admin/adminNews",{posts:res2,moment:moment});
+       res.render("admin/adminNews",{posts:res2,moment:moment,time:timeNow});
     });
 });
 
 router.post("/newsfeed/new",function(req, res) {
     var title=req.body.blog.title;
     var content=req.body.blog.body;
-    var created = new Date().toJSON();
+    
+    //Getting client's time
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var created = dte.toJSON();
     
     var sql="INSERT INTO sch_changes (title,content,created) VALUES ('"+title+"','"+content+"','"+created+"');"
     pool.query(sql,(err,res2,cols)=>{

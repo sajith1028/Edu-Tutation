@@ -2,6 +2,8 @@ var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
 
+var moment          =   require('moment'); //To parse, validate, manipulate, and display dates and times
+
 function isLoggedIn(req, res, next){
 if(req.isAuthenticated() && req.user.username.charAt(0)=='L' ){
         return next();
@@ -25,12 +27,18 @@ var con             =   mysql.createConnection({
 });
 
 router.get("/",function(req, res) {
-    var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID and l.lecID='L-AKURA-001';";
+    var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID and l.lecID='"+req.user.username+"';";
+    
+    var sql2="SELECT * from sch_changes order by created desc limit 4";
     pool.query(sql, (err, res2, cols)=>{
-        if(err) 
-            throw err;
-        res.render("lecturer/lecturerHome", {'myself':res2});
-        res.end();
+        if(err) throw err;
+        
+        pool.query(sql2,(err,res3,cols)=>{
+            if(err) 
+                throw err;
+           res.render("lecturer/lecturerHome",{'myself':res2,posts:res3,moment:moment});
+           res.end();
+        });
     });
 });
 

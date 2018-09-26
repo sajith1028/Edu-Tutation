@@ -43,111 +43,59 @@
       <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
     </a>
    <% } else { %>
-   
-      <a id="user" class="links" style="margin-right:20px; margin-top:5px" href="#"> Signed in as
-      <%= currentUser.username %> 
-      </a>
-    <a  id="register"href="/logout">
-      <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
-    </a>
+    <ul class="navbar-nav nav-link">
+        <a class="links"  href="/lecturer/profile">
+          <%=currentUser.username%> 
+          <img src="../images/users/<%=currentUser.username%>.jpg" class="rounded-circle border user-image" alt="profile-image" id="img">
+        </a>
+    </ul>
+    <ul class="navbar-nav nav-link">
+        <a  id="register"href="/logout">
+          <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+        </a>
+    </ul>
     <% } %>
-            <!--<a  id="register"href="/login">-->
-            <!--  <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>-->
-            <!--</a>-->
-      </ul>
   </div>
 </nav>
 <div id="particles-js">
-    <div id="overlay">
-    <h2 id="topic">HOME</h2>
+    <div id="overlay"  style="width:100%">
+    <h2 id="topic" style="margin-bottom:20px">HOME</h2>
     <!--============================= DETAIL =============================-->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 responsive-wrap">
-                    <div class="row detail-options-wrap">
-                        <div class="col-md-6 col-lg-3 featured-responsive c2 c1">
-                            <div class="featured-place-wrap">
-                                <a href="/lecturer/profile">
-                                    <div class="image">
-                                        <img src="../images/users/L-AKURA-004.jpg" class="img-fluid" alt="#">
-                                    </div>
-                                    <span class="featured-rating"><i class="fas fa-user"></i></span>
-                                    <div class="featured-title-box">
-                                        <h6><%= myself[0].name %></h6>
-                                        <p><%= myself[0].qualification %> </p> <span> • </span>
-                                        <p> (Hons)</p>
-                                        <ul>
-                                            <li><span><i class="fas fa-user-tag inner-icons"></i></span>
-                                                <p><%= myself[0].lecID %></p>
-                                            </li>
-                                            <li><span><i class="fas fa-envelope inner-icons"></i></span>
-                                                <p><%= myself[0].email %></p>
-                                            </li>
-                                            <li><span><i class="fas fa-phone inner-icons"></i></span>
-                                                <p><%= myself[0].tele %></p>
-                                            </li>
-
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">Click Here to Edit Your Profile</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 featured-responsive">
+                <div class="col-lg-4 col-md-5 responsive-wrap">
+                    <div class="row">
+                        <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;">
                             <div class="featured-place-wrap">
                                 <a href="/lecturer/income">
-                                    <div class="image">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2dQmm_DJztz3W7e8cWJcBB0C89EJnjxudW0G8HNXS9fP37Cri" style="height:100%" class="img-fluid" alt="#" id="img">
+                                    <div class="image" style="height:120px;">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2dQmm_DJztz3W7e8cWJcBB0C89EJnjxudW0G8HNXS9fP37Cri" class="img-fluid"  style="position: relative; top:-35px" alt="#" id="img">
                                     </div>
-                                    <span class="featured-rating-yellow"><i class="fas fa-money-bill-alt"></i></span>
-                                    <div class="featured-title-box">
+                                    <span class="featured-rating-green"><i class="fas fa-money-bill-alt"></i></span>
+                                    <div class="featured-title-box"  style="height:120px;">
                                         <h6>Income</h6>
                                         <p>Check your monthly income </p>
-                                        <ul>
-                                            <li><span><i class="fas fa-money-check-alt inner-icons"></i></span>
-                                                <p>Gross Income</p>
-                                            </li>
-                                            <li><span><i class="fas fa-hotel inner-icons"></i></span>
-                                                <p>Amount Paid to The Instititute</p>
-                                            </li>
-                                            <li><span><i class="fas fa-funnel-dollar inner-icons"></i></span>
-                                                <p>Net Income</p>
-                                            </li>
-
-                                        </ul>
                                         <div class="bottom-icons">
                                             <div class="closed-now">Click Here to View Your Income</div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 featured-responsive c2">
-                            <div class="featured-place-wrap" data-toggle="modal" data-target="#classes">
-                                <a>
-                                    <div class="image">
-                                        <img src="https://us.123rf.com/450wm/prapassp/prapassp1711/prapassp171100019/90328125-the-science-professor-writes-on-the-board-while-having-a-blackboard-and-a-blackboard-.jpg?ver=6" class="img-fluid" alt="#">
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;" data-toggle="modal" data-target="#classes">
+                            <div class="featured-place-wrap">
+                                <a href="#">
+                                    <div class="image" style="height:120px;">
+                                        <img src="https://us.123rf.com/450wm/prapassp/prapassp1711/prapassp171100019/90328125-the-science-professor-writes-on-the-board-while-having-a-blackboard-and-a-blackboard-.jpg?ver=6" class="img-fluid"  style="position: relative; top:-10px" alt="#">
                                     </div>
-                                    <span class="featured-rating-green"><i class="fas fa-book-open"></i></span>
-                                    <div class="featured-title-box">
+                                    <span class="featured-rating-yellow"><i class="fas fa-book-open"></i></span>
+                                    <div class="featured-title-box"  style="height:120px;">
                                         <h6>My Classes</h6>
                                         <% for(var i=0; i<myself.length; i++){ %>
                                             <p>A/L Year <%= myself[i].year %></p> <span>• </span>
                                         <% } %>
-                                        <ul>
-                                        <% for(var i=0; i<myself.length; i++){ %>                                            
-                                            <li><span><i class="fas fa-graduation-cap inner-icons"></i></span>
-                                                <p><%= myself[i].year+"  "+myself[i].subname%></p>
-                                            </li>
-                                        <% } %>
-                                        <% for(i; i<3; i++){ %>                                            
-                                            <li><span></span>
-                                                <p></p>
-                                            </li>
-                                        <% } %>
-                                        </ul>
                                         <div class="bottom-icons">
                                             <div class="closed-now">Click Here to Check Your Classes</div>
                                         </div>
@@ -155,160 +103,165 @@
                                 </a>
                             </div>
                         </div>
-                        
-                        <div class="modal fade" id="classes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="exampleModalLabel">Select Class</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" style="color:white;">&times;</span>
-                                        </button>
-                                    </div>
-                            
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row" style="margin-top:20px;">
-                                                <% for(var i=0; i<myself.length; i++){ %>
-                                                    <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                        <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
-                                                            <a href="#" class="class-btn" onclick="getClass(this)" id="<%= myself[i].subID%>">
-                                                                <div class="image">
-                                                                    <img src="../images/subjects/maths<%= i%3 %>.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                                </div>
-                                                                <div class="featured-title-box inner-title">
-                                                                    <h6 style="margin:-10px"><%= myself[i].year+" - "+myself[i].subname%></h6>
-                                                                    <div class="bottom-icons">
-                                                                        <div class="closed-now">Click Here to Go to The Menu</div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-7 responsive-wrap">
+                    <div class="row">
+                        <div class="col-lg-12" style="margin: 0 auto;">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-body" style="background-color:rgba(0,0,0,0.5); border-radius: 5px; margin-bottom:30px;">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-12 comment-main rounded">
+                                            <ul class="p-0">
+                                                <% for(var i=0; i<posts.length; i++) { %>
+                                                    <li>
+                                                        <div class="row comment-box p-1 pt-3 pr-4">
+                                                            <div class="col-lg-1 col-3 user-img text-center">
+                                                                <img src="/../images/users/admin.png" style="margin-left:10px;" class="main-cmt-img">
+                                                            </div>
+                                                            <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12 col-12 border-bottom pr-0">
+                                                                        <h6 style="padding-top:5px; font-size:15px; font-weight:500"><%=posts[i].title%></h6>
+                                                                        <p class="w-100 m-0 font-black"><%=posts[i].content%></p>
                                                                     </div>
-                                                                </div>
-                                                            </a>
+                                                                </div> 
+                                                                <div class="user-comment-desc p-1 pl-2" style="height:25px">
+                                                                    <p class="m-0 mr-2" style="font-size:12px">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
+                                                                </div>    
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </li>
                                                 <% } %>
-                                            </div> 
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
-                        
-                        <div class="modal fade" id="classesMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg class-menu-lec" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="exampleModalLabel">Class Menu</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" style="color:white;">&times;</span>
-                                        </button>
-                                    </div>
-                            
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row" style="margin-top:20px;">
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#" onclick="addAssignment()">
-                                                            <div class="image">
-                                                                <img src="https://cdn-images-1.medium.com/max/1000/1*pQUTGu0kiDZEQxUslhhR2A.jpeg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Add Assignment Marks</h6>
-                                                                <ul>
-                                                                    <li><span></span>
-                                                                        <p>Add a new assignment and add marks</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#" onclick="addCourseContent()">
-                                                            <div class="image">
-                                                                <img src="https://itradeico.com/wp-content/uploads/2018/06/books-1024x535.png" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Add Course Content</h6>
-                                                                <ul>
-                                                                    <li><span></span>
-                                                                        <p>Add course related notes</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#" onclick="viewResults()">
-                                                            <div class="image">
-                                                                <img src="https://t4.ftcdn.net/jpg/02/11/17/47/240_F_211174724_KySKzehbIX8TfHHY95TuwUmTVswFzp09.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">View Results</h6>
-                                                                <ul>
-                                                                    <li><span></span>
-                                                                        <p>View an analysis of results</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
-                                                    <div class="featured-place-wrap">
-                                                        <a href="#" onclick="Forums()">
-                                                            <div class="image">
-                                                                <img src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/4/29/1367244760480/Some-unis-are-making-effo-007.jpg" style="height:100%" class="img-fluid" alt="#">
-                                                            </div>
-                                                            <div class="featured-title-box inner-title">
-                                                                <h6 style="margin:-10px">Discussion Forums</h6>
-                                                                <ul>
-                                                                    <li><span></span>
-                                                                        <p>Answer questions of your pupils</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        
-                        <div class="col-md-6 col-lg-3 featured-responsive">
-                            <div class="featured-place-wrap">
-                                <a href="/lecturer/newsfeeds">
-                                    <div class="image">
-                                        <img src="https://www.yicaiglobal.com/sites/default/files/%E4%BA%92%E8%81%94%E7%BD%91%E6%96%B0%E9%97%BB%E4%BF%A1%E6%81%AF%E6%9C%8D%E5%8A%A1%E6%96%B0%E8%A7%84%EF%BC%9A%E9%9D%9E%E5%85%AC%E6%9C%89%E8%B5%84%E6%9C%AC%E4%B8%8D%E5%BE%97%E4%BB%8B%E5%85%A5%E9%87%87%E7%BC%96%E4%B8%9A%E5%8A%A1.jpg" class="img-fluid" alt="#">
-                                    </div>
-                                    <span class="featured-rating-blue"><i class="fas fa-newspaper"></i></span>
-                                    <div class="featured-title-box">
-                                        <h6>News Feed</h6>
-                                        <p>See what's happening at Akura </p>
-                                        <ul>
-                                            <li><span><i class="fas fa-calendar-alt inner-icons"></i></span>
-                                                <p>Holiday notifications</p>
-                                            </li>
-                                            <li><span><i class="fas fa-clock inner-icons"></i></span>
-                                                <p>Class Rescheduling</p>
-                                            </li>
-                                            <li><span><i class="fas fa-clipboard-list inner-icons"></i></span>
-                                                <p>Special Notices</p>
-                                            </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>       
 
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">Click Here to Read Latest News</div>
+<div class="modal fade" id="classes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Select Class</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" style="margin-top:20px;">
+                        <% for(var i=0; i<myself.length; i++){ %>
+                            <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                <div class="featured-place-wrap"  data-toggle="modal" data-target="#classesMenu">
+                                    <a href="#" class="class-btn" onclick="getClass(this)" id="<%= myself[i].subID%>">
+                                        <div class="image">
+                                            <img src="../images/subjects/maths<%= i%3 %>.jpg" style="height:100%" class="img-fluid" alt="#">
                                         </div>
+                                        <div class="featured-title-box inner-title">
+                                            <h6 style="margin:-10px"><%= myself[i].year+" - "+myself[i].subname%></h6>
+                                            <div class="bottom-icons">
+                                                <div class="closed-now">Click Here to Go to The Menu</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="classesMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg class-menu-lec" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Class Menu</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-lg-6 col-md-6 featured-responsive c2">
+                            <div class="featured-place-wrap">
+                                <a href="#" onclick="addAssignment()">
+                                    <div class="image">
+                                        <img src="https://cdn-images-1.medium.com/max/1000/1*pQUTGu0kiDZEQxUslhhR2A.jpeg" style="height:100%" class="img-fluid" alt="#">
+                                    </div>
+                                    <div class="featured-title-box inner-title">
+                                        <h6 style="margin:-10px">Add Assignment Marks</h6>
+                                        <ul>
+                                            <li><span></span>
+                                                <p>Add a new assignment and add marks</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 featured-responsive c2">
+                            <div class="featured-place-wrap">
+                                <a href="#" onclick="addCourseContent()">
+                                    <div class="image">
+                                        <img src="https://itradeico.com/wp-content/uploads/2018/06/books-1024x535.png" style="height:100%" class="img-fluid" alt="#">
+                                    </div>
+                                    <div class="featured-title-box inner-title">
+                                        <h6 style="margin:-10px">Add Course Content</h6>
+                                        <ul>
+                                            <li><span></span>
+                                                <p>Add course related notes</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 featured-responsive c2">
+                            <div class="featured-place-wrap">
+                                <a href="#" onclick="viewResults()">
+                                    <div class="image">
+                                        <img src="https://t4.ftcdn.net/jpg/02/11/17/47/240_F_211174724_KySKzehbIX8TfHHY95TuwUmTVswFzp09.jpg" style="height:100%" class="img-fluid" alt="#">
+                                    </div>
+                                    <div class="featured-title-box inner-title">
+                                        <h6 style="margin:-10px">View Results</h6>
+                                        <ul>
+                                            <li><span></span>
+                                                <p>View an analysis of results</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 featured-responsive c2">
+                            <div class="featured-place-wrap">
+                                <a href="#" onclick="Forums()">
+                                    <div class="image">
+                                        <img src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/4/29/1367244760480/Some-unis-are-making-effo-007.jpg" style="height:100%" class="img-fluid" alt="#">
+                                    </div>
+                                    <div class="featured-title-box inner-title">
+                                        <h6 style="margin:-10px">Discussion Forums</h6>
+                                        <ul>
+                                            <li><span></span>
+                                                <p>Answer questions of your pupils</p>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </a>
                             </div>
@@ -318,6 +271,6 @@
             </div>
         </div>
     </div>
-</div>       
+</div>
 
 <% include ../partials/footer %>

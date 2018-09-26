@@ -54,6 +54,8 @@ p {
   .col-lg-3{
     padding-top: 0px !important;
   }
+  
+  
 }
 
 /* ==============================================================
@@ -103,6 +105,18 @@ p {
 	padding-top: 3%;
 }
 
+.links:hover, .links:active {
+    color: #fff !important;
+    cursor:pointer;
+    text-decoration: none;
+}
+
+.links{
+  color: rgba(255,255,255,.8) !important;
+  font-size : 15px;
+}
+
+
 .navbar{
   padding-top: 8px !important;
 }
@@ -139,13 +153,18 @@ p {
     padding-left: 30px;
 }
 
+.user-image{
+  margin-left:20px; 
+  max-height: 30px; 
+  max-width: 30px;
+}
 
 /* ==============================================================
    Menu
    ============================================================== */
 #topic{
   text-align: center;
-  padding-top: 100px;
+  padding-top: 90px;
   color:black;
   font-family: Raleway;
 }
@@ -155,8 +174,7 @@ p {
 }
 
 .image{
-  object-fit: cover;
-  /*height:200px;    */
+  height:200px;
   overflow:hidden;
 }
 
@@ -357,6 +375,10 @@ p {
 }
 
 /****** posts and comments ******/
+.pt-3, .py-3 {
+    padding-top: 1.5rem!important;
+}
+
 .comment-main ul{
 	list-style: none;
 }
@@ -410,5 +432,5 @@ p {
 
 .font-black{
   color: black;
-  height:60px;
+  min-height:35px;
 }

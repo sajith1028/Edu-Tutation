@@ -23,7 +23,7 @@
             particlesJS.load('particles-js', '../json/particles.json');
         </script>
         
-    <!-- End of Particles -->    
+    <!-- End of Particles -->
     </head>
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -43,10 +43,10 @@
     </a>
    <% } else { %>
     <ul class="navbar-nav nav-link">
-      <a id="user" class="links" href="/student/profile"> Signed in as
-      <%= currentUser.username %> 
-        <img src="../images/users/<%=currentUser.username%>.jpg" class="rounded-circle border" alt="profile-image" style="max-height: 50px; max-width: 50px;" id="img">
-    </a>
+        <a class="links"  href="/student/profile">
+          <%=currentUser.username%> 
+          <img src="../images/users/<%=currentUser.username%>.jpg" class="rounded-circle border user-image" alt="profile-image" id="img">
+        </a>
     </ul>
     <ul class="navbar-nav nav-link">
     <a  id="register"href="/logout">
@@ -67,11 +67,11 @@
                         <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;">
                             <div class="featured-place-wrap">
                                 <a href="/student/payments">
-                                    <div class="image" style="height:140px;">
-                                        <img src="https://i.pinimg.com/originals/a5/d2/1a/a5d21aab5e18630975ae7e02eaa37af2.jpg" class="img-fluid" alt="#">
+                                    <div class="image" style="height:120px;">
+                                        <img src="https://i.pinimg.com/originals/a5/d2/1a/a5d21aab5e18630975ae7e02eaa37af2.jpg" class="img-fluid" alt="#" style="position: relative; top:-60px">
                                     </div>
                                     <span class="featured-rating-yellow"><i class="fas fa-money-bill-alt"></i></span>
-                                    <div class="featured-title-box">
+                                    <div class="featured-title-box" style="height:120px;">
                                         <h6>Payments</h6>
                                         <p>View payment history </p>
                                         <div class="bottom-icons">
@@ -86,11 +86,11 @@
                         <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;" data-toggle="modal" data-target="#classes">
                             <div class="featured-place-wrap">
                                 <a href="#">
-                                    <div class="image" style="height:140px;">
-                                        <img src="https://www.touteleurope.eu/fileadmin/_processed_/0/7/politique-euro-formation-education-a387ed0502.jpg" class="img-fluid" alt="#">
+                                    <div class="image" style="height:120px;">
+                                        <img src="https://www.touteleurope.eu/fileadmin/_processed_/0/7/politique-euro-formation-education-a387ed0502.jpg" class="img-fluid" alt="#" style="position: relative; top:-110px">
                                     </div>
                                     <span class="featured-rating-green"><i class="fas fa-book-open"></i></span>
-                                    <div class="featured-title-box">
+                                    <div class="featured-title-box" style="height:120px;">
                                         <h6>Course Content</h6>
                                         <p>Slides</p> <span>• </span>
                                         <p>Questions</p> <span> • </span>
@@ -108,7 +108,7 @@
                     <div class="row">
                         <div class="col-lg-12" style="margin: 0 auto;">
                             <div class="panel panel-default panel-fill">
-                                <div class="panel-body" style="background-color:rgba(0,0,0,0.6); border-radius: 5px; margin-bottom:40px;">
+                                <div class="panel-body" style="background-color:rgba(0,0,0,0.5); border-radius: 5px; margin-bottom:30px;">
                                     <div class="row">
                                         <div class="col-lg-12 col-12 comment-main rounded">
                                             <ul class="p-0">
@@ -116,20 +116,17 @@
                                                     <li>
                                                         <div class="row comment-box p-1 pt-3 pr-4">
                                                             <div class="col-lg-1 col-3 user-img text-center">
-                                                                <img src="/../images/users/notFound.png" class="main-cmt-img">
+                                                                <img src="/../images/users/admin.png" style="margin-left:10px;" class="main-cmt-img">
                                                             </div>
                                                             <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
                                                                 <div class="row">
-                                                                    <div class="col-lg-8 col-6 border-bottom pr-0">
-                                                                        <h6><%=posts[i].title%></h6>
-                                                                        <p class="w-100 p-2 m-0 font-black"><%=posts[i].content%></p>
+                                                                    <div class="col-lg-12 col-12 border-bottom pr-0">
+                                                                        <h6 style="padding-top:5px; font-size:15px"><%=posts[i].title%></h6>
+                                                                        <p class="w-100 m-0 font-black"><%=posts[i].content%></p>
                                                                     </div>
-                                                                    <div class="col-lg-4 col-6 border-bottom">
-                                                                        <!--<p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i></span></p>
-                                                                    --></div>
                                                                 </div> 
-                                                                <div class="user-comment-desc p-1 pl-2" style="height:25px">
-                                                                    <p class="m-0 mr-2">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
+                                                                <div class="user-comment-desc p-1 pl-2" style="height:25px;">
+                                                                    <p class="m-0 mr-2" style="font-size:12px">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
                                                                 </div>    
                                                             </div>
                                                         </div>
