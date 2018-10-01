@@ -40,17 +40,16 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/lecturer">Home</a>
+            <a class="links" href="/admin">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link"  data-toggle="modal" data-target="#stulec">
+            <a class="links" href="#stulec">Register</a>
           </ul>
           <ul class="navbar-nav nav-link">
-            <a class="links" href="/lecturer/income">Payments</a>
-          </ul>
-          <ul class="navbar-nav nav-link">
-            <a class="links" href="/lecturer/newsfeeds">Newsfeed</a>
+            <a class="links" href="/admin/newsfeeds">Newsfeed</a>
           </ul>
         </ul>
         
@@ -65,61 +64,110 @@
         <h2 id="topic"><%=subject[0].subname%> - <%=subject[0].year%></h2>
         <br>
         <center><h3><%= moment().format('Do MMMM, YYYY'); %></h3></center>
-            
-        <div class="container">
-            <div id="content-background">
-                <div class="tab-content">
-                    <div class="row tab-pane active" id="newStudent">
-                        <div class="col-lg-12">
+        
+        
+        
+        <div class="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form action="/admin/payments/new" id="newpayment" method="POST">
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Search for a Student</h3>
+                                    <h3 class="panel-title">Select Student</h3>
                                 </div>
-                                <form action="/admin/register/new" id="registernew" method="POST">
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <label class="col-sm-1 control-label label">Search</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" name="stID" placeholder="Student ID" class="form-control">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <center><video id="preview"  style="width:100%; height:300px"></video></center>
+                                            </div>
+                                         
+                                            <div class="col-lg-6">
+                                                <div class="row" style="margin-top:20px">
+                                                    <label class="col-lg-2 control-label label">Student #</label>
+                                                    <div class="col-lg-10">
+                                                        <div class="input-group mb-3">
+                                                          <input id="stID" name="stIDName" type="text" class="form-control" placeholder="Enter Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                          <div class="input-group-append">
+                                                            <button id="checkBtn" class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                          </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="input-group-append">
-                                                    <button id="checkBtn" class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
-                                                  </div>
+                                                <br>
+                                                <div class="row"   style="border:1px solid gray; border-bottom:none">
+                                                    <div class="col-lg-12">
+                                                        <h6 style="text-align:center; margin-bottom:20px;  margin-top:20px">Student Details</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="border-left:1px solid gray; border-right:1px solid gray; ">
+                                                    <label class="col-lg-2 control-label label">Name</label>
+                                                    <div class="col-lg-10 input-group-append">
+                                                        <input class="form-control" type="text" name="name" id="name" placeholder="Name" readonly>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row"  style="border-left:1px solid gray; border-right:1px solid gray; ">
+                                                    <label class="col-lg-2 control-label label">AL Year</label>
+                                                    <div class="col-lg-10 input-group-append">
+                                                        <input class="form-control" type="text" name="name" id="alyear" placeholder="AL Year" readonly>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row"  style="border-left:1px solid gray; border-right:1px solid gray; border-bottom:1px solid gray;">
+                                                    
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="container-table100">
-                                    	<div class="wrap-table100">
-                                    		<div class="table100">
-                                    			<table>
-                                    				<thead>
-                                    					<tr class="table100-head">
-                                    						<th class="column1">#</th>
-                                    						<th class="column4">Presence</th>
-                                    						<th class="column2">Student ID</th>
-                                    						<th class="column3">Name</th>
-                                    						
-                                    					</tr>
-                                    				</thead>
-                                    				<tbody>
-                                                        <% for(var i=0; i<subject.length; i++){ %>
-                                                            <tr>
-                                                                <td class="column1"><%=i+1 %></td>
-                                                                <td class="column1"> <input type='checkbox' name='select'></td>
-                                                            	<td class="column2" style="width:300px"><%=subject[i].stID%> </td>
-                                                            	<td class="column3" style="width:300px"><%=subject[i].name%> </td>
-                                                             </tr>
-                                                         <% } %>
-                                                    </tbody>
-                                    			</table>
-                                    		</div>
-                                    	</div>
-                                    </div>
-
-                    
-                                </form>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        
+        
+        
+        
+        <div class="container">
+            <div id="content-background" style="padding-top:10px">
+                <div class="tab-content">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default panel-fill">
+                            <form action="/admin/register/new" id="registernew" method="POST">
+                                <div class="container-table100">
+                                	<div class="wrap-table100">
+                                		<div class="table100">
+                                			<table>
+                                				<thead>
+                                					<tr class="table100-head">
+                                						<th class="column1">#</th>
+                                						<th class="column4">Presence</th>
+                                						<th class="column2">Student ID</th>
+                                						<th class="column3">Name</th>
+                                						
+                                					</tr>
+                                				</thead>
+                                				<tbody>
+                                                    <% for(var i=0; i<subject.length; i++){ %>
+                                                        <tr>
+                                                            <td class="column1"><%=i+1 %></td>
+                                                            <td class="column1"> <input type='checkbox' name='select'></td>
+                                                        	<td class="column2" style="width:300px"><%=subject[i].stID%> </td>
+                                                        	<td class="column3" style="width:300px"><%=subject[i].name%> </td>
+                                                         </tr>
+                                                     <% } %>
+                                                </tbody>
+                                			</table>
+                                		</div>
+                                	</div>
+                                </div>
+
+                
+                            </form>
                         </div>
                     </div>
                     <center>
