@@ -69,10 +69,10 @@
 
 <div id="particles-js">
     <div id="overlay">
-        <h2 id="topic">DISCUSSION FORUM</h2>
+        <h2 id="topic">DISCUSSION FORUM </h2>
         <div class="container">
             <div id="content-background">
-                <form action= method="POST" ref='uploadForm' onsubmit="return validateForm()" id='uploadForm' encType="multipart/form-data">
+                <form action="/student/discussions/<%=section[0].subID%>" method="POST" ref='uploadForm' onsubmit="return validateForm()" id='uploadForm' encType="multipart/form-data">
                     <div class="panel panel-default panel-fill">
                         <div class="panel-heading">
                             <h3 class="panel-title">Add New Post - Subject </h3>
@@ -82,7 +82,11 @@
                                 <div class="row">
                                     <label class="col-sm-1 control-label label">Section</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="section" placeholder="Section" class="form-control" required>
+                                        <select name="sub_section">
+                                        <% for(var i=0;i<section.length;i++){%>
+                                            <option value="<%=section[i].title%>"> <%=section[i].title%> </option>
+                                        <% }; %>
+                                        </select>
                                     </div>
                                     <div class="col-sm-2"></div>
                                     <label class="col-sm-1 control-label label">Title</label>

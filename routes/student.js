@@ -74,30 +74,33 @@ router.get("/payments", function(req,res){
     }
 });
 
+router.post("/discussions/:id",function(req,res){
+    var id = req.params.id;
+    var sql="insert into discussion_posts(title,descr,subID,sub_sec) values ('"+req.body.title+"','"+req.body.desc+"','"+ id +"','"+req.body.sub_section+"');";
+    
+    pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+    });
+    
+    res.redirect("/student/discussions/"+id);
+});
+
 router.get("/discussions/:id", function(req,res){
     var id = req.params.id;
-    
-    var sql_getLecID = "select s.lecID from subject s where s.subID='"+id+"';";
-    pool.query(sql_getLecID, (err, res3, cols)=>{
+    var sql3 = "select s.lecID from subject s where s.subID='"+id+"';";
+    pool.query(sql3, (err, res3, cols)=>{
          if(err) throw err;
-         console.log(res3);
-        res.render("student/studentCourseContent", {'content': res3});
+         var lecID=res3[0].lecID;
+         
+         var sql2="select c.title,c.subID from course_topics c where c.lecID='"+lecID+"' and c.subID='"+id+"';";
+         pool.query(sql2, (err, res2, cols)=>{
+         if(err) throw err;
+        res.render("student/studentDiscussion", {'section': res2});
+    });
     });
     
     
     
-    
-    
-    
-    
-    // var sql="select c.title from course_topics c where c.lecID='"+
-    // +"' and c.subID='"+id+"';";
-    // console.log(sql);
-    //  pool.query(sql, (err, res2, cols)=>{
-    //      if(err) throw err;
-    //      console.log(res2);
-    //     res.render("student/studentCourseContent", {'section': res2});
-    // });
     
 });
 
