@@ -76,7 +76,29 @@ router.get("/payments", function(req,res){
 
 router.get("/discussions/:id", function(req,res){
     var id = req.params.id;
-    res.render("student/studentDiscussion");
+    
+    var sql_getLecID = "select s.lecID from subject s where s.subID='"+id+"';";
+    pool.query(sql_getLecID, (err, res3, cols)=>{
+         if(err) throw err;
+         console.log(res3);
+        res.render("student/studentCourseContent", {'content': res3});
+    });
+    
+    
+    
+    
+    
+    
+    
+    // var sql="select c.title from course_topics c where c.lecID='"+
+    // +"' and c.subID='"+id+"';";
+    // console.log(sql);
+    //  pool.query(sql, (err, res2, cols)=>{
+    //      if(err) throw err;
+    //      console.log(res2);
+    //     res.render("student/studentCourseContent", {'section': res2});
+    // });
+    
 });
 
 router.get("/viewCourseContent/:id", function(req,res){

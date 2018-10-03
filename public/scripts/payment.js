@@ -15,7 +15,6 @@ var getValue = function(cb) {
     else
         $("#saveBtn").prop("disabled",false);
 }
-
 $('#stID').click(function(){
     $('#stID').removeClass('is-invalid');
 })
