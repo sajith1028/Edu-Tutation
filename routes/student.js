@@ -76,8 +76,14 @@ router.get("/payments", function(req,res){
 
 router.post("/discussions/:id",function(req,res){
     var id = req.params.id;
-    var sql="insert into discussion_posts(title,descr,subID,sub_sec) values ('"+req.body.title+"','"+req.body.desc+"','"+ id +"','"+req.body.sub_section+"');";
     
+    //Getting client's time
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var created = dte.toJSON();
+    
+    var sql="insert into discussion_posts(title,descr,subID,sub_sec,postedAt,author) values ('"+req.body.title+"','"+req.body.desc+"','"+ id +"','"+req.body.sub_section+"','"+created+"','"+req.user.username+"');";
+   
     pool.query(sql, (err, res2, cols)=>{
          if(err) throw err;
     });
@@ -95,7 +101,13 @@ router.get("/discussions/:id", function(req,res){
          var sql2="select c.title,c.subID from course_topics c where c.lecID='"+lecID+"' and c.subID='"+id+"';";
          pool.query(sql2, (err, res2, cols)=>{
          if(err) throw err;
-        res.render("student/studentDiscussion", {'section': res2});
+         
+         var sql4="select d.title,d.descr,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.postedAt desc;"
+          pool.query(sql4, (err, res4, cols)=>{
+         if(err) throw err;
+         
+        res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment});
+          });
     });
     });
     

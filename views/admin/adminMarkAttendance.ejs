@@ -196,7 +196,13 @@
             $("#name").val(arr[1]+" "+arr[2]);
             $("#alyear").val(arr[3]);
             $("#"+arr[0]+"chk").attr("checked", true);
-            $('#checkBtn').click();
+            
+            $.ajax({
+                url: "/admin/markAttendance/id",
+                type: "POST",
+                contentType:"application/json",
+                data: JSON.stringify({stID:{"stID":stid}})
+            });
         }
       });
  
@@ -204,6 +210,9 @@
         if (cameras.length > 0) {
           scanner.start(cameras[0]);
         }
+        
+        else
+            alert("Please connect a camera to scan the QR code.");
       });
     </script> 
     
