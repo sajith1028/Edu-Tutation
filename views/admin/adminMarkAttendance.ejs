@@ -76,7 +76,7 @@
                         <form action="/admin/payments/new" id="newpayment" method="POST">
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Select Student</h3>
+                                    <h3 id="subID" class="panel-title">Select Student - <%=subject[0].subID%></h3>
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
@@ -185,35 +185,38 @@
 
 
     <script type="text/javascript">
-      var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-      scanner.addListener('scan', function (content, image) {
-        if (content!=null && content[0]=="S"){
-            var audio = new Audio('/../beep.mp3');
-            audio.play();
+        var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        scanner.addListener('scan', function (content, image) {
+            if (content!=null && content[0]=="S"){
+                var audio = new Audio('/../beep.mp3');
+                audio.play();
+                
+                var arr = content.split(' ');
+                $("#stID").val(arr[0]);
+                $("#name").val(arr[1]+" "+arr[2]);
+                $("#alyear").val(arr[3]);
+                var subID = $('#subID').text().split(' ');
+                subID=subID[subID.length-1];
+                
+                if(!$("#"+arr[0]+"chk").attr('checked')){
+                    $("#"+arr[0]+"chk").attr("checked", true);
+                    $.ajax({
+                        url: "/admin/markAttendance/"+arr[0],
+                        type: "POST",
+                        contentType:"application/json",
+                        data: JSON.stringify({attendance:{"stID":arr[0], "class":subID}})
+                    });
+                }
+            }
+        });
+        Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+              scanner.start(cameras[0]);
+            }
             
-            var arr = content.split(' ');
-            $("#stID").val(arr[0]);
-            $("#name").val(arr[1]+" "+arr[2]);
-            $("#alyear").val(arr[3]);
-            $("#"+arr[0]+"chk").attr("checked", true);
-            
-            $.ajax({
-                url: "/admin/markAttendance/id",
-                type: "POST",
-                contentType:"application/json",
-                data: JSON.stringify({stID:{"stID":stid}})
-            });
-        }
-      });
- 
-      Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-          scanner.start(cameras[0]);
-        }
-        
-        else
-            alert("Please connect a camera to scan the QR code.");
-      });
+            else
+                alert("Please connect a camera to scan the QR code.");
+        });
     </script> 
     
 <script src="/scripts/attendance.js"></script>

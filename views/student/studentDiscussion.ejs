@@ -135,14 +135,23 @@
                                     <div class="col-lg-12 col-12 comment-main rounded">
                                       <ul class="p-0">
                                         <li>
+                                            <% var section = '' %>
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><%= posts[0].sub_sec %></h3>
+                                            </div>
+                                            <% var section = posts[0].sub_sec%>
+                                            
                                              <% for(var i=0; i<posts.length; i++) { %>
-                                             <div class="panel-heading">
-                                                <h3 class="panel-title"><%= posts[i].sub_sec %></h3>
-                                             </div>
+                                                
+                                                <% if (section != posts[i].sub_sec) {%>
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title"><%= posts[i].sub_sec %></h3>
+                                                    </div>
+                                                    <% var section = posts[i].sub_sec %>
+                                                <% } %>
                                     
                                             <div class="row comment-box p-1 pt-3 pr-4">
-                                              <div class="col-lg-1 col-3 user-img text-center">
-                                                  
+                                              <div class="col-lg-1 col-3 user-img text-center">  
                                                 <img src="/../images/users/<%=posts[i].stID%>.jpg" class="main-cmt-img">
                                               </div>
                                               <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
@@ -158,6 +167,15 @@
                                                   <div class="user-comment-desc p-1 pl-2">
                                                       <p class="m-0 mr-2"><%=posts[i].name%></p>                      
                                                   </div>    
+                                              </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                              <div class="col-lg-9 offset-lg-2 col-10"  style="padding-left:0">
+                                                <input type="text" class="form-control" placeholder="Let them know your opinion...">
+                                              </div>
+                                              <div class="col-lg-1 col-2 send-icon">
+                                                <a href="http://nicesnippets.com/" target="_blank"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
                                               </div>
                                             </div>
                                             <% }; %>

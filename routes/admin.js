@@ -460,7 +460,7 @@ router.post("/register/alyear", function(req,res){
 router.get("/attendance/:subject", function(req,res){
     var subID=req.params.subject;
     
-    var sql="SELECT distinct s.subname,s.year,st.name,st.stID FROM subject s,student st,enrolment e where e.subID=s.subID and s.subID='"+subID+"' and e.stID=st.stID;";
+    var sql="SELECT distinct s.subID, s.subname,s.year,st.name,st.stID FROM subject s,student st,enrolment e where e.subID=s.subID and s.subID='"+subID+"' and e.stID=st.stID;";
 
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
@@ -469,6 +469,9 @@ router.get("/attendance/:subject", function(req,res){
     });
 });
 
+router.post("/markAttendance/:id", function(req,res){
+    console.log(req.body.attendance);
+});
 
 router.get("/newsfeeds", function(req,res){
     var sql="SELECT * from sch_changes order by created desc";

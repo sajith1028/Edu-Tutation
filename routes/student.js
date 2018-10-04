@@ -102,11 +102,11 @@ router.get("/discussions/:id", function(req,res){
          pool.query(sql2, (err, res2, cols)=>{
          if(err) throw err;
          
-         var sql4="select d.title,d.descr,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.postedAt desc;"
-          pool.query(sql4, (err, res4, cols)=>{
-         if(err) throw err;
-         
-        res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment});
+            var sql4="select d.title,d.descr,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.sub_sec,d.postedAt desc;"
+            pool.query(sql4, (err, res4, cols)=>{
+            if(err) throw err;
+            var user=req.user.username;
+            res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment,'user':user});
           });
     });
     });
