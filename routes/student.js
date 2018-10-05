@@ -102,11 +102,18 @@ router.get("/discussions/:id", function(req,res){
          pool.query(sql2, (err, res2, cols)=>{
          if(err) throw err;
          
-            var sql4="select d.title,d.descr,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.sub_sec,d.postedAt desc;"
+            var sql4="select d.postID,d.title,d.descr,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.sub_sec,d.postedAt desc;"
             pool.query(sql4, (err, res4, cols)=>{
             if(err) throw err;
             var user=req.user.username;
-            res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment,'user':user});
+            
+            var sql5="select c.postID, c.comment, c.postedAt, c.author,s.name from comments c, student s where s.stID=c.author and c.subID='"+id+"' order by c.postID,c.postedAt;";
+            console.log(sql5);
+            pool.query(sql5, (err, res5, cols)=>{
+            if(err) throw err;
+            console.log(res5);
+            res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment,'user':user,'comments':res5});
+            });
           });
     });
     });
