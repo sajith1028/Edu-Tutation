@@ -205,7 +205,8 @@
                                             <br>
                                             <div class="row">
                                               <div class="col-lg-9 offset-lg-2 col-10"  style="padding-left:0">
-                                                <input type="text" class="form-control" placeholder="Let them know your opinion...">
+                                                <input id="subID" type="hidden" value="<%=posts[i].subID%>">
+                                                <input name="<%=posts[i].postID%>" id="commentDescr" type="text" class="form-control" placeholder="Let them know your opinion...">
                                               </div>
                                               <div class="col-lg-1 col-2 send-icon">
                                                 <a id="commentBtn" href=""><i class="fa fa-paper-plane" aria-hidden="true"></i></a>

@@ -74,8 +74,20 @@ router.get("/payments", function(req,res){
     }
 });
 
-router.post("/discussions/comment",function(req, res) {
-   res.send("ok"); 
+router.post("/discussions/:id/comment",function(req, res) {
+    var subID = req.params.id;
+    
+    //Getting client's time
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var created = dte.toJSON();
+    
+    var sql="insert into comments(comment,postID,postedAt,author,subID) values('"+req.body.comment+"','"+req.body.postID+"','"+created+"','"+req.user.username+"','"+subID+"');";
+    pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+         
+    });
+    res.redirect("student/discussions/"+subID);
 });
 
 router.post("/discussions/:id",function(req,res){
@@ -107,7 +119,7 @@ router.get("/discussions/:id", function(req,res){
          pool.query(sql2, (err, res2, cols)=>{
          if(err) throw err;
          
-            var sql4="select d.postID,d.title,d.descr,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.sub_sec,d.postedAt desc;"
+            var sql4="select d.postID,d.title,d.descr,d.subID,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.sub_sec,d.postedAt desc;"
             pool.query(sql4, (err, res4, cols)=>{
             if(err) throw err;
             var user=req.user.username;
