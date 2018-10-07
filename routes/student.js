@@ -74,6 +74,10 @@ router.get("/payments", function(req,res){
     }
 });
 
+router.post("/discussions/comment",function(req, res) {
+   res.send("ok"); 
+});
+
 router.post("/discussions/:id",function(req,res){
     var id = req.params.id;
     
@@ -93,6 +97,7 @@ router.post("/discussions/:id",function(req,res){
 
 router.get("/discussions/:id", function(req,res){
     var id = req.params.id;
+    
     var sql3 = "select s.lecID from subject s where s.subID='"+id+"';";
     pool.query(sql3, (err, res3, cols)=>{
          if(err) throw err;
@@ -107,20 +112,14 @@ router.get("/discussions/:id", function(req,res){
             if(err) throw err;
             var user=req.user.username;
             
-            var sql5="select c.postID, c.comment, c.postedAt, c.author,s.name from comments c, student s where s.stID=c.author and c.subID='"+id+"' order by c.postID,c.postedAt;";
-            console.log(sql5);
-            pool.query(sql5, (err, res5, cols)=>{
-            if(err) throw err;
-            console.log(res5);
-            res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment,'user':user,'comments':res5});
+                var sql5="select c.postID, c.comment, c.postedAt, c.author,s.name from comments c, student s where s.stID=c.author and c.subID='"+id+"' order by c.postID,c.postedAt;";
+                pool.query(sql5, (err, res5, cols)=>{
+                if(err) throw err;
+                res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment,'user':user,'comments':res5});
+                });
             });
-          });
+        });
     });
-    });
-    
-    
-    
-    
 });
 
 router.get("/viewCourseContent/:id", function(req,res){

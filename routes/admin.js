@@ -440,7 +440,7 @@ router.post("/register/lecturer/new", function(req,res){
                   });
                   
                 }
-          });
+            });
         });
     });
     res.redirect("/admin/register/lecturer");
@@ -470,7 +470,25 @@ router.get("/attendance/:subject", function(req,res){
 });
 
 router.post("/markAttendance/:id", function(req,res){
-    console.log(req.body.attendance);
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var timeNow = dte.toJSON();
+    con.query("INSERT INTO attendance (stuID,subID,date) VALUES ('"+req.body.attendance.stID+"','"+req.body.attendance.class+"','"+timeNow+"');" ,function (error, results, fields){
+        if(error){
+            req.flash("error","Please try again!");
+        }
+    });
+});
+
+router.delete("/markAttendance/:id", function(req,res){
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var timeNow = dte.toJSON();
+    con.query("delete from attendance where stuID='"+req.body.attendance.stID+"' and subID='"+req.body.attendance.class+"' order by aID desc limit 1;" ,function (error, results, fields){
+        if(error){
+            req.flash("error","Please try again!");
+        }
+    });
 });
 
 router.get("/newsfeeds", function(req,res){

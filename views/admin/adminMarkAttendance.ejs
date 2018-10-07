@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Register</title>
+        <title>Attendance</title>
         <!-- Responsive screen size -->
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
         <!-- End of responsive screen size -->
@@ -73,53 +73,51 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form action="/admin/payments/new" id="newpayment" method="POST">
-                            <div class="panel panel-default panel-fill">
-                                <div class="panel-heading">
-                                    <h3 id="subID" class="panel-title">Select Student - <%=subject[0].subID%></h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <center><video id="preview"  style="width:100%; height:300px"></video></center>
+                        <div class="panel panel-default panel-fill">
+                            <div class="panel-heading">
+                                <h3 id="subID" class="panel-title">Select Student - <%=subject[0].subID%></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <center><video id="preview"  style="width:100%; height:300px"></video></center>
+                                        </div>
+                                     
+                                        <div class="col-lg-6">
+                                            <div class="row" style="margin-top:20px">
+                                                <label class="col-lg-2 control-label label">Student #</label>
+                                                <div class="col-lg-10">
+                                                    <div class="input-group mb-3">
+                                                      <input id="stID" name="stIDName" type="text" class="form-control" placeholder="Enter Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                      <div class="input-group-append">
+                                                        <button id="checkBtn" class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                      </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                         
-                                            <div class="col-lg-6">
-                                                <div class="row" style="margin-top:20px">
-                                                    <label class="col-lg-2 control-label label">Student #</label>
-                                                    <div class="col-lg-10">
-                                                        <div class="input-group mb-3">
-                                                          <input id="stID" name="stIDName" type="text" class="form-control" placeholder="Enter Student ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                                          <div class="input-group-append">
-                                                            <button id="checkBtn" class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
-                                                          </div>
-                                                        </div>
-                                                    </div>
+                                            <br>
+                                            <div class="row"   style="border:1px solid gray; border-bottom:none">
+                                                <div class="col-lg-12">
+                                                    <h6 style="text-align:center; margin-bottom:20px;  margin-top:20px">Student Details</h6>
                                                 </div>
-                                                <br>
-                                                <div class="row"   style="border:1px solid gray; border-bottom:none">
-                                                    <div class="col-lg-12">
-                                                        <h6 style="text-align:center; margin-bottom:20px;  margin-top:20px">Student Details</h6>
-                                                    </div>
+                                            </div>
+                                            <div class="row" style="border-left:1px solid gray; border-right:1px solid gray; ">
+                                                <label class="col-lg-2 control-label label">Name</label>
+                                                <div class="col-lg-10 input-group-append">
+                                                    <input class="form-control" type="text" name="name" id="name" placeholder="Name" readonly>
                                                 </div>
-                                                <div class="row" style="border-left:1px solid gray; border-right:1px solid gray; ">
-                                                    <label class="col-lg-2 control-label label">Name</label>
-                                                    <div class="col-lg-10 input-group-append">
-                                                        <input class="form-control" type="text" name="name" id="name" placeholder="Name" readonly>
-                                                    </div>
+                                            </div>
+                                            
+                                            <div class="row"  style="border-left:1px solid gray; border-right:1px solid gray; ">
+                                                <label class="col-lg-2 control-label label">AL Year</label>
+                                                <div class="col-lg-10 input-group-append">
+                                                    <input class="form-control" type="text" name="name" id="alyear" placeholder="AL Year" readonly>
                                                 </div>
+                                            </div>
+                                            
+                                            <div class="row"  style="border-left:1px solid gray; border-right:1px solid gray; border-bottom:1px solid gray;">
                                                 
-                                                <div class="row"  style="border-left:1px solid gray; border-right:1px solid gray; ">
-                                                    <label class="col-lg-2 control-label label">AL Year</label>
-                                                    <div class="col-lg-10 input-group-append">
-                                                        <input class="form-control" type="text" name="name" id="alyear" placeholder="AL Year" readonly>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="row"  style="border-left:1px solid gray; border-right:1px solid gray; border-bottom:1px solid gray;">
-                                                    
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -129,52 +127,46 @@
                     </div>
                 </div>
             </div>
-        
-        
-        
-        
+        </div>
+            
         
         <div class="container">
             <div id="content-background" style="padding-top:10px">
                 <div class="tab-content">
                     <div class="col-lg-12">
                         <div class="panel panel-default panel-fill">
-                            <form action="/admin/register/new" id="registernew" method="POST">
-                                <div class="container-table100">
-                                	<div class="wrap-table100">
-                                		<div class="table100">
-                                			<table>
-                                				<thead>
-                                					<tr class="table100-head">
-                                						<th class="column1">#</th>
-                                						<th class="column4">Presence</th>
-                                						<th class="column2">Student ID</th>
-                                						<th class="column3">Name</th>
-                                						
-                                					</tr>
-                                				</thead>
-                                				<tbody>
-                                                    <% for(var i=0; i<subject.length; i++){ %>
-                                                        <tr>
-                                                            <td class="column1"><%=i+1 %></td>
-                                                            <td class="column1"> <input type='checkbox' id="<%=subject[i].stID%>chk" name='select'></td>
-                                                        	<td class="column2" style="width:300px"><%=subject[i].stID%> </td>
-                                                        	<td class="column3" style="width:300px"><%=subject[i].name%> </td>
-                                                         </tr>
-                                                     <% } %>
-                                                </tbody>
-                                			</table>
-                                		</div>
-                                	</div>
+                            <div class="container-table100">
+                            	<div class="wrap-table100">
+                            		<div class="table100">
+                            			<table id="students">
+                            				<thead>
+                            					<tr class="table100-head">
+                            						<th class="column1">#</th>
+                            						<th class="column4">Presence</th>
+                            						<th class="column2">Student ID</th>
+                            						<th class="column3">Name</th>
+                            						
+                            					</tr>
+                            				</thead>
+                            				<tbody>
+                                                <% for(var i=0; i<subject.length; i++){ %>
+                                                    <tr>
+                                                        <td class="column1"><%=i+1 %></td>
+                                                        <td class="column1"> <input type='checkbox' id="<%=subject[i].stID%>chk" class="chkbxs" value="<%=subject[i].stID%>" name='select'></td>
+                                                    	<td class="column2" style="width:300px"><%=subject[i].stID%> </td>
+                                                    	<td class="column3" style="width:300px"><%=subject[i].name%> </td>
+                                                     </tr>
+                                                 <% } %>
+                                            </tbody>
+                            			</table>
+                            		</div>
+                            	</div>
+                            </div>
+                            <center>
+                                <div class="form-group">
+                                    <button type="submit" id="submitbtn" class="btn btn-primary">MARK ATTENDANCE</button>
                                 </div>
-
-                                <center>
-                                    <div class="form-group">
-                                        <button type="submit" id="submitbtn" class="btn btn-primary">ADD MARKS</button>
-                                    </div>
-                                </center>
-                
-                            </form>
+                            </center>
                         </div>
                     </div>
                 </div> 
@@ -185,6 +177,30 @@
 
 
     <script type="text/javascript">
+        var subID = $('#subID').text().split(' ');
+        subID=subID[subID.length-1];
+        
+        $('.chkbxs').change(function(){
+            if($(this).prop('checked')){
+                var id=$(this).val();
+                $.ajax({
+                    url: "/admin/markAttendance/"+subID,
+                    type: "POST",
+                    contentType:"application/json",
+                    data: JSON.stringify({attendance:{"stID":id, "class":subID}})
+                });
+            }
+            else{
+                var id=$(this).val();
+                $.ajax({
+                    url: "/admin/markAttendance/"+subID,
+                    type: "DELETE",
+                    contentType:"application/json",
+                    data: JSON.stringify({attendance:{"stID":id, "class":subID}})
+                });
+            }
+        });
+
         var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
         scanner.addListener('scan', function (content, image) {
             if (content!=null && content[0]=="S"){
@@ -195,13 +211,11 @@
                 $("#stID").val(arr[0]);
                 $("#name").val(arr[1]+" "+arr[2]);
                 $("#alyear").val(arr[3]);
-                var subID = $('#subID').text().split(' ');
-                subID=subID[subID.length-1];
                 
-                if(!$("#"+arr[0]+"chk").attr('checked')){
-                    $("#"+arr[0]+"chk").attr("checked", true);
+                if(!$("#"+arr[0]+"chk").prop('checked')){
+                    $("#"+arr[0]+"chk").prop("checked", true);
                     $.ajax({
-                        url: "/admin/markAttendance/"+arr[0],
+                        url: "/admin/markAttendance/"+subID,
                         type: "POST",
                         contentType:"application/json",
                         data: JSON.stringify({attendance:{"stID":arr[0], "class":subID}})
@@ -209,6 +223,7 @@
                 }
             }
         });
+        
         Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 0) {
               scanner.start(cameras[0]);
@@ -217,7 +232,24 @@
             else
                 alert("Please connect a camera to scan the QR code.");
         });
+        
+        function sleep (time) {
+          return new Promise((resolve) => setTimeout(resolve, time));
+        }
+        
+        $('#submitbtn').click(function(){
+            swal({
+                title:"Saved",
+                text: "Attendance marked successfully",
+                icon: "success",
+                dangerMode: false,
+            });  
+            
+            sleep(3000).then(() => {
+                location.reload(); 
+            });
+        });
     </script> 
     
-<script src="/scripts/attendance.js"></script>
+<script src="../scripts/attendance.js"></script>
 <% include ../partials/footer %>
