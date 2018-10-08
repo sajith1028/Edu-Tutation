@@ -521,6 +521,18 @@ router.post("/newsfeed/new",function(req, res) {
     
 });
 
+router.post("/newsfeed/delete/:id",function(req, res) {
+    var id=req.params.id;
+    
+    var sql="DELETE FROM sch_changes where sch_ID="+id+";";
+    pool.query(sql,(err,res2,cols)=>{
+       if(err) throw err;
+       res.redirect("/admin/newsfeeds");
+    });
+    
+    
+});
+
 
 function generateInvoice(invoice, filename, success, error) {
     var postData = JSON.stringify(invoice);

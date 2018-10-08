@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
         <link rel="stylesheet" type="text/css" href="../stylesheets/home.css"> 
         
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         
@@ -125,11 +126,15 @@
                                                                         <p class="w-100 p-2 m-0 font-black"><%=posts[i].content%></p>
                                                                     </div>
                                                                     <div class="col-lg-4 col-6 border-bottom">
-                                                                        <!--<p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i></span></p>
-                                                                    --></div>
+                                                                        <form id="deletePost" method="POST" action="/admin/newsfeed/delete/<%=posts[i].sch_ID%>">
+                                                                            <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true">
+                                                                                <button type="button" class="btn btn-danger deleteBtn">Delete</button>
+                                                                            </i></span></p>
+                                                                        </form>
+                                                                    </div>
                                                                 </div> 
                                                                 <div class="user-comment-desc p-1 pl-2" style="height:25px">
-                                                                    <p class="m-0 mr-2">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
+                                                                    <p class="m-0 mr-2">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm a');%> by Admin</p>                      
                                                                 </div>    
                                                             </div>
                                                         </div>
