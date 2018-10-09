@@ -161,11 +161,18 @@
                                                             <p class="w-100 p-2 m-0 font-black"><%=posts[i].descr%></p>
                                                          </div>
                                                          <div class="col-lg-4 col-6 border-bottom">
-                                                            <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
+                                                             <% if(currentUser.username == posts[i].author) {%>
+                                                                <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger deleteBtn">Delete</button></span></p>
+                                                             <% } else { %>
+                                                                <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
+                                                             <% } %>
                                                          </div>
                                                    </div> 
                                                   <div class="user-comment-desc p-1 pl-2">
-                                                      <p class="m-0 mr-2"><%=posts[i].name%></p>                      
+                                                      <p class="m-0 mr-2"><%=posts[i].name%></p>    
+                                                      <% if(currentUser.username == posts[i].author) {%>
+                                                        <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
+                                                      <% } %>
                                                   </div>    
                                               </div>
                                             </div>
@@ -186,11 +193,20 @@
                                                                           <p class="w-100 p-2 m-0 font-black"><%= comments[j].comment %></p>
                                                                        </div>
                                                                        <div class="col-lg-5 col-6 border-bottom">
-                                                                          <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
+                                                                          <% if(currentUser.username == comments[j].author) {%>
+                                                                            <form id="delComment" method="POST" action="/student/discussion/delete/<%=comments[j].subID%>/comment/<%=comments[j].cID%>">
+                                                                                <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger delCBtn">Delete</button></span></p>
+                                                                            </form>
+                                                                          <% } else { %>
+                                                                            <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
+                                                                          <% } %>
                                                                        </div>
                                                                     </div> 
                                                                       <div class="user-comment-desc p-1 pl-2">
-                                                                          <p class="m-0 mr-2"> <%=comments[j].name%></p>                      
+                                                                          <p class="m-0 mr-2"> <%=comments[j].name%></p>
+                                                                          <% if(currentUser.username == comments[j].author) {%>
+                                                                            <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
+                                                                          <% } %>
                                                                       </div>   
                                                                     </div>
                                                                   </div>

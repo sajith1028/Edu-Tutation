@@ -9,3 +9,24 @@ $('#commentBtn').click(function(){
             .done(function(result){
             })
 });
+
+$('.delCBtn').click((function(){
+  
+    swal({
+    title: "Are you sure?",
+    text: "This comment will be deleted!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      swal("The comment has been deleted!", {
+        icon: "success",
+      });
+      document.getElementById("delComment").submit();
+    }
+  });
+  
+})
+);

@@ -119,12 +119,12 @@ router.get("/discussions/:id", function(req,res){
          pool.query(sql2, (err, res2, cols)=>{
          if(err) throw err;
          
-            var sql4="select d.postID,d.title,d.descr,d.subID,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.sub_sec,d.postedAt desc;"
+            var sql4="select d.postID,d.title,d.author,d.descr,d.subID,d.sub_sec,d.postedAt,s.name,s.stID from student s,discussion_posts d where d.subID='"+id+"' and s.stID=d.author order by d.sub_sec,d.postedAt desc;"
             pool.query(sql4, (err, res4, cols)=>{
             if(err) throw err;
             var user=req.user.username;
             
-                var sql5="select c.postID, c.comment, c.postedAt, c.author,s.name from comments c, student s where s.stID=c.author and c.subID='"+id+"' order by c.postID,c.postedAt;";
+                var sql5="select c.postID,c.cID, c.comment, c.subID, c.postedAt, c.author,s.name from comments c, student s where s.stID=c.author and c.subID='"+id+"' order by c.postID,c.postedAt;";
                 pool.query(sql5, (err, res5, cols)=>{
                 if(err) throw err;
                 res.render("student/studentDiscussion", {'section': res2,'posts':res4,moment:moment,'user':user,'comments':res5});
@@ -143,6 +143,21 @@ router.get("/viewCourseContent/:id", function(req,res){
         res2.id = {"id": id};
         res.render("student/studentCourseContent", {'content': res2});
     });
+});
+
+router.post("/discussion/delete/:idSub/comment/:id",function(req, res) {
+    var id=req.params.id;
+    var idSub=req.params.idSub;
+    console.log(id);
+    console.log(idSub);
+    console.log(req.params);
+    var sql="DELETE FROM comments where cID="+id+";";
+    console.log(sql);
+    pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+         res.redirect("/student/discussions/"+idSub);
+    });
+    
 });
 
 router.get("/viewResults/:id", function(req,res){
