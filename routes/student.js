@@ -145,18 +145,38 @@ router.get("/viewCourseContent/:id", function(req,res){
     });
 });
 
+//Delete comment by commentID 
 router.post("/discussion/delete/:idSub/comment/:id",function(req, res) {
     var id=req.params.id;
     var idSub=req.params.idSub;
-    console.log(id);
-    console.log(idSub);
-    console.log(req.params);
     var sql="DELETE FROM comments where cID="+id+";";
     console.log(sql);
     pool.query(sql, (err, res2, cols)=>{
          if(err) throw err;
          res.redirect("/student/discussions/"+idSub);
     });
+    
+});
+
+//Delete post by postID
+router.post("/discussion/delete/:idSub/post/:idPost",function(req, res) {
+    var post=req.params.idPost;
+    var sub=req.params.idSub;
+    //Firstly delete all comments to remove dependencies
+    var sql1="DELETE FROM comments where postID="+post+";";
+    pool.query(sql1, (err, res1, cols)=>{
+         if(err) throw err;
+         //Secondly delete all posts
+         var sql2="DELETE FROM discussion_posts where postID="+post+";";
+         pool.query(sql2, (err, res2, cols)=>{
+         if(err) throw err;
+         res.redirect("/student/discussions/"+sub);
+    });
+    });
+    
+    
+    
+    
     
 });
 

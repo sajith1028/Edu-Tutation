@@ -162,7 +162,9 @@
                                                          </div>
                                                          <div class="col-lg-4 col-6 border-bottom">
                                                              <% if(currentUser.username == posts[i].author) {%>
-                                                                <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger deleteBtn">Delete</button></span></p>
+                                                                 <form id="delPost" method="POST" action="/student/discussion/delete/<%=posts[i].subID%>/post/<%=posts[i].postID%>">
+                                                                 <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger delPBtn">Delete</button></span></p>
+                                                                 </form>
                                                              <% } else { %>
                                                                 <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
                                                              <% } %>

@@ -17,7 +17,7 @@ app.use(flash());
 passportConfig(passport);
 
 app.use(require("express-session")({
-    secret:"Nimetha is a sudu baba",
+    secret:"some strong secret which is lengthy",
     resave:false,
     saveUninitialized:false
 })); 

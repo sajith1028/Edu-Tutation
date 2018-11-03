@@ -7,7 +7,7 @@ $('#postBtn').click(function(){
         
     });
     
-$('.deleteBtn').click((function(){
+$('.delNPBtn').click((function(){
   
     swal({
     title: "Are you sure?",

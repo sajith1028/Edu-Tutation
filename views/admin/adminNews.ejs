@@ -93,7 +93,7 @@
                                                                 </div>
                                                             </div> 
                                                             <div class="user-comment-desc p-1 pl-2" style="height:25px">
-                                                                <p class="m-0 mr-2"><%=moment(time).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
+                                                                <p class="m-0 mr-2"><%=moment(time).format('MMMM Do YYYY, h:mm a');%> by Admin</p>                      
                                                             </div>    
                                                         </div>
                                                     </div>
@@ -128,7 +128,7 @@
                                                                     <div class="col-lg-4 col-6 border-bottom">
                                                                         <form id="deletePost" method="POST" action="/admin/newsfeed/delete/<%=posts[i].sch_ID%>">
                                                                             <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true">
-                                                                                <button type="button" class="btn btn-danger delCBtn">Delete</button>
+                                                                                <button type="button" class="btn btn-danger delNPBtn">Delete</button>
                                                                             </i></span></p>
                                                                         </form>
                                                                     </div>
