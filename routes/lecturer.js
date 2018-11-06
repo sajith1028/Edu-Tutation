@@ -84,6 +84,22 @@ router.get("/addAssignmentResults/:id", function(req,res){
     });
 });
 
+router.post("/addAssignmentResults/:id", function(req,res){
+    var subID = req.params.id;
+    
+    for(var i=0;i<req.body.marks.length;i++){
+        var sql="INSERT INTO assignment VALUES('"+req.body.title+"','"+subID+"','"+req.body.stID[i]+"','"+req.body.marks[i]+"');";
+        pool.query(sql, (err, res2, cols)=>{
+        if(err) 
+            throw err;
+        });
+    }
+    res.redirect("/lecturer/addAssignmentResults/"+subID);
+    res.end();
+    
+    
+});
+
 router.get("/addCourseContent/:id", function(req,res){
     var id = req.params.id;
     var sql="SELECT * from content where subID='"+id+"' order by section;";

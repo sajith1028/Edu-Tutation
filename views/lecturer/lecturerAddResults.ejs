@@ -10,6 +10,8 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- End of Bootstrap -->    
     
+        <!--Sweet alert -->
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- Google fonts -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
 
@@ -73,7 +75,7 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Subject <%= enrolment[0].subID %> - Assignment Information</h3>
                                 </div>
-                                <form action="/admin/register/new" id="registernew" method="POST">
+                                <form action="/lecturer/addAssignmentResults/<%= enrolment[0].subID %>" id="registernew" method="POST">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
@@ -102,7 +104,8 @@
                                                         <% for(var i=0; i<enrolment.length; i++){ %>
                                                             <tr>
                                                                 <td class="column1"><%=i+1 %></td>
-                                                            	<td class="column2" style="width:300px"><%=enrolment[i].stID%></td>
+                                                            	<td class="column2" style="width:300px"><%=enrolment[i].stID%></td> 
+                                                            	<input type="hidden" name="stID" value="<%=enrolment[i].stID%>">
                                                             	<td class="column3" style="width:300px"><%=enrolment[i].name%></td>
                                                             	<td class="column4" style="width:200px"><%=enrolment[i].average%></td>
                                                             	<td class="column5" style="width:300px"><input type="text" name="marks" placeholder="Enter Mark" class="form-control" style="width:280px; margin-bottom:0;" required></td>
@@ -114,17 +117,16 @@
                                     		</div>
                                     	</div>
                                     </div>
-
-                    
-                                </form>
+                                
                             </div>
                         </div>
                     </div>
                     <center>
                         <div class="form-group">
-                            <button type="submit" id="submitbtn" class="btn btn-primary">ADD MARKS</button>
+                            <button type="submit" id="submitResult" class="btn btn-primary">ADD MARKS</button>
                         </div>
                     </center>
+                                </form>
                 </div> 
             </div>
         </div>
@@ -132,4 +134,5 @@
 </div>
 
 <script src="/scripts/register.js"></script>
+<script src="/scripts/addResults.js"></script>
 <% include ../partials/footer %>
