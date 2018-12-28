@@ -152,7 +152,7 @@
                                     
                                             <div class="row comment-box p-1 pt-3 pr-4">
                                               <div class="col-lg-1 col-3 user-img text-center">  
-                                                <img src="/../images/users/<%=posts[i].stID%>.jpg" class="main-cmt-img">
+                                                <img src="/../images/users/<%=posts[i].author%>.jpg" class="main-cmt-img">
                                               </div>
                                               <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
                                                    <div class="row">
@@ -171,7 +171,7 @@
                                                          </div>
                                                    </div> 
                                                   <div class="user-comment-desc p-1 pl-2">
-                                                      <p class="m-0 mr-2"><%=posts[i].name%></p>    
+                                                      <p class="m-0 mr-2"><%=posts[i].authorName%></p>    
                                                       <% if(currentUser.username == posts[i].author) {%>
                                                         <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
                                                       <% } %>
@@ -205,7 +205,7 @@
                                                                        </div>
                                                                     </div> 
                                                                       <div class="user-comment-desc p-1 pl-2">
-                                                                          <p class="m-0 mr-2"> <%=comments[j].name%></p>
+                                                                          <p class="m-0 mr-2"> <%=comments[j].authorName%></p>
                                                                           <% if(currentUser.username == comments[j].author) {%>
                                                                             <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
                                                                           <% } %>

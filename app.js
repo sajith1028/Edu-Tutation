@@ -25,14 +25,18 @@ con.connect(function(err){
 
 
 app.use(CookieParser());
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+
 app.use(fileUpload());
+
 app.use(require("express-session")({
     secret:"ahg dgdwud gyudg",
     resave:false,
     saveUninitialized:false
 })); 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -40,8 +44,6 @@ app.set("view engine","ejs");
 app.use(express.static('public')); //for css files
 app.use(flash());
 passportConfig(passport);
-
-
 
 app.use(function(req, res, next){
   res.locals.currentUser = req.user;

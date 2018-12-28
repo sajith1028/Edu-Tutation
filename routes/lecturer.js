@@ -156,6 +156,118 @@ router.post("/addNewCourseContent/:id", function(req,res){
     
 });
 
+router.get("/forums/:id", function(req,res){
+    var id = req.params.id;
+    
+    //select ID of lecturer teaching the subject
+    var sql3 = "select s.lecID from subject s where s.subID='"+id+"';";
+    pool.query(sql3, (err, res3, cols)=>{
+         if(err) throw err;
+         var lecID=res3[0].lecID;
+         
+         //select the course topics
+         var sql2="select c.title,c.subID from course_topics c where c.lecID='"+lecID+"' and c.subID='"+id+"';";
+         pool.query(sql2, (err, res2, cols)=>{
+         if(err) throw err;
+         
+            //select 
+            var sql4="select d.postID,d.title,d.author,d.descr,d.subID,d.sub_sec,d.postedAt,d.authorName from discussion_posts d where d.subID='"+id+"' order by d.sub_sec,d.postedAt desc;"
+            pool.query(sql4, (err, res4, cols)=>{
+            if(err) throw err;
+            var user=req.user.username;
+            
+                var sql5="select c.postID,c.cID, c.comment, c.subID, c.postedAt, c.author,c.authorName from comments c where c.subID='"+id+"' order by c.postID,c.postedAt;";
+                pool.query(sql5, (err, res5, cols)=>{
+                if(err) throw err;
+                res.render("lecturer/lecturerDiscussion", {'section': res2,'posts':res4,moment:moment,'user':user,'comments':res5});
+                });
+            });
+        });
+    });
+});
+
+//Delete post by postID
+router.post("/forums/delete/:idSub/post/:idPost",function(req, res) {
+    var post=req.params.idPost;
+    var sub=req.params.idSub;
+    //Firstly delete all comments to remove dependencies
+    var sql1="DELETE FROM comments where postID="+post+";";
+    pool.query(sql1, (err, res1, cols)=>{
+         if(err) throw err;
+         //Secondly delete all posts
+         var sql2="DELETE FROM discussion_posts where postID="+post+";";
+         pool.query(sql2, (err, res2, cols)=>{
+         if(err) throw err;
+         res.redirect("/lecturer/forums/"+sub);
+    });
+    });
+    
+});
+
+//Delete comment by commentID 
+router.post("/forums/delete/:idSub/comment/:id",function(req, res) {
+    var id=req.params.id;
+    var idSub=req.params.idSub;
+    var sql="DELETE FROM comments where cID="+id+";";
+    console.log(sql);
+    pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+         res.redirect("/lecturer/forums/"+idSub);
+    });
+    
+});
+
+router.post("/forums/:id/comment",function(req, res) {
+    var subID = req.params.id;
+    var username = req.user.username;
+    
+    //Getting client's time
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var created = dte.toJSON();
+    
+    var sql1="select s.name,l.name from student s, lecturer l where s.stID='"+username+"' or l.lecID='"+username+"';";
+    pool.query(sql1,(err,res1,cols)=>{
+       if (err) throw err;
+       
+        var sql="insert into comments(comment,postID,postedAt,author,subID,authorName) values('"+req.body.comment+"','"+req.body.postID+"','"+created+"','"+req.user.username+"','"+subID+"','"+res1[0].name+"');";
+        pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+         
+    });
+    });
+    
+   
+    res.redirect("lecturer/forums/"+subID);
+});
+
+router.post("/forums/:id",function(req,res){
+    var id = req.params.id;
+    var username = req.user.username;
+    
+    //Getting client's time
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var created = dte.toJSON();
+    
+    var sql1="select s.name,l.name from student s, lecturer l where s.stID='"+username+"' or l.lecID='"+username+"';";
+    pool.query(sql1,(err,res1,cols)=>{
+       if (err) throw err;
+       
+       var sql="insert into discussion_posts(title,descr,subID,sub_sec,postedAt,author,authorName) values ('"+req.body.title+"','"+req.body.desc+"','"+ id +"','"+req.body.sub_section+"','"+created+"','"+req.user.username+"','"+res1[0].name+"');";
+   
+        pool.query(sql, (err, res2, cols)=>{
+         if(err) throw err;
+    });
+       
+    });
+    
+    
+    
+    res.redirect("/lecturer/forums/"+id);
+});
+
+
 router.get("/viewResults/:id", function(req,res){
     var id = req.params.id;
     res.render("lecturer/lecturerViewResults");
