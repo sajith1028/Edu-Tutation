@@ -64,8 +64,7 @@ router.get("/income", function(req,res){
             else
             amts2[monthIndex]=result.totalfee;
         });    
-        console.log(amts);
-        console.log(amts2);
+        
          res.render("lecturer/lecturerIncome",{incomes:res2,fees:{amts,amts2}});
         res.end();
     });
@@ -198,7 +197,7 @@ router.post("/forums/delete/:idSub/post/:idPost",function(req, res) {
          var sql2="DELETE FROM discussion_posts where postID="+post+";";
          pool.query(sql2, (err, res2, cols)=>{
          if(err) throw err;
-         res.redirect("/lecturer/forums/"+sub);
+         res.redirect("/lecturer/forums/"+sub);  
     });
     });
     

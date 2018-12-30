@@ -72,17 +72,17 @@
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs">
                       <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#newStudent">New Lecturer</a>
+                        <a class="nav-link active" data-toggle="tab" href="#newLec">New Lecturer</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#curStudent">Assign Class</a>
+                        <a class="nav-link" data-toggle="tab" href="#curLec">Assign Class</a>
                       </li>
                     </ul>
                 </div>    
             </div>
             <div id="content-background">
                 <div class="tab-content">
-                    <div class="row tab-pane active" id="newStudent">
+                    <div class="row tab-pane active" id="newLec">
                         <div class="col-lg-12">
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
@@ -116,14 +116,6 @@
                                                 </div>
                                                
                                             </div>
-                                            
-                                            <center>
-                                            <div class="form-group">
-                                                <button type="submit" id="submitBtn" class="btn btn-primary">ADD</button>
-                                                <button type="submit" id="updateBtn" class="btn btn-primary">UPDATE</button>
-                                            </div>
-                                            </center>
-                    
                                         </div>
                                     </div>
                     
@@ -133,30 +125,29 @@
                     </div>
                     
                     
-                    <div class="row tab-pane fade"  id="curStudent">
+                    <div class="row tab-pane fade"  id="curLec">
                         <div class="col-lg-12">
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">New Class Information</h3>
                                 </div> 
-                                <form action="/admin/register/lecturer/class" method="POST">
                                     <div class="panel-body">
+                                    <form action="/admin/register/lecturer/class" method="POST">
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Lecturer ID</label>
                                                 <div class="col-sm-4">
                                                     <div class="input-group mb-3">
-                                                     <input type="text" class="form-control" placeholder="Lecturer ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                     <input type="text" id="checkID" class="form-control" value="<%=lecID%>" placeholder="Lecturer ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                                       <div class="input-group-append">
-                                                        <button class="btn btn-primary" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                        <button class="btn btn-primary" id="Check" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
                                                       </div>
                                                     </div>
                                                 </div>
-                            
-                                                
-                                                
                                             </div>
                                         </div>
+                                    </form>
+                                    <form action="/admin/register/subject/new" id="newsubject" method="POST">
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Subject</label>
@@ -165,59 +156,75 @@
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Medium</label>
-                                                <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="medium" placeholder="Medium" required>
+                                                <div class="col-sm-4 form-group">
+                                                        <select name = "medium" class="form-control combobox">   
+                                                                <option value="E">English</option>
+                                                                <option value="S">Sinhala</option>
+                                                        </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Hall</label>
-                                                <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="hall" placeholder="Hall" required>
+                                                <div class="col-sm-4 form-group">
+                                                        <select name="hall" class="form-control combobox">   
+                                                                <option value="Hall A">Hall A</option>
+                                                                <option value="Hall B">Hall B</option>
+                                                                <option value="Hall C">Hall C</option>
+                                                                <option value="Hall D">Hall D</option>
+                                                        </select>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Fee</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="fee" placeholder="Fee" required>
+                                                    <input class="form-control" type="number" name="fee" min="1000" max="5000" step="100" value="2000" required>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Year</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="year" placeholder="Year" required>
+                                                    <input class="form-control"  type="number" name="year" min="2019" max="2090"s required>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Day</label>
-                                                <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="day" placeholder="Day" required>
+                                                <div class="col-sm-4 form-group">
+                                                        <select name="day" class="form-control combobox">   
+                                                                <option value="Monday">Monday</option>
+                                                                <option value="Tuesday">Tuesday</option>
+                                                                <option value="Wednesday">Wednesday</option>
+                                                                <option value="Thursday">Thursday</option>
+                                                                <option value="Friday">Friday</option>
+                                                                <option value="Saturday">Saturday</option>
+                                                                <option value="Sunday">Sunday</option>
+                                                        </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Time from</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="from" placeholder="Time from" required>
+                                                    <input class="form-control" type="time" name="from" required>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Time to</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="to" placeholder="Time To" required>
+                                                    <input class="form-control" type="time" name="to" required>
                                                 </div>
                                             </div>
-                                            
-                                            <center>
+                                            <input type="hidden" name="lecturer" id="lecturer" value="<%=lecID%>">
+                                        </div>
+                                        </form>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="table">
+                        </div>  
+                                        <center>
                                             <div class="form-group">
                                                 <button type="submit" id="submitBtn" class="btn btn-primary">ADD</button>
                                                 <button type="submit" id="updateBtn" class="btn btn-primary">UPDATE</button>
                                             </div>
-                                            </center>
-                                            
-                                        </div>
-                                    </div>
-                    
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!--old button -->
+                                        </center>
                 </div> 
             </div>
         </div>

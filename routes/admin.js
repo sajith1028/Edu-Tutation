@@ -362,7 +362,43 @@ router.post("/payments/new",function(req, res) {
 });
     
 router.get("/register/lecturer", function(req,res){
-    res.render("admin/adminRegisterLecturer");
+    res.render("admin/adminRegisterLecturer",{lecID:0});
+});
+
+router.post("/register/lecturer/new/class", function(req,res){
+    
+    var sql ="SELECT * FROM subject s where s.lecID='"+req.body.lecID.lecID+"'";
+    
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+            res.render("../views/admin/ajaxRegisterLecTableTemplate",{subjects:res2});
+            res.end();
+    });
+});
+
+router.post("/register/subject/new", function(req,res){
+    
+    var subID="S";
+    var sql="select count(subID) as numberOfSubjects from subject";  
+    
+    pool.query(sql, (err, res3, cols)=>{
+        if(err)
+            throw err;
+        nos=parseInt(res3[0].numberOfSubjects, 10)+1;
+        
+        if(nos<10)
+            subID = subID+"0"+nos;
+        else if(nos<100)
+            subID = subID+nos;
+    
+    var sql ="INSERT INTO subject VALUES('"+subID+"','"+req.body.subName+"','"+req.body.medium+"','"+req.body.hall+"','"+req.body.from+"','"+req.body.to+"','"+req.body.year+"','"+req.body.day+"','"+req.body.lecturer+"','"+req.body.fee+"')";
+   
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+            res.render("admin/adminRegisterLecturer",{lecID:req.body.lecturer});
+            res.end();
+        });
+    });
 });
 
 router.post("/register/lecturer/class", function(req,res){
@@ -442,8 +478,10 @@ router.post("/register/lecturer/new", function(req,res){
                 }
             });
         });
+        
+    res.render("admin/adminRegisterLecturer",{lecID:lecID});
+        
     });
-    res.redirect("/admin/register/lecturer");
 });
     
 

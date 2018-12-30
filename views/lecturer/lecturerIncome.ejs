@@ -28,9 +28,10 @@
 		<script> 
 		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
 		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+		    
 		</script>
 	<!-- End of For Charts --> 
-	
+	  
     </head>
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -76,19 +77,77 @@
         <h2 id="topic">PAYMENTS<%=[fees[0]]%></h2>
         <div class="wrapper">
             <div class="container">
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div id='myChart'><a class="zc-ref"></a></div>
+                      <div class="table">
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div id='myChart2'></div>
+                      <div class="table">
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
               
-              
-              
-              
-              <!--Enter chart here -->
-                            <div id='myChart'><a class="zc-ref"></a></div>
-                            <div class="table">
+            <div class="container">
+              <div class="col-lg-12">
+                <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Filter Results</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-1 control-label label">Year</label>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select class="form-control combobox" id="alyear">
+                                            <option disabled selected value></option>
+                                        </select>
+                                      </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <label class="col-sm-1 control-label label">Class</label>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select class="form-control combobox" id="class">
+                                            <option disabled selected value></option>
+                                        </select>
+                                      </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <label class="col-sm-1 control-label label">Class</label>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select class="form-control combobox" name="ALYear" id="alyear1">
+                                            
+                                        </select>
+                                      </div>
+                                </div>
                             </div>
-              
-              
+                        </div>
+                    </div>
+                </div>
+            
                 <div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
-            				<div class="table100">
+            				<div class="table100 table">
             					<table>
             						<thead>
             							<tr class="table100-head">
@@ -107,6 +166,9 @@
             						<tbody>
             						  <%incomes.forEach(function(income){%>
             						    <tr>
+            						      <% if (yearsAr.indexOf(income.year) === -1){ yearsAr.push(income.year); $('#alyear').append('<option value="Option Value">Option Name</option>'); }%>
+            						      <% if (classAr.indexOf(income.subID) === -1){ classAr.push(income.subID); $('#class').append('<option value="Option Value">Option Name</option>'); }%>
+    
             						      <td class="column1"><%=income.year%></td>
             									<td class="column1 "><b><%=income.month%></b></td>
             									<td class="column2"><%=income.subID%></td>
@@ -118,7 +180,7 @@
             									<td class="column6"><%=income.totalfee/4%></td>
             									<td class="column7"><b><%=income.totalfee-income.totalfee/4%></b></td>
             								</tr>
-            						  <%});%>
+            						  <% }); %>
             						</tbody>
             					</table>
             				</div>
@@ -135,9 +197,9 @@
 </div>       
 
 <script>
-    var myConfig = {
+  
+  var myConfig = {
       type: "line",
-      stacked: true,
       title: {
         text: "Net Income",
         fontColor: "#424242",
@@ -206,33 +268,54 @@
         }
       },
       series: [{
-        values: [ 0, 0, 0, 0, 0, 0, 0, 0, 4000, 4000, 0, 0 ],
+        values: [ 1000, 3000, 3000, 4000, 6000, 7000, 6000, 6000, 5000, 5000, 5000, 5000 ],
         text: "S01",
         backgroundColor: "#4CAF50",
-        lineColor: "#10594b",
+        lineColor: "black",
         marker: {
-          backgroundColor: "#10594b",
-          borderColor: "#4CAF50"
+          backgroundColor: "black",
+          borderColor: "red"
 
         }
       },{
-        values: [0,0,0,0,0,0,0,6000,6000,2000,0,0],
+        values: [0,0,1000,2000,2000,3000,4000,4000,4000,4000,4000,5000],
         text: "S05",
         backgroundColor: "#4CAF50",
-        lineColor: "#4caf9c",
+        lineColor: "red",
         marker: {
-          backgroundColor: "#4caf9c",
-          borderColor: "#4CAF50"
+          backgroundColor: "red",
+          borderColor: "black"
 
         }
       }
       
       ]
     };
-
+    
     zingchart.render({
       id: 'myChart',
       data: myConfig,
     });
+    
+    zingchart.render({
+      id: 'myChart2',
+      data: myConfig,
+    });
+      
+  $('#alyear').change(function(){
+    var div = $(".table");
+    div.html('');
+    div.hide();
+    div.fadeIn(1000)
+  });
+  
+  $('#class').change(function(){
+    var div = $(".table");
+    div.html('');
+    div.hide();
+    
+    div.fadeIn(1000)
+  });
+  
   </script>
 <% include ../partials/footer %>
