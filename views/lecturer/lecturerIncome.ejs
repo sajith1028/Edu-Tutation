@@ -76,6 +76,55 @@
     <div id="overlay">
         <h2 id="topic">PAYMENTS<%=[fees[0]]%></h2>
         <div class="wrapper">
+          
+            <% var yearsAr=[] %> 
+            <% var classAr=[] %> 
+              
+            <%incomes.forEach(function(income){%>
+              <% if (yearsAr.indexOf(income.year) === -1) yearsAr.push(income.year); %>
+              <% if (classAr.indexOf(income.subID) === -1) classAr.push(income.subID); })%>
+              
+            <div class="container">  
+                <div class="panel panel-default panel-fill">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Filter Results</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-1 control-label label">Year</label>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select class="form-control combobox" id="alyear">
+                                            <option selected value></option>
+                                              <% yearsAr.forEach(function(y){ %>
+                                                <option value='<%= y %>'><%= y %></option>
+                                              <% }) %>
+                                        </select>
+                                      </div>
+                                </div>
+                                
+                                <div class="col-sm-1"></div>
+                                <label class="col-sm-1 control-label label">Class</label>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select class="form-control combobox" id="class">
+                                            <option selected value></option>
+                                            <% classAr.forEach(function(y){ %>
+                                                <option value='<%= y %>'><%= y %></option>
+                                            <% }) %>
+                                        </select>
+                                      </div>
+                                </div>
+                                
+                                <div class="col-sm-1"></div>
+                                <label class="col-sm-4 control-label label">For more details, click any row of the table below.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="container">
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -84,12 +133,12 @@
                 </ol>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <div id='myChart'><a class="zc-ref"></a></div>
+                    <div id='myChart' style="border:1px dotted gray"><a class="zc-ref"></a></div>
                       <div class="table">
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <div id='myChart2'></div>
+                    <div id='myChart2' style="border:1px dotted gray"></div>
                       <div class="table">
                     </div>
                   </div>
@@ -103,48 +152,7 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-            </div>
               
-            <div class="container">
-              <div class="col-lg-12">
-                <div class="panel panel-default panel-fill">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Filter Results</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <label class="col-sm-1 control-label label">Year</label>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <select class="form-control combobox" id="alyear">
-                                            <option disabled selected value></option>
-                                        </select>
-                                      </div>
-                                </div>
-                                <div class="col-sm-1"></div>
-                                <label class="col-sm-1 control-label label">Class</label>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <select class="form-control combobox" id="class">
-                                            <option disabled selected value></option>
-                                        </select>
-                                      </div>
-                                </div>
-                                <div class="col-sm-1"></div>
-                                <label class="col-sm-1 control-label label">Class</label>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <select class="form-control combobox" name="ALYear" id="alyear1">
-                                            
-                                        </select>
-                                      </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
                 <div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100 table">
@@ -166,9 +174,6 @@
             						<tbody>
             						  <%incomes.forEach(function(income){%>
             						    <tr>
-            						      <% if (yearsAr.indexOf(income.year) === -1){ yearsAr.push(income.year); $('#alyear').append('<option value="Option Value">Option Name</option>'); }%>
-            						      <% if (classAr.indexOf(income.subID) === -1){ classAr.push(income.subID); $('#class').append('<option value="Option Value">Option Name</option>'); }%>
-    
             						      <td class="column1"><%=income.year%></td>
             									<td class="column1 "><b><%=income.month%></b></td>
             									<td class="column2"><%=income.subID%></td>
@@ -188,7 +193,7 @@
             	</div>
             	
             <center>
-              <a href="/student"><button class="btn btn-primary" style="width:100px;margin-bottom:20px;">OKAY</button></a>
+              <a href="/lecturer"><button class="btn btn-primary" style="width:100px;margin-bottom:20px;">OKAY</button></a>
             </center>
             </div>
             </div>

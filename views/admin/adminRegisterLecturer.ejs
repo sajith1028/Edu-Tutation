@@ -144,6 +144,11 @@
                                                       </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">Subject ID</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input class="form-control" type="text" name="subjectID" readonly>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -217,7 +222,7 @@
                         </div>
                     </div>
                     
-                        <div class="table">
+                        <div id="lecTable" class="table">
                         </div>  
                                         <center>
                                             <div class="form-group">
@@ -225,6 +230,7 @@
                                                 <button type="submit" id="updateBtn" class="btn btn-primary">UPDATE</button>
                                             </div>
                                         </center>
+
                 </div> 
             </div>
         </div>
@@ -232,4 +238,5 @@
 </div>
 
 <script src="/scripts/lecRegister.js"></script>
+<script src="/scripts/lecRegisterTable.js"></script>
 <% include ../partials/footer %>

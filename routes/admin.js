@@ -391,13 +391,31 @@ router.post("/register/subject/new", function(req,res){
         else if(nos<100)
             subID = subID+nos;
     
-    var sql ="INSERT INTO subject VALUES('"+subID+"','"+req.body.subName+"','"+req.body.medium+"','"+req.body.hall+"','"+req.body.from+"','"+req.body.to+"','"+req.body.year+"','"+req.body.day+"','"+req.body.lecturer+"','"+req.body.fee+"')";
+    var sql2 ="INSERT INTO subject VALUES('"+subID+"','"+req.body.subName+"','"+req.body.medium+"','"+req.body.hall+"','"+req.body.from+"','"+req.body.to+"','"+req.body.year+"','"+req.body.day+"','"+req.body.lecturer+"','"+req.body.fee+"')";
    
-    pool.query(sql, (err, res2, cols)=>{
+    pool.query(sql2, (err, res2, cols)=>{
         if(err) throw err;
             res.render("admin/adminRegisterLecturer",{lecID:req.body.lecturer});
             res.end();
         });
+    });
+});
+
+router.post("/register/subject/update", function(req,res){
+    
+    var sql="UPDATE subject SET subname='"+req.body.subname+"',medium='"+req.body.medium+"',hall='"+req.body.hall+"', fromTime='"+req.body.from+"' ,toTime='"+req.body.to+"',year='"+req.body.year+"',day='"+req.body.day+"',fee='"+req.body.fee+"' WHERE subID='"+req.body.subID+"'";  
+   
+    pool.query(sql, (err, res1, cols)=>{
+        if(err)
+            throw err;
+            
+        var sql2 ="SELECT * FROM subject s where s.lecID='"+req.body.lecID+"'";
+        pool.query(sql2, (err, res2, cols)=>{
+            if(err) throw err;
+            res.render("../views/admin/ajaxRegisterLecTableTemplate",{subjects:res2});
+            res.end();
+                                        });
+       
     });
 });
 
