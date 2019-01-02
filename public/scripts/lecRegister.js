@@ -8,8 +8,60 @@ $('#submitBtn').click(function(){
         else
         {
             //Add new class details to lecturer
-            $('#lecturer').val($('#checkID').val());
-            $('#newsubject').submit();
+            var count = $('.table tr').length;
+            console.log("FIRST")
+            console.log(count);
+             
+            var subname=document.getElementsByName("subName")[0].value;
+            var medium=document.getElementsByName("medium")[0].value;
+            var hall=document.getElementsByName("hall")[0].value
+            var day=document.getElementsByName("day")[0].value
+            var from=document.getElementsByName("from")[0].value
+            var to=document.getElementsByName("to")[0].value
+            var year=document.getElementsByName("year")[0].value
+            var fee=document.getElementsByName("fee")[0].value
+            var lecID=$('#checkID').val();
+            
+            
+            
+                $.ajax({
+                    url: "/admin/register/subject/new",
+                    type: "POST",
+                    contentType:"application/json",
+                    data: JSON.stringify({subname:subname ,medium:medium ,hall:hall ,from:from ,to:to ,year:year ,day:day ,fee:fee,lecID:lecID })
+                    })
+                        .done(function(result){
+                            changeTable(result);
+                                                })
+                                                
+                                                
+            setTimeout(function(){
+                if($('.table tr').length==count) { 
+                    console.log("SECOND")
+                    console.log($('.table tr').length)
+                    
+                    swal({
+                        title: "Retry",
+                        text: hall+" is occupied in the requested time slot!",
+                        icon: "error",
+                        dangerMode: true,
+                    });  
+                    
+                }
+                                                                    
+                else {     
+                    console.log("THIRD")
+                    console.log($('.table tr').length)
+                    
+                    swal({
+                        title: "Success",
+                        text: hall+" is reserved for "+subname+" on "+day+" from "+from+" to "+to,
+                        icon: "success",
+                        dangerMode: false,
+                    });
+                                    }
+                
+                            }, 2000);
             
         }
  });
@@ -80,3 +132,6 @@ $('#updateBtn').click(function(){
             
         }
  });
+ 
+ 
+ 

@@ -106,6 +106,7 @@ router.get("/addCourseContent/:id", function(req,res){
          if(err) throw err;
          
         res2.id = {"id": id};
+        console.log(res2);
         res.render("lecturer/lecturerCourseContent", {'content': res2});
     });
 });

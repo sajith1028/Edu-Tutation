@@ -132,16 +132,13 @@
                   <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 </ol>
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <div id='myChart' style="border:1px dotted gray"><a class="zc-ref"></a></div>
-                      <div class="table">
+                  <% for(var i=0; i<yearsAr.length; i++){ /* for each year, new carousal */ %>
+                    <div class="carousel-item active">
+                      <div id='<%= "myChart"+i %>' style="border:1px dotted gray"><a class="zc-ref"></a></div>
+                        <div class="table">
+                      </div>
                     </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div id='myChart2' style="border:1px dotted gray"></div>
-                      <div class="table">
-                    </div>
-                  </div>
+                  <% } %>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -156,7 +153,7 @@
                 <div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100 table">
-            					<table>
+            					<table id='myTable'>
             						<thead>
             							<tr class="table100-head">
             							  <th class="column1">Year</th>
@@ -171,7 +168,7 @@
             								<th class="column7">Net Income (Rs.)</th>
             							</tr>
             						</thead>
-            						<tbody>
+            						<tbody id="tbody">
             						  <%incomes.forEach(function(income){%>
             						    <tr>
             						      <td class="column1"><%=income.year%></td>
@@ -202,124 +199,355 @@
 </div>       
 
 <script>
+  var incomes = <%-JSON.stringify(incomes)%>;
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  
+  var yearsAr=[]
+  var classAr=[]
+  var value=[0,0,0,0,0,0,0,0,0,0,0,0]
+  var i=0
+  var count=1
+  var lineColors = ['black', 'red', 'blue', 'green', 'purple', 'yellow', 'orange']
+  var circleColors = ['red', 'black', 'purple', 'yellow', 'blue', 'green', 'orange']
   
   var myConfig = {
-      type: "line",
-      title: {
-        text: "Net Income",
-        fontColor: "#424242",
-        adjustLayout: true,
-        marginTop: 15
-      },
-      plot: {
-        aspect: "spline",
-        alphaArea: 0.6
-      },
-      plotarea: {
-        margin: "dynamic"
-      },
-      tooltip: {
-        visible: false
-      },
-      scaleY: {
-        short: true,
-        shortUnit: 'k',
-        lineColor: "#AAA5A5",
-        tick: {
-          lineColor: "#AAA5A5"
+        type: "line",
+        title: {
+          text: "",
+          fontColor: "#424242",
+          adjustLayout: true,
+          marginTop: 15
         },
-        item: {
-          fontColor: "#616161",
-          paddingRight: 5
+        plot: {
+          aspect: "spline",
+          alphaArea: 0.6
         },
-        guide: {
-          lineStyle: "dotted",
-          lineColor: "#AAA5A5"
+        plotarea: {
+          margin: "dynamic"
         },
-        label: {
-          text: "Rs.",
-          fontColor: "#616161"
+        tooltip: {
+          visible: false
+        },
+        scaleY: {
+          short: true,
+          shortUnit: 'k',
+          lineColor: "#AAA5A5",
+          tick: {
+            lineColor: "#AAA5A5"
+          },
+          item: {
+            fontColor: "#616161",
+            paddingRight: 5
+          },
+          guide: {
+            lineStyle: "dotted",
+            lineColor: "#AAA5A5"
+          },
+          label: {
+            text: "Rs.",
+            fontColor: "#616161"
+          }
+        },
+        scaleX: {
+          lineColor: "#AAA5A5",
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
+          tick: {
+            lineColor: "#AAA5A5"
+          },
+          item: {
+            fontColor: "#616161",
+            paddingTop: 5
+          },
+          label: {
+            text: "2018",
+            fontColor: "#616161"
+          }
+        },
+        crosshairX: {
+          lineColor: "#AAA5A5",
+          plotLabel: {
+            backgroundColor: "#EBEBEC",
+            borderColor: "#AAA5A5",
+            borderWidth: 2,
+            borderRadius: 2,
+            thousandsSeparator: ',',
+            fontColor: '#616161'
+          },
+          scaleLabel: {
+            backgroundColor: "#EBEBEC",
+            borderColor: "#AAA5A5",
+            fontColor: "#424242"
+          }
+        },
+        series: []
+      };
+      
+  incomes.forEach(function(income){
+    if (yearsAr.indexOf(income.year) === -1){ 
+      if(yearsAr.length !=0){
+        zingchart.render({
+          id: 'myChart'+i,
+          data: myConfig,
+        });
+        
+        i++
+      }
+      
+      yearsAr.push(income.year)
+      classAr=[]
+      myConfig.text = income.year
+      myConfig.title.text = "Net Income"
+      myConfig.series = []
+      classAr.push(income.subID); 
+      value=[0,0,0,0,0,0,0,0,0,0,0,0]
+      value[months.indexOf(income.month)]=income.totalfee
+    }
+    
+    else{
+      if (classAr.indexOf(income.subID) === -1){
+        if(classAr.length != 0){
+          var details = {
+            values: value,
+            text: classAr[classAr.length-1],
+            backgroundColor: "#4CAF50",
+            lineColor: lineColors[classAr.length-1],
+            marker: {
+              backgroundColor: circleColors[classAr.length-1],
+              borderColor: lineColors[classAr.length-1]
+    
+            }
+          }
+          
+          myConfig.series.push(details)
+          classAr.push(income.subID); 
+          value=[0,0,0,0,0,0,0,0,0,0,0,0]
         }
-      },
-      scaleX: {
-        lineColor: "#AAA5A5",
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
-        tick: {
-          lineColor: "#AAA5A5"
-        },
-        item: {
-          fontColor: "#616161",
-          paddingTop: 5
-        },
-        label: {
-          text: "2018",
-          fontColor: "#616161"
-        }
-      },
-      crosshairX: {
-        lineColor: "#AAA5A5",
-        plotLabel: {
-          backgroundColor: "#EBEBEC",
-          borderColor: "#AAA5A5",
-          borderWidth: 2,
-          borderRadius: 2,
-          thousandsSeparator: ',',
-          fontColor: '#616161'
-        },
-        scaleLabel: {
-          backgroundColor: "#EBEBEC",
-          borderColor: "#AAA5A5",
-          fontColor: "#424242"
-        }
-      },
-      series: [{
-        values: [ 1000, 3000, 3000, 4000, 6000, 7000, 6000, 6000, 5000, 5000, 5000, 5000 ],
-        text: "S01",
+      }
+        
+      value[months.indexOf(income.month)]=income.totalfee
+    }
+    
+    if(count==incomes.length){
+      var details = {
+        values: value,
+        text: income.subID,
         backgroundColor: "#4CAF50",
-        lineColor: "black",
+        lineColor: lineColors[classAr.length-1],
         marker: {
-          backgroundColor: "black",
-          borderColor: "red"
-
-        }
-      },{
-        values: [0,0,1000,2000,2000,3000,4000,4000,4000,4000,4000,5000],
-        text: "S05",
-        backgroundColor: "#4CAF50",
-        lineColor: "red",
-        marker: {
-          backgroundColor: "red",
-          borderColor: "black"
-
+          backgroundColor: circleColors[classAr.length-1],
+          borderColor: lineColors[classAr.length-1]
         }
       }
       
-      ]
-    };
-    
-    zingchart.render({
-      id: 'myChart',
-      data: myConfig,
-    });
-    
-    zingchart.render({
-      id: 'myChart2',
-      data: myConfig,
-    });
+      myConfig.series.push(details)
+          
+      zingchart.render({
+          id: 'myChart'+i,
+          data: myConfig,
+        });
+        
+        i++
+    }
       
+    count++
+  })            
+  
+    
   $('#alyear').change(function(){
-    var div = $(".table");
-    div.html('');
-    div.hide();
-    div.fadeIn(1000)
+    var tbody = $("#tbody");
+    tbody.html('');
+    tbody.hide();
+    tbody.fadeIn(1000)
+    
+    var graph = $('#carouselExampleIndicators')
+    graph.html('<div id="chart" style="border:1px dotted gray"><a class="zc-ref"></a></div>  <div class="table"></div>')
+    
+    var trow=""
+    
+    classAr=[]
+    myConfig.text = $("#alyear").val()
+    myConfig.title.text = $("#alyear").val()
+    myConfig.series = []
+    count=1
+    
+    if($("#class").val()==""){
+      incomes.forEach(function(income){
+        if ($("#alyear").val()==income.year){ 
+          if (classAr.indexOf(income.subID) === -1){
+            if(classAr.length != 0){
+              var details = {
+                values: value,
+                text: classAr[classAr.length-1],
+                backgroundColor: "#4CAF50",
+                lineColor: lineColors[classAr.length-1],
+                marker: {
+                  backgroundColor: circleColors[classAr.length-1],
+                  borderColor: lineColors[classAr.length-1]
+        
+                }
+              }
+              myConfig.series.push(details)
+            }
+            
+            classAr.push(income.subID); 
+            value=[0,0,0,0,0,0,0,0,0,0,0,0]
+            
+          }
+          
+          trow=""
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("</td><td class='column1'><b>", income.month)
+          trow=trow.concat("</b></td><td class='column2'>", income.subID)
+          trow=trow.concat("</td><td class='column8'>", income.ALyear)
+          trow=trow.concat("</td><td class='column3'>", income.subname)
+          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
+          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
+          trow=trow.concat("</td><td class='column5'>", income.totalfee)
+          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow.concat(trow, "</b></td></tr>")
+          $('#tbody').append(trow);
+        }
+            									
+        if(count==incomes.length){
+          var details = {
+            values: value,
+            text: income.subID,
+            backgroundColor: "#4CAF50",
+            lineColor: lineColors[classAr.length-1],
+            marker: {
+              backgroundColor: circleColors[classAr.length-1],
+              borderColor: lineColors[classAr.length-1]
+            }
+          }
+          
+          myConfig.series.push(details)
+            
+          i++
+        }
+        count++
+      }) 
+    }
+    else{
+      value=[0,0,0,0,0,0,0,0,0,0,0,0]
+      
+      incomes.forEach(function(income){
+        if ($("#alyear").val()==income.year && $("#class").val()==income.subID){ 
+          value[months.indexOf(income.month)]=income.totalfee
+          
+          trow=""
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("</td><td class='column1'><b>", income.month)
+          trow=trow.concat("</b></td><td class='column2'>", income.subID)
+          trow=trow.concat("</td><td class='column8'>", income.ALyear)
+          trow=trow.concat("</td><td class='column3'>", income.subname)
+          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
+          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
+          trow=trow.concat("</td><td class='column5'>", income.totalfee)
+          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow.concat(trow, "</b></td></tr>")
+          $('#tbody').append(trow);
+        }
+      }) 
+      
+      var details = {
+        values: value,
+        text: classAr[classAr.length-1],
+        backgroundColor: "#4CAF50",
+        lineColor: lineColors[classAr.length-1],
+        marker: {
+          backgroundColor: circleColors[classAr.length-1],
+          borderColor: lineColors[classAr.length-1]
+
+        }
+      }
+      myConfig.series.push(details)
+    }
+    
+    zingchart.render({
+      id: 'chart',
+      data: myConfig,
+    });
   });
   
   $('#class').change(function(){
-    var div = $(".table");
-    div.html('');
-    div.hide();
+    var tbody = $("#tbody");
+    tbody.html('');
+    tbody.hide();
+    tbody.fadeIn(1000)
     
-    div.fadeIn(1000)
+    var className = $("#class").val()
+    var graph = $('#carouselExampleIndicators')
+    graph.html('<div id="chart" style="border:1px dotted gray"><a class="zc-ref"></a></div>  <div class="table"></div>')
+    
+    value=[0,0,0,0,0,0,0,0,0,0,0,0]
+    myConfig.text = className
+    myConfig.title.text = className
+    myConfig.series = []
+    
+    if($("#alyear").val()==""){
+      incomes.forEach(function(income){
+        if ($("#class").val()==income.subID){
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=""
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("</td><td class='column1'><b>", income.month)
+          trow=trow.concat("</b></td><td class='column2'>", income.subID)
+          trow=trow.concat("</td><td class='column8'>", income.ALyear)
+          trow=trow.concat("</td><td class='column3'>", income.subname)
+          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
+          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
+          trow=trow.concat("</td><td class='column5'>", income.totalfee)
+          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow.concat(trow, "</b></td></tr>")
+          $('#tbody').append(trow);
+        }
+      })
+    }
+    else{
+      incomes.forEach(function(income){
+        if ($("#class").val()==income.subID && $("#alyear").val()==income.year){
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=""
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("</td><td class='column1'><b>", income.month)
+          trow=trow.concat("</b></td><td class='column2'>", income.subID)
+          trow=trow.concat("</td><td class='column8'>", income.ALyear)
+          trow=trow.concat("</td><td class='column3'>", income.subname)
+          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
+          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
+          trow=trow.concat("</td><td class='column5'>", income.totalfee)
+          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow.concat(trow, "</b></td></tr>")
+          $('#tbody').append(trow);
+        }
+      })
+    }
+    
+    var details = {
+      values: value,
+      text: className,
+      backgroundColor: "#4CAF50",
+      lineColor: lineColors[classAr.length-1],
+      marker: {
+        backgroundColor: circleColors[classAr.length-1],
+        borderColor: lineColors[classAr.length-1]
+      }
+    }
+    
+    myConfig.series.push(details)
+        
+    zingchart.render({
+      id: 'chart',
+      data: myConfig,
+    });
   });
   
   </script>

@@ -199,6 +199,10 @@ router.post("/discussion/delete/:idSub/post/:idPost",function(req, res) {
 
 router.get("/viewResults/:id", function(req,res){
     var id = req.params.id;
+    
+    
+    
+    
     res.render("student/studentViewResults");
 });
 

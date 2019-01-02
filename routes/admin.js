@@ -378,27 +378,48 @@ router.post("/register/lecturer/new/class", function(req,res){
 
 router.post("/register/subject/new", function(req,res){
     
-    var subID="S";
-    var sql="select count(subID) as numberOfSubjects from subject";  
-    
-    pool.query(sql, (err, res3, cols)=>{
-        if(err)
-            throw err;
-        nos=parseInt(res3[0].numberOfSubjects, 10)+1;
-        
-        if(nos<10)
-            subID = subID+"0"+nos;
-        else if(nos<100)
-            subID = subID+nos;
-    
-    var sql2 ="INSERT INTO subject VALUES('"+subID+"','"+req.body.subName+"','"+req.body.medium+"','"+req.body.hall+"','"+req.body.from+"','"+req.body.to+"','"+req.body.year+"','"+req.body.day+"','"+req.body.lecturer+"','"+req.body.fee+"')";
+    var sql_validate="SELECT * FROM subject WHERE day='"+req.body.day+"' AND hall='"+req.body.hall+"' AND ((fromTime>='"+req.body.from+"' AND fromTime<='"+req.body.to+"') OR (toTime<='"+req.body.to+"' AND toTime>='"+req.body.from+"'))";
    
-    pool.query(sql2, (err, res2, cols)=>{
-        if(err) throw err;
-            res.render("admin/adminRegisterLecturer",{lecID:req.body.lecturer});
-            res.end();
-        });
+    pool.query(sql_validate,(err,res_validate,cols)=>{
+        if(err)
+             throw err;
+        if(res_validate.length==0) 
+        {
+                    var subID="S";
+                    var sql="select count(subID) as numberOfSubjects from subject";  
+                    
+                    pool.query(sql, (err, res3, cols)=>{
+                        if(err)
+                            throw err;
+                        nos=parseInt(res3[0].numberOfSubjects, 10)+1;
+                        
+                        if(nos<10)
+                            subID = subID+"0"+nos;
+                        else if(nos<100)
+                            subID = subID+nos;
+                            
+                    var sql2 ="INSERT INTO subject VALUES('"+subID+"','"+req.body.subname+"','"+req.body.medium+"','"+req.body.hall+"','"+req.body.from+"','"+req.body.to+"','"+req.body.year+"','"+req.body.day+"','"+req.body.lecID+"','"+req.body.fee+"')";
+                   
+                    pool.query(sql2, (err, res2, cols)=>{
+                        if(err) throw err;
+                        
+                            var sql3 ="SELECT * FROM subject s where s.lecID='"+req.body.lecID+"'";
+                            pool.query(sql3, (err, res4, cols)=>{
+                                if(err) throw err;
+                                    res.render("../views/admin/ajaxRegisterLecTableTemplate",{subjects:res4});
+                                    res.end();
+                                                        });
+                        });
+                    });
+            
+            
+        }
+        
     });
+    
+    
+    
+  
 });
 
 router.post("/register/subject/update", function(req,res){
