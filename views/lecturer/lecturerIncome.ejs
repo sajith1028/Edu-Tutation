@@ -154,34 +154,32 @@
                 <div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100 table">
-            					<table id='myTable'>
+            					<table id='myTable' style="width:100%;">
             						<thead>
             							<tr class="table100-head">
             							  <th class="column1">Year</th>
-            								<th class="column1">Month</th>
+            								<th class="column7">Month</th>
             								<th class="column2">Subject ID</th>
             								<th class="column8">AL Year</th>
             								<th class="column3">Subject</th>
-            								<th class="column9" style="width:100px;">Monthly Fee</th>
-            								<th class="column4" style="width:200px;">#Enrolments</th>
-            								<th class="column5">Gross Income (Rs.)</th>
-            								<th class="column6">Maintenance (Rs.)</th>
+            								<th class="column3" style="display:none;"></th>
+            								<th class="column3" style="display:none;"></th>
             								<th class="column7">Net Income (Rs.)</th>
+            								<th class="column3" style="display:none;"></th>
             							</tr>
             						</thead>
             						<tbody id="tbody">
             						  <%incomes.forEach(function(income){%>
             						    <tr data-toggle="modal" data-target="#incomeDiv">
             						      <td class="column1"><%=income.year%></td>
-            									<td class="column1 "><b><%=income.month%></b></td>
+            									<td class="column7"><b><%=income.month%></b></td>
             									<td class="column2"><%=income.subID%></td>
             									<td class="column8"><%=income.ALyear%></td>
             									<td class="column3"><%=income.subname%></td>
-            									<td class="column3" style="width:100px;"><%=income.fee%></td>
-            									<td class="column4" style="width:200px;"><%=income.num%></td>
-            									<td class="column5"><%=income.totalfee%></td>
-            									<td class="column6"><%=income.totalfee/4%></td>
+            									<td class="column8" style="display:none;"><%=income.totalfee%></td>
+            									<td class="column3" style="display:none;"><%=income.totalfee/4%></td>
             									<td class="column7"><b><%=income.totalfee-income.totalfee/4%></b></td>
+            									<td class="column8" style="display:none;"><%=income.num%></td>
             								</tr>
             						  <% }); %>
             						</tbody>
@@ -210,17 +208,36 @@
                 </button>
             </div>
     
-            <div class="modal-body">
+            <div class="modal-body" style="padding-left:0px; height:500px;">
                 <div class="container-fluid">
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-5" style="border-right:1px dashed gray">
                         <div id='pieChart'></div>
                       </div>
-                      <div class="col-md-1"></div>
                       <div class="col-md-7">
-                        <div id='barChart' style="height:60%"></div>  
-                        <div class="row">
-                          <div id='details'></div>
+                          <div id='barChart' style="height:300px;"></div>
+                          <div class="row">
+                          <div class="col-md-6">
+                            <div class="col-md-9">
+                              <ol class="inner-details-ol"></ol>
+                                <li class="inner-details-li"><pre style="font : normal;font-family : inherit;"> New Enrolments = <sapn id="enrolmentNo"></sapn></pre></li>
+                              </ol>  
+                            </div> 
+                          </div>
+                          <div class="col-md-6">
+                            <div class="col-md-9">
+                              <ol class="inner-details-ol"></ol>
+                                <li class="inner-details-li"><pre style="font : normal;font-family : inherit;"> Profit Details </pre>
+                                  <ol class=inner-details-ol>
+                                    <li class="inner-details-li"><pre> Gross Income = <span id="grossIncome"></span></pre> </li>
+                                    <li class="inner-details-li"><pre> Maintainence = <span id="maintainence"></span></pre> </li>
+                                    <li class="inner-details-li"><pre> Net Income   = <span id="netIcome"></span></pre> </li>
+                                  </ol>
+                                </li>
+                              </ol>  
+                            </div>
+                            <div class="col-md-1"></div>
+                          </div>
                         </div>
                       </div>
                     </div> 
@@ -428,20 +445,19 @@
           
           trow=""
           value[months.indexOf(income.month)]=income.totalfee
-          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
           trow=trow.concat("</td><td class='column1'><b>", income.month)
           trow=trow.concat("</b></td><td class='column2'>", income.subID)
           trow=trow.concat("</td><td class='column8'>", income.ALyear)
           trow=trow.concat("</td><td class='column3'>", income.subname)
-          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
-          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
-          trow=trow.concat("</td><td class='column5'>", income.totalfee)
-          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column8' style='display:none;'>", income.totalfee)
+          trow=trow.concat("</td><td class='column3' style='display:none;'>", income.totalfee/4)
           trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow=trow.concat("</td><td class='column7' style='display:none;'><b>",income.num)
           trow.concat(trow, "</b></td></tr>")
           $('#tbody').append(trow);
         }
-            									
+        
         if(count==incomes.length){
           var details = {
             values: value,
@@ -470,16 +486,15 @@
           
           trow=""
           value[months.indexOf(income.month)]=income.totalfee
-          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
           trow=trow.concat("</td><td class='column1'><b>", income.month)
           trow=trow.concat("</b></td><td class='column2'>", income.subID)
           trow=trow.concat("</td><td class='column8'>", income.ALyear)
           trow=trow.concat("</td><td class='column3'>", income.subname)
-          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
-          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
-          trow=trow.concat("</td><td class='column5'>", income.totalfee)
-          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column8' style='display:none;'>", income.totalfee)
+          trow=trow.concat("</td><td class='column3' style='display:none;'>", income.totalfee/4)
           trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow=trow.concat("</td><td class='column7' style='display:none;'><b>",income.num)
           trow.concat(trow, "</b></td></tr>")
           $('#tbody').append(trow);
         }
@@ -526,16 +541,15 @@
           value[months.indexOf(income.month)]=income.totalfee
           trow=""
           value[months.indexOf(income.month)]=income.totalfee
-          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
           trow=trow.concat("</td><td class='column1'><b>", income.month)
           trow=trow.concat("</b></td><td class='column2'>", income.subID)
           trow=trow.concat("</td><td class='column8'>", income.ALyear)
           trow=trow.concat("</td><td class='column3'>", income.subname)
-          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
-          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
-          trow=trow.concat("</td><td class='column5'>", income.totalfee)
-          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column8' style='display:none;'>", income.totalfee)
+          trow=trow.concat("</td><td class='column3' style='display:none;'>", income.totalfee/4)
           trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow=trow.concat("</td><td class='column7' style='display:none;'><b>",income.num)
           trow.concat(trow, "</b></td></tr>")
           $('#tbody').append(trow);
         }
@@ -547,16 +561,15 @@
           value[months.indexOf(income.month)]=income.totalfee
           trow=""
           value[months.indexOf(income.month)]=income.totalfee
-          trow=trow.concat("<tr><td class='column1'>", income.year)
+          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
           trow=trow.concat("</td><td class='column1'><b>", income.month)
           trow=trow.concat("</b></td><td class='column2'>", income.subID)
           trow=trow.concat("</td><td class='column8'>", income.ALyear)
           trow=trow.concat("</td><td class='column3'>", income.subname)
-          trow=trow.concat("</td><td class='column3' style='width:100px;'>", income.fee)
-          trow=trow.concat("</td><td class='column4' style='width:200px;'>", income.num)
-          trow=trow.concat("</td><td class='column5'>", income.totalfee)
-          trow=trow.concat("</td><td class='column6'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column8' style='display:none;'>", income.totalfee)
+          trow=trow.concat("</td><td class='column3' style='display:none;'>", income.totalfee/4)
           trow=trow.concat("</td><td class='column7'><b>",income.totalfee-income.totalfee/4)
+          trow=trow.concat("</td><td class='column7' style='display:none;'><b>",income.num)
           trow.concat(trow, "</b></td></tr>")
           $('#tbody').append(trow);
         }
@@ -588,38 +601,38 @@
     "title":{
       "text":"Income"
     },
-    "plot":{
-      "offset-r":"5%"
-      //Use the "slice" attribute to adjust the size of the donut ring.
-    },
     "series":[]
   };
   
   
-var bChart = {
+  var bChart = {
     "type": "bar",
+     "plot":{
+        "styles":[]
+      },
     "plotarea": {
       "adjust-layout":true
     },
-    "plot":{
-    "styles":["red","orange","yellow","green","blue","purple","brown","black"]},
     "scale-x": {
       "label":{ /* Scale Title */
         "text":"Enrolments",
       },
-      "labels":["Jan","Feb","March","April","May","June","July","Aug"] /* Scale Labels */
+      "labels":["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"] /* Scale Labels */
     },
-    "series": [
-      {"values":[2,4,2,5,1,4,3,3]
-      }
-    ]
+    "series": []
   }
     
   $('#myTable tbody').on( 'click', 'tr', function () {
+    value=[]
+    var subjectSelected=table.row( this ).data()[2]
+    var yearSelected=table.row( this ).data()[0]
+    var monthSelected=table.row( this ).data()[1].substring(3,(table.row( this ).data()[1].length-4))
     var title = $('#exampleModalLabel')
+    var cls = ["#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc","#29a2cc"]
+    
     title.html(table.row( this ).data()[0]+" "+table.row( this ).data()[1]+" "+table.row( this ).data()[2]);
     
-    pChart.series.push({"values":[parseInt(table.row( this ).data()[9].substring(3,(table.row( this ).data()[9].length-4)))]},{"values":[parseInt(table.row( this ).data()[8])]})
+    pChart.series.push({"values":[parseInt(table.row( this ).data()[7].substring(3,(table.row( this ).data()[7].length-4)))]},{"values":[parseInt(table.row( this ).data()[6])]})
     zingchart.render({ 
     	id : 'pieChart', 
     	data : pChart, 
@@ -627,13 +640,41 @@ var bChart = {
     	width: "100%" 
     });
     
+    incomes.forEach(function(income){
+      if (subjectSelected==income.subID && yearSelected==income.year){
+        if(monthSelected==income.month)
+          cls[months.indexOf(income.month)]="#d31e1e"
+        value[months.indexOf(income.month)]=parseInt(income.num)
+      }
+    })
+    console.log(cls)
+    
+    details={
+      "values":value,
+      "alpha":1
+    }
+  
+    bChart.series.push(details)
+    bChart.plot.styles=cls
+    
     zingchart.render({ 
     	id : 'barChart', 
     	data : bChart
     });
     
+    $("#enrolmentNo").html('')
+    $("#grossIncome").html('')
+    $("#maintainence").html('')
+    $("#netIcome").html('')
+    
+    $("#enrolmentNo").append(table.row( this ).data()[8])
+    $("#grossIncome").append(table.row( this ).data()[5])
+    $("#maintainence").append(table.row( this ).data()[6])
+    $("#netIcome").append(table.row( this ).data()[7])
+    
     pChart.series=[]
+    bChart.series.pop()
   });
-  
+  //income.totalfee
   </script>
-<% include ../partials/footer %>
+<% include ../partials/footer %> 

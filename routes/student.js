@@ -190,20 +190,19 @@ router.post("/discussion/delete/:idSub/post/:idPost",function(req, res) {
          res.redirect("/student/discussions/"+sub);
     });
     });
-    
-    
-    
-    
-    
 });
 
 router.get("/viewResults/:id", function(req,res){
     var id = req.params.id;
     
+    var sql="SELECT average FROM enrolment WHERE subID='"+id+"'";
+    console.log(sql);
+    pool.query(sql,(err,res1,cols)=>{
+        if (err) throw err;
+        console.log(res1);
+        res.render("student/studentViewResults",{avg:res1});
+    });
     
-    
-    
-    res.render("student/studentViewResults");
 });
 
 router.get("/newsfeeds", function(req,res){
