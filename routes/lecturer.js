@@ -1,7 +1,7 @@
 var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
-
+var SqlString       =   require('sqlstring');
 var moment          =   require('moment'); //To parse, validate, manipulate, and display dates and times
 
 function isLoggedIn(req, res, next){
@@ -43,8 +43,25 @@ router.get("/",function(req, res) {
 });
 
 router.get("/profile", function(req,res){
-    res.render("lecturer/lecturerProfile");
+     if(req.user){
+    var sql="select l.name,l.tele,l.email,l.qualification from lecturer l where l.lecID='"+req.user.username+"'";
+
+        pool.query(sql,(err,res2,cols)=>{
+           if (err) throw err;
+           res.render("lecturer/lecturerProfile",{details:res2});
+           res.end();
+        });
+    }
 }); 
+
+router.post("/profile",function(req,res){
+    var sql="Update lecturer l set l.name="+SqlString.escape(req.body.name)+",l.tele="+SqlString.escape(req.body.telemob)+",l.email="+SqlString.escape(req.body.email)+",l.qualification="+SqlString.escape(req.body.qualif)+" where l.lecID='"+req.user.username+"';";
+    pool.query(sql,(err,res2,cols)=>{
+        if(err) throw err;
+        
+    });
+    res.redirect("/lecturer/profile");
+});
 
 router.get("/income", function(req,res){
     var sql="select p.year, count(s.subID) as num,s.subID,s.year as ALyear,s.subname,p.month,s.fee,sum(s.fee) as totalfee from subject s,payment p, lecturer l where l.lecID=s.lecID and s.subID=p.subID and l.lecID='"+req.user.username+"' group by s.subID,p.month order by s.subID;";

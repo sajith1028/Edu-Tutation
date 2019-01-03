@@ -10,6 +10,7 @@
             
         <!-- End of Bootstrap -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+            <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Simple line Icon -->
         <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
         
@@ -25,6 +26,7 @@
     
     <!-- For Charts -->  
         <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<script> 
 		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
 		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
@@ -76,7 +78,6 @@
     <div id="overlay">
         <h2 id="topic">PAYMENTS<%=[fees[0]]%></h2>
         <div class="wrapper">
-          
             <% var yearsAr=[] %> 
             <% var classAr=[] %> 
               
@@ -170,7 +171,7 @@
             						</thead>
             						<tbody id="tbody">
             						  <%incomes.forEach(function(income){%>
-            						    <tr>
+            						    <tr data-toggle="modal" data-target="#incomeDiv">
             						      <td class="column1"><%=income.year%></td>
             									<td class="column1 "><b><%=income.month%></b></td>
             									<td class="column2"><%=income.subID%></td>
@@ -197,6 +198,37 @@
         </div>
     </div>
 </div>       
+
+
+<div class="modal fade" id="incomeDiv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document"  style="max-width:90%;max-height:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div id='pieChart'></div>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div class="col-md-7">
+                        <div id='barChart' style="height:60%"></div>  
+                        <div class="row">
+                          <div id='details'></div>
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
   var incomes = <%-JSON.stringify(incomes)%>;
@@ -548,6 +580,59 @@
       id: 'chart',
       data: myConfig,
     });
+  });
+  
+  var table = $('#myTable').DataTable();
+  var pChart = {
+    "type":"ring",
+    "title":{
+      "text":"Income"
+    },
+    "plot":{
+      "offset-r":"5%"
+      //Use the "slice" attribute to adjust the size of the donut ring.
+    },
+    "series":[]
+  };
+  
+  
+var bChart = {
+    "type": "bar",
+    "plotarea": {
+      "adjust-layout":true
+    },
+    "plot":{
+    "styles":["red","orange","yellow","green","blue","purple","brown","black"]},
+    "scale-x": {
+      "label":{ /* Scale Title */
+        "text":"Enrolments",
+      },
+      "labels":["Jan","Feb","March","April","May","June","July","Aug"] /* Scale Labels */
+    },
+    "series": [
+      {"values":[2,4,2,5,1,4,3,3]
+      }
+    ]
+  }
+    
+  $('#myTable tbody').on( 'click', 'tr', function () {
+    var title = $('#exampleModalLabel')
+    title.html(table.row( this ).data()[0]+" "+table.row( this ).data()[1]+" "+table.row( this ).data()[2]);
+    
+    pChart.series.push({"values":[parseInt(table.row( this ).data()[9].substring(3,(table.row( this ).data()[9].length-4)))]},{"values":[parseInt(table.row( this ).data()[8])]})
+    zingchart.render({ 
+    	id : 'pieChart', 
+    	data : pChart, 
+    	height: 400, 
+    	width: "100%" 
+    });
+    
+    zingchart.render({ 
+    	id : 'barChart', 
+    	data : bChart
+    });
+    
+    pChart.series=[]
   });
   
   </script>

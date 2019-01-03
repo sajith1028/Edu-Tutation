@@ -14,6 +14,8 @@
         
         <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
         <script>
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
@@ -45,9 +47,18 @@
       </ul>       
 
       <ul class="nav navbar-nav navbar-right">
-            <a  id="register"href="/login">
-              <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-            </a>
+              <% if(!currentUser){ %>
+                    <a  id="register"href="/login">
+                        <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+                    </a>
+              <% } else { %>
+                    <a id="user" class="links" href="/student/profile"> Signed in as <%= currentUser.username %> 
+                        <img src="../images/users/<%=currentUser.username%>.jpg" class="img-rounded border" alt="profile-image" style="max-height: 50px; max-width: 50px; border-radius: 50px; border-width: 5px" id="img">
+                    </a>
+                    <a  id="register"href="/logout">
+                        <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                    </a>
+              <% } %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -64,8 +75,8 @@
                         <div class="bg-picture text-center">
                             <div class="bg-picture-overlay"></div>
                             <div class="profile-info-name">
-                                <img src="../images/users/L-AKURA-004.jpg" class="thumb-lg img-circle img-thumbnail" alt="profile-image">
-                                <h3 class="text-white">Kasun Jayasekara</h3>
+                                <img src="../images/users/<%=currentUser.username%>.jpg" class="thumb-lg img-circle img-thumbnail" alt="profile-image">
+                                <h3 class="text-white"><%=details[0].name%></h3>
                             </div>
                         </div>
                         <!--/ meta -->
@@ -101,22 +112,22 @@
                                                 <div class="about-info-p">
                                                     <strong>Full Name</strong>
                                                     <br>
-                                                    <p>Johnathan Deo</p>
+                                                    <p><%=details[0].name%></p>
                                                 </div>
                                                 <div class="about-info-p">
                                                     <strong>Mobile</strong>
                                                     <br>
-                                                    <p>(123) 123 1234</p>
+                                                    <p><%=details[0].tele%></p>
                                                 </div>
                                                 <div class="about-info-p">
                                                     <strong>Email</strong>
                                                     <br>
-                                                    <p>johnathandeon @moltran.com</p>
+                                                    <p><%=details[0].email%></p>
                                                 </div>
                                                 <div class="about-info-p m-b-0">
-                                                    <strong>District</strong>
+                                                    <strong>Qualification</strong>
                                                     <br>
-                                                    <p>Colombo</p>
+                                                    <p><%=details[0].qualification%></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,19 +179,19 @@
                             <div class="tab-pane" id="settings-2">
                                 <div class="panel panel-default panel-fill">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">User info</h3>
+                                        <h3 class="panel-title">Personal info</h3>
                                     </div>
                                     <div class="panel-body">
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">School</label>
+                                        <label class="col-sm-2 control-label">Full name</label>
                                         <div class="col-sm-10">
-                                          <input type="text" class="form-control">
+                                          <input type="text" id="name" value="<%=details[0].name%>" class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">District</label>
+                                        <label class="col-sm-2 control-label">Qualification</label>
                                         <div class="col-sm-10">
-                                          <input type="text" class="form-control">
+                                          <input type="text" id='qualif' value="<%=details[0].qualification%>" class="form-control">
                                         </div>
                                       </div>
                                     </div>
@@ -192,27 +203,15 @@
                                     </div>
                                     <div class="panel-body">
                                       <div class="form-group">
-                                        <label class="col-sm-2 control-label">Work number</label>
-                                        <div class="col-sm-10">
-                                          <input type="tel" class="form-control">
-                                        </div>
-                                      </div>
-                                      <div class="form-group">
                                         <label class="col-sm-2 control-label">Mobile number</label>
                                         <div class="col-sm-10">
-                                          <input type="tel" class="form-control">
+                                          <input type="tel" id='telemob' value="<%=details[0].tele%>" class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="col-sm-2 control-label">E-mail address</label>
                                         <div class="col-sm-10">
-                                          <input type="email" class="form-control">
-                                        </div>
-                                      </div>
-                                      <div class="form-group">
-                                        <label class="col-sm-2 control-label">Work address</label>
-                                        <div class="col-sm-10">
-                                          <textarea rows="3" class="form-control"></textarea>
+                                          <input type="email" id='email' value="<%=details[0].email%>" class="form-control">
                                         </div>
                                       </div>
                                     </div>
@@ -226,20 +225,20 @@
                                       <div class="form-group">
                                         <label class="col-sm-2 control-label">Current password</label>
                                         <div class="col-sm-10">
-                                          <input type="password" class="form-control">
+                                          <input type="password" id='pwd' class="form-control">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="col-sm-2 control-label">New password</label>
                                         <div class="col-sm-10">
-                                          <input type="password" class="form-control">
+                                          <input type="password" id='pwd2' class="form-control">
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                   
                                         <center><div>
-                                          <button type="submit" class="btn btn-primary" style="width:100px;">Submit</button>
+                                          <button type="submit" id='submitBtnLec' class="btn btn-primary" style="width:100px;">Submit</button>
                                           <button type="reset" class="btn btn-primary cancel" style="width:100px;">Cancel</button>
                                         </div></center>
                                 <!-- Personal-Information -->
