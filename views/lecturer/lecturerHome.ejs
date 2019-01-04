@@ -23,6 +23,14 @@
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
     <!-- End of Particles -->    
+    
+        <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script> 
+		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+		    
+		</script>
     </head>
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -59,7 +67,7 @@
 </nav>
 <div id="particles-js">
     <div id="overlay"  style="width:100%">
-    <h2 id="topic" style="margin-bottom:20px">HOME</h2>
+    <h2 id="topic" style="margin-bottom:10px"></h2>
     <!--============================= DETAIL =============================-->
         <div class="container-fluid">
             <div class="row">
@@ -68,11 +76,11 @@
                         <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;">
                             <div class="featured-place-wrap">
                                 <a href="/lecturer/income">
-                                    <div class="image" style="height:120px;">
+                                    <div class="image" style="height:135px;">
                                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2dQmm_DJztz3W7e8cWJcBB0C89EJnjxudW0G8HNXS9fP37Cri" class="img-fluid"  style="position: relative; top:-35px" alt="#" id="img">
                                     </div>
                                     <span class="featured-rating-green"><i class="fas fa-money-bill-alt"></i></span>
-                                    <div class="featured-title-box"  style="height:120px;">
+                                    <div class="featured-title-box"  style="height:130px;">
                                         <h6>Income</h6>
                                         <p>Check your monthly income </p>
                                         <div class="bottom-icons">
@@ -87,11 +95,11 @@
                         <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;" data-toggle="modal" data-target="#classes">
                             <div class="featured-place-wrap">
                                 <a href="#">
-                                    <div class="image" style="height:120px;">
+                                    <div class="image" style="height:135px;">
                                         <img src="https://us.123rf.com/450wm/prapassp/prapassp1711/prapassp171100019/90328125-the-science-professor-writes-on-the-board-while-having-a-blackboard-and-a-blackboard-.jpg?ver=6" class="img-fluid"  style="position: relative; top:-10px" alt="#">
                                     </div>
                                     <span class="featured-rating-yellow"><i class="fas fa-book-open"></i></span>
-                                    <div class="featured-title-box"  style="height:120px;">
+                                    <div class="featured-title-box"  style="height:130px;">
                                         <h6>My Classes</h6>
                                         <% for(var i=0; i<myself.length; i++){ %>
                                             <p>A/L Year <%= myself[i].year %></p> <span>• </span>

@@ -195,13 +195,18 @@ router.post("/discussion/delete/:idSub/post/:idPost",function(req, res) {
 router.get("/viewResults/:id", function(req,res){
     var id = req.params.id;
     
-    var sql="SELECT average FROM enrolment WHERE subID='"+id+"'";
-    console.log(sql);
-    pool.query(sql,(err,res1,cols)=>{
-        if (err) throw err;
-        console.log(res1);
-        res.render("student/studentViewResults",{avg:res1});
-    });
+        var sql="SELECT subname,year FROM subject where subID='"+id+"'";
+        pool.query(sql,(err,res1,cols)=>{
+            if (err) throw err;
+                
+                var sql1="SELECT * FROM assignment WHERE subID='"+id+"' AND stID='"+req.user.username+"'";
+                pool.query(sql1,(err,res2,cols)=>{
+                    if (err) throw err;
+                    
+                    res.render("student/studentViewResults",{subID:id,subject:res1,assignments:res2});
+                })
+            })
+            
     
 });
 

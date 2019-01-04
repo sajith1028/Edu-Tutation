@@ -7,7 +7,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
             <!-- End of responsive screen size -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            
+            <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
         <!-- End of Bootstrap -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
@@ -22,6 +22,7 @@
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
     <!-- End of Particles -->    
+        <script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     </head>
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -70,12 +71,49 @@
 <div id="particles-js">
     <div id="overlay">
         <h2 id="topic">PAYMENT HISTORY</h2>
+        <% var month = ["January", "February", "March", "April", "May", "June", "July", "Auguest", "September", "October", "November", "December"] %>
+        <% var today = new Date(); %>
         <div class="wrapper">
             <div class="container">
             		<div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100">
-            					<table>
+            					<table id="pTable">
+            						<thead>
+            							<tr class="table100-head" style="background-color:#931515">
+            								<th class="column1">Subject</th>
+            								<th class="column2">Medium</th>
+            								<th class="column3">Day</th>
+            								<th class="column4">Payment date</th>
+            								<th class="column5">Payment month</th>
+            								<th class="column6">Amount (Rs.) </th>
+            							</tr>
+            						</thead>
+            						<tbody>
+            						  <%payments.forEach(function(payment){%>
+            						    <% if(){ %>
+              						    <tr>
+              									<td class="column1"><%=payment.subname%></td>
+              									<td class="column2"><%=payment.medium%></td>
+              									<td class="column3"><%=payment.day%></td>
+              									<td class="column4"><%=(payment.date).toDateString();%></td>
+              									<td class="column5"><%=payment.month%></td>
+              									<td class="column6"><%=payment.amount%></td>
+              								</tr>
+            								<% } %>
+            						  <% } %>
+            						</tbody>
+            					</table>
+            				</div>
+            		</div>
+            	</div>
+            </div>
+            
+            <div class="container">
+            		<div class="container-table100" style="margin-top:0px;">
+            			<div class="wrap-table100">
+            				<div class="table100">
+            					<table id="pTable">
             						<thead>
             							<tr class="table100-head">
             								<th class="column1">Subject</th>
@@ -103,12 +141,18 @@
             		</div>
             	</div>
             	
-            <center>
-              <a href="/student"><button class="btn btn-primary" style="width:100px;margin-bottom:20px;">OKAY</button></a>
-            </center>
+              <center>
+                <a href="/student"><button class="btn btn-primary" style="width:100px;margin-bottom:20px;">OKAY</button></a>
+              </center>
             </div>
         </div>
     </div>
 </div>       
-
+<script>
+  var payments = <%-JSON.stringify(payments)%>;
+  $('#pTable').DataTable();
+  
+  console.log(payments)
+  
+</script>
 <% include ../partials/footer %>
