@@ -287,7 +287,20 @@ router.post("/forums/:id",function(req,res){
 
 router.get("/viewResults/:id", function(req,res){
     var id = req.params.id;
-    res.render("lecturer/lecturerViewResults");
+    
+    var sql="SELECT DISTINCT assID FROM assignment WHERE subID='"+id+"'";
+    pool.query(sql,(err,res2,cols)=>{
+        if(err) throw err;
+        
+        var sql2="SELECT * FROM assignment WHERE subID='"+id+"'";
+        pool.query(sql2,(err,res3,cols)=>{
+            if(err) throw err;
+            console.log(res3);
+            res.render("lecturer/lecturerViewResults",{aNames:res2,assignments:res3});
+        })
+        
+    })
+    
 });
 
 router.get("/newsfeeds", function(req,res){

@@ -79,10 +79,11 @@
                                                 <div class="col-sm-4"></div>
                                                 <label class="col-sm-1 control-label label">Assignment</label>
                                                 <div class="col-sm-3">
-                                                    <select class="form-control combobox" name="ALYear" id="alyear1">
-                                                        <%//for(var i=years; i<(years+4) ;i++){ %>   
-                                                            <!--<option><%=//i%></option>-->
-                                                        <% //} %>
+                                                    <select class="form-control combobox" id="assID">
+                                                      <option selected value></option>
+                                                      <% aNames.forEach(function(assignment){ %>
+                                                      <option value='<%= assignment.assID %>'><%= assignment.assID %></option>
+                                                      <% }) %>
                                                     </select>
                                                 </div>
                                             </div>
@@ -92,31 +93,25 @@
                             </div>
                             
                             <div id='myChart'><a class="zc-ref"></a></div>
-                            <div class="table">
+                            <div class="container">
+                              <div class="container-table100" style="margin-top:0px;">
+                          			<div class="wrap-table100">
+                          				<div class="table100 table">
+                          					<table id='myTable'>
+                          						<thead>
+                          							<tr class="table100-head">
+                          							  <th class="column1">#</th>
+                          							  <th class="column2">Assignment name</th>
+                          								<th class="column3">Mark</th>
+                          							</tr>
+                          						</thead>
+                          						<tbody id="tbody">
+                          						</tbody>
+                          					</table>
+                          				</div>
+                            		</div>
+                            	</div>
                             </div>
-                                   
-                            <!--<div id="table">-->
-                            <!--</div>-->
-                                    
-                            <!--<div class="panel panel-default panel-fill">-->
-                            <!--    <div class="panel-heading">-->
-                            <!--        <h3 class="panel-title">Payment Details</h3>-->
-                            <!--    </div>-->
-                            <!--    <div class="panel-body">-->
-                            <!--        <div class="form-group">-->
-                            <!--            <table>-->
-                            <!--                <%//payments.forEach(function(payment){%>-->
-                            <!--                <%//console.log(payment.subname ) %>-->
-                            <!--                <tr>-->
-                            <!--                  <td><%=//payment.subname%></td>-->
-                            <!--                  <td><%=//payment.month%></td>-->
-                            <!--                  <td><%=//payment.fee%></td>-->
-                            <!--                </tr>-->
-                            <!--                <%// }); %>-->
-                            <!--            </table>-->
-                            <!--        </div>-->
-                            <!--    </div>-->
-                            <!--</div>-->
                             <center>
                               <button id="saveBtn" class="btn btn-primary" style="width:100px">SAVE</button>
                                
@@ -126,105 +121,104 @@
                     </div>
                 </div>
             </div>
+           
         </div>
     </div>
 </div>       
 
 <script>
-    var myConfig = {
-      type: "area",
-      stacked: true,
-      title: {
-        text: "Results page",
-        fontColor: "#424242",
-        adjustLayout: true,
-        marginTop: 15
-      },
-      subtitle: {
-        text: "In thousands (k)",
-        fontColor: "#616161",
-        adjustLayout: true,
-        marginTop: 45
-      },
-      plot: {
-        aspect: "spline",
-        alphaArea: 0.6
-      },
-      plotarea: {
-        margin: "dynamic"
-      },
-      tooltip: {
-        visible: false
-      },
-      scaleY: {
-        short: true,
-        shortUnit: 'k',
-        lineColor: "#AAA5A5",
-        tick: {
-          lineColor: "#AAA5A5"
-        },
-        item: {
-          fontColor: "#616161",
-          paddingRight: 5
-        },
-        guide: {
-          lineStyle: "dotted",
-          lineColor: "#AAA5A5"
-        },
-        label: {
-          text: "Quantity",
-          fontColor: "#616161"
-        }
-      },
-      scaleX: {
-        lineColor: "#AAA5A5",
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-        tick: {
-          lineColor: "#AAA5A5"
-        },
-        item: {
-          fontColor: "#616161",
-          paddingTop: 5
-        },
-        label: {
-          text: "2018",
-          fontColor: "#616161"
-        }
-      },
-      crosshairX: {
-        lineColor: "#AAA5A5",
-        plotLabel: {
-          backgroundColor: "#EBEBEC",
-          borderColor: "#AAA5A5",
-          borderWidth: 2,
-          borderRadius: 2,
-          thousandsSeparator: ',',
-          fontColor: '#616161'
-        },
-        scaleLabel: {
-          backgroundColor: "#EBEBEC",
-          borderColor: "#AAA5A5",
-          fontColor: "#424242"
-        }
-      },
-      series: [{
-        values: [3435, 4212, 1627, 3189, 2325, 1334, 1567, 2685],
-        text: "Footware",
-        backgroundColor: "#4CAF50",
-        lineColor: "#4CAF50",
-        marker: {
-          backgroundColor: "#4CAF50",
-          borderColor: "#4CAF50"
+    var myConfig ={
+ 	type: "area",
+ 	stacked: true,
+ 	title:{
+ 	  text: "Assignment Results",
+ 	  fontColor: "#424242",
+ 	  adjustLayout: true,
+ 	  marginTop: 15
+ 	},
+ 	plot:{
+ 	  aspect: "spline",
+ 	  alphaArea: 0.6
+ 	},
+ 	plotarea:{
+ 	  margin: "dynamic"
+ 	},
+ 	tooltip:{visible:false},
+ 	scaleY:{
+ 	  lineColor: "#AAA5A5",
+ 	  tick:{
+ 	    lineColor: "#AAA5A5"
+ 	  },
+ 	  item:{
+ 	    fontColor: "#616161",
+ 	    paddingRight: 5
+ 	  },
+ 	  guide:{
+ 	    lineStyle: "dotted",
+ 	    lineColor: "#AAA5A5"
+ 	  },
+ 	  label:{
+ 	    text: "Mark",
+ 	    fontColor: "#616161"
+ 	  }
+ 	},
+ 	scaleX:{
+ 	  lineColor: "#AAA5A5",
+ 	  labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],
+ 	  tick:{
+ 	    lineColor: "#AAA5A5"
+ 	  },
+ 	  item:{
+ 	    fontColor: "#616161",
+ 	    paddingTop: 5
+ 	  },
+ 	  label:{
+ 	    text: "Students",
+ 	    fontColor: "#616161"
+ 	  }
+ 	},
+ 	crosshairX:{
+ 	  lineColor: "#AAA5A5",
+ 	  plotLabel:{
+ 	    backgroundColor:"#EBEBEC",
+ 	    borderColor: "#AAA5A5",
+ 	    borderWidth: 2,
+ 	    borderRadius: 2, 	
+ 	    thousandsSeparator:',',
+ 	    fontColor:'#616161'
+ 	  },
+ 	  scaleLabel:{
+ 	    backgroundColor: "#EBEBEC",
+ 	    borderColor: "#AAA5A5",
+ 	    fontColor: "#424242"
+ 	  }
+ 	},
+	series : [
+		{
+			values : [3435,4212,1627,3189,2325,1334,1567,2685],
+			text: "Footware",
+			backgroundColor: "#4CAF50",
+			lineColor: "#4CAF50",
+			marker:{
+			  backgroundColor: "#4CAF50",
+			  borderColor: "#4CAF50"
+ 
+			}
+		}
+	]
+};
+ 
+zingchart.render({ 
+	id : 'myChart', 
+	data : myConfig, 
+});
 
-        }
-      }
-      ]
-    };
-
-    zingchart.render({
-      id: 'myChart',
-      data: myConfig,
-    });
+  $('#assID').change(function(){
+    
+    var assName = $('#assID').val()
+    console.log(assName)
+    myConfig.title.text = assName
+  });
   </script>
   
 <script src="/scripts/payment.js"></script>
