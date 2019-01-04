@@ -73,6 +73,7 @@
         <h2 id="topic">PAYMENT HISTORY</h2>
         <% var month = ["January", "February", "March", "April", "May", "June", "July", "Auguest", "September", "October", "November", "December"] %>
         <% var today = new Date(); %>
+        <% var month = today.getMonth()-1 %>
         <div class="wrapper">
             <div class="container">
             		<div class="container-table100" style="margin-top:0px;">
@@ -91,7 +92,7 @@
             						</thead>
             						<tbody>
             						  <%payments.forEach(function(payment){%>
-            						    <% if(){ %>
+            						    <% if(month<=){ %>
               						    <tr>
               									<td class="column1"><%=payment.subname%></td>
               									<td class="column2"><%=payment.medium%></td>
