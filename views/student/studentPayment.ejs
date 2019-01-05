@@ -70,29 +70,31 @@
 </nav>
 <div id="particles-js">
     <div id="overlay">
-        <h2 id="topic">PAYMENT HISTORY</h2>
-        <% var month = ["January", "February", "March", "April", "May", "June", "July", "Auguest", "September", "October", "November", "December"] %>
+        <h2 id="topic">PAYMENTS</h2>
+        <% var months = ["January", "February", "March", "April", "May", "June", "July", "Auguest", "September", "October", "November", "December"] %>
         <% var today = new Date(); %>
-        <% var month = today.getMonth()-1 %>
+        <% var thisMonth = today.getMonth() %>
+        <% var thisYear = today.getFullYear() %>
         <div class="wrapper">
             <div class="container">
+                <h4 style="margin-bottom:15px">Due Payments</h4>
             		<div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100">
-            					<table id="pTable">
+            					<table>
             						<thead>
             							<tr class="table100-head" style="background-color:#931515">
-            								<th class="column1">Subject</th>
-            								<th class="column2">Medium</th>
+            								<th class="column3">Subject</th>
+            								<th class="column3">Medium</th>
             								<th class="column3">Day</th>
-            								<th class="column4">Payment date</th>
-            								<th class="column5">Payment month</th>
-            								<th class="column6">Amount (Rs.) </th>
+            								<th class="column3">Payment date</th>
+            								<th class="column3">Last paid month</th>
+            								<th class="column3">Amount (Rs.) </th>
             							</tr>
             						</thead>
             						<tbody>
             						  <%payments.forEach(function(payment){%>
-            						    <% if(month<=){ %>
+            						    <% if( ( (thisMonth>months.indexOf(payment.month)) && thisYear==payment.date.getFullYear()) || thisYear>payment.date.getFullYear() ) { %>
               						    <tr>
               									<td class="column1"><%=payment.subname%></td>
               									<td class="column2"><%=payment.medium%></td>
@@ -102,7 +104,7 @@
               									<td class="column6"><%=payment.amount%></td>
               								</tr>
             								<% } %>
-            						  <% } %>
+            						  <% }) %>
             						</tbody>
             					</table>
             				</div>
@@ -111,18 +113,19 @@
             </div>
             
             <div class="container">
+              <h4 style="margin-bottom:15px">Payment History</h4>
             		<div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100">
             					<table id="pTable">
             						<thead>
             							<tr class="table100-head">
-            								<th class="column1">Subject</th>
-            								<th class="column2">Medium</th>
+            								<th class="column3">Subject</th>
+            								<th class="column3">Medium</th>
             								<th class="column3">Day</th>
-            								<th class="column4">Payment date</th>
-            								<th class="column5">Payment month</th>
-            								<th class="column6">Amount (Rs.) </th>
+            								<th class="column3">Payment date</th>
+            								<th class="column3">Payment month</th>
+            								<th class="column3">Amount (Rs.) </th>
             							</tr>
             						</thead>
             						<tbody>
