@@ -65,3 +65,400 @@
       </div>
     </nav>
     
+<div id="particles-js">
+    <div id="overlay">
+        <h2 id="topic"><%=subject[0].subname%> <%=subject[0].year%></h2>
+        <div class="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form action="/admin/payments/new" id="newpayment" method="POST">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Select Assignment</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-4"></div>
+                                                <label class="col-sm-1 control-label label">Assignment</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control combobox" id="assID">
+                                                      <option selected value></option>
+                                                      <% aNames.forEach(function(assignment){ %>
+                                                      <option value='<%= assignment.assID %>'><%= assignment.assID %></option>
+                                                      <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id='myChart' style="border:1px dotted gray"><a class="zc-ref"></a></div>
+                            
+                            
+                              <div class="container-table100" style="margin-top:20px;">
+                          			<div class="wrap-table100">
+                          				<div class="table100 table">
+                          					<table id='myTable'>
+                          						<thead>
+                          							<tr class="table100-head">
+                          							  <th class="column2">#</th>
+                          							  <th class="column3">Student ID</th>
+                          							  <th class="column4">Student Name</th>
+                          							  <th class="column2">Mark</th>
+                          							</tr>
+                          						</thead>
+                          						<tbody id="tbody">
+                          						    <%var index=1%>
+                          						    <%overall.forEach(function(avg){%>
+                          						        <tr data-toggle="modal" data-target="#incomeDiv">
+                              						        <td class="column1"><%=index%></td>
+                        									<td class="column2"><%=avg.stID%></td>
+                        									<%student.forEach(function(stu){%>
+                                                                <%if(stu.stID==avg.stID){%>
+                                                                    <td class="column3"><b><%= stu.name %></b></td>
+                                                                    <%}})%>
+                        									<td class="column4"><b><%=avg.average%>%</b></td>
+                									    </tr>
+                									    <%index++;%>
+                          						    <%})%>
+                          						    
+                          						</tbody>
+                          					</table>
+                          				</div>
+                            		</div>
+                            	</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>       
+
+<!-- Window displayed upon table click with individual assignment marks-->
+<div class="modal fade" id="incomeDiv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document"  style="max-width:90%;max-height:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+            </div>
+    
+            <div class="modal-body" style="padding-left:0px; height:500px;">
+                <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-5" style="border-right:1px dashed gray">
+                        <table>
+                            <thead>
+                            <tr class="table100-head">
+                                <th>#</th>
+                                <th>Assignment name</th>
+                                <th>Mark</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody2">
+                            </tbody>
+                        </table>
+                      </div>
+                      <div class="col-md-7">
+                          <div id='barChart'></div>
+                      </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+var assignments = <%-JSON.stringify(assignments)%>;
+var studentDetails = <%-JSON.stringify(student)%>;
+var overall = <%-JSON.stringify(overall)%>;
+var subject = <%-JSON.stringify(subject)%>;
+
+//Add search functionality to table with id #myTable
+var table = $('#myTable').DataTable();
+
+//default graph properties    
+    var myConfig ={
+ 	type: "area",
+ 	stacked: true,
+ 	title:{
+ 	  text: "Average Results",
+ 	  fontColor: "#424242",
+ 	  adjustLayout: true,
+ 	  marginTop: 15
+ 	},
+ 	plot:{
+ 	  aspect: "spline",
+ 	  alphaArea: 0.6
+ 	},
+ 	plotarea:{
+ 	  margin: "dynamic"
+ 	},
+ 	tooltip:{visible:false},
+ 	scaleY:{
+ 	  lineColor: "#AAA5A5",
+ 	  tick:{
+ 	    lineColor: "#AAA5A5"
+ 	  },
+ 	  item:{
+ 	    fontColor: "#616161",
+ 	    paddingRight: 5
+ 	  },
+ 	  guide:{
+ 	    lineStyle: "dotted",
+ 	    lineColor: "#AAA5A5"
+ 	  },
+ 	  label:{
+ 	    text: "Mark",
+ 	    fontColor: "#616161"
+ 	  },
+ 	  "min-value":0,
+ 	  "max-value":100
+ 	},
+ 	scaleX:{
+ 	  lineColor: "#AAA5A5",
+ 	  labels:[],
+ 	  tick:{
+ 	    lineColor: "#AAA5A5"
+ 	  },
+ 	  item:{
+ 	    fontColor: "#616161",
+ 	    paddingTop: 5
+ 	  },
+ 	  label:{
+ 	    text: "Students",
+ 	    fontColor: "#616161"
+ 	  }
+ 	},
+ 	crosshairX:{
+ 	  lineColor: "#AAA5A5",
+ 	  plotLabel:{
+ 	    backgroundColor:"#EBEBEC",
+ 	    borderColor: "#AAA5A5",
+ 	    borderWidth: 2,
+ 	    borderRadius: 2, 	
+ 	    thousandsSeparator:',',
+ 	    fontColor:'#616161'
+ 	  },
+ 	  scaleLabel:{
+ 	    backgroundColor: "#EBEBEC",
+ 	    borderColor: "#AAA5A5",
+ 	    fontColor: "#424242"
+ 	  }
+ 	},
+	series : []
+};
+
+//Show average results on page load
+    overall_avg=[]
+    
+    overall.forEach(function(st){
+        overall_avg.push(st.average)
+        myConfig.scaleX.labels.push(st.stID)
+       });
+    myConfig.series.push({values:overall_avg,text:"Average"}) 
+ 
+ 
+//Render chart with average results 
+    zingchart.render({ 
+	id : 'myChart', 
+	data : myConfig})     
+
+//If an assignment is selected
+  $('#assID').change(function(){
+      
+    var assName = $('#assID').val()
+    
+    //If no assignment is selected, render chart with average marks
+    if(assName=='')
+            {
+            var tbody = $("#tbody");
+            tbody.html('');
+            tbody.hide();
+            tbody.fadeIn(1000)
+            
+            myConfig.title.text = "Average Results"
+            myConfig.series = []
+            
+            var index=1;
+            
+            var overall_avg=[]
+    
+            overall.forEach(function(st){
+                overall_avg.push(st.average)
+                //Modify chart values
+                myConfig.scaleX.labels.push(st.stID)
+                
+                //Append each student in a row to the table
+                var trow=""
+                  trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", index)
+                  trow=trow.concat("</td><td class='column2'>", st.stID)
+                  studentDetails.forEach(function(stu){
+                      if(stu.stID==st.stID)
+                      {
+                          trow=trow.concat("</td><td class='column3'><b>", stu.name)
+                      }
+                  })
+                  trow=trow.concat("</td></b><td class='column4'><b>", st.average,"%")
+                  trow.concat(trow, "</b></td></tr>")
+                  $('#tbody').append(trow);
+                  index++;
+                });
+            
+            //Modify chart values
+            myConfig.series.push({values:overall_avg,text:"Average"})
+            
+            //Render the chart
+            zingchart.render({ 
+        	id : 'myChart', 
+        	data : myConfig})
+            }
+    else
+    //If an assignment is selected, render chart with assignment marks
+        {
+            var tbody = $("#tbody");
+            tbody.html('');
+            tbody.hide();
+            tbody.fadeIn(1000)
+            
+            var results=[]
+            var students=[]
+            
+            
+            myConfig.title.text = assName
+            myConfig.series = []
+            
+            var index=1;
+            var trow=""
+            var total=0;
+            
+            assignments.forEach(function(assignment){
+                if(assignment.assID===assName)
+                {
+                    results.push(assignment.result)
+                    students.push(assignment.stID)
+                    //Modify chart values
+                    myConfig.scaleX.labels.push(assignment.stID)
+                    
+                  //Append each student in a row to the table  
+                  trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", index)
+                  trow=trow.concat("</td><td class='column2'>", assignment.stID)
+                  studentDetails.forEach(function(stu){
+                      if(stu.stID==assignment.stID)
+                      {
+                          trow=trow.concat("</td><td class='column3'><b>", stu.name)
+                      }
+                  })
+                  console.log(assignment.result)
+                  total+=assignment.result
+                  trow=trow.concat("</td></b><td class='column4'><b>", assignment.result,"%")
+                  trow.concat(trow, "</b></td></tr>")
+                  
+                  index++;
+                }
+            });
+            //Append assignment average
+            trow=trow.concat("<tr><td class='column1'></td><td class='column2'></td><td class='column3'></td><td class='column4'>Assignment average is at ", Math.round(total/(index-1)),"%")
+            trow.concat(trow, "</td></tr>")
+            $('#tbody').append(trow);
+            //Modify chart values
+            myConfig.series.push({values:results,text:assName})
+            
+            //Render the chart
+            zingchart.render({ 
+        	id : 'myChart', 
+        	data : myConfig})
+        }
+   
+});
+
+//Display individual assignment grades of each student upon table click
+  $('#myTable tbody').on( 'click', 'tr', function () {
+      
+      var trow=""
+      
+      //Get clicked row
+      var stID=table.row( this ).data()[1]
+      var stName=table.row( this ).data()[2].substring(3,(table.row( this ).data()[2].length-4))
+      var title = $('#exampleModalLabel')
+      title.html(stID+" "+stName);
+      
+      //Set table content
+      var tbody = $("#tbody2");
+      tbody.html('');
+      tbody.hide();
+      tbody.fadeIn(1000)
+      
+      var index=1
+      var total=0
+      
+      //Store assignment name & result to be used in chart
+      var assignmentNames=[]
+      var assignmentResults=[]
+      
+      //Append each assignment of student to table
+      assignments.forEach(function(assignment){
+          if(assignment.stID===stID)
+          {
+            trow=trow.concat("<tr><td class='column1'>", index)
+            trow=trow.concat("</td><td class='column2'>", assignment.assID)
+            trow=trow.concat("</td><td class='column3'><b>", assignment.result,"%")
+            total+=assignment.result
+            trow.concat(trow, "</b></td></tr>")
+            index++
+            assignmentNames.push(assignment.assID)
+            assignmentResults.push(assignment.result)
+          }
+                  
+      })
+       //Append subject average
+        trow=trow.concat("<tr><td class='column1'></td><td class='column2'></td><td class='column3'>Subject average is at ", Math.round(total/(index-1)),"%")
+        trow.concat(trow, "</td></tr>")
+        $('#tbody2').append(trow);
+    
+    //Set properties of the bar chart
+     var bChart = {
+                    "type": "bar",
+                     "plot":{
+                        "styles":[]
+                      },
+                    "plotarea": {
+                      "adjust-layout":true
+                    },
+                    "scale-x": {
+                      "label":{ /* Scale Title */
+                        "text":"Assignments",
+                      },
+                      "labels":assignmentNames /* Scale Labels */
+                    },
+                    "scale-y":{"label":{ /* Scale Title */
+                        "text":"Mark"
+                      },
+                        "min-value":0,
+ 	                    "max-value":100
+                                },
+                    "series": [{"values":assignmentResults,"alpha":1}]
+                }
+                
+    //render bar chart displaying individual assignment marks            
+    zingchart.render({ 
+        id : 'barChart', 
+    	data : bChart
+    });
+  });
+  </script>
+  
+<script src="/scripts/payment.js"></script>
+<% include ../partials/footer %>
