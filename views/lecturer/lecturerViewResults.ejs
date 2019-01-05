@@ -9,7 +9,7 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             
         <!-- End of Bootstrap -->
-            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
     <!-- Simple line Icon -->
         <link rel="stylesheet" type="text/css" href="../../stylesheets/form.css"> 
         <link rel="stylesheet" type="text/css" href="../../stylesheets/home.css"> 
@@ -31,6 +31,11 @@
 		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
 		</script>
 	<!-- End of For Charts -->  
+	    
+	<!--Datatable-->
+	<script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+	<!--End of datatable -->
     
     </head>
 <body>
@@ -60,166 +65,3 @@
       </div>
     </nav>
     
-<div id="particles-js">
-    <div id="overlay">
-        <h2 id="topic">VIEW RESULTS</h2>
-        <div class="wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form action="/admin/payments/new" id="newpayment" method="POST">
-                            <div class="panel panel-default panel-fill">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Select Assignment</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-sm-4"></div>
-                                                <label class="col-sm-1 control-label label">Assignment</label>
-                                                <div class="col-sm-3">
-                                                    <select class="form-control combobox" id="assID">
-                                                      <option selected value></option>
-                                                      <% aNames.forEach(function(assignment){ %>
-                                                      <option value='<%= assignment.assID %>'><%= assignment.assID %></option>
-                                                      <% }) %>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id='myChart'><a class="zc-ref"></a></div>
-                            <div class="container">
-                              <div class="container-table100" style="margin-top:0px;">
-                          			<div class="wrap-table100">
-                          				<div class="table100 table">
-                          					<table id='myTable'>
-                          						<thead>
-                          							<tr class="table100-head">
-                          							  <th class="column1">#</th>
-                          							  <th class="column2">Assignment name</th>
-                          								<th class="column3">Mark</th>
-                          							</tr>
-                          						</thead>
-                          						<tbody id="tbody">
-                          						</tbody>
-                          					</table>
-                          				</div>
-                            		</div>
-                            	</div>
-                            </div>
-                            <center>
-                              <button id="saveBtn" class="btn btn-primary" style="width:100px">SAVE</button>
-                               
-                              <button class="btn btn-primary cancel" style="width:100px">CANCEL</button>
-                            </center>
-                        </form>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-    </div>
-</div>       
-
-<script>
-    var myConfig ={
- 	type: "area",
- 	stacked: true,
- 	title:{
- 	  text: "Assignment Results",
- 	  fontColor: "#424242",
- 	  adjustLayout: true,
- 	  marginTop: 15
- 	},
- 	plot:{
- 	  aspect: "spline",
- 	  alphaArea: 0.6
- 	},
- 	plotarea:{
- 	  margin: "dynamic"
- 	},
- 	tooltip:{visible:false},
- 	scaleY:{
- 	  lineColor: "#AAA5A5",
- 	  tick:{
- 	    lineColor: "#AAA5A5"
- 	  },
- 	  item:{
- 	    fontColor: "#616161",
- 	    paddingRight: 5
- 	  },
- 	  guide:{
- 	    lineStyle: "dotted",
- 	    lineColor: "#AAA5A5"
- 	  },
- 	  label:{
- 	    text: "Mark",
- 	    fontColor: "#616161"
- 	  }
- 	},
- 	scaleX:{
- 	  lineColor: "#AAA5A5",
- 	  labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],
- 	  tick:{
- 	    lineColor: "#AAA5A5"
- 	  },
- 	  item:{
- 	    fontColor: "#616161",
- 	    paddingTop: 5
- 	  },
- 	  label:{
- 	    text: "Students",
- 	    fontColor: "#616161"
- 	  }
- 	},
- 	crosshairX:{
- 	  lineColor: "#AAA5A5",
- 	  plotLabel:{
- 	    backgroundColor:"#EBEBEC",
- 	    borderColor: "#AAA5A5",
- 	    borderWidth: 2,
- 	    borderRadius: 2, 	
- 	    thousandsSeparator:',',
- 	    fontColor:'#616161'
- 	  },
- 	  scaleLabel:{
- 	    backgroundColor: "#EBEBEC",
- 	    borderColor: "#AAA5A5",
- 	    fontColor: "#424242"
- 	  }
- 	},
-	series : [
-		{
-			values : [3435,4212,1627,3189,2325,1334,1567,2685],
-			text: "Footware",
-			backgroundColor: "#4CAF50",
-			lineColor: "#4CAF50",
-			marker:{
-			  backgroundColor: "#4CAF50",
-			  borderColor: "#4CAF50"
- 
-			}
-		}
-	]
-};
- 
-zingchart.render({ 
-	id : 'myChart', 
-	data : myConfig, 
-});
-
-  $('#assID').change(function(){
-    
-    var assName = $('#assID').val()
-    console.log(assName)
-    myConfig.title.text = assName
-  });
-  </script>
-  
-<script src="/scripts/payment.js"></script>
-<% include ../partials/footer %>

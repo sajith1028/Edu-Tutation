@@ -102,14 +102,87 @@ router.get("/addAssignmentResults/:id", function(req,res){
 
 router.post("/addAssignmentResults/:id", function(req,res){
     var subID = req.params.id;
+    console.log(req.body)
     
-    for(var i=0;i<req.body.marks.length;i++){
-        var sql="INSERT INTO assignment VALUES('"+req.body.title+"','"+subID+"','"+req.body.stID[i]+"','"+req.body.marks[i]+"');";
-        pool.query(sql, (err, res2, cols)=>{
-        if(err) 
-            throw err;
-        });
-    }
+    var index=0;
+    req.body.stID.forEach(function(student){
+        var mark=req.body.marks[index];
+        
+        var sql="INSERT INTO assignment VALUES('"+req.body.title+"','"+subID+"','"+student+"','"+mark+"');"
+        console.log(sql)
+        index++;
+        
+        var sqlx="SELECT * FROM assignment";
+        pool.query(sqlx, (err, res1, cols)=>{
+        if(err) throw err;
+           
+            var sql1="SELECT result FROM assignment WHERE stID='"+student+"' AND subID='"+subID+"'";
+            console.log(sql1)
+            
+            pool.query(sql1,(err,res2,cols)=>{
+                console.log(res2);
+                if(err) throw err;
+                var total=0;
+                var i=0;
+                res2.forEach(function(resMark){
+                    total+=resMark.result
+                    i++
+                    })
+                var avg=Math.round(total/i); 
+                
+                var sql2="UPDATE enrolment SET average='"+avg+"' WHERE stID='"+student+"' AND subID='"+subID+"'";
+                console.log(sql2)  
+                // pool.query(sql,(err,res3,cols)=>{
+                //     if (err) throw err;
+                
+                // })
+                
+            })
+        
+        })
+        
+    })
+    
+    // for(var i=0;i<req.body.marks.length;i++){
+    //     var stID=req.body.stID[i];
+    //     var stMark=req.body.marks[i];
+        
+    //     var sql="INSERT INTO assignment VALUES('"+req.body.title+"','"+subID+"','"+stID+"','"+stMark+"');"
+    //     console.log(sql)
+        
+    //     var sqlx="SELECT * FROM assignment";
+    //     pool.query(sqlx, (err, res1, cols)=>{
+    //     if(err) throw err;
+        
+    //         var sql1="SELECT result FROM assignment WHERE stID='"+stID+"' AND subID='"+subID+"'";
+    //         console.log(sql1)
+            
+    //         pool.query(sql1,(err,res2,cols)=>{
+    //             if(err) throw err;
+    //             var total=0;
+    //             var index=0;
+    //             res2.forEach(function(mark){
+    //                 total+=mark.result
+    //                 index++
+    //                 })
+    //             var avg=Math.round(total/index); 
+                
+    //             var sql2="UPDATE enrolment SET average='"+avg+"' WHERE stID='"+stID+"' AND subID='"+subID+"'";
+    //             console.log(sql2)  
+    //             // pool.query(sql,(err,res3,cols)=>{
+    //             //     if (err) throw err;
+                
+    //             // })
+                
+    //         })
+            
+
+            
+            
+            
+            
+    //     });
+    // }
     res.redirect("/lecturer/addAssignmentResults/"+subID);
     res.end();
     
@@ -295,8 +368,24 @@ router.get("/viewResults/:id", function(req,res){
         var sql2="SELECT * FROM assignment WHERE subID='"+id+"'";
         pool.query(sql2,(err,res3,cols)=>{
             if(err) throw err;
-            console.log(res3);
-            res.render("lecturer/lecturerViewResults",{aNames:res2,assignments:res3});
+            
+            var sql3="SELECT DISTINCT s.stID, s.name FROM student s,assignment a WHERE s.stID=a.stID AND a.subID='"+id+"'";
+            pool.query(sql3,(err,res4,cols)=>{
+                if(err) throw err;
+                
+                var sql4="SELECT * FROM enrolment WHERE subID='"+id+"'"
+                pool.query(sql4,(err,res5,cols)=>{
+                    if(err) throw err;
+                    
+                    var sql5="SELECT subname, year FROM subject WHERE subID='"+id+"'";
+                    pool.query(sql5,(err,res6,cols)=>{
+                        if(err) throw err;
+                        res.render("lecturer/lecturerViewResults",{aNames:res2,assignments:res3,student:res4,overall:res5,subject:res6});
+                    })
+                    
+                })
+            })
+            
         })
         
     })

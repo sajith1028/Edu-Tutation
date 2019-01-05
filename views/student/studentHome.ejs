@@ -106,6 +106,43 @@
                 </div>
                 <div class="col-lg-8 col-md-7 responsive-wrap">
                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default panel-fill">
+                                <div class="panel-body clck">
+                                    <h1>Your next class is in</h1>
+                                    <div class="row class-details">
+                                        <div class="col-lg-6">
+                                            <div id="clockdiv">
+                                              <div>
+                                                <span class="days"></span>
+                                                <div class="smalltext">Days</div>
+                                              </div>
+                                              <div>
+                                                <span class="hours"></span>
+                                                <div class="smalltext">Hours</div>
+                                              </div>
+                                              <div>
+                                                <span class="minutes"></span>
+                                                <div class="smalltext">Minutes</div>
+                                              </div>
+                                              <div>
+                                                <span class="seconds"></span>
+                                                <div class="smalltext">Seconds</div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <ol class="inner-details-ol"></ol>
+                                                <li class="inner-details-li" style="margin-bottom:30px">Class : <span id="cls"></li>
+                                                <li class="inner-details-li">Hall  : <span id="hall"></li>
+                                            </ol>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-12" style="margin: 0 auto;">
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-body" style="background-color:rgba(0,0,0,0.5); border-radius: 5px; margin-bottom:30px;">
@@ -255,6 +292,71 @@
         </div>
     </div>
 </div>      
+<script>
+var myself = <%-JSON.stringify(myself)%>;
+var today = new Date().getDay()-1;
+var days=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+var count=0
+var closest = myself[0]
+
+myself.forEach(function(m){
+    count=0
+    for(var i=today; i<today+7; i++){
+        console.log(days[i%7]+" "+i%7)
+        if(m.day==days[i%7] && closest.day>m.day){
+            closest=m
+            break
+        }
+        count++
+    }
+})
+
+console.log(closest)
+$("#cls").append(closest.subID+" "+closest.subname+" "+closest.year)
+$("#hall").append(closest.hall)
+
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+
+    daysSpan.innerHTML = '0'+t.days;
+    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+    if (t.total <= 0) {
+      clearInterval(timeinterval);
+    }
+  }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
+
+var deadline = new Date(Date.parse(new Date()) + count * 5 * 60 * 60 * 1000);
+initializeClock('clockdiv', deadline);
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="../scripts/studentHome.js"></script>
