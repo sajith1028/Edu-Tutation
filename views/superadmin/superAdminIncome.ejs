@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Payments</title>
+        <title>Income</title>
         <!-- Bootstrap -->
             <!-- Responsive screen size -->
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
@@ -10,8 +10,9 @@
             
         <!-- End of Bootstrap -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+            <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Simple line Icon -->
-        <link rel="stylesheet" type="text/css" href="../stylesheets/payment.css"> 
+        <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
         
     <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -22,63 +23,425 @@
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
     <!-- End of Particles -->    
+    
+    <!-- For Charts -->  
+        <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script> 
+		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+		    
+		</script>
+	<!-- End of For Charts --> 
+	  
     </head>
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-              <ul class="navbar-nav nav-link">
-        <a class="links" href="/admin">Home</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer">Income</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer">My Classes</a>
-      </ul>
-      <ul class="navbar-nav nav-link">
-        <a class="links" href="/lecturer">Newsfeed</a>
-      </ul>
-    </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/superadmin">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/superadmin/results">Results</a>
+          </ul>
+        </ul>
     
-    <a  id="register"href="/login">
-      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-    </a>
+    <% if(!currentUser){ %>
+            <a  id="register"href="/login">
+                <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+            </a>
+        <% } else { %>
+            <ul class="navbar-nav nav-link">
+                <a id="user" class="links" href="#"> Signed in as
+                    <%= currentUser.username %> 
+                </a>
+            </ul>
+            <ul class="navbar-nav nav-link">
+                <a  id="register"href="/logout">
+                    <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                </a>
+            </ul>
+        <% } %>
   </div>
 </nav>
 <div id="particles-js">
     <div id="overlay">
         <h2 id="topic">PAYMENTS</h2>
         <div class="wrapper">
-            <div class="container">
+            <% var yearsAr=[] %> 
+            <% var classAr=[] %> 
+              
+            <%incomes.forEach(function(income){%>
+              <% if (!yearsAr.includes(income.year)) yearsAr.push(income.year); %>
+              <% if (!classAr.includes(income.subID)) classAr.push(income.subID); })%>
+              
+            <div class="container">  
                 <div class="panel panel-default panel-fill">
                     <div class="panel-heading">
-                        <h3 class="panel-title">User info</h3>
+                        <h3 class="panel-title">Filter Results</h3>
                     </div>
                     <div class="panel-body">
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">School</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-1 control-label label">Year</label>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select class="form-control combobox" id="alyear">
+                                            <option selected value></option>
+                                              <% yearsAr.forEach(function(y){ %>
+                                                <option value='<%= y %>'><%= y %></option>
+                                              <% }) %>
+                                        </select>
+                                      </div>
+                                </div>
+                                
+                                <div class="col-sm-1"></div>
+                                <label class="col-sm-1 control-label label">Class</label>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select class="form-control combobox" id="class">
+                                            <option selected value></option>
+                                            <% classAr.forEach(function(y){ %>
+                                                <option value='<%= y %>'><%= y %></option>
+                                            <% }) %>
+                                        </select>
+                                      </div>
+                                </div>
+                                
+                                <div class="col-sm-1"></div>
+                                <label class="col-sm-4 control-label label">For more details, click any row of the table below.</label>
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">District</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control">
-                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <% for(var i=0; i<yearsAr.length; i++){ /* for each year, new carousal */ %>
+                    <div class="carousel-item active">
+                      <div id='<%= "myChart"+i %>' style="border:1px dotted gray"><a class="zc-ref"></a></div>
+                        <div class="table">
                       </div>
                     </div>
-                  </div>
+                  <% } %>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              
+                <div class="container-table100" style="margin-top:0px;">
+            			<div class="wrap-table100">
+            				<div class="table100 table">
+            					<table id='myTable' style="width:100%;">
+            						<thead>
+            							<tr class="table100-head">
+            							  <th class="column1">Year</th>
+            								<th class="column7">Month</th>
+            								<th class="column2">Subject ID</th>
+            								<th class="column8">AL Year</th>
+            								<th class="column6">Subject</th>
+            								<th class="column6">Gross Income (Rs.)</th>
+            								<th class="column7" style="display:none;"></th>
+            								<th class="column7">Net Income (Rs.)</th>
+            							</tr>
+            						</thead>
+            						<tbody id="tbody">
+            						  <%incomes.forEach(function(income){%>
+            						    <tr data-toggle="modal" data-target="#incomeDiv">
+            						      <td class="column1"><%=income.year%></td>
+            									<td class="column7"><b><%=income.month%></b></td>
+            									<td class="column2"><%=income.subID%></td>
+            									<td class="column8"><%=income.ALyear%></td>
+            									<td class="column6"><%=income.subname%></td>
+            									<td class="column6"><%=income.totalfee%></td>
+            									<td class="column7" style="display:none;"><%=income.totalfee*3/4%></td>
+            									<td class="column7"><b><%=income.totalfee/4%></b></td>
+            								</tr>
+            						  <% }); %>
+            						</tbody>
+            					</table>
+            				</div>
+            		</div>
+            	</div>
+            	
+            <center>
+              <a href="/superadmin"><button class="btn btn-primary" style="width:100px;margin-bottom:20px;">OKAY</button></a>
+            </center>
+            </div>
             </div>
         </div>
     </div>
 </div>       
 
-<% include ../partials/footer %>
+<script>
+  var incomes = <%-JSON.stringify(incomes)%>;
+  
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  
+  var yearsAr=[]
+  var classAr=[]
+  var value=[0,0,0,0,0,0,0,0,0,0,0,0]
+  var i=0
+  var count=1
+  
+  var myConfig = {
+        type: "line",
+        title: {
+          text: "",
+          fontColor: "#424242",
+          adjustLayout: true,
+          marginTop: 15
+        },
+        plot: {
+          aspect: "spline",
+          alphaArea: 0.6
+        },
+        plotarea: {
+          margin: "dynamic"
+        },
+        tooltip: {
+          visible: false
+        },
+        scaleY: {
+          short: true,
+          shortUnit: 'k',
+          lineColor: "#AAA5A5",
+          tick: {
+            lineColor: "#AAA5A5"
+          },
+          item: {
+            fontColor: "#616161",
+            paddingRight: 5
+          },
+          guide: {
+            lineStyle: "dotted",
+            lineColor: "#AAA5A5"
+          },
+          label: {
+            text: "Rs.",
+            fontColor: "#616161"
+          }
+        },
+        scaleX: {
+          lineColor: "#AAA5A5",
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
+          tick: {
+            lineColor: "#AAA5A5"
+          },
+          item: {
+            fontColor: "#616161",
+            paddingTop: 5
+          },
+          label: {
+            text: "2018",
+            fontColor: "#616161"
+          }
+        },
+        crosshairX: {
+          lineColor: "#AAA5A5",
+          plotLabel: {
+            backgroundColor: "#EBEBEC",
+            borderColor: "#AAA5A5",
+            borderWidth: 2,
+            borderRadius: 2,
+            thousandsSeparator: ',',
+            fontColor: '#616161'
+          },
+          scaleLabel: {
+            backgroundColor: "#EBEBEC",
+            borderColor: "#AAA5A5",
+            fontColor: "#424242"
+          }
+        },
+        series: []
+      };           
+  
+  var maintenance=[0,0,0,0,0,0,0,0,0,0,0,0]
+  var value=[0,0,0,0,0,0,0,0,0,0,0,0]
+  
+  //If year is changed
+  $('#alyear').change(function(){
+    //Reset table values
+    var tbody = $("#tbody");
+    tbody.html('');
+    tbody.hide();
+    tbody.fadeIn(1000)
+    
+    //Add the graph to the page
+    var graph = $('#carouselExampleIndicators')
+    graph.html('<div id="chart" style="border:1px dotted gray"><a class="zc-ref"></a></div>  <div class="table"></div>')
+    
+    var trow=""
+    
+    classAr=[]
+    //Set the title of the graph
+    myConfig.text = $("#alyear").val()
+    myConfig.title.text = $("#alyear").val()
+    myConfig.series = []
+    count=1
+    //If a class is not selected
+    if($("#class").val()==""){
+      //Show total income from all classes
+      value=[0,0,0,0,0,0,0,0,0,0,0,0]
+      maintenance=[0,0,0,0,0,0,0,0,0,0,0,0]
+      
+      incomes.forEach(function(income){
+        if ($("#alyear").val()==income.year){ 
+          value[months.indexOf(income.month)]+=income.totalfee
+          maintenance[months.indexOf(income.month)]+=(income.totalfee/4)
+          
+          //Append data to the table
+          trow=""
+          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
+          trow=trow.concat("</td><td class='column7'><b>", income.month)
+          trow=trow.concat("</b></td><td class='column2'>", income.subID)
+          trow=trow.concat("</td><td class='column8'>", income.ALyear)
+          trow=trow.concat("</td><td class='column6'>", income.subname)
+          trow=trow.concat("</td><td class='column6'>", income.totalfee)
+          trow=trow.concat("</td><td class='column7' style='display:none;'>", income.totalfee*3/4)
+          trow=trow.concat("</td><td class='column7'><b>",income.totalfee/4)
+          trow.concat(trow, "</b></td></tr>")
+          $('#tbody').append(trow);
+        }
+        
+      }) 
+      //Insert values to chart
+      var details = {
+        values: value,
+        text: "Total"
+      }
+      myConfig.series.push(details)
+      var maintenanceDetails = {
+        values: maintenance,
+        text: "Income"
+      }
+      myConfig.series.push(maintenanceDetails)
+    
+    }
+    else{
+      //If a class is also selected
+      
+      value=[0,0,0,0,0,0,0,0,0,0,0,0]
+      maintenance=[0,0,0,0,0,0,0,0,0,0,0,0]
+      
+      incomes.forEach(function(income){
+        if ($("#alyear").val()==income.year && $("#class").val()==income.subID){ 
+          value[months.indexOf(income.month)]=income.totalfee
+          maintenance[months.indexOf(income.month)]=(income.totalfee/4)
+          //Append data to table
+          trow=""
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
+          trow=trow.concat("</td><td class='column7'><b>", income.month)
+          trow=trow.concat("</b></td><td class='column2'>", income.subID)
+          trow=trow.concat("</td><td class='column8'>", income.ALyear)
+          trow=trow.concat("</td><td class='column6'>", income.subname)
+          trow=trow.concat("</td><td class='column6'>", income.totalfee)
+          trow=trow.concat("</td><td class='column7' style='display:none;'>", income.totalfee*3/4)
+          trow=trow.concat("</td><td class='column7'><b>",income.totalfee/4)
+          trow.concat(trow, "</b></td></tr>")
+          $('#tbody').append(trow);
+        }
+      }) 
+      
+      //Insert values to chart
+      var details = {
+        values: value,
+        text: $("#class").val()
+      }
+      myConfig.series.push(details)
+    
+    var maintenanceDetails = {
+        values: maintenance,
+        text: "Income"
+      }
+      myConfig.series.push(maintenanceDetails)
+    }
+    //Render chart
+    zingchart.render({
+      id: 'chart',
+      data: myConfig,
+    });
+  });
+  
+  //If a class is selected
+  $('#class').change(function(){
+    //Reset table
+    var tbody = $("#tbody");
+    tbody.html('');
+    tbody.hide();
+    tbody.fadeIn(1000)
+    
+    var className = $("#class").val()
+    //Add graph to page
+    var graph = $('#carouselExampleIndicators')
+    graph.html('<div id="chart" style="border:1px dotted gray"><a class="zc-ref"></a></div>  <div class="table"></div>')
+    
+    value=[0,0,0,0,0,0,0,0,0,0,0,0]
+    maintenance=[0,0,0,0,0,0,0,0,0,0,0,0]
+    //Set chart title
+    myConfig.text = className
+    myConfig.title.text = className
+    myConfig.series = []
+    
+    {
+      incomes.forEach(function(income){
+        if ($("#class").val()==income.subID && $("#alyear").val()==income.year){
+          value[months.indexOf(income.month)]=income.totalfee
+          trow=""
+          maintenance[months.indexOf(income.month)]=(income.totalfee/4)
+          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
+          trow=trow.concat("</td><td class='column7'><b>", income.month)
+          trow=trow.concat("</b></td><td class='column2'>", income.subID)
+          trow=trow.concat("</td><td class='column8'>", income.ALyear)
+          trow=trow.concat("</td><td class='column6'>", income.subname)
+          trow=trow.concat("</td><td class='column6'>", income.totalfee)
+          trow=trow.concat("</td><td class='column7' style='display:none;'>", income.totalfee/4)
+          trow=trow.concat("</td><td class='column7'><b>",income.totalfee/4)
+          trow.concat(trow, "</b></td></tr>")
+          $('#tbody').append(trow);
+        }
+      })
+    }
+    //Insert values to chart
+    var details = {
+      values: value,
+      text: className
+    }
+    
+    myConfig.series.push(details)
+        
+    var maintenanceDetails = {
+        values: maintenance,
+        text: "Income"
+      }
+    myConfig.series.push(maintenanceDetails)
+      
+    zingchart.render({
+      id: 'chart',
+      data: myConfig,
+    });
+  });
+  //Add search facility to table
+  var table = $('#myTable').DataTable();
+  </script>
+<% include ../partials/footer %> 

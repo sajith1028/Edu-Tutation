@@ -76,12 +76,12 @@
         <% var thisMonth = today.getMonth() %>
         <% var thisYear = today.getFullYear() %>
         <div class="wrapper">
-            <div class="container">
-                <h4 style="margin-bottom:15px">Due Payments</h4>
+            <div class="container" id="dueContainer" style="border:2px dashed red; background-color:#ffaeae">
+                <h4 id="dueTitle" style="margin-bottom:15px">Due Payments</h4>
             		<div class="container-table100" style="margin-top:0px;">
             			<div class="wrap-table100">
             				<div class="table100">
-            					<table>
+            					<table id="dueTable">
             						<thead>
             							<tr class="table100-head" style="background-color:#931515">
             								<th class="column3">Subject</th>
@@ -93,18 +93,21 @@
             							</tr>
             						</thead>
             						<tbody>
-            						  <%payments.forEach(function(payment){%>
-            						    <% if( ( (thisMonth>months.indexOf(payment.month)) && thisYear==payment.date.getFullYear()) || thisYear>payment.date.getFullYear() ) { %>
-              						    <tr>
-              									<td class="column1"><%=payment.subname%></td>
-              									<td class="column2"><%=payment.medium%></td>
-              									<td class="column3"><%=payment.day%></td>
-              									<td class="column4"><%=(payment.date).toDateString();%></td>
-              									<td class="column5"><%=payment.month%></td>
-              									<td class="column6"><%=payment.amount%></td>
-              								</tr>
+            						  <% var sn = '' %>
+            						  <%for(var i=0; i<payments.length-1;i++){%>
+            						    <% if(payments[i].subname != payments[i+1].subname){ %>
+              						    <% if( ( (thisMonth>months.indexOf(payments[i].month)) && thisYear==payments[i].date.getFullYear()) || thisYear>payments[i].date.getFullYear() ) { %>
+                						    <tr style="background-color:rgba(255,0,0,.1); color:black">
+                									<td class="column1"><%=payments[i].subname%></td>
+                									<td class="column2"><%=payments[i].medium%></td>
+                									<td class="column3"><%=payments[i].day%></td>
+                									<td class="column4"><%=(payments[i].date).toDateString();%></td>
+                									<td class="column5"><%=payments[i].month%></td>
+                									<td class="column6"><%=payments[i].amount%></td>
+                								</tr>
+              								<% } %>
             								<% } %>
-            						  <% }) %>
+            						  <% } %>
             						</tbody>
             					</table>
             				</div>
@@ -113,48 +116,69 @@
             </div>
             
             <div class="container">
-              <h4 style="margin-bottom:15px">Payment History</h4>
-            		<div class="container-table100" style="margin-top:0px;">
-            			<div class="wrap-table100">
-            				<div class="table100">
-            					<table id="pTable">
-            						<thead>
-            							<tr class="table100-head">
-            								<th class="column3">Subject</th>
-            								<th class="column3">Medium</th>
-            								<th class="column3">Day</th>
-            								<th class="column3">Payment date</th>
-            								<th class="column3">Payment month</th>
-            								<th class="column3">Amount (Rs.) </th>
-            							</tr>
-            						</thead>
-            						<tbody>
-            						  <%payments.forEach(function(payment){%>
-            						    <tr>
-            									<td class="column1"><%=payment.subname%></td>
-            									<td class="column2"><%=payment.medium%></td>
-            									<td class="column3"><%=payment.day%></td>
-            									<td class="column4"><%=(payment.date).toDateString();%></td>
-            									<td class="column5"><%=payment.month%></td>
-            									<td class="column6"><%=payment.amount%></td>
-            								</tr>
-            						  <%});%>
-            						</tbody>
-            					</table>
-            				</div>
-            		</div>
-            	</div>
-            	
-              <center>
-                <a href="/student"><button class="btn btn-primary" style="width:100px;margin-bottom:20px;">OKAY</button></a>
-              </center>
+              <% var sub = '' %>
+              <% var subID = '' %>
+              <% var first = true %>
+              <%payments.forEach(function(payment){%>
+                <% if(sub != payment.subname) {%>
+                    <% if(!first){ %>
+                                </tbody>
+                    					</table>
+                    				</div>
+                    		</div>
+                    	</div>
+                    <hr>
+                    <br>
+                    <% } first = false %>
+                    <center><h4 style="margin-bottom:15px; margin-top:20px">Payment History - <%= payment.subname%></h4></center>
+                		<div class="container-table100">
+                			<div class="wrap-table100">
+                				<div class="table100">
+                				  <% subID =payment.subname.split(' ')[0] %>
+                					<table id="<%=subID%>" style="border:1px solid gray; margin-top:150px">
+                						<thead>
+                							<tr class="table100-head">
+                								<th class="column3">Subject</th>
+                								<th class="column3">Medium</th>
+                								<th class="column3">Day</th>
+                								<th class="column3">Payment date</th>
+                								<th class="column3">Payment month</th>
+                								<th class="column3">Amount (Rs.) </th>
+                							</tr>
+                						</thead>
+                						<tbody>
+                <% } %>
+                						    <tr>
+                									<td class="column1"><%=payment.subname%></td>
+                									<td class="column2"><%=payment.medium%></td>
+                									<td class="column3"><%=payment.day%></td>
+                									<td class="column4"><%=(payment.date).toDateString();%></td>
+                									<td class="column5"><%=payment.month%></td>
+                									<td class="column6"><%=payment.amount%></td>
+                								</tr>
+                	<% sub = payment.subname %>
+						  <%});%>
             </div>
         </div>
     </div>
 </div>       
 <script>
+  $("#dueTable").dataTable({searching: false, paging: false, info: false});
+  var dueTable=$("#dueTable").dataTable();
+  
+  if(dueTable.length==1){
+    document.getElementById("dueContainer").style.backgroundColor="#cef9d0"
+    document.getElementById("dueContainer").style.border="2px dashed green"
+    dueTable.remove()
+    $("#dueTitle").html('No Due Payments')
+  }
+
   var payments = <%-JSON.stringify(payments)%>;
-  $('#pTable').DataTable();
+  var name=''
+  payments.forEach(function(payment){
+    name='#'+payment.subname.split(' ')[0]
+    $(name).DataTable();  
+  })
   
 </script>
 <% include ../partials/footer %>

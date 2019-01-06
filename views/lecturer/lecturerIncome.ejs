@@ -76,7 +76,7 @@
 </nav>
 <div id="particles-js">
     <div id="overlay">
-        <h2 id="topic">PAYMENTS<%=[fees[0]]%></h2>
+        <h2 id="topic">INCOME<%=[fees[0]]%></h2>
         <div class="wrapper">
             <% var yearsAr=[] %> 
             <% var classAr=[] %> 
@@ -133,13 +133,21 @@
                   <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 </ol>
                 <div class="carousel-inner">
-                  <% for(var i=0; i<yearsAr.length; i++){ /* for each year, new carousal */ %>
-                    <div class="carousel-item active">
+                  
+                  <div class="carousel-item active">
+                    <div id='<%= "myChart"+0 %>' style="border:1px dotted gray"><a class="zc-ref"></a></div>
+                      <div class="table">
+                    </div>
+                  </div>
+                  
+                  <% for(var i=1; i<yearsAr.length; i++){ /* for each year, new carousal */ %>
+                    <div class="carousel-item ">
                       <div id='<%= "myChart"+i %>' style="border:1px dotted gray"><a class="zc-ref"></a></div>
                         <div class="table">
                       </div>
                     </div>
                   <% } %>
+                  
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -332,7 +340,17 @@
       
   incomes.forEach(function(income){
     if (yearsAr.indexOf(income.year) === -1){ 
+      if(classAr.length != 0){
+        var details = {
+          values: value,
+          text: classAr[classAr.length-1]
+        }
+        
+        myConfig.series.push(details)
+      }
+      
       if(yearsAr.length !=0){
+        myConfig.text = income.year
         zingchart.render({
           id: 'myChart'+i,
           data: myConfig,
@@ -343,12 +361,13 @@
       
       yearsAr.push(income.year)
       classAr=[]
+      myConfig.scaleX.label.text = income.year
       myConfig.text = income.year
-      myConfig.title.text = "Net Income"
+      myConfig.title.text = "Income"
       myConfig.series = []
       classAr.push(income.subID); 
       value=[0,0,0,0,0,0,0,0,0,0,0,0]
-      value[months.indexOf(income.month)]=income.totalfee
+      value[months.indexOf(income.month)]=income.totalfee*3/4
     }
     
     else{
@@ -365,7 +384,7 @@
         }
       }
         
-      value[months.indexOf(income.month)]=income.totalfee
+      value[months.indexOf(income.month)]=income.totalfee*3/4
     }
     
     if(count==incomes.length){
@@ -374,8 +393,9 @@
         text: income.subID
       }
       
+      myConfig.text = income.year
       myConfig.series.push(details)
-          
+      
       zingchart.render({
           id: 'myChart'+i,
           data: myConfig,
@@ -385,8 +405,8 @@
     }
       
     count++
+    console.log(classAr)
   })            
-  
     
   $('#alyear').change(function(){
     var tbody = $("#tbody");

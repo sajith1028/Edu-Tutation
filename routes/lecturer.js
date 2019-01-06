@@ -64,7 +64,7 @@ router.post("/profile",function(req,res){
 });
 
 router.get("/income", function(req,res){
-    var sql="select p.year, count(s.subID) as num,s.subID,s.year as ALyear,s.subname,p.month,s.fee,sum(s.fee) as totalfee from subject s,payment p, lecturer l where l.lecID=s.lecID and s.subID=p.subID and l.lecID='"+req.user.username+"' group by s.subID,p.month order by s.subID;";
+    var sql="select p.year, count(s.subID) as num,s.subID,s.year as ALyear,s.subname,p.month,s.fee,sum(s.fee) as totalfee from subject s,payment p, lecturer l where l.lecID=s.lecID and s.subID=p.subID and l.lecID='"+req.user.username+"' group by s.subID,p.month order by s.subID,pID;";
     
     pool.query(sql, (err, res2, cols)=>{
         if(err) 

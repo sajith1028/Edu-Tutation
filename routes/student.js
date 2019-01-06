@@ -64,7 +64,7 @@ router.get("/payments", function(req,res){
     var stID=req.user.username;
     
     //var sql="select s.subname, p.date, p.month, p.amount from payment p, subject s where s.subID=p.subID group by s.subname order by date desc ";
-    var sql="select s.subname,s.medium,s.day, p.date, p.month, p.amount from payment p, subject s where p.stID='"+ stID+"' and s.subID=p.subID order by date desc ";
+    var sql="select s.subname,s.medium,s.day, p.date, p.month, p.amount from payment p, subject s where p.stID='"+ stID+"' and s.subID=p.subID order by p.subID, p.pID ";
     
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
@@ -158,7 +158,16 @@ router.get("/viewCourseContent/:id", function(req,res){
          if(err) throw err;
          
         res2.id = {"id": id};
-        res.render("student/studentCourseContent", {'content': res2});
+        
+        var sql1="SELECT * from enrolment where subID='"+id+"' and stID='"+req.user.username+"'";
+        pool.query(sql1, (err, res3, cols)=>{
+            if(err) throw err;
+            
+            if(res3.length!=0)
+                res.render("student/studentCourseContent", {'content': res2});
+            else
+                res.render("student/restricted");
+        });
     });
 });
 
@@ -203,7 +212,12 @@ router.get("/viewResults/:id", function(req,res){
                 pool.query(sql1,(err,res2,cols)=>{
                     if (err) throw err;
                     
-                    res.render("student/studentViewResults",{subID:id,subject:res1,assignments:res2});
+                    var sql2="SELECT * FROM attendance WHERE subID='"+id+"' AND stuID='"+req.user.username+"'";
+                    pool.query(sql2,(err,res3,cols)=>{
+                        if (err) throw err;
+                        
+                        res.render("student/studentViewResults",{subID:id,subject:res1,assignments:res2,attendance:res3});
+                    })
                 })
             })
             

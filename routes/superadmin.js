@@ -22,7 +22,13 @@ router.get("/",function(req, res) {
 });
 
 router.get("/income", function(req,res){
-    res.render("superadmin/superAdminIncome");
+    var sql="select p.year,s.subname,s.year as ALyear,p.subID,p.month,sum(amount) as totalfee from payment p,subject s where s.subID=p.subID group by subID,month order by year;"
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) 
+            throw err;
+         res.render("superadmin/superAdminIncome",{incomes:res2});
+        res.end();
+    });
 });
 
 router.get("/results", function(req,res){
@@ -35,21 +41,22 @@ router.get("/results", function(req,res){
         pool.query(sql1,(err,res2,cols)=>{
             if(err) throw err;
             
-            // var sql2="SELECT * FROM enrolment";
-            // pool.query(sql2,(err,res3,cols)=>{
-            //     if(err) throw err;
+            var sql2="SELECT * FROM enrolment";
+            pool.query(sql2,(err,res3,cols)=>{
+                if(err) throw err;
                 
-            // })
-            res.render("superadmin/superAdminResults",{lecturers:res1,subjects:res2});
+                var sql3="SELECT stID, name FROM student";
+                pool.query(sql3,(err,res4,cols)=>{
+                    if(err) throw err;
+                    
+                    res.render("superadmin/superAdminResults",{lecturers:res1,subjects:res2,averages:res3,students:res4});
+                })
+                
+            })
+            
             
         })
     })
-    
-    
-    
-    
-    
-    
 });
 
 router.get("/attendance", function(req,res){
