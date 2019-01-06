@@ -210,8 +210,16 @@ router.get("/viewResults/:id", function(req,res){
     
 });
 
-router.get("/newsfeeds", function(req,res){
-    res.render("student/studentNewsfeed");
+router.get("/news", function(req,res){
+    var sql="SELECT * from sch_changes order by created desc";
+    
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var timeNow = dte.toJSON();
+    
+    pool.query(sql,(err,res2,cols)=>{
+       res.render("student/studentNews",{posts:res2,moment:moment,time:timeNow});
+    });
 });
 
 

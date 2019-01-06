@@ -28,10 +28,14 @@ failureRedirect: "/login"
         req.flash("success","You logged in!");
         if(req.user.username.charAt(0)=='A')
         res.redirect("/admin");
+        else if(req.user.username.substring(0,2)=="SA")
+        res.redirect("/superadmin");
         else if(req.user.username.charAt(0)=='S')
         res.redirect("/student");
         else if(req.user.username.charAt(0)=='L')
         res.redirect("/lecturer");
+        
+        
         
 });
 

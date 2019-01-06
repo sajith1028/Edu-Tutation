@@ -1,3 +1,9 @@
+function imgError(image) {
+    image.onerror = "";
+    image.src = "../images/users/lecturer.png";
+    return true;
+}
+
 $(document).ready(function(){ // Add smooth scrolling to all links
   $("a").on('click', function(event) {
     if (this.hash !== "") {

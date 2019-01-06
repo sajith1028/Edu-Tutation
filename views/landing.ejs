@@ -169,7 +169,7 @@
                             <div class="frontside">
                                 <div class="card">
                                     <div class="card-body text-center">
-                                        <p><img class=" img-fluid" src=<%= source %> alt="card image"></p><br>
+                                        <p><img class=" img-fluid" onerror="imgError(this);" src=<%= source %> alt="card image"></p><br>
                                         <h4 class="card-title"><%= classes[i].subname %></h4>
                                         <p class="card-text"><%= classes[i].name %><br>(<%= classes[i].qualification %>)</p>
                                         <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>

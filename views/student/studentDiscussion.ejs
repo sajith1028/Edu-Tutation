@@ -75,14 +75,14 @@
                 <form action="/student/discussions/<%=section[0].subID%>" method="POST" ref='uploadForm' onsubmit="return validateForm()" id='uploadForm' encType="multipart/form-data">
                     <div class="panel panel-default panel-fill">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Add New Post - Subject </h3>
+                            <h3 class="panel-title">Add New Post - Subject <%=section[0].subID%></h3>
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="row">
                                     <label class="col-sm-1 control-label label">Section</label>
                                     <div class="col-sm-4">
-                                        <select name="sub_section">
+                                        <select name="sub_section" class="form-control combobox">
                                         <% for(var i=0;i<section.length;i++){%>
                                             <option value="<%=section[i].title%>"> <%=section[i].title%> </option>
                                         <% }; %>
@@ -111,132 +111,121 @@
                     </center>
                 </form>
             </div>
+            
             <div id="content-background" style="margin-bottom:20px">
-                <div class="row">
+               <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default panel-fill">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Filter Posts</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    
-                                </div> <!-- col // -->
-                            </div> <!-- row.// -->
-                        </div>
-                    </div><br>
-                </div>
-                
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default panel-fill">
-                            <div class="panel-body" style="background-color:#217fdd21">
                                 <div class="row">
                                     <div class="col-lg-12 col-12 comment-main rounded">
                                       <ul class="p-0">
                                         <li>
                                             <% var section = '' %>
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title"><%= posts[0].sub_sec %></h3>
-                                            </div>
-                                            <% var section = posts[0].sub_sec%>
-                                            
-                                             <% for(var i=0; i<posts.length; i++) { %>
-                                                
+                                            <% for(var i=0; i<posts.length; i++) { %>
                                                 <% if (section != posts[i].sub_sec) {%>
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><%= posts[i].sub_sec %></h3>
-                                                    </div>
-                                                    <% var section = posts[i].sub_sec %>
-                                                <% } %>
-                                    
-                                            <div class="row comment-box p-1 pt-3 pr-4">
-                                              <div class="col-lg-1 col-3 user-img text-center">  
-                                                <img src="/../images/users/<%=posts[i].author%>.jpg" class="main-cmt-img">
-                                              </div>
-                                              <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
-                                                   <div class="row">
-                                                         <div class="col-lg-8 col-6 border-bottom pr-0">
-                                                             <h6 style="padding-top:5px; font-size:15px"><%=posts[i].title%></h6>
-                                                            <p class="w-100 p-2 m-0 font-black"><%=posts[i].descr%></p>
-                                                         </div>
-                                                         <div class="col-lg-4 col-6 border-bottom">
-                                                             <% if(currentUser.username == posts[i].author) {%>
-                                                                 <form id="delPost" method="POST" action="/student/discussion/delete/<%=posts[i].subID%>/post/<%=posts[i].postID%>">
-                                                                 <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger delPBtn">Delete</button></span></p>
-                                                                 </form>
-                                                             <% } else { %>
-                                                                <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
-                                                             <% } %>
-                                                         </div>
-                                                   </div> 
-                                                  <div class="user-comment-desc p-1 pl-2">
-                                                      <p class="m-0 mr-2"><%=posts[i].authorName%></p>    
-                                                      <% if(currentUser.username == posts[i].author) {%>
-                                                        <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
-                                                      <% } %>
-                                                  </div>    
-                                              </div>
-                                            </div>
-                                                
-                                                <% for(var j=0;j<comments.length;j++) { %>
-                                                    <% if (comments[j].postID==posts[i].postID) { %>
-                                                        <div class="row">
-                                                          <div class="col-lg-12">
-                                                            <ul class="p-0">
-                                                              <li>
-                                                                  <div class="row comment-box p-1 pt-2 pr-4">
-                                                                    <div class="col-lg-2 col-3 user-img">
-                                                                      <img src="/../images/users/<%=comments[j].author%>.jpg" class="p-2 float-right sub-cmt-img">
-                                                                    </div>
-                                                                    <div class="col-lg-10 col-9 user-comment bg-light rounded pb-1 mt-2">
-                                                                    <div class="row">
-                                                                       <div class="col-lg-7 col-6 border-bottom pr-0">
-                                                                          <p class="w-100 p-2 m-0 font-black"><%= comments[j].comment %></p>
-                                                                       </div>
-                                                                       <div class="col-lg-5 col-6 border-bottom">
-                                                                          <% if(currentUser.username == comments[j].author) {%>
-                                                                            <form id="delComment" method="POST" action="/student/discussion/delete/<%=comments[j].subID%>/comment/<%=comments[j].cID%>">
-                                                                                <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger delCBtn">Delete</button></span></p>
-                                                                            </form>
-                                                                          <% } else { %>
-                                                                            <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
-                                                                          <% } %>
-                                                                       </div>
-                                                                    </div> 
-                                                                      <div class="user-comment-desc p-1 pl-2">
-                                                                          <p class="m-0 mr-2"> <%=comments[j].authorName%></p>
-                                                                          <% if(currentUser.username == comments[j].author) {%>
-                                                                            <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
-                                                                          <% } %>
-                                                                      </div>   
-                                                                    </div>
-                                                                  </div>
-                                                              </li>
-                                                            </ul>
+                                                    <% if (i!=0){ %>
+                                                            </div>
                                                           </div>
                                                         </div>
+                                                      </div> 
                                                     <% } %>
+                                                    <div class="panel-group" id="accordion" style="margin-top:10px; margin-bottom:10px">
+                                                        <div class="panel panel-default">
+                                                          <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                              <p data-toggle="collapse" data-parent="#accordion" href="#<%= posts[i].sub_sec %>"><%= posts[i].sub_sec %></p>
+                                                            </h4>
+                                                          </div>
+                                                          <div id="<%= posts[i].sub_sec %>" class="panel-collapse collapse in">
+                                                            <div class="panel-body" style="background-color:rgba(0,0,0,.2)">
+                                                            
+                                                    <% var section = posts[i].sub_sec %>
                                                 <% } %>
-                                            
-                                            <!--Comment box -->
-                                            <br>
-                                            <div class="row">
-                                              <div class="col-lg-9 offset-lg-2 col-10"  style="padding-left:0">
-                                                <input id="subID" type="hidden" value="<%=posts[i].subID%>">
-                                                <input name="<%=posts[i].postID%>" id="commentDescr" type="text" class="form-control" placeholder="Let them know your opinion...">
-                                              </div>
-                                              <div class="col-lg-1 col-2 send-icon">
-                                                <a id="commentBtn" href=""><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
-                                              </div>
-                                            </div>
+                                                            <div class="row comment-box p-1 pt-3 pr-4">
+                                                          <div class="col-lg-1 col-3 user-img text-center">  
+                                                            <img src="/../images/users/<%=posts[i].author%>.jpg" class="main-cmt-img">
+                                                          </div>
+                                                          <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
+                                                               <div class="row">
+                                                                     <div class="col-lg-8 col-6 border-bottom pr-0">
+                                                                         <h6 style="padding-top:5px; font-size:15px"><%=posts[i].title%></h6>
+                                                                        <p class="w-100 p-2 m-0 font-black"><%=posts[i].descr%></p>
+                                                                     </div>
+                                                                     <div class="col-lg-4 col-6 border-bottom">
+                                                                         <% if(currentUser.username == posts[i].author) {%>
+                                                                             <form id="delPost" method="POST" action="/student/discussion/delete/<%=posts[i].subID%>/post/<%=posts[i].postID%>">
+                                                                             <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger delPBtn">Delete</button></span></p>
+                                                                             </form>
+                                                                         <% } else { %>
+                                                                            <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
+                                                                         <% } %>
+                                                                     </div>
+                                                               </div> 
+                                                              <div class="user-comment-desc p-1 pl-2">
+                                                                  <p class="m-0 mr-2"><%=posts[i].authorName%></p>    
+                                                                  <% if(currentUser.username == posts[i].author) {%>
+                                                                    <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(posts[i].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
+                                                                  <% } %>
+                                                              </div>    
+                                                          </div>
+                                                        </div>
+                                                            
+                                                            <% for(var j=0;j<comments.length;j++) { %>
+                                                                <% if (comments[j].postID==posts[i].postID) { %>
+                                                                    <div class="row">
+                                                                      <div class="col-lg-12">
+                                                                        <ul class="p-0">
+                                                                          <li>
+                                                                              <div class="row comment-box p-1 pt-2 pr-4">
+                                                                                <div class="col-lg-2 col-3 user-img">
+                                                                                  <img src="/../images/users/<%=comments[j].author%>.jpg" class="p-2 float-right sub-cmt-img">
+                                                                                </div>
+                                                                                <div class="col-lg-10 col-9 user-comment bg-light rounded pb-1 mt-2">
+                                                                                <div class="row">
+                                                                                   <div class="col-lg-7 col-6 border-bottom pr-0">
+                                                                                      <p class="w-100 p-2 m-0 font-black"><%= comments[j].comment %></p>
+                                                                                   </div>
+                                                                                   <div class="col-lg-5 col-6 border-bottom">
+                                                                                      <% if(currentUser.username == comments[j].author) {%>
+                                                                                        <form id="delComment" method="POST" action="/student/discussion/delete/<%=comments[j].subID%>/comment/<%=comments[j].cID%>">
+                                                                                            <p class="w-100 p-2 m-0 font-black"><span class="float-right"><button type="button" class="btn btn-danger delCBtn">Delete</button></span></p>
+                                                                                        </form>
+                                                                                      <% } else { %>
+                                                                                        <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"></i><%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></span></p>
+                                                                                      <% } %>
+                                                                                   </div>
+                                                                                </div> 
+                                                                                  <div class="user-comment-desc p-1 pl-2">
+                                                                                      <p class="m-0 mr-2"> <%=comments[j].authorName%></p>
+                                                                                      <% if(currentUser.username == comments[j].author) {%>
+                                                                                        <span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true"> <%=moment(comments[j].postedAt).format('MMMM Do YYYY, h:mm a');%></i></span>
+                                                                                      <% } %>
+                                                                                  </div>   
+                                                                                </div>
+                                                                              </div>
+                                                                          </li>
+                                                                        </ul>
+                                                                      </div>
+                                                                    </div>
+                                                                <% } %>
+                                                            <% } %>
+                                                        
+                                                        <!--Comment box -->
+                                                        <br>
+                                                        <div class="row" style="margin-bottom:30px">
+                                                          <div class="col-lg-9 offset-lg-2 col-10"  style="padding-left:0">
+                                                            <input id="subID" type="hidden" value="<%=posts[i].subID%>">
+                                                            <input name="<%=posts[i].postID%>" id="commentDescr" type="text" class="form-control" placeholder="Let them know your opinion...">
+                                                          </div>
+                                                          <div class="col-lg-1 col-2 send-icon">
+                                                            <a id="commentBtn" href=""><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                                                          </div>
+                                                        </div>
                                             <% }; %>
                                         </li>
-                                    
                                       </ul>
                                     </div>
                                 </div>
-                            </div>
                         </div>    
                     </div>
                 </div>

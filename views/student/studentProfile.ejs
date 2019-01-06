@@ -93,12 +93,7 @@
                 <div class="row user-tabs">  
                     <ul class="nav nav-tabs tabs" style="width: 100%;">
                         <li class="tab" style="width: 25%;">
-                            <a href="#home-2" data-toggle="tab" aria-expanded="false" class="active">
-                                <span class="hidden-xs">About Me</span>
-                            </a>
-                        </li>
-                        <li class="tab" style="width: 25%;">
-                            <a href="#settings-2" data-toggle="tab" aria-expanded="false">
+                            <a href="#settings-2" data-toggle="tab" aria-expanded="false" class="active">
                                 <span class="hidden-xs">Settings</span>
                             </a>
                         </li>
@@ -106,104 +101,6 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-    
-                        <div class="tab-content profile-tab-content">
-                            <div class="tab-pane active" id="home-2">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <!-- Personal-Information -->
-                                        <div class="panel panel-default panel-fill">
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title">Personal Information</h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div class="about-info-p">
-                                                    <strong>Full Name</strong>
-                                                    <br>
-                                                    <p><%=details[0].name%></p>
-                                                </div>
-                                                <div class="about-info-p">
-                                                    <strong>School</strong>
-                                                    <br>
-                                                    <p><%=details[0].school%></p>
-                                                </div>
-                                                <div class="about-info-p">
-                                                    <strong>Residence</strong>
-                                                    <br>
-                                                    <p><%=details[0].teleres%></p>
-                                                </div>
-                                                <div class="about-info-p">
-                                                    <strong>Mobile</strong>
-                                                    <br>
-                                                    <p><%=details[0].telemob%></p>
-                                                </div>
-                                                <div class="about-info-p">
-                                                    <strong>Email</strong>
-                                                    <br>
-                                                    <p><%=details[0].email%></p>
-                                                </div>
-                                                <div class="about-info-p">
-                                                    <strong>Gender</strong>
-                                                    <br>
-                                                    <p><%=details[0].gender%></p>
-                                                </div>
-                                                <div class="about-info-p">
-                                                    <strong>Address</strong>
-                                                    <br>
-                                                    <p><%=details[0].address%></p>
-                                                </div>
-                                                <div class="about-info-p">
-                                                    <strong>A/L Year</strong>
-                                                    <br>
-                                                    <p><%=details[0].ALyear%></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Personal-Information -->
-    
-                                    </div>
-    
-                                    <div class="col-md-8">
-                                        <div class="panel panel-default panel-fill">
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title">Classes</h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div class="m-b-15">
-                                                    <h5>Combined Maths <span class="pull-right">60%</span></h5>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary wow animated progress-animated" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%; visibility: hidden; animation-name: none;">
-                                                            <span class="sr-only">60% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-    
-                                                <div class="m-b-15">
-                                                    <h5>Physics <span class="pull-right">90%</span></h5>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-pink wow animated progress-animated" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%; visibility: hidden; animation-name: none;">
-                                                            <span class="sr-only">90% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-    
-                                                <div class="m-b-15">
-                                                    <h5>Chemistry <span class="pull-right">80%</span></h5>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-purple wow animated progress-animated" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%; visibility: hidden; animation-name: none;">
-                                                            <span class="sr-only">80% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-    
-                                            </div>
-                                        </div>
-    
-                                    </div>
-    
-                                </div>
-                            </div>
-    
                             <div class="tab-pane" id="settings-2">
                                 <form  action="/student/profile" name="personalinfo" method="POST" >
                                 <div class="panel panel-default panel-fill">

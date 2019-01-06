@@ -5,7 +5,7 @@ $(function() { // toggling active in navbar
    });
 });
 
-$("img").error(function () {
+$("#img").error(function () {
   $(this).unbind("error").attr("src", "../images/users/notFound.png");
 });
 

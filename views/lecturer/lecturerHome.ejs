@@ -160,23 +160,26 @@
                                             <ul class="p-0">
                                                 <% for(var i=0; i<posts.length; i++) { %>
                                                     <li>
-                                                        <div class="row comment-box p-1 pt-3 pr-4">
-                                                            <div class="col-lg-1 col-3 user-img text-center">
-                                                                <img src="/../images/users/admin.png" style="margin-left:10px;" class="main-cmt-img">
+                                                        <a href="/lecturer/news">
+                                                            <div class="row comment-box p-1 pt-3 pr-4">
+                                                                <div class="col-lg-1 col-3 user-img text-center">
+                                                                    <img src="/../images/users/admin.png" style="margin-left:10px;" class="main-cmt-img">
+                                                                </div>
+                                                                <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-12 border-bottom pr-0">
+                                                                            <h6 style="padding-top:5px; font-size:15px; font-weight:500; color:black"><%=posts[i].title%></h6>
+                                                                            <p class="w-100 m-0 font-black"><%=posts[i].content%></p>
+                                                                        </div>
+                                                                    </div> 
+                                                                    <div class="user-comment-desc p-1 pl-2" style="height:25px">
+                                                                        <p class="m-0 mr-2" style="font-size:12px">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
+                                                                    </div>    
+                                                                </div>
                                                             </div>
-                                                            <div class="col-lg-11 col-9 user-comment bg-light rounded pb-1">
-                                                                <div class="row">
-                                                                    <div class="col-lg-12 col-12 border-bottom pr-0">
-                                                                        <h6 style="padding-top:5px; font-size:15px; font-weight:500"><%=posts[i].title%></h6>
-                                                                        <p class="w-100 m-0 font-black"><%=posts[i].content%></p>
-                                                                    </div>
-                                                                </div> 
-                                                                <div class="user-comment-desc p-1 pl-2" style="height:25px">
-                                                                    <p class="m-0 mr-2" style="font-size:12px">Posted <%=moment(posts[i].created).format('MMMM Do YYYY, h:mm:ss a');%> by Admin</p>                      
-                                                                </div>    
-                                                            </div>
-                                                        </div>
+                                                        </a>
                                                     </li>
+                                                    <% if(i==1) break %>
                                                 <% } %>
                                             </ul>
                                         </div>
@@ -319,22 +322,27 @@
 </div>
 <script>
 var myself = <%-JSON.stringify(myself)%>;
-var today = new Date().getDay()-1;
-var days=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+var today = new Date().getDay();
+var days=[ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+var closest = myself[1]
 var count=0
-var closest = myself[0]
+var minCount=8
 
 myself.forEach(function(m){
+    count=0
     for(var i=today; i<today+7; i++){
-        if(m.day==days[i%7] && closest.day>m.day){
-            closest=m
-            break
+        if(m.day==days[i%7]){
+            if(minCount>count){
+                closest=m
+                minCount=count+1
+            }
+           break
         }
+        
         count++
     }
 })
 
-console.log(closest)
 $("#cls").append(closest.subID+" "+closest.subname+" "+closest.year)
 $("#hall").append(closest.hall)
 
@@ -377,7 +385,7 @@ function initializeClock(id, endtime) {
   var timeinterval = setInterval(updateClock, 1000);
 }
 
-var deadline = new Date(Date.parse(new Date()) + count * 30 * 60 * 60 * 1000);
+var deadline = new Date(Date.parse(new Date()) + minCount * 30 * 60 * 60 * 1000);
 initializeClock('clockdiv', deadline);
 </script>
 <% include ../partials/footer %>
