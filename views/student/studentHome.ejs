@@ -45,7 +45,7 @@
     <ul class="navbar-nav nav-link">
         <a class="links"  href="/student/profile">
           <%=currentUser.username%> 
-          <img src="../images/users/<%=currentUser.username%>.jpg" class="rounded-circle border user-image" alt="profile-image" id="img">
+          <img src="../images/users/<%=currentUser.username%>.jpg" onerror="imgError(this);" class="rounded-circle border user-image"  id="img">
         </a>
     </ul>
     <ul class="navbar-nav nav-link">
@@ -296,6 +296,13 @@
     </div>
 </div>      
 <script>
+function imgError(image) {
+    image.onerror = "";
+    image.src = "../images/users/student.png";
+    return true;
+}
+
+
 var myself = <%-JSON.stringify(myself)%>;
 var today = new Date().getDay();
 var days=[ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]

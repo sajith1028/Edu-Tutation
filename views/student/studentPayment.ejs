@@ -55,10 +55,9 @@
     </a>
    <% } else { %>
     <ul class="navbar-nav nav-link">
-        <a id="user" class="links" href="/student/profile"> Signed in as
-        <%= currentUser.username %> 
-        <img src="../images/users/<%=currentUser.username%>.jpg" class="rounded-circle border" alt="profile-image" style="max-height: 50px; max-width: 50px;" id="img">
-    </a>
+      <a id="user" class="links" href="/student/profile">
+          <%= currentUser.username %> 
+      </a>
     </ul>
     <ul class="navbar-nav nav-link">
     <a  id="register"href="/logout">
@@ -163,10 +162,16 @@
     </div>
 </div>       
 <script>
+function imgError(image) {
+    image.onerror = "";
+    image.src = "../images/users/student.png";
+    return true;
+}
+
   $("#dueTable").dataTable({searching: false, paging: false, info: false});
   var dueTable=$("#dueTable").dataTable();
   
-  if(dueTable.length==1){
+  if(dueTable.length==0){
     document.getElementById("dueContainer").style.backgroundColor="#cef9d0"
     document.getElementById("dueContainer").style.border="2px dashed green"
     dueTable.remove()

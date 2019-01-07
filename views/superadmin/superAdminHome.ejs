@@ -51,7 +51,7 @@
             </a>
         <% } else { %>
             <ul class="navbar-nav nav-link">
-                <a id="user" class="links" href="#"> Signed in as
+                <a id="user" style="margin-right:20px" class="links" href="#">
                     <%= currentUser.username %> 
                 </a>
             </ul>
@@ -122,8 +122,8 @@
                                         <p><i class="fas fa-user-graduate" style="font-size:80px;padding-top:20px"></i></p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h2><%= nos[0].numOfStudents %></h2>
-                                        <p style="font-size:18px;padding-top:15px">Students are learning in Akura</p>
+                                        <h2 style="padding-top:15px"><%= nos[0].numOfStudents %></h2>
+                                        <p style="font-size:18px;">Students are learning in Akura</p>
                                     </div>
                                 </div>
                             </div>
@@ -137,14 +137,14 @@
                                         <p><i class="fas fa-user-tie" style="font-size:80px;padding-top:20px"></i></p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h2><%= nol[0].numOfLecturers %></h2>
-                                        <p style="font-size:18px;padding-top:15px">Lecturers are lecturering in Akura</p>
+                                        <h2 style="padding-top:15px"><%= nol[0].numOfLecturers %></h2>
+                                        <p style="font-size:18px;">Lecturers are lecturing in Akura</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id='income' style="height:380px" class="featured-place-wrap"></div>
+                    <div id='income' style="height:385px" class="featured-place-wrap"></div>
                 </div> 
             </div>
         </div>
@@ -157,20 +157,44 @@
 console.log(nol)
 
     var myConfig = {
+        "title": {
+            "text":"Income Comparisson"
+        },
         "type": "line",
         "plot":{
             "aspect":"spline"
             
         },
+        "scaleX":{
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
+            "label":{
+              "text":"2019"  
+            }
+        },
         "series": [{
-            "values":[20,40,25,50,15,45,33,34]
+            "values":[8000,4500,1000,0,0,0,0,0,0,0,0,0],
+            "text": "S01"
             
             },
             {
-            "values":[5,30,21,18,59,50,28,33]
+            "values":[5500,6000,0,0,0,0,0,0,0,0,0,0],
+            "text": "S02"
             },
             {
-            "values":[30,5,18,21,33,41,29,15]
+            "values":[3750,1500,0,0,0,0,0,0,0,0,0,0],
+            "text": "S03"
+            },
+            {
+            "values":[2000,0,0,0,0,0,0,0,0,0,0,0],
+            "text": "S04"
+            },
+            {
+            "values":[9000,3000,0,0,0,0,0,0,0,0,0,0],
+            "text": "S05"
+            },
+            {
+            "values":[6500,4200,1100,0,0,0,0,0,0,0,0,0],
+            "text": "S06"
             }
         ]
         
@@ -179,7 +203,7 @@ console.log(nol)
     zingchart.render({ 
     	id : 'income', 
     	data : myConfig,
-    	height: 380, 
+    	height: 360, 
         width: '100%'
     });
 </script>

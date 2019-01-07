@@ -59,7 +59,7 @@
             </a>
         <% } else { %>
             <ul class="navbar-nav nav-link">
-                <a id="user" class="links" href="#"> Signed in as
+                <a id="user" class="links" style="margin-right:20px"  href="#">
                     <%= currentUser.username %> 
                 </a>
             </ul>
@@ -194,6 +194,8 @@
 
 <script>
   var incomes = <%-JSON.stringify(incomes)%>;
+  $('#alyear').val('2019');
+  $('#alyear').change();
   
   var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
   
@@ -381,7 +383,7 @@
       id: 'chart',
       data: myConfig,
     });
-  });
+  }).change();
   
   //If a class is selected
   $('#class').change(function(){

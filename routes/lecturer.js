@@ -131,7 +131,7 @@ router.post("/addAssignmentResults/:id", function(req,res){
             })
         })
     })
-    res.redirect("/lecturer/addAssignmentResults/"+subID);
+    res.redirect("/lecturer/viewResults/"+subID);
     res.end();
 });
 

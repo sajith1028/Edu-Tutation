@@ -59,9 +59,23 @@
           </ul>
         </ul>
         
-        <a  id="register"href="/login">
-          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-        </a>
+                    <ul class="nav navbar-nav navbar-right">
+           <% if(!currentUser){ %>
+    <a  id="register"href="/login">
+      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+    </a>
+   <% } else { %>
+    <ul class="navbar-nav nav-link">
+      <a id="user" class="links" href="/student/profile">
+          <%= currentUser.username %> 
+      </a>
+    </ul>
+    <ul class="navbar-nav nav-link">
+    <a  id="register"href="/logout">
+      <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+    </a>
+    </ul>
+    <% } %>
       </div>
     </nav>
     
@@ -133,6 +147,7 @@
                             		</div>
                             	</div>
                         </form>
+                        <button id="delete" class="btn btn-danger btn-sm float-right" style="margin-left:5px;border:1px solid black; margin-bottom:20px"> Delete Assignment </button>
                     </div>
                 </div>
             </div>
@@ -188,6 +203,7 @@ var subject = <%-JSON.stringify(subject)%>;
 
 //Add search functionality to table with id #myTable
 var table = $('#myTable').DataTable();
+$("#delete").prop("disabled",true);
 
 //default graph properties    
     var myConfig ={
@@ -278,7 +294,7 @@ var table = $('#myTable').DataTable();
 
 //If an assignment is selected
   $('#assID').change(function(){
-      
+    
     var assName = $('#assID').val()
     
     //If no assignment is selected, render chart with average marks
@@ -291,7 +307,7 @@ var table = $('#myTable').DataTable();
             
             myConfig.title.text = "Average Results"
             myConfig.series = []
-            
+    
             var index=1;
             
             var overall_avg=[]
@@ -328,6 +344,7 @@ var table = $('#myTable').DataTable();
     else
     //If an assignment is selected, render chart with assignment marks
         {
+            $("#delete").prop("disabled",false);
             var tbody = $("#tbody");
             tbody.html('');
             tbody.hide();

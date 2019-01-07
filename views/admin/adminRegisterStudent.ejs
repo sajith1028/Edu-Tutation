@@ -60,9 +60,22 @@
           </ul>
         </ul>
         
-        <a  id="register"href="/login">
-          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-        </a>
+         <% if(!currentUser){ %>
+            <a  id="register"href="/login">
+                <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+            </a>
+        <% } else { %>
+            <ul class="navbar-nav nav-link">
+                <a id="user" class="links" href="#" style="margin-right:10px">
+                    <%= currentUser.username %> 
+                </a>
+            </ul>
+            <ul class="navbar-nav nav-link">
+                <a  id="register"href="/logout">
+                    <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                </a>
+            </ul>
+        <% } %>
       </div>
     </nav>
 

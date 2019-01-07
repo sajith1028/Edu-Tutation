@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Course Content</title>
+        <title>Discussion Forum</title>
         <!-- Responsive screen size -->
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
         <!-- End of responsive screen size -->
         
         <!-- Bootstrap -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
         <!-- End of Bootstrap -->  
@@ -61,9 +61,23 @@
               </ul>
             </ul>
         
-        <a  id="register"href="/login">
-          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-        </a>
+                    <ul class="nav navbar-nav navbar-right">
+           <% if(!currentUser){ %>
+    <a  id="register"href="/login">
+      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+    </a>
+   <% } else { %>
+    <ul class="navbar-nav nav-link">
+      <a id="user" class="links" href="/student/profile">
+          <%= currentUser.username %> 
+      </a>
+    </ul>
+    <ul class="navbar-nav nav-link">
+    <a  id="register"href="/logout">
+      <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+    </a>
+    </ul>
+    <% } %>
       </div>
     </nav>
 
@@ -133,11 +147,11 @@
                                                         <div class="panel panel-default">
                                                           <div class="panel-heading">
                                                             <h4 class="panel-title">
-                                                              <p data-toggle="collapse" data-parent="#accordion" href="#<%= posts[i].sub_sec %>"><%= posts[i].sub_sec %></p>
+                                                              <p data-toggle="collapse" data-parent="#accordion" href="#<%= posts[i].sub_sec %>"><%= posts[i].sub_sec %><span style="float:right"><i class="fas fa-chevron-circle-down"></i></span></p>
                                                             </h4>
                                                           </div>
                                                           <div id="<%= posts[i].sub_sec %>" class="panel-collapse collapse in">
-                                                            <div class="panel-body" style="background-color:#d5e5ffc7">
+                                                            <div class="panel-body" style="background-color:#8eabdbc7">
                                                             
                                                     <% var section = posts[i].sub_sec %>
                                                 <% } %>
@@ -235,6 +249,13 @@
     </div>
 </div>
 
+<script>
+    function imgError(image) {
+    image.onerror = "";
+    image.src = "../images/users/student.png";
+    return true;
+}
+</script>
 <script src="/scripts/discussion.js"></script>
 <script src="/scripts/register.js"></script>
 <% include ../partials/footer %>

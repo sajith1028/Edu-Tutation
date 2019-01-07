@@ -86,9 +86,23 @@
           </ul>
         </ul>
         
-        <a  id="register"href="/login">
-          <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-        </a>
+                    <ul class="nav navbar-nav navbar-right">
+           <% if(!currentUser){ %>
+    <a  id="register"href="/login">
+      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+    </a>
+   <% } else { %>
+    <ul class="navbar-nav nav-link">
+      <a id="user" class="links" href="/student/profile">
+          <%= currentUser.username %> 
+      </a>
+    </ul>
+    <ul class="navbar-nav nav-link">
+    <a  id="register"href="/logout">
+      <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+    </a>
+    </ul>
+    <% } %>
       </div>
     </nav>
 
@@ -198,8 +212,8 @@
                                                 					<span class="price-new" style="color:black;"><%= content[i].description %></span>
                                                 				</div> <!-- price-wrap.// -->
                                                 				<br>
+                                                				<a href="../../CourseContent/<%= content[i].contentID %>" class="btn btn-danger btn-sm float-right"style="margin-left:5px;width:83px;border:1px solid black"> Delete </a>
                                                 				<a href="../../CourseContent/<%= content[i].contentID %>" class="btn btn-primary btn-sm float-right"> Download </a>
-                                                				<img src="../../images/misc/pdf.png" class="float-right icon">
                                                 			</div> <!-- action-wrap -->
                                                 		</figcaption>
                                                 	</figure> <!-- card // -->
