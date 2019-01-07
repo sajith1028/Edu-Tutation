@@ -7,6 +7,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
             <!-- End of responsive screen size -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
             
         <!-- End of Bootstrap -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
@@ -21,6 +22,14 @@
         <script>
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
+        
+        <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script> 
+		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+		    
+		</script>
     <!-- End of Particles -->    
     </head>
 <body>
@@ -36,116 +45,66 @@
 
     </ul>
     
-    <a  id="register"href="/login">
-      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log Out</span></button>
-    </a>
+    <% if(!currentUser){ %>
+            <a  id="register"href="/login">
+                <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+            </a>
+        <% } else { %>
+            <ul class="navbar-nav nav-link">
+                <a id="user" class="links" href="#"> Signed in as
+                    <%= currentUser.username %> 
+                </a>
+            </ul>
+            <ul class="navbar-nav nav-link">
+                <a  id="register"href="/logout">
+                    <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                </a>
+            </ul>
+        <% } %>
   </div>
 </nav>
+
 <div id="particles-js">
-    <div id="overlay">
-    <h2 id="topic">HOME</h2>
+    <div id="overlay" style="width:100%">
     <!--============================= DETAIL =============================-->
+    <h2 id="topic" style="margin-bottom:10px"></h2>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 responsive-wrap">
-                    <div class="row detail-options-wrap">
-                        <div class="col-md-6 col-lg-3 featured-responsive c2 c1">
-                            
-                        </div>
-                        <div class="col-md-6 col-lg-3 featured-responsive c2 c1">
+                <div class="col-lg-4 col-md-5 responsive-wrap">
+                    <div class="row">
+                        <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;">
                             <div class="featured-place-wrap">
                                 <a href="/superadmin/income">
-                                    <div class="image">
-                                        <img src="https://img-aws.ehowcdn.com/877x500p/photos.demandstudios.com/getty/article/64/204/466559183.jpg" style="height:100%;" class="img-fluid" alt="#">
+                                    <div class="image" style="height:135px;">
+                                        <img src="https://img-aws.ehowcdn.com/877x500p/photos.demandstudios.com/getty/article/64/204/466559183.jpg" class="img-fluid" alt="#" style="position: relative; top:-60px">
                                     </div>
-                                    <span class="featured-rating-orange ">6.5</span>
-                                    <div class="featured-title-box">
-                                        <h6>Income Analysis</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-
-                                        </ul>
+                                    <span class="featured-rating-yellow"><i class="fas fa-money-bill-alt"></i></span>
+                                    <div class="featured-title-box" style="height:130px;">
+                                        <h6>Income</h6>
+                                        <p>View a complete income analysis </p>
                                         <div class="bottom-icons">
-                                            <div class="closed-now">Click Here To View Income Reports</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
+                                            <div class="closed-now">Click Here to View Your Income</div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 featured-responsive">
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-11 featured-responsive c2" style=" margin: 0 auto;" data-toggle="modal" data-target="#classes">
                             <div class="featured-place-wrap">
                                 <a href="/superadmin/results">
-                                    <div class="image">
-                                        <img src="https://www.northeastern.edu/levelblog/wp-content/uploads/2017/08/photodune-19088615-business-people-meeting-data-analysis-planning-concept-xxl-1068x712.jpg" class="img-fluid" alt="#">
+                                    <div class="image" style="height:135px;">
+                                        <img src="https://www.northeastern.edu/levelblog/wp-content/uploads/2017/08/photodune-19088615-business-people-meeting-data-analysis-planning-concept-xxl-1068x712.jpg" class="img-fluid" alt="#" style="position: relative; top:-110px">
                                     </div>
-                                    <span class="featured-rating">3.2</span>
-                                    <div class="featured-title-box">
-                                        <h6>Results Analysis</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-
-                                        </ul>
+                                    <span class="featured-rating-green"><i class="fas fa-book-open"></i></span>
+                                    <div class="featured-title-box" style="height:130px;">
+                                        <h6>Results</h6>
+                                        <p>Reports</p> <span>• </span>
+                                        <p>Lecturers</p> <span> • </span>
+                                        <p>Performances</p>
                                         <div class="bottom-icons">
-                                            <div class="closed-now">Click Here To View Results Reports</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 featured-responsive">
-                            <div class="featured-place-wrap">
-                                <a href="/superadmin/attendance">
-                                    <div class="image">
-                                        <img src="https://www.northeastern.edu/levelblog/wp-content/uploads/2017/08/photodune-19088615-business-people-meeting-data-analysis-planning-concept-xxl-1068x712.jpg" class="img-fluid" alt="#">
-                                    </div>
-                                    <span class="featured-rating">3.2</span>
-                                    <div class="featured-title-box">
-                                        <h6>Attendance Analysis</h6>
-                                        <p>Restaurant </p> <span>• </span>
-                                        <p>3 Reviews</p> <span> • </span>
-                                        <p><span>$$$</span>$$</p>
-                                        <ul>
-                                            <li><span class="icon-location-pin"></span>
-                                                <p>1301 Avenue, Brooklyn, NY 11230</p>
-                                            </li>
-                                            <li><span class="icon-screen-smartphone"></span>
-                                                <p>+44 20 7336 8898</p>
-                                            </li>
-                                            <li><span class="icon-link"></span>
-                                                <p>https://burgerandlobster.com</p>
-                                            </li>
-
-                                        </ul>
-                                        <div class="bottom-icons">
-                                            <div class="closed-now">Click Here To View Attendance Reports</div>
-                                            <span class="ti-heart"></span>
-                                            <span class="ti-bookmark"></span>
+                                            <div class="closed-now">View A Complete Results Analysis</div>
                                         </div>
                                     </div>
                                 </a>
@@ -153,9 +112,76 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-8 col-md-7 responsive-wrap">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card featured-place-wrap">
+                                
+                                <div class="row" style="height:120px;vertical-align:center;background-color:rgba(0,0,0,.4)">
+                                    <div class="col-lg-4">
+                                        <p><i class="fas fa-user-graduate" style="font-size:80px;padding-top:20px"></i></p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h2><%= nos[0].numOfStudents %></h2>
+                                        <p style="font-size:18px;padding-top:15px">Students are learning in Akura</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card featured-place-wrap">
+                            
+                                 <div class="row" style="height:120px;vertical-align:center;background-color:rgba(0,0,0,.4)">
+                                    <div class="col-lg-4">
+                                        <p><i class="fas fa-user-tie" style="font-size:80px;padding-top:20px"></i></p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h2><%= nol[0].numOfLecturers %></h2>
+                                        <p style="font-size:18px;padding-top:15px">Lecturers are lecturering in Akura</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='income' style="height:380px" class="featured-place-wrap"></div>
+                </div> 
             </div>
         </div>
     </div>
-</div>       
+</div>                     
+
+<script>
+    var nol = <%-JSON.stringify(nol)%>;
+    var nos = <%-JSON.stringify(nos)%>;
+console.log(nol)
+
+    var myConfig = {
+        "type": "line",
+        "plot":{
+            "aspect":"spline"
+            
+        },
+        "series": [{
+            "values":[20,40,25,50,15,45,33,34]
+            
+            },
+            {
+            "values":[5,30,21,18,59,50,28,33]
+            },
+            {
+            "values":[30,5,18,21,33,41,29,15]
+            }
+        ]
+        
+    };
+ 
+    zingchart.render({ 
+    	id : 'income', 
+    	data : myConfig,
+    	height: 380, 
+        width: '100%'
+    });
+</script>
 
 <% include ../partials/footer %>

@@ -1,6 +1,7 @@
 var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
+var moment          =   require('moment'); //To parse, validate, manipulate, and display dates and times
 
 var pool = mysql.createPool({
   host: "localhost",
@@ -18,7 +19,20 @@ var con             =   mysql.createConnection({
 });
 
 router.get("/",function(req, res) {
-    res.render("superadmin/superAdminHome");
+    var sql="SELECT count(stID) as numOfStudents from student;";
+    
+    var sql2="SELECT count(lecID) as numOfLecturers from lecturer";
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+        
+        pool.query(sql2,(err,res3,cols)=>{
+            if(err) 
+                throw err;
+                
+           res.render("superadmin/superAdminHome",{nos:res2,nol:res3});
+        //   res.end();
+        });
+    });
 });
 
 router.get("/income", function(req,res){

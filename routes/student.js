@@ -23,7 +23,7 @@ res.redirect("/login");
 router.get("/",function(req, res) {
     var sql="SELECT st.*, s.* from subject s, student st, enrolment e where st.stID=e.stID and e.subID=s.subID and st.stID='"+req.user.username+"';";
     
-    var sql2="SELECT * from sch_changes order by created desc limit 4";
+    var sql2="SELECT * from sch_changes order by created desc limit 2";
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
         

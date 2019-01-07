@@ -347,6 +347,7 @@
         }
         
         myConfig.series.push(details)
+        console.log(details)
       }
       
       if(yearsAr.length !=0){
@@ -400,12 +401,9 @@
           id: 'myChart'+i,
           data: myConfig,
         });
-        
-        i++
     }
       
     count++
-    console.log(classAr)
   })            
     
   $('#alyear').change(function(){

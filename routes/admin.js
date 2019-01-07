@@ -105,8 +105,9 @@ router.post("/register/student/new",function(req, res) {
                 var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
                 var d = new Date();
                 var curMonth = months[d.getMonth()];        
+                var year=(new Date()).getFullYear();
                 
-                var sql5="INSERT INTO payment (date,month,amount,stID,subID,year) values('"+curDate+"','"+curMonth+"','1000',"+SqlString.escape(stID)+","+SqlString.escape(subject)+",'2018');";
+                var sql5="INSERT INTO payment (date,month,amount,stID,subID,year) values('"+curDate+"','"+curMonth+"','3000',"+SqlString.escape(stID)+","+SqlString.escape(subject)+",'"+year+"');";
                 
                 con.query(sql5, function (err, result) {
                     if (err) throw err;

@@ -269,12 +269,11 @@ router.post("/forums/:id/comment",function(req, res) {
         var sql="insert into comments(comment,postID,postedAt,author,subID,authorName) values('"+req.body.comment+"','"+req.body.postID+"','"+created+"','"+req.user.username+"','"+subID+"','"+res1[0].name+"');";
         pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
+        
+        res.redirect("lecturer/forums/"+subID);
          
     });
     });
-    
-   
-    res.redirect("lecturer/forums/"+subID);
 });
 
 router.post("/forums/:id",function(req,res){
