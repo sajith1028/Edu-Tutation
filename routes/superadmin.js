@@ -39,7 +39,9 @@ router.get("/",function(req, res) {
     });
 });
 
+//Display income 
 router.get("/income", function(req,res){
+    //Get income details sorted by year
     var sql="select p.year,s.subname,s.year as ALyear,p.subID,p.month,sum(amount) as totalfee from payment p,subject s where s.subID=p.subID group by subID,month order by year;"
     pool.query(sql, (err, res2, cols)=>{
         if(err) 
