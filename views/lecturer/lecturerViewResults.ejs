@@ -59,23 +59,23 @@
           </ul>
         </ul>
         
-                    <ul class="nav navbar-nav navbar-right">
-           <% if(!currentUser){ %>
-    <a  id="register"href="/login">
-      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
-    </a>
-   <% } else { %>
-    <ul class="navbar-nav nav-link">
-      <a id="user" class="links" href="/student/profile">
-          <%= currentUser.username %> 
-      </a>
-    </ul>
-    <ul class="navbar-nav nav-link">
-    <a  id="register"href="/logout">
-      <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
-    </a>
-    </ul>
-    <% } %>
+        <ul class="nav navbar-nav navbar-right">
+            <% if(!currentUser){ %>
+                <a  id="register"href="/login">
+                    <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+                </a>
+            <% } else { %>
+                <ul class="navbar-nav nav-link">
+                    <a id="user" class="links" href="/student/profile">
+                        <%= currentUser.username %> 
+                    </a>
+                </ul>
+                <ul class="navbar-nav nav-link">
+                    <a  id="register"href="/logout">
+                        <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                    </a>
+                </ul>
+            <% } %>
       </div>
     </nav>
     
@@ -86,8 +86,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form action="/admin/payments/new" id="newpayment" method="POST">
-                            <div class="panel panel-default panel-fill">
+                        <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Select Assignment</h3>
                                 </div>
@@ -100,6 +99,7 @@
                                                 <div class="col-sm-3">
                                                     <select class="form-control combobox" id="assID">
                                                       <option selected value></option>
+                                                      <!--Populate assignment dropdown with the assignments-->
                                                       <% aNames.forEach(function(assignment){ %>
                                                       <option value='<%= assignment.assID %>'><%= assignment.assID %></option>
                                                       <% }) %>
@@ -110,10 +110,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <!--Render chart-->
                             <div id='myChart' style="border:1px dotted gray"><a class="zc-ref"></a></div>
                             
-                            
+                            <!--Detailed result table-->
                               <div class="container-table100" style="margin-top:20px;">
                           			<div class="wrap-table100">
                           				<div class="table100 table">
@@ -128,10 +128,12 @@
                           						</thead>
                           						<tbody id="tbody">
                           						    <%var index=1%>
+                          						    <!--At page load populate table with average results-->
                           						    <%overall.forEach(function(avg){%>
                           						        <tr data-toggle="modal" data-target="#incomeDiv">
                               						        <td class="column1"><%=index%></td>
                         									<td class="column2"><%=avg.stID%></td>
+                        									<!--Loop through studentID to get student name-->
                         									<%student.forEach(function(stu){%>
                                                                 <%if(stu.stID==avg.stID){%>
                                                                     <td class="column3"><b><%= stu.name %></b></td>
@@ -146,15 +148,12 @@
                           				</div>
                             		</div>
                             	</div>
-                        </form>
-                        <button id="delete" class="btn btn-danger btn-sm float-right" style="margin-left:5px;border:1px solid black; margin-bottom:20px"> Delete Assignment </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-           
-        </div>
-    </div>
-</div>       
+        </div>       
 
 <!-- Window displayed upon table click with individual assignment marks-->
 <div class="modal fade" id="incomeDiv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,7 +202,6 @@ var subject = <%-JSON.stringify(subject)%>;
 
 //Add search functionality to table with id #myTable
 var table = $('#myTable').DataTable();
-$("#delete").prop("disabled",true);
 
 //default graph properties    
     var myConfig ={
@@ -342,9 +340,8 @@ $("#delete").prop("disabled",true);
         	data : myConfig})
             }
     else
-    //If an assignment is selected, render chart with assignment marks
+    //If an assignment with a name is selected, render chart with selected assignment marks
         {
-            $("#delete").prop("disabled",false);
             var tbody = $("#tbody");
             tbody.html('');
             tbody.hide();
@@ -477,5 +474,4 @@ $("#delete").prop("disabled",true);
   });
   </script>
   
-<script src="/scripts/payment.js"></script>
 <% include ../partials/footer %>

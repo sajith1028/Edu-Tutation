@@ -1,9 +1,9 @@
 var sum=0;
-$("#saveBtn").prop("disabled",true);
+$("#saveBtn").prop("disabled",true); //at the beginning
 
 var getValue = function(cb) {
     if(cb.checked)
-        sum+=parseInt(cb.value.split(',')[2]);
+        sum+=parseInt(cb.value.split(',')[2]); 
     else
         sum-=parseInt(cb.value.split(',')[2]);
     
@@ -15,6 +15,7 @@ var getValue = function(cb) {
     else
         $("#saveBtn").prop("disabled",false);
 }
+
 $('#stID').click(function(){
     $('#stID').removeClass('is-invalid');
 })

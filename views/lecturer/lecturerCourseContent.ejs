@@ -173,8 +173,10 @@
                     <div class="row tab-pane active" id="newStudent">
                         <div class="col-lg-12">
                             <div class="panel panel-default panel-fill">
-                                <% if (content.length!=0) { %>
+                                <!--check whether the course content array is empty-->
+                                <% if (content.length!=0) { %> 
                                     <center><h4>Previously Uploaded Course Content - Subject <%= content.id.id %></h4></center><br>
+                                    <!--adding a new section-->
                                     <% var section = '' %>
                                     <div class="panel-heading">
                                         <h3 class="panel-title"><%= content[0].section %></h3>
@@ -184,6 +186,7 @@
                                     <% var section = content[0].section%>
                                    
                                     <% for(var i =0; i< content.length; i++) { %>
+                                    <!--checking whether the section is the same to add a new section-->
                                         <% if (section != content[i].section && i>0) {%>
                                             </div> <!-- row.// -->
                                                 </div>
@@ -200,7 +203,7 @@
                                             <div class="panel-body">
                                         <% }%>
                                         
-                                                
+                                                <!--add content with description-->
                                                 <div class="col-md-3">
                                                 	<figure class="card card-product" style="border:1px gray solid; background-color:#e9efff80">
                                                 	    <div>
@@ -212,12 +215,15 @@
                                                 					<span class="price-new" style="color:black;"><%= content[i].description %></span>
                                                 				</div> <!-- price-wrap.// -->
                                                 				<br>
-                                                				<a href="../../CourseContent/<%= content[i].contentID %>" class="btn btn-danger btn-sm float-right"style="margin-left:5px;width:83px;border:1px solid black"> Delete </a>
+                                                				<form action="/lecturer/deleteCourseContent/<%= content.id.id %>/<%= content[i].contentID %>" id="deleteCC" method="POST">
+                                                				    <button type="button" class="btn btn-danger btn-sm float-right"style="margin-left:5px;width:83px;border:1px solid black" id="deleteBTN"> Delete </button>
+                                                				</form>
                                                 				<a href="../../CourseContent/<%= content[i].contentID %>" class="btn btn-primary btn-sm float-right"> Download </a>
-                                                			</div> <!-- action-wrap -->
+                                                			</div>
                                                 		</figcaption>
-                                                	</figure> <!-- card // -->
-                                                </div> <!-- col // -->
+                                                	</figure>
+                                                </div> 
+                                                <!--end of add content with description-->
                                         <% section = content[i].section %>
                                     <% } %>    
                                      </div> <!-- row.// -->

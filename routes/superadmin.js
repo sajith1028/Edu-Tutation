@@ -22,15 +22,19 @@ router.get("/",function(req, res) {
     var sql="SELECT count(stID) as numOfStudents from student;";
     
     var sql2="SELECT count(lecID) as numOfLecturers from lecturer";
+    
+    var sql3="select *,sum(amount) as amount from payment where YEAR(date) = YEAR(CURDATE()) group by subID,month";
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
         
         pool.query(sql2,(err,res3,cols)=>{
-            if(err) 
-                throw err;
+            if(err) throw err;
                 
-           res.render("superadmin/superAdminHome",{nos:res2,nol:res3});
-        //   res.end();
+            pool.query(sql3,(err,res4,cols)=>{
+                if(err) throw err;
+                
+                res.render("superadmin/superAdminHome",{nos:res2,nol:res3,incomes:res4});
+            });
         });
     });
 });
@@ -44,6 +48,7 @@ router.get("/income", function(req,res){
         res.end();
     });
 });
+
 
 router.get("/results", function(req,res){
     
@@ -72,11 +77,4 @@ router.get("/results", function(req,res){
         })
     })
 });
-
-router.get("/attendance", function(req,res){
-    res.render("superadmin/superAdminAttendance");
-});
-
-
-
 module.exports = router;

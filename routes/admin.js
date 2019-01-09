@@ -2,7 +2,7 @@
 var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
-var SqlString       =   require('sqlstring');
+var SqlString       =   require('sqlstring'); //To escape user provided data, inorder to avoid SQL injection attacks
 var nodemailer      =   require('nodemailer'); //for mailing purposes
 var randomstring    =   require("randomstring"); //to generate random strings as passwords
 var bcrypt          =   require("bcrypt"); // for encryption
@@ -34,33 +34,41 @@ var pool = mysql.createPool({
   charset: "utf8"
 });
 
-var con             =   mysql.createConnection({
-                        host: "localhost",
-                        user: "nimesha",
-                        password: "",
-                        database: "akura"
+var con =   mysql.createConnection({
+    host: "localhost",
+    user: "nimesha",
+    password: "",
+    database: "akura"
 });
 
+//home page
 router.get("/",function(req, res) {
+    var day = new Date().getDay(); //get day, number
     
-    var sql="SELECT s.* from subject s where s.day ='Monday';";
-    pool.query(sql, (err, res2, cols)=>{
+    var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    var sql="SELECT * from subject where day ='"+days[day]+"';"; //get today's classes
+    pool.query(sql, (err, res2, cols)=>{ //run sql query
         if(err) 
             throw err;
-        res.render("admin/adminHome", {'today':res2});
+        
+        
+        res.render("admin/adminHome", {'today':res2}); //send res2 result as today
         res.end();
     });
 });
 
-/*****************************************************/
+//load register student page
 router.get("/register/student", function(req,res){
     res.render("admin/adminRegisterStudent");
 });
 
+//register new student
 router.post("/register/student/new",function(req, res) {
+    //getting details of the student
     var name=req.body.firstname+" "+req.body.lastname;
     var email=req.body.email;
     var ALyear=req.body.ALYear;
+    
     
     var nos;
     var stID="S-";
@@ -71,8 +79,8 @@ router.post("/register/student/new",function(req, res) {
         if(err)
             throw err;
         nos=parseInt(res2[0].numberOfStudents, 10)+1;
-        //console.log(nos);
         
+        //creating the student ID
         if(nos<10)
             stID = stID+ALyear+"-00"+nos;
         else if(nos<100)
@@ -85,7 +93,7 @@ router.post("/register/student/new",function(req, res) {
         
        
         var sql2="INSERT INTO student (stID,name,email,ALyear) values ("+SqlString.escape(stID)+","+SqlString.escape(name)+","+SqlString.escape(email)+","+SqlString.escape(ALyear)+");";
-        //console.log(sql2);
+    
         con.query(sql2, function (err, result) {
             if (err) throw err;
         });
@@ -119,7 +127,7 @@ router.post("/register/student/new",function(req, res) {
             var sql4="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subjects)+","+SqlString.escape(stID)+");";
         }
         
-        
+        //creating the ID
         var idCard = {
             pageSize:{
                 width: 410,
@@ -175,6 +183,7 @@ router.post("/register/student/new",function(req, res) {
         		columnGap:5
             }]
         };
+        //end of creating the ID
         
         var PdfPrinter = require('pdfmake/src/printer');
         var fonts = {
@@ -188,12 +197,12 @@ router.post("/register/student/new",function(req, res) {
         
         var printer = new PdfPrinter(fonts);
         
+        //moving file to the public folder, to share 
         var pdfDoc = printer.createPdfKitDocument(idCard);
         pdfDoc.pipe(fs.createWriteStream('idCard.pdf')).on('finish',function(){
             moveFile('idCard.pdf', 'public');
         });
         pdfDoc.end();
-        
         
         var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
         bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
@@ -225,7 +234,7 @@ router.post("/register/student/new",function(req, res) {
         
                     transporter.sendMail(mailOptions, function(error, info){
                         if (error) {
-                            console.log(error);
+                            req.flash("error","Error occured. Please try again.");
                         }
                         else {
                             req.flash("success","Student registration successful!");
@@ -251,12 +260,14 @@ router.post("/register/alyear", function(req,res){
     });
 });
 
+//load payment page
 router.get("/payments", function(req,res){
     res.render("admin/adminPayment");
 });
 
 var studentID;
 
+//to update the student name using ajax
 router.post("/payments/name",function(req, res) {
    studentID=req.body.stID.stID;
 
@@ -270,6 +281,7 @@ router.post("/payments/name",function(req, res) {
     });
 });
 
+//to update the payment table using ajax
 router.post("/payments/id",function(req, res) {
 
    studentID=req.body.stID.stID;
@@ -282,35 +294,32 @@ router.post("/payments/id",function(req, res) {
     });
 });
 
-
+//adding a new payment
 var items;
 var to;
 router.post("/payments/new",function(req, res) {
     items = [];
-   var subjects=req.body.subject;
+    var subjects=req.body.subject;
     if(Array.isArray(subjects)){
         
         subjects.forEach(function(sub){
             var subsplit=sub.split(',');
-            console.log(subsplit);
+            
             var subject =subsplit[0];
             var month=subsplit[1];
             var fee=subsplit[2];
             var curDate=""+dateTime();
             curDate=curDate.split('/').join('-');
-            console.log(curDate);
+            
             var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
                 
             var newIndex=months.indexOf(month)+1;
-            console.log("newIndex"+newIndex);
+            
             if(newIndex>11) 
-                newIndex=0;
+                newIndex=0; //if index is greater than 11, make it count from 0
             
             var newMonth=months[newIndex];
             
-            //console.log("Last month:"+month);
-            //console.log("newIndex"+newIndex);
-            //console.log("NewMonth"+newMonth);
             var datetime = new Date();
             var newDate = datetime.toJSON();
             var year=(new Date()).getFullYear();
@@ -354,7 +363,14 @@ router.post("/payments/new",function(req, res) {
         notes: "Thanks for being a part of Akura!",
     };
     
-    generateInvoice(invoice, 'invoice.pdf', function(){console.log("Saved invoice to invoice.pdf");}, function(error){console.error(error);});
+    generateInvoice(invoice, 'invoice.pdf', function(){
+        console.log("Saved invoice to invoice.pdf");
+        
+    }, 
+        function(error){
+            console.error(error);
+        }
+    );
     
     //move file1.htm from 'test/' to 'test/dir_1/'
     moveFile('invoice.pdf', 'public');
@@ -364,10 +380,12 @@ router.post("/payments/new",function(req, res) {
 
 });
     
+//get register lecturer page
 router.get("/register/lecturer", function(req,res){
     res.render("admin/adminRegisterLecturer",{lecID:0});
 });
 
+//register a lecturer to a new class
 router.post("/register/lecturer/new/class", function(req,res){
     
     var sql ="SELECT * FROM subject s where s.lecID='"+req.body.lecID.lecID+"'";
@@ -379,15 +397,18 @@ router.post("/register/lecturer/new/class", function(req,res){
     });
 });
 
+//add new subject
 router.post("/register/subject/new", function(req,res){
     
+    //Confirm whether selected hall is free in the selected time slot
     var sql_validate="SELECT * FROM subject WHERE day='"+req.body.day+"' AND hall='"+req.body.hall+"' AND ((fromTime>='"+req.body.from+"' AND fromTime<='"+req.body.to+"') OR (toTime<='"+req.body.to+"' AND toTime>='"+req.body.from+"'))";
    
     pool.query(sql_validate,(err,res_validate,cols)=>{
         if(err)
              throw err;
+        //Hall is FREE
         if(res_validate.length==0) 
-        {
+        {           //Form subject ID
                     var subID="S";
                     var sql="select count(subID) as numberOfSubjects from subject";  
                     
@@ -396,16 +417,18 @@ router.post("/register/subject/new", function(req,res){
                             throw err;
                         nos=parseInt(res3[0].numberOfSubjects, 10)+1;
                         
-                        if(nos<10)
+                        if(nos<10) //Single digit number
                             subID = subID+"0"+nos;
                         else if(nos<100)
                             subID = subID+nos;
-                            
+                    
+                    //Insert subject details into DB        
                     var sql2 ="INSERT INTO subject VALUES('"+subID+"','"+req.body.subname+"','"+req.body.medium+"','"+req.body.hall+"','"+req.body.from+"','"+req.body.to+"','"+req.body.year+"','"+req.body.day+"','"+req.body.lecID+"','"+req.body.fee+"')";
                    
                     pool.query(sql2, (err, res2, cols)=>{
                         if(err) throw err;
                         
+                            //Retrieve data to reload the table
                             var sql3 ="SELECT * FROM subject s where s.lecID='"+req.body.lecID+"'";
                             pool.query(sql3, (err, res4, cols)=>{
                                 if(err) throw err;
@@ -446,13 +469,14 @@ router.post("/register/subject/update", function(req,res){
 router.post("/register/lecturer/class", function(req,res){
     console.log(req.body);
 });
-
+ 
 router.post("/register/lecturer/new", function(req,res){
-    
+//Get the inserted values from the request body    
     var name=req.body.firstname+" "+req.body.lastname;
     var email=req.body.email;
     var nic=req.body.nic;
     
+//Form Lecturer ID     
     var nos;
     var lecID="L-AKURA-";
     
@@ -461,38 +485,37 @@ router.post("/register/lecturer/new", function(req,res){
         if(err)
             throw err;
         nos=parseInt(res2[0].numberOfLecturers, 10)+1;
-        
-        if(nos<10)
+                                            //Convert string to decimal
+        if(nos<10) //Single digit num
             lecID = lecID+"00"+nos;
-        else if(nos<100)
+        else if(nos<100) //Two digit num
             lecID = lecID+"0"+nos;
         else if(nos<1000)
             lecID = lecID+""+nos;
-            
-            
-        var subjects=req.body.subject;
-        
-       
+
+//Insert Lecturer details into DB       
         var sql="INSERT INTO lecturer (lecID,NIC,name,email) values ("+SqlString.escape(lecID)+","+SqlString.escape(nic)+","+SqlString.escape(name)+","+SqlString.escape(email)+");";
         con.query(sql, function (err, result) {
             if (err) throw err;
         });
         
-        var randomPassword=randomstring.generate(10); //encrypt the password using bcrypt
-        bcrypt.hash(randomPassword, 10, function(err, hash) { //hash contains the encrypted password 
-            var users={
+//Form a random password to be sent to Lecturer by email    
+        var randomPassword=randomstring.generate(10); 
+//Encrypt the password using bcrypt
+        bcrypt.hash(randomPassword, 10, function(err, hash) { //hash returns the encrypted password 
+            var users={             //saltRounds
                 "username":lecID,
                 "password":hash 
                
             }
                  
-            //insert  details into the db
+//Insert user details into DB
             con.query("INSERT INTO user SET ?",users,function (error, results, fields){
                 if(error){
                     req.flash("error","Please try again!");
                 }
                 else {
-                    
+//Send login credentials to Lecturer                    
                     var transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -500,7 +523,7 @@ router.post("/register/lecturer/new", function(req,res){
                             pass: 'studentenrolmentnsbm123'
                         }
                     });
-                
+                    //Email content
                     var mailOptions = {
                         from: 'studentenrolmentnsbm@gmail.com',
                         to: email,
@@ -537,8 +560,9 @@ router.post("/register/alyear", function(req,res){
     });
 });
 
+//mark attendance page load
 router.get("/attendance/:subject", function(req,res){
-    var subID=req.params.subject;
+    var subID=req.params.subject; //get subId by the url parameter
     
     var sql="SELECT distinct s.subID, s.subname,s.year,st.name,st.stID FROM subject s,student st,enrolment e where e.subID=s.subID and s.subID='"+subID+"' and e.stID=st.stID;";
 
@@ -549,6 +573,7 @@ router.get("/attendance/:subject", function(req,res){
     });
 });
 
+//mark attendance via ajax requests
 router.post("/markAttendance/:id", function(req,res){
     var dte = new Date();
     dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
@@ -560,6 +585,7 @@ router.post("/markAttendance/:id", function(req,res){
     });
 });
 
+//mremove attendance via ajax requests
 router.delete("/markAttendance/:id", function(req,res){
     var dte = new Date();
     dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
@@ -571,9 +597,12 @@ router.delete("/markAttendance/:id", function(req,res){
     });
 });
 
+
 router.get("/newsfeeds", function(req,res){
+    //All posts are stored in sch_changes table
     var sql="SELECT * from sch_changes order by created desc";
     
+    //Get client machine's date & time
     var dte = new Date();
     dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
     var timeNow = dte.toJSON();
@@ -587,7 +616,7 @@ router.post("/newsfeed/new",function(req, res) {
     var title=req.body.blog.title;
     var content=req.body.blog.body;
     
-    //Getting client's time
+    //Getting client's time at which the POST request was sent
     var dte = new Date();
     dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
     var created = dte.toJSON();
@@ -605,6 +634,7 @@ router.post("/newsfeed/delete/:id",function(req, res) {
     var id=req.params.id;
     
     var sql="DELETE FROM sch_changes where sch_ID="+id+";";
+    
     pool.query(sql,(err,res2,cols)=>{
        if(err) throw err;
        res.redirect("/admin/newsfeeds");

@@ -122,7 +122,7 @@
                                                             	<input type="hidden" name="stID" value="<%=enrolment[i].stID%>">
                                                             	<td class="column3" style="width:300px"><%=enrolment[i].name%></td>
                                                             	<td class="column4" style="width:200px"><%=enrolment[i].average%></td>
-                                                            	<td class="column5" style="width:300px"><input type="text" name="marks" placeholder="Enter Mark" class="form-control" style="width:280px; margin-bottom:0;" required></td>
+                                                            	<td class="column5" style="width:300px"><input type="number" min="0" max="100" name="marks" placeholder="Enter Mark" class="form-control" style="width:280px; margin-bottom:0;" required></td>
                                                             </tr>
                                                         <% } %>
                                                         
@@ -140,7 +140,7 @@
                             <button type="submit" id="submitResult" class="btn btn-primary">ADD MARKS</button>
                         </div>
                     </center>
-                                </form>
+                    </form>
                 </div> 
             </div>
         </div>

@@ -1,12 +1,20 @@
 $('#postBtn').click(function(){
+  var content=$('.content').val()
+  var title=$('.title').val()
+  
+  if(content!='' & title!='')
+  {
         swal({
           title: "Post added to feed",
           icon: "success",
           dangerMode: false,
         });
         
-    });
     
+  }
+
+});
+
 $('.delNPBtn').click((function(){
   
     swal({

@@ -154,7 +154,7 @@
 <script>
     var nol = <%-JSON.stringify(nol)%>;
     var nos = <%-JSON.stringify(nos)%>;
-console.log(nol)
+    var incomes = <%-JSON.stringify(incomes)%>;
 
     var myConfig = {
         "title": {
@@ -171,35 +171,42 @@ console.log(nol)
               "text":"2019"  
             }
         },
-        "series": [{
-            "values":[8000,4500,1000,0,0,0,0,0,0,0,0,0],
-            "text": "S01"
-            
-            },
-            {
-            "values":[5500,6000,0,0,0,0,0,0,0,0,0,0],
-            "text": "S02"
-            },
-            {
-            "values":[3750,1500,0,0,0,0,0,0,0,0,0,0],
-            "text": "S03"
-            },
-            {
-            "values":[2000,0,0,0,0,0,0,0,0,0,0,0],
-            "text": "S04"
-            },
-            {
-            "values":[9000,3000,0,0,0,0,0,0,0,0,0,0],
-            "text": "S05"
-            },
-            {
-            "values":[6500,4200,1100,0,0,0,0,0,0,0,0,0],
-            "text": "S06"
-            }
-        ]
-        
+        "series": []
     };
+    
+    var classAr=[]
+    var value=[0,0,0,0,0,0,0,0,0,0,0,0]
+    var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var details={}
+    var visited=false
+    
+    incomes.forEach(function(income){
+      if (classAr.indexOf(income.subID) === -1){ // new class
+        if(visited){ //if class array is not empty, we have to add that class into the series
+          details = {
+            values: value,
+            text: classAr[classAr.length-1]
+          }
+          
+          myConfig.series.push(details) 
+          classAr.push(income.subID); 
+          value=[0,0,0,0,0,0,0,0,0,0,0,0]
+        }
+        visited=true
+      }
+        
+      value[months.indexOf(income.month)]=income.amount //add the income of the record
+   })            
  
+    details = {
+        values: value,
+        text: income.subID
+    }
+      
+    myConfig.text = income.year
+    myConfig.series.push(details)
+      
+    console.log(classAr)
     zingchart.render({ 
     	id : 'income', 
     	data : myConfig,
@@ -207,5 +214,6 @@ console.log(nol)
         width: '100%'
     });
 </script>
+
 
 <% include ../partials/footer %>

@@ -55,24 +55,25 @@
           </ul>
         </ul>
         
-      <ul class="nav navbar-nav navbar-right">
-           <% if(!currentUser){ %>
-    <a  id="register"href="/login">
-      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
-    </a>
-   <% } else { %>
-    <ul class="navbar-nav nav-link">
-      <a id="user" class="links" href="#">
-      <%= currentUser.username %> 
-      </a>
-    </ul>
-    <ul class="navbar-nav nav-link">
-    <a  id="register"href="/logout">
-      <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
-    </a>
-    </ul>
-    <% } %>
-  </div>
+        <ul class="nav navbar-nav navbar-right">
+            <% if(!currentUser){ %>
+                <a  id="register"href="/login">
+                    <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+                </a>
+            <% } else { %>
+                <ul class="navbar-nav nav-link">
+                  <a id="user" class="links" href="#">
+                    <%= currentUser.username %> 
+                  </a>
+                </ul>
+                <ul class="navbar-nav nav-link">
+                    <a  id="register"href="/logout">
+                      <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                    </a>
+                </ul>
+            <% } %>
+        </ul>
+      </div>
     </nav>
 
 <div id="particles-js">
@@ -80,8 +81,6 @@
         <h2 id="topic"><%=subject[0].subname%> - <%=subject[0].year%></h2>
         <br>
         <center><h3><%= moment().format('Do MMMM, YYYY'); %></h3></center>
-        
-        
         
         <div class="wrapper">
             <div class="container">
@@ -190,80 +189,80 @@
 </div>
 
 
-    <script type="text/javascript">
-        var subID = $('#subID').text().split(' ');
-        subID=subID[subID.length-1];
-        
-        $('.chkbxs').change(function(){
-            if($(this).prop('checked')){
-                var id=$(this).val();
+<script type="text/javascript">
+    var subID = $('#subID').text().split(' ');
+    subID=subID[subID.length-1];
+    
+    $('.chkbxs').change(function(){
+        if($(this).prop('checked')){
+            var id=$(this).val();
+            $.ajax({
+                url: "/admin/markAttendance/"+subID,
+                type: "POST",
+                contentType:"application/json",
+                data: JSON.stringify({attendance:{"stID":id, "class":subID}})
+            });
+        }
+        else{
+            var id=$(this).val();
+            $.ajax({
+                url: "/admin/markAttendance/"+subID,
+                type: "DELETE",
+                contentType:"application/json",
+                data: JSON.stringify({attendance:{"stID":id, "class":subID}})
+            });
+        }
+    });
+
+    var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content, image) {
+        if (content!=null && content[0]=="S"){
+            var audio = new Audio('/../beep.mp3');
+            audio.play();
+            
+            var arr = content.split(' ');
+            $("#stID").val(arr[0]);
+            $("#name").val(arr[1]+" "+arr[2]);
+            $("#alyear").val(arr[3]);
+            
+            if(!$("#"+arr[0]+"chk").prop('checked')){
+                $("#"+arr[0]+"chk").prop("checked", true);
                 $.ajax({
                     url: "/admin/markAttendance/"+subID,
                     type: "POST",
                     contentType:"application/json",
-                    data: JSON.stringify({attendance:{"stID":id, "class":subID}})
+                    data: JSON.stringify({attendance:{"stID":arr[0], "class":subID}})
                 });
             }
-            else{
-                var id=$(this).val();
-                $.ajax({
-                    url: "/admin/markAttendance/"+subID,
-                    type: "DELETE",
-                    contentType:"application/json",
-                    data: JSON.stringify({attendance:{"stID":id, "class":subID}})
-                });
-            }
-        });
-
-        var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-        scanner.addListener('scan', function (content, image) {
-            if (content!=null && content[0]=="S"){
-                var audio = new Audio('/../beep.mp3');
-                audio.play();
-                
-                var arr = content.split(' ');
-                $("#stID").val(arr[0]);
-                $("#name").val(arr[1]+" "+arr[2]);
-                $("#alyear").val(arr[3]);
-                
-                if(!$("#"+arr[0]+"chk").prop('checked')){
-                    $("#"+arr[0]+"chk").prop("checked", true);
-                    $.ajax({
-                        url: "/admin/markAttendance/"+subID,
-                        type: "POST",
-                        contentType:"application/json",
-                        data: JSON.stringify({attendance:{"stID":arr[0], "class":subID}})
-                    });
-                }
-            }
-        });
-        
-        Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
-              scanner.start(cameras[0]);
-            }
-            
-            else
-                alert("Please connect a camera to scan the QR code.");
-        });
-        
-        function sleep (time) {
-          return new Promise((resolve) => setTimeout(resolve, time));
+        }
+    });
+    
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
         }
         
-        $('#submitbtn').click(function(){
-            swal({
-                title:"Saved",
-                text: "Attendance marked successfully",
-                icon: "success",
-                dangerMode: false,
-            });  
-            
-            sleep(3000).then(() => {
-                location.reload(); 
-            });
+        else
+            alert("Please connect a camera to scan the QR code.");
+    });
+    
+    function sleep (time) {
+      return new Promise((resolve) => setTimeout(resolve, time));
+    }
+    
+    $('#submitbtn').click(function(){
+        swal({
+            title:"Saved",
+            text: "Attendance marked successfully",
+            icon: "success",
+            dangerMode: false,
+        });  
+        
+        sleep(3000).then(() => {
+            location.reload(); 
         });
-    </script> 
+    });
+</script> 
     
 <script src="../scripts/attendance.js"></script>
 <% include ../partials/footer %>

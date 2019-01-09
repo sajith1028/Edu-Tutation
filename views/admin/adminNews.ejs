@@ -33,6 +33,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     
+    
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <ul class="navbar-nav nav-link">
@@ -97,7 +98,7 @@
                                                                         </div>
                                                                         
                                                                         <div class="col-lg-12 col-1">
-                                                                            <input type="text" name="blog[title]" placeholder="title" class="form-control" id="exampleFormControlInput1 title" required>
+                                                                            <input type="text" name="blog[title]" placeholder="title" class="form-control title" id="exampleFormControlInput1 title" required>
                                                                         </div>
                                                                     </div>
                                                                           
@@ -106,7 +107,7 @@
                                                                             <label for="exampleFormControlTextarea1">Content</label>
                                                                         </div>
                                                                         <div class="col-lg-12 col-1">
-                                                                            <textarea name="blog[body]" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                            <textarea name="blog[body]" class="form-control content" id="exampleFormControlTextarea1" rows="3" required></textarea>
                                                                         </div>
                                                                     </div>          
                                                                 </div>
@@ -131,6 +132,7 @@
                 </div> 
             </div>
             
+            <!-- post container -->
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12" style="margin: 0 auto;">
@@ -139,6 +141,8 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-12 comment-main rounded">
                                         <ul class="p-0">
+                                            <!-- Loop through all posts adding a new div to each post -->
+                                            
                                            <% for(var i=0; i<posts.length; i++) { %>
                                                 <li>
                                                     <div class="row comment-box pr-4"  style="padding-top:10px">
@@ -154,6 +158,7 @@
                                                                             <p class="w-100 p-2 m-0 font-black"><%=posts[i].content%></p>
                                                                         </div>
                                                                         <div class="col-lg-4 col-6 border-bottom">
+                                                                            <!--Delete Post by its ID -->
                                                                             <form id="deletePost" method="POST" action="/admin/newsfeed/delete/<%=posts[i].sch_ID%>">
                                                                                 <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true">
                                                                                     <button type="button" class="btn btn-danger delNPBtn">Delete</button>
@@ -171,6 +176,7 @@
                                                     </div>
                                                 </li>
                                             <% } %>
+                                            <!-- end of post loop -->
                                         </ul>
                                     </div>
                                 </div>
@@ -179,6 +185,7 @@
                     </div>
                 </div> 
             </div>
+            <!-- post container -->
         </div>
     </div>
 </div>     

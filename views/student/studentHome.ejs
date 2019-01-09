@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
     <head>
         <title>Home</title>
         <!-- Bootstrap -->
@@ -26,6 +26,7 @@
     <!-- End of Particles -->
     </head>
 <body>
+    
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
   
@@ -114,19 +115,19 @@
                                         <div class="col-lg-6">
                                             <div id="clockdiv">
                                               <div>
-                                                <span class="days"></span>
+                                                <span class="days">00</span>
                                                 <div class="smalltext">Days</div>
                                               </div>
                                               <div>
-                                                <span class="hours"></span>
+                                                <span class="hours">00</span>
                                                 <div class="smalltext">Hours</div>
                                               </div>
                                               <div>
-                                                <span class="minutes"></span>
+                                                <span class="minutes">00</span>
                                                 <div class="smalltext">Minutes</div>
                                               </div>
                                               <div>
-                                                <span class="seconds"></span>
+                                                <span class="seconds">00</span>
                                                 <div class="smalltext">Seconds</div>
                                               </div>
                                             </div>
@@ -302,22 +303,26 @@ function imgError(image) {
     return true;
 }
 
-
 var myself = <%-JSON.stringify(myself)%>;
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
 var today = new Date().getDay();
 var days=[ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-var closest = myself[1]
+var closest = myself[1] //choose closest as the first myself record
 var count=0
-var minCount=8
-console.log(myself)
+var minCount=8 //minimum count of days have to be less than 7
 
 myself.forEach(function(m){
     count=0
-    for(var i=today; i<today+7; i++){
-        if(m.day==days[i%7]){
+    for(var i=today; i<today+7; i++){ //goes around from today's position
+        if(m.day==days[i%7]){ 
             if(minCount>count){
                 closest=m
-                minCount=count+1
+                minCount=count+1 //setting the minimum count
             }
            break
         }
@@ -329,47 +334,45 @@ myself.forEach(function(m){
 $("#cls").append(closest.subID+" "+closest.subname+" "+closest.year)
 $("#hall").append(closest.hall)
 
-function getTimeRemaining(endtime) {
-  var t = Date.parse(endtime) - Date.parse(new Date());
-  var seconds = Math.floor((t / 1000) % 60);
-  var minutes = Math.floor((t / 1000 / 60) % 60);
-  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-  var days = Math.floor(t / (1000 * 60 * 60 * 24));
-  return {
-    'total': t,
-    'days': days,
-    'hours': hours,
-    'minutes': minutes,
-    'seconds': seconds
-  };
-}
+var closestTime = new Date (new Date().toDateString() + ' ' + closest.fromTime) //coz js does not have date, it has date time. giving today's date as a dummy value
 
-function initializeClock(id, endtime) {
-  var clock = document.getElementById(id);
-  var daysSpan = clock.querySelector('.days');
-  var hoursSpan = clock.querySelector('.hours');
-  var minutesSpan = clock.querySelector('.minutes');
-  var secondsSpan = clock.querySelector('.seconds');
+// Set the date we're counting down to
+var countDownDate = new Date(closestTime.addDays(minCount)).getTime();
 
-  function updateClock() {
-    var t = getTimeRemaining(endtime);
+// Update the count down every 1 second
+var x = setInterval(function() {
 
-    daysSpan.innerHTML = '0'+t.days;
-    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+  // Get todays date and time
+  var now = new Date().getTime();
 
-    if (t.total <= 0) {
-      clearInterval(timeinterval);
-    }
-  }
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
 
-  updateClock();
-  var timeinterval = setInterval(updateClock, 1000);
-}
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-var deadline = new Date(Date.parse(new Date()) + minCount * 8 * 48 * 32 * 1000);
-initializeClock('clockdiv', deadline);
+  // Display the result in the element
+    var clock = document.getElementById('clockdiv');
+    var daysSpan = clock.querySelector('.days');
+    var hoursSpan = clock.querySelector('.hours');
+    var minutesSpan = clock.querySelector('.minutes');
+    var secondsSpan = clock.querySelector('.seconds');
+    
+    daysSpan.innerHTML = '0'+days;
+    if(hours<10)
+        hours='0' + hours
+    hoursSpan.innerHTML = hours;
+    if(minutes<10)
+        minutes='0' + minutes
+    minutesSpan.innerHTML = minutes;
+    if(seconds<10)
+        seconds='0' + second
+    secondsSpan.innerHTML = seconds
+    
+}, 1000);
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

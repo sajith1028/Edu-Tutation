@@ -23,12 +23,12 @@ $('#submitBtn').click(function(){
         $('#name2').addClass('is-invalid');
                                 }                      
        else{
-          //Name not empty
+          //Name not empty check for numbers in the name
             var stname = $('#name2').val();
             var RegExpression = /^[a-zA-Z\s]*$/; 
         
             if (RegExpression.test(stname)) {
-              //correct name
+              //if true name is correct
                     
                       //Empty email
                     if($('#email2').val()==''){
@@ -50,11 +50,12 @@ $('#submitBtn').click(function(){
                             //Valid email & name
                             var school=$('#school2').val();
                             
-                                //school contains letters spaces & nums
+                                //school contains letters
                                 if(RegExpression.test(school) || school==''  )
                                 {
                                     var teleres = $('#teleres').val();
                                     
+                                    //check for 9 digits in telephone number
                                     if(/^\d{9}$/.test(teleres) || teleres==''){
                                     //correct res number
                                             
@@ -246,6 +247,9 @@ $('#submitBtnLec').click(function(){
                                 obj.telemob=telemob;
                                 obj.email=email;
                                 obj.qualif=qualif;
+                                obj.pwd1=pwd;
+                                obj.pwd2=pwd2;
+                                
                                 $.ajax({
                                     url: "/lecturer/profile",
                                     type: "POST",
@@ -312,6 +316,7 @@ $('#submitBtnLec').click(function(){
             
        }
     }
+    //Password mismatch
     else
     {
         swal({

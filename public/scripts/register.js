@@ -44,3 +44,24 @@ $('#checkBtn').click(function(){
 var changeName = function(stName){
     $("#name").val(stName);
 };
+
+$('#deleteBTN').click((function(){
+  
+    swal({
+    title: "Are you sure?",
+    text: "This course content will be deleted!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      swal("The course content has been deleted!", {
+        icon: "success",
+      });
+      document.getElementById("deleteCC").submit();
+    }
+  });
+  
+})
+);

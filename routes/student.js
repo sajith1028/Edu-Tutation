@@ -20,10 +20,11 @@ if(req.isAuthenticated() && req.user.username.charAt(0)=='S' ){
 res.redirect("/login");
 }
 
+
 router.get("/",function(req, res) {
-    var sql="SELECT st.*, s.* from subject s, student st, enrolment e where st.stID=e.stID and e.subID=s.subID and st.stID='"+req.user.username+"';";
+    var sql="SELECT st.*, s.* from subject s, student st, enrolment e where st.stID=e.stID and e.subID=s.subID and st.stID='"+req.user.username+"';";//enrolled classes
     
-    var sql2="SELECT * from sch_changes order by created desc limit 2";
+    var sql2="SELECT * from sch_changes order by created desc limit 2";//sch_changes
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
         
@@ -58,19 +59,21 @@ router.post("/profile",function(req,res){
     res.redirect("/student/profile");
 });
 
+// payments page
 router.get("/payments", function(req,res){
     //If logged in
     if(req.user){
-    var stID=req.user.username;
-    
-    //var sql="select s.subname, p.date, p.month, p.amount from payment p, subject s where s.subID=p.subID group by s.subname order by date desc ";
-    var sql="select s.subname,s.medium,s.day, p.date, p.month, p.amount from payment p, subject s where p.stID='"+ stID+"' and s.subID=p.subID order by p.subID, p.pID ";
-    
-    pool.query(sql, (err, res2, cols)=>{
-        if(err) throw err;
-            res.render("student/studentPayment",{payments:res2});
-            res.end();
-    });
+        
+         var stID=req.user.username; //gets student id by req.user.username
+        
+        //var sql="select s.subname, p.date, p.month, p.amount from payment p, subject s where s.subID=p.subID group by s.subname order by date desc ";
+        var sql="select s.subname,s.medium,s.day, p.date, p.month, p.amount from payment p, subject s where p.stID='"+ stID+"' and s.subID=p.subID order by p.subID, p.pID ";
+        
+        pool.query(sql, (err, res2, cols)=>{
+            if(err) throw err;
+                res.render("student/studentPayment",{payments:res2});
+                res.end();
+        });
     }
 });
 
@@ -153,16 +156,20 @@ router.get("/discussions/:id", function(req,res){
 
 router.get("/viewCourseContent/:id", function(req,res){
     var id = req.params.id;
+    
+    //each subject content order by section field
     var sql="SELECT * from content where subID='"+id+"' order by section;";
     pool.query(sql, (err, res2, cols)=>{
          if(err) throw err;
          
         res2.id = {"id": id};
         
+        //check student enrole that subject
         var sql1="SELECT * from enrolment where subID='"+id+"' and stID='"+req.user.username+"'";
         pool.query(sql1, (err, res3, cols)=>{
             if(err) throw err;
             
+            //if response length not equal to 0 thats mean thats student enrole that subject
             if(res3.length!=0)
                 res.render("student/studentCourseContent", {'content': res2});
             else
@@ -176,7 +183,6 @@ router.post("/discussion/delete/:idSub/comment/:id",function(req, res) {
     var id=req.params.id;
     var idSub=req.params.idSub;
     var sql="DELETE FROM comments where cID="+id+";";
-    console.log(sql);
     pool.query(sql, (err, res2, cols)=>{
          if(err) throw err;
          res.redirect("/student/discussions/"+idSub);
@@ -188,10 +194,12 @@ router.post("/discussion/delete/:idSub/comment/:id",function(req, res) {
 router.post("/discussion/delete/:idSub/post/:idPost",function(req, res) {
     var post=req.params.idPost;
     var sub=req.params.idSub;
+    
     //Firstly delete all comments to remove dependencies
     var sql1="DELETE FROM comments where postID="+post+";";
     pool.query(sql1, (err, res1, cols)=>{
          if(err) throw err;
+         
          //Secondly delete all posts
          var sql2="DELETE FROM discussion_posts where postID="+post+";";
          pool.query(sql2, (err, res2, cols)=>{
@@ -201,17 +209,21 @@ router.post("/discussion/delete/:idSub/post/:idPost",function(req, res) {
     });
 });
 
+//Display his/her results
 router.get("/viewResults/:id", function(req,res){
     var id = req.params.id;
     
+        //Get subject name, year
         var sql="SELECT subname,year FROM subject where subID='"+id+"'";
         pool.query(sql,(err,res1,cols)=>{
             if (err) throw err;
                 
+                //Get assignment marks of logged in student
                 var sql1="SELECT * FROM assignment WHERE subID='"+id+"' AND stID='"+req.user.username+"'";
                 pool.query(sql1,(err,res2,cols)=>{
                     if (err) throw err;
                     
+                    //Get attendance details
                     var sql2="SELECT * FROM attendance WHERE subID='"+id+"' AND stuID='"+req.user.username+"'";
                     pool.query(sql2,(err,res3,cols)=>{
                         if (err) throw err;
@@ -220,8 +232,6 @@ router.get("/viewResults/:id", function(req,res){
                     })
                 })
             })
-            
-    
 });
 
 router.get("/news", function(req,res){

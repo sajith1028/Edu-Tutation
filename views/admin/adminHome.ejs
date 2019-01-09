@@ -25,6 +25,7 @@
     <!-- End of Particles -->    
     </head>
 <body>
+    
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
   
@@ -34,7 +35,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-
     </ul>
 <ul class="nav navbar-nav navbar-right">
            <% if(!currentUser){ %>
@@ -63,6 +63,8 @@
             <div class="row">
                 <div class="col-md-12 responsive-wrap">
                     <div class="row detail-options-wrap">
+                        
+                        <!--Register button-->
                         <div class="col-md-6 col-lg-3 featured-responsive c2 c1">
                             <div class="featured-place-wrap" data-toggle="modal" data-target="#stulec">
                                 <a href="#">
@@ -95,7 +97,9 @@
                                 </a>
                             </div>
                         </div>
+                        <!--End of register button-->
                         
+                        <!--select student or lecturer-->
                          <div class="modal fade" id="stulec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
@@ -109,6 +113,7 @@
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <div class="row" style="margin-top:20px;">
+                                                <!--register lecturer button-->
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
                                                         <a href="/admin/register/lecturer">
@@ -126,6 +131,9 @@
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <!--end of register lecturer button-->
+                                                
+                                                <!--register student button-->
                                                 <div class="col-lg-6 col-md-6 featured-responsive c2">
                                                     <div class="featured-place-wrap">
                                                         <a href="/admin/register/student">
@@ -143,14 +151,17 @@
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <!--end of register student button-->
+                                                
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--end of select student or lecturer-->
                         
-                        
+                        <!--payments button-->
                         <div class="col-md-6 col-lg-3 featured-responsive">
                             <div class="featured-place-wrap">
                                 <a href="/admin/payments">
@@ -171,6 +182,7 @@
                                             <li><span><i class="fas fa-print inner-icons"></i></span>
                                                 <p>Get Invoices</p>
                                             </li>
+                                                
 
                                         </ul>
                                         <div class="bottom-icons">
@@ -180,6 +192,9 @@
                                 </a>
                             </div>
                         </div>
+                        <!--end of payments button-->
+                        
+                        <!--attendance button-->
                         <div class="col-md-6 col-lg-3 featured-responsive c2">
                             <div class="featured-place-wrap"  data-toggle="modal" data-target="#classes">
                                 <a href="#classes">
@@ -209,7 +224,9 @@
                                 </a>
                             </div>
                         </div>
+                        <!--end of attendance button-->
                         
+                        <!--todays classes popup-->
                         <div class="modal fade" id="classes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
@@ -243,50 +260,12 @@
                                             </div> 
                                         </div>
                                     </div>
-                                    <!--<div class="modal-body">-->
-                                    <!--    <div class="container-fluid">-->
-                                    <!--        <div class="row" style="margin-top:20px;">-->
-                                    <!--            <div class="col-lg-6 col-md-6 featured-responsive c2">-->
-                                    <!--                <div class="featured-place-wrap">-->
-                                    <!--                    <a href="/admin/attendance/mark">-->
-                                    <!--                        <div class="image">-->
-                                    <!--                            <img src="https://www.tutors.gr/sites/default/files/maths_blackboard.jpg" style="height:100%" class="img-fluid" alt="#">-->
-                                    <!--                        </div>-->
-                                    <!--                        <div class="featured-title-box inner-title">-->
-                                    <!--                            <h6 style="margin:-10px">Maths - 2019 A/L</h6>-->
-                                    <!--                            <ul>-->
-                                    <!--                                <li><span class="icon-location-pin"></span>-->
-                                    <!--                                    <p>Register a new Lecturer</p>-->
-                                    <!--                                </li>-->
-                                    <!--                            </ul>-->
-                                    <!--                        </div>-->
-                                    <!--                    </a>-->
-                                    <!--                </div>-->
-                                    <!--            </div>-->
-                                    <!--            <div class="col-lg-6 col-md-6 featured-responsive c2">-->
-                                    <!--                <div class="featured-place-wrap">-->
-                                    <!--                    <a href="#">-->
-                                    <!--                        <div class="image">-->
-                                    <!--                            <img src="http://c1.thejournal.ie/media/2013/06/maths-equation-one-million-dollars-390x285.jpg" style="height:100%" class="img-fluid" alt="#">-->
-                                    <!--                        </div>-->
-                                    <!--                        <div class="featured-title-box inner-title">-->
-                                    <!--                            <h6 style="margin:-10px">Maths - 2016 A/L</h6>-->
-                                    <!--                            <ul>-->
-                                    <!--                                <li><span class="icon-location-pin"></span>-->
-                                    <!--                                    <p>Register a new Student</p>-->
-                                    <!--                                </li>-->
-                                    <!--                            </ul>-->
-                                    <!--                        </div>-->
-                                    <!--                    </a>-->
-                                    <!--                </div>-->
-                                    <!--            </div>-->
-                                    <!--        </div>-->
-                                    <!--    </div>-->
-                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
+                        <!--end of todays classes popup-->
                         
+                        <!--news feed button-->
                         <div class="col-md-6 col-lg-3 featured-responsive">
                             <div class="featured-place-wrap">
                                 <a href="/admin/newsfeeds">
@@ -317,6 +296,8 @@
                                 </a>
                             </div>
                         </div>
+                        <!--end of news feed button-->
+                        
                     </div>
                 </div>
             </div>

@@ -267,6 +267,7 @@
   var i=0
   var count=1
   
+  // configure the graph
   var myConfig = {
         type: "line",
         title: {
@@ -339,19 +340,21 @@
         series: []
       };
       
+      console.log(incomes)
+  // check all the incomes
   incomes.forEach(function(income){
-    if (yearsAr.indexOf(income.year) === -1){ 
-      if(classAr.length != 0){
+    if (yearsAr.indexOf(income.year) === -1){ //if the income.year is new
+    console.log(classAr)
+      if(classAr.length != 0){ //if the class array is not empty, means we should print a chart for the last year
         var details = {
           values: value,
           text: classAr[classAr.length-1]
         }
         
         myConfig.series.push(details)
-        console.log(details)
       }
       
-      if(yearsAr.length !=0){
+      if(yearsAr.length !=0){ //year is not empty, means this is not the first year, so we have to draw a chart
         myConfig.text = income.year
         zingchart.render({
           id: 'myChart'+i,
@@ -361,40 +364,34 @@
         i++
       }
       
+      //for every new year we have to do the rest
       yearsAr.push(income.year)
-      classAr=[]
+      classAr=[] //make the class array empty
       myConfig.scaleX.label.text = income.year
       myConfig.text = income.year
       myConfig.title.text = "Income"
-      myConfig.series = []
+      myConfig.series = [] //make the series empty for the new year
       
-      if(income.year==2018){
-        details = {
-            values: [0,0,0,0,0,0,0,0,0,3000,3000,1500],
-            text: "S05"
-        } 
-        myConfig.series.push(details)
-      }
       classAr.push(income.subID); 
-      value=[0,0,0,0,0,0,0,0,0,0,0,0]
-      value[months.indexOf(income.month)]=income.totalfee*3/4
+      value=[0,0,0,0,0,0,0,0,0,0,0,0] //make the value array empty
+      value[months.indexOf(income.month)]=income.totalfee*3/4 //add the income of the first record
     }
     
-    else{
-      if (classAr.indexOf(income.subID) === -1){
-        if(classAr.length != 0){
+    else{ //if it's the same year
+      if (classAr.indexOf(income.subID) === -1){ //same year and new class
+        if(classAr.length != 0){ //if class array is not empty, we have to add that class into the series
           var details = {
             values: value,
             text: classAr[classAr.length-1]
           }
           
-          myConfig.series.push(details)
+          myConfig.series.push(details) 
           classAr.push(income.subID); 
           value=[0,0,0,0,0,0,0,0,0,0,0,0]
         }
       }
         
-      value[months.indexOf(income.month)]=income.totalfee*3/4
+      value[months.indexOf(income.month)]=income.totalfee*3/4 //add the income of the record
     }
     
     if(count==incomes.length){
@@ -404,10 +401,6 @@
       }
       
       myConfig.text = income.year
-      details = {
-            values: [1500,1500,1500,1500,0,0,0,0,0,0,0,0],
-            text: "S05"
-        } 
       myConfig.series.push(details)
       
       zingchart.render({
