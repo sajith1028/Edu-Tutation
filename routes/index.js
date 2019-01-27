@@ -23,7 +23,7 @@ var con             =   mysql.createConnection({
 
 router.post("/login", passport.authenticate("local-login", 
     {
-failureRedirect: "/login"
+    failureRedirect: "/login"
     }), function(req, res){
         req.flash("success","You logged in!");
         if(req.user.username.charAt(0)=='A')
@@ -34,9 +34,6 @@ failureRedirect: "/login"
         res.redirect("/student");
         else if(req.user.username.charAt(0)=='L')
         res.redirect("/lecturer");
-        
-        
-        
 });
 
 router.get("/login",function(req,res)
@@ -58,11 +55,12 @@ router.get("/register", function(req,res){
     res.render("register");
 });
 
+//Setting up admin accounts
 router.post("/register",function(req,res){
     var username=req.body.username;
     var password=req.body.password;
    
-   
+        //Convert the password to a hash
        bcrypt.hash(password, 10, function(err, hash) { //hash contains the encrypted password 
        var users={
         "username":req.body.username,

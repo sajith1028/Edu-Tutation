@@ -7,31 +7,33 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
             <!-- End of responsive screen size -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            
         <!-- End of Bootstrap -->
-            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
-    <!-- Simple line Icon -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+        
+        <!--CSS-->
         <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
         <link rel="stylesheet" type="text/css" href="../stylesheets/home.css"> 
         
+        <!--SweetAlert-->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- Particles -->
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         
+        <!-- Particles -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
         <script>
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
-    <!-- End of Particles -->    
+        <script src="../scripts/parsley.js"></script>
+        <!-- End of Particles -->    
     </head>
-<body>
+    <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/"><img id="AkuraBrand"src="https://i.imgur.com/GwaGx2B.png" ></a>
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+    
     
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -83,7 +85,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-12 comment-main rounded">
                                         <ul class="p-0">
-                                            <form class="ui form" action="/admin/newsfeed/new" method="POST">
+                                            <form class="ui form" data-parsley-validate action="/admin/newsfeed/new" id="postForm" method="POST">
                                                 <li>
                                                     <div class="row comment-box pr-4"  style="padding-top:10px">
                                                         <div class="col-lg-1 col-3 user-img text-center">
@@ -98,7 +100,7 @@
                                                                         </div>
                                                                         
                                                                         <div class="col-lg-12 col-1">
-                                                                            <input type="text" name="blog[title]" placeholder="title" class="form-control title" id="exampleFormControlInput1 title" required>
+                                                                            <input type="text" name="blog[title]" minlength="5" placeholder="title" class="form-control title" id="exampleFormControlInput1 title" required>
                                                                         </div>
                                                                     </div>
                                                                           
@@ -107,7 +109,7 @@
                                                                             <label for="exampleFormControlTextarea1">Content</label>
                                                                         </div>
                                                                         <div class="col-lg-12 col-1">
-                                                                            <textarea name="blog[body]" class="form-control content" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                                                                            <textarea name="blog[body]" minlength="6" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
                                                                         </div>
                                                                     </div>          
                                                                 </div>
@@ -161,7 +163,7 @@
                                                                             <!--Delete Post by its ID -->
                                                                             <form id="deletePost" method="POST" action="/admin/newsfeed/delete/<%=posts[i].sch_ID%>">
                                                                                 <p class="w-100 p-2 m-0 font-black"><span class="float-right"><i class="fa fa-clock-o mr-1" aria-hidden="true">
-                                                                                    <button type="button" class="btn btn-danger delNPBtn">Delete</button>
+                                                                                    <button id="<%=posts[i].sch_ID%>" name = "<%=posts[i].sch_ID%>" type="button" class="btn btn-danger delNPBtn">Delete</button>
                                                                                 </i></span></p>
                                                                             </form>
                                                                         </div>

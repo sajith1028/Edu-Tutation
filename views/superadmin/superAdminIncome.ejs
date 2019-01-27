@@ -7,33 +7,29 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
             <!-- End of responsive screen size -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            
         <!-- End of Bootstrap -->
-            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
-            <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-    <!-- Simple line Icon -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+        
+        <!-- Simple line Icon -->
         <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
         
-    <!-- Particles -->
+        <!-- Particles -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        
         <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
         <script>
             particlesJS.load('particles-js', '../json/particles.json')
         </script>
-    <!-- End of Particles -->    
+        <!-- End of Particles -->    
     
-    <!-- For Charts -->  
+        <!-- For Charts -->  
         <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
         <script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-		<script> 
+		    <script> 
 		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
 		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
-		    
-		</script>
-	<!-- End of For Charts --> 
-	  
+		    </script>
+	      <!-- End of For Charts --> 
     </head>
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -275,7 +271,7 @@
     tbody.fadeIn(1000)
     
     var trow=""
-    
+    var selectedYear=$("#alyear").val()
     classAr=[]
     //Set the title of the graph
     myConfig.text = $("#alyear").val()
@@ -290,15 +286,16 @@
       value=[0,0,0,0,0,0,0,0,0,0,0,0]
       maintenance=[0,0,0,0,0,0,0,0,0,0,0,0]
       
-      //Loop through
+      //Loop through each income to get the income of the selected year
       incomes.forEach(function(income){
-        if ($("#alyear").val()==income.year){ 
+        if (selectedYear==income.year){ 
+          //Calculate sum of income in each month
           value[months.indexOf(income.month)]+=income.totalfee
           maintenance[months.indexOf(income.month)]+=(income.totalfee/4)
           
           //Append data to the table
           trow=""
-          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
+          trow=trow.concat("<tr><td class='column1'>", income.year)
           trow=trow.concat("</td><td class='column7'><b>", income.month)
           trow=trow.concat("</b></td><td class='column2'>", income.subID)
           trow=trow.concat("</td><td class='column8'>", income.ALyear)
@@ -311,15 +308,16 @@
         }
         
       }) 
+      
       //Insert values to chart
       var details = {
         values: value,
-        text: "Total"
+        text: "Gross Income"
       }
       myConfig.series.push(details)
       var maintenanceDetails = {
         values: maintenance,
-        text: "Income"
+        text: "Net Income"
       }
       myConfig.series.push(maintenanceDetails)
     
@@ -327,23 +325,26 @@
     else{
       //If a class is also selected
       
+      //Reset monthly incomes
       value=[0,0,0,0,0,0,0,0,0,0,0,0]
       maintenance=[0,0,0,0,0,0,0,0,0,0,0,0]
       
+      //Loop through each record checking whether year & class match the selected criteria
       incomes.forEach(function(income){
         if ($("#alyear").val()==income.year && $("#class").val()==income.subID){ 
+          //Calculate sum of income in each month
           value[months.indexOf(income.month)]=income.totalfee
           maintenance[months.indexOf(income.month)]=(income.totalfee/4)
+          
           //Append data to table
           trow=""
           value[months.indexOf(income.month)]=income.totalfee
-          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
+          trow=trow.concat("<tr><td class='column1'>", income.year)
           trow=trow.concat("</td><td class='column7'><b>", income.month)
           trow=trow.concat("</b></td><td class='column2'>", income.subID)
           trow=trow.concat("</td><td class='column8'>", income.ALyear)
           trow=trow.concat("</td><td class='column6'>", income.subname)
           trow=trow.concat("</td><td class='column6'>", income.totalfee)
-          trow=trow.concat("</td><td class='column7' style='display:none;'>", income.totalfee*3/4)
           trow=trow.concat("</td><td class='column7'><b>",income.totalfee/4)
           trow.concat(trow, "</b></td></tr>")
           $('#tbody').append(trow);
@@ -353,13 +354,13 @@
       //Insert values to chart
       var details = {
         values: value,
-        text: $("#class").val()
+        text: "Gross Income"
       }
       myConfig.series.push(details)
     
     var maintenanceDetails = {
         values: maintenance,
-        text: "Income"
+        text: "Net Income"
       }
       myConfig.series.push(maintenanceDetails)
     }
@@ -370,65 +371,63 @@
     });
   }).change();
   
-  //If a class is selected
+  //If a class is selected leaving the year unchanged
   $('#class').change(function(){
-    //Reset table
+    
+    //Reset table data
     var tbody = $("#tbody");
     tbody.html('');
     tbody.hide();
     tbody.fadeIn(1000)
     
     var className = $("#class").val()
-    //Add graph to page
-    var graph = $('#carouselExampleIndicators')
-    graph.html('<div id="chart" style="border:1px dotted gray"><a class="zc-ref"></a></div>  <div class="table"></div>')
-    
+    var selectedYear = $("#alyear").val()
     value=[0,0,0,0,0,0,0,0,0,0,0,0]
     maintenance=[0,0,0,0,0,0,0,0,0,0,0,0]
+    
     //Set chart title
     myConfig.text = className
     myConfig.title.text = className
     myConfig.series = []
     
-    {
+    {//Loop through each income
       incomes.forEach(function(income){
-        if ($("#class").val()==income.subID && $("#alyear").val()==income.year){
+        if (className==income.subID && selectedYear==income.year){
           value[months.indexOf(income.month)]=income.totalfee
-          trow=""
           maintenance[months.indexOf(income.month)]=(income.totalfee/4)
-          trow=trow.concat("<tr data-toggle='modal' data-target='#incomeDiv'><td class='column1'>", income.year)
+          
+          //Append data to table
+          trow=""
+          trow=trow.concat("<tr><td class='column1'>", income.year)
           trow=trow.concat("</td><td class='column7'><b>", income.month)
           trow=trow.concat("</b></td><td class='column2'>", income.subID)
           trow=trow.concat("</td><td class='column8'>", income.ALyear)
           trow=trow.concat("</td><td class='column6'>", income.subname)
           trow=trow.concat("</td><td class='column6'>", income.totalfee)
-          trow=trow.concat("</td><td class='column7' style='display:none;'>", income.totalfee/4)
           trow=trow.concat("</td><td class='column7'><b>",income.totalfee/4)
           trow.concat(trow, "</b></td></tr>")
           $('#tbody').append(trow);
         }
       })
     }
+    
     //Insert values to chart
     var details = {
       values: value,
-      text: className
+      text: "Gross Income"
     }
-    
     myConfig.series.push(details)
-        
     var maintenanceDetails = {
         values: maintenance,
-        text: "Income"
+        text: "Net Income"
       }
     myConfig.series.push(maintenanceDetails)
       
+    //Render chart
     zingchart.render({
       id: 'myChart',
       data: myConfig,
     });
   });
-  //Add search facility to table
-  var table = $('#myTable').DataTable();
   </script>
 <% include ../partials/footer %> 

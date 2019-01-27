@@ -5,13 +5,6 @@ var SqlString       =   require('sqlstring');
 var moment          =   require('moment'); //To parse, validate, manipulate, and display dates and times
 var bcrypt          =   require("bcrypt"); // for encryption
 
-function isLoggedIn(req, res, next){
-if(req.isAuthenticated() && req.user.username.charAt(0)=='L' ){
-        return next();
-    }
-res.redirect("/login");
-}
-
 var pool = mysql.createPool({
   host: "localhost",
   user: "nimesha",
@@ -27,8 +20,17 @@ var con             =   mysql.createConnection({
                         database: "akura"
 });
 
+//Ensure user is logged in
+function isLoggedIn(req, res, next){
+if(req.isAuthenticated() && req.user.username.charAt(0)=='L' ){
+        return next();
+    }
+req.flash("error","Please login first")
+res.redirect("/login");
+}
+
 //lecturer home
-router.get("/",function(req, res) {
+router.get("/",isLoggedIn,function(req, res) {
     var sql="SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID and l.lecID='"+req.user.username+"';";//subjects related to the logged lec 
     
     var sql2="SELECT * from sch_changes order by created desc limit 2";//sch_changes
@@ -38,18 +40,27 @@ router.get("/",function(req, res) {
         pool.query(sql2,(err,res3,cols)=>{
             if(err) 
                 throw err;
-           res.render("lecturer/lecturerHome",{'myself':res2,posts:res3,moment:moment});
-           res.end();
+                
+                var sql3="SELECT login from lecturer where lecID='"+req.user.username+"';"; //first time
+                pool.query(sql3,(err,res4,cols)=>{
+                    
+                    var sql4="UPDATE lecturer SET login=1 where lecID='"+req.user.username+"';"; //after first time
+                    pool.query(sql4,(err,res5,cols)=>{
+                         res.render("lecturer/lecturerHome",{'myself':res2,posts:res3,moment:moment,firstTime:res4});
+                         res.end();
+                    })
+                })
         });
     });
 });
 
 //Display profile
-router.get("/profile", function(req,res){
+router.get("/profile",isLoggedIn, function(req,res){
      if(req.user){
-    var sql="select l.name,l.tele,l.email,l.qualification from lecturer l where l.lecID='"+req.user.username+"'";
+    var sql="select l.name,l.tele,l.email,l.qualification,l.address from lecturer l where l.lecID='"+req.user.username+"'";
 
         pool.query(sql,(err,res2,cols)=>{
+            console.log(res2);
            if (err) throw err;
            res.render("lecturer/lecturerProfile",{details:res2});
            res.end();
@@ -63,7 +74,7 @@ router.post("/profile",function(req,res){
     var pwd2=req.body.pwd2;
     
     //Update personal details
-    var sql="Update lecturer l set l.name="+SqlString.escape(req.body.name)+",l.tele="+SqlString.escape(req.body.telemob)+",l.email="+SqlString.escape(req.body.email)+",l.qualification="+SqlString.escape(req.body.qualif)+" where l.lecID='"+req.user.username+"';";
+    var sql="Update lecturer l set l.name="+SqlString.escape(req.body.name)+",l.tele="+SqlString.escape(req.body.telemob)+",l.email="+SqlString.escape(req.body.email)+",l.qualification="+SqlString.escape(req.body.qualif)+",l.address="+SqlString.escape(req.body.address)+" where l.lecID='"+req.user.username+"';";
     pool.query(sql,(err,res2,cols)=>{
         if(err) throw err;
         if(pwd1!=''){
@@ -82,7 +93,7 @@ router.post("/profile",function(req,res){
     res.redirect("/lecturer/profile");
 });
 
-router.get("/income", function(req,res){
+router.get("/income",isLoggedIn, function(req,res){
     var sql="select p.year, count(s.subID) as num,s.subID,s.year as ALyear,s.subname,p.month,s.fee,sum(s.fee) as totalfee from subject s,payment p, lecturer l where l.lecID=s.lecID and s.subID=p.subID and l.lecID='"+req.user.username+"' group by s.subID,p.month order by year,s.subID;";
     
     pool.query(sql, (err, res2, cols)=>{
@@ -109,7 +120,7 @@ router.get("/income", function(req,res){
 });
 
 //Add assignment result route
-router.get("/addAssignmentResults/:id", function(req,res){
+router.get("/addAssignmentResults/:id",isLoggedIn, function(req,res){
     var id = req.params.id;
     
     //Select student details from enrolment & student for the subject
@@ -168,7 +179,7 @@ router.post("/addAssignmentResults/:id", function(req,res){
 });
 
 //add course content page
-router.get("/addCourseContent/:id", function(req,res){
+router.get("/addCourseContent/:id",isLoggedIn, function(req,res){
     var id = req.params.id;
     var sql="SELECT * from content where subID='"+id+"' order by section;";
     pool.query(sql, (err, res2, cols)=>{
@@ -189,9 +200,9 @@ router.post("/addNewCourseContent/:id", function(req,res){
         
         var noc = res2[0].noc+1;
         
-        if (!req.files){}
+        if (!req.files)
             return console.log("upload a file");
-     
+        
         // The name of the input field is used to retrieve the uploaded file
         let courseFile = req.files.courseFile;
         
@@ -239,7 +250,7 @@ router.post("/deleteCourseContent/:idSub/:idCont",function(req, res) {
 });
 
 //Display discussion forum
-router.get("/forums/:id", function(req,res){
+router.get("/forums/:id",isLoggedIn, function(req,res){
     var id = req.params.id;
     var user=req.user.username;
     
@@ -308,10 +319,10 @@ router.post("/forums/delete/:idSub/post/:idPost",function(req, res) {
          var sql2="DELETE FROM discussion_posts where postID="+post+";";
          pool.query(sql2, (err, res2, cols)=>{
          if(err) throw err;
-         res.redirect("/lecturer/forums/"+sub);  
     });
     });
     
+    res.redirect("/lecturer/forums/"+sub);  
 });
 
 //Delete comment by commentID 
@@ -323,7 +334,7 @@ router.post("/forums/delete/:idSub/comment/:id",function(req, res) {
     pool.query(sql, (err, res2, cols)=>{
          if(err) 
             throw err;
-         res.redirect("/lecturer/forums/"+idSub);
+        res.redirect("/lecturer/forums/"+idSub);
     });
     
 });
@@ -332,6 +343,7 @@ router.post("/forums/delete/:idSub/comment/:id",function(req, res) {
 router.post("/forums/:id/comment",function(req, res) {
     var subID = req.params.id;
     var username = req.user.username;
+    console.log(req.body.comment)
     
     //Getting client's time
     var dte = new Date();
@@ -342,16 +354,15 @@ router.post("/forums/:id/comment",function(req, res) {
     pool.query(sql1,(err,res1,cols)=>{
        if (err) throw err;
        
-        var sql="insert into comments(comment,postID,postedAt,author,subID,authorName) values('"+req.body.comment+"','"+req.body.postID+"','"+created+"','"+req.user.username+"','"+subID+"','"+res1[0].name+"');";
+        var sql="insert into comments(comment,postID,postedAt,author,subID,authorName) values("+SqlString.escape(req.body.comment)+","+SqlString.escape(req.body.postID)+","+SqlString.escape(created)+","+SqlString.escape(req.user.username)+","+SqlString.escape(subID)+","+SqlString.escape(res1[0].name)+");";
         pool.query(sql, (err, res2, cols)=>{
-        if(err) throw err;  
-    });
+        if(err) throw err;  });
     });
     res.redirect("lecturer/forums/"+subID);
 });
 
 //Display results page
-router.get("/viewResults/:id", function(req,res){
+router.get("/viewResults/:id",isLoggedIn, function(req,res){
     var id = req.params.id;
     
     //Get assignment IDs
@@ -390,7 +401,7 @@ router.get("/viewResults/:id", function(req,res){
     
 });
 
-router.get("/news", function(req,res){
+router.get("/news",isLoggedIn, function(req,res){
     var sql="SELECT * from sch_changes order by created desc";
     
     // var dte = new Date();

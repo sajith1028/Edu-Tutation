@@ -156,32 +156,36 @@
     var nos = <%-JSON.stringify(nos)%>;
     var incomes = <%-JSON.stringify(incomes)%>;
 
-    var myConfig = {
+    var myConfig={
         "title": {
             "text":"Income Comparisson"
         },
-        "type": "line",
+        
+        "tooltip":{
+          "text": "income of %t is %v",
+        },
+        "type": "bar",
         "plot":{
-            "aspect":"spline"
-            
+            "stacked":true,
         },
         "scaleX":{
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             "label":{
-              "text":"2019"  
+                "text":"2019"  
             }
         },
         "series": []
-    };
+    }
     
     var classAr=[]
-    var value=[0,0,0,0,0,0,0,0,0,0,0,0]
-    var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var value=[0,0,0,0,0,0]
+    var months=['January','February','March','April','May','June'];
     var details={}
     var visited=false
     
     incomes.forEach(function(income){
       if (classAr.indexOf(income.subID) === -1){ // new class
+        
         if(visited){ //if class array is not empty, we have to add that class into the series
           details = {
             values: value,
@@ -190,29 +194,30 @@
           
           myConfig.series.push(details) 
           classAr.push(income.subID); 
-          value=[0,0,0,0,0,0,0,0,0,0,0,0]
+          value=[0,0,0,0,0,0]
         }
         visited=true
       }
-        
+      
       value[months.indexOf(income.month)]=income.amount //add the income of the record
    })            
  
     details = {
         values: value,
-        text: income.subID
+        stack:months.indexOf(income.month)+1,
+        text: income.subID,
+        width:2
     }
-      
+    
     myConfig.text = income.year
     myConfig.series.push(details)
-      
-    console.log(classAr)
+    
     zingchart.render({ 
     	id : 'income', 
     	data : myConfig,
     	height: 360, 
         width: '100%'
-    });
+    })
 </script>
 
 

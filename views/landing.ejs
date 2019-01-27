@@ -268,16 +268,16 @@
 
 <script>
   function initMap() {
-    var Akura = {lat: 6.9253668, lng:79.8691309};
-    var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
-    center: Akura
+        var Akura = {lat: 6.9253668, lng:79.8691309};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: Akura
         });
-  var marker = new google.maps.Marker({
-    position: Akura,
-    map: map
+        var marker = new google.maps.Marker({
+          position: Akura,
+          map: map
         });
-      }
+    }
 </script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpO1a0xSBOAPTQy1qweqewqGp9n35CIts&callback=initMap">

@@ -21,3 +21,8 @@ it('Student Home page status', function(done) {
         done();
     });
 });
+//harida? inna. gahala dennan. baya wenna epa
+//Student payment ejs ekata aluth table ekak showing total paid for each month
+
+//1)student.js eke SQL eken data gaththa
+//2)studentPayment.ejs eke table ekata damma

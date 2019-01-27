@@ -3,8 +3,62 @@ $('#submitBtn').click(function(){
         //if selected tab is new lecturer, submit form to register new lecturer
         var selectedTab= $('.nav-tabs .active').text();
         if(selectedTab=="New Lecturer") {
-            if($('#firstname').val()!='' && $('#lastname').val()!='' && $('#nic').val()!='' && $('#email').val()!='')
-                $('#registernew').submit();
+            var firstname=$('#firstname').val()
+            var lastname=$('#lastname').val()
+            var nic=$('#nic').val()
+            var email=$('#email').val()
+            
+            if(firstname!='' && lastname!='' && nic!='' && email!='')
+                {
+                    var RegExpression = /^[a-zA-Z\s]*$/; 
+                    if (RegExpression.test(firstname) && RegExpression.test(lastname)) {
+                    //Correct name
+                        if(/\S+@\S+\.\S+/.test(email))
+                        {
+                            //Valid email
+                            if(nic.length==12 || nic.length==10)
+                            {
+                                //valid nic
+                                $('#registernew').submit();
+                                
+                            }
+                            else
+                            {
+                                //invalid nic
+                                swal({
+                                title: "Incorrect format.",
+                                text:"Please insert a valid NIC",
+                                icon: "error",
+                                dangerMode: true,
+                                });
+                            }
+                        }
+                        else
+                        {
+                            //invalid email
+                            
+                                swal({
+                                title: "Incorrect format.",
+                                text:"Please insert a valid email",
+                                icon: "error",
+                                dangerMode: true,
+                                });
+                        
+                    
+                        }
+                    }
+                    else
+                    //Incorrect name
+                    {
+                        swal({
+                        title: "Invalid Characters",
+                        text: "Please state the name correctly",
+                        icon: "error",
+                        dangerMode: true,
+                    });
+                    }
+                }
+                
             else
             {
                 swal({

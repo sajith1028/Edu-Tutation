@@ -26,7 +26,7 @@
         <!-- particles -->
             <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         <!-- End of particles -->  
-    
+        <script src="../../scripts/parsley.js"></script>
         <script>
             particlesJS.load('particles-js', '/json/particles.json');
         </script>
@@ -89,13 +89,13 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Subject <%= enrolment[0].subID %> - Assignment Information</h3>
                                 </div>
-                                <form action="/lecturer/addAssignmentResults/<%= enrolment[0].subID %>" id="registernew" method="POST">
+                                <form action="/lecturer/addAssignmentResults/<%= enrolment[0].subID %>" id="registernew" method="POST" data-parsley-validate id="form">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Title</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" name="title" placeholder="Title" class="form-control" required>
+                                                    <input type="text" name="title" placeholder="Title" data-parsley-type="alphanum" minlength="5" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,7 +122,7 @@
                                                             	<input type="hidden" name="stID" value="<%=enrolment[i].stID%>">
                                                             	<td class="column3" style="width:300px"><%=enrolment[i].name%></td>
                                                             	<td class="column4" style="width:200px"><%=enrolment[i].average%></td>
-                                                            	<td class="column5" style="width:300px"><input type="number" min="0" max="100" name="marks" placeholder="Enter Mark" class="form-control" style="width:280px; margin-bottom:0;" required></td>
+                                                            	<td class="column5" style="width:300px"><input type="number" data-parsley-type='number' min="0" max="100" name="marks" placeholder="Enter Mark" class="form-control" style="width:280px; margin-bottom:0;" required></td>
                                                             </tr>
                                                         <% } %>
                                                         

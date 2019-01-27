@@ -167,7 +167,6 @@ function imgError(image) {
     image.src = "../images/users/student.png";
     return true;
 }
-
   $("#dueTable").dataTable({searching: false, paging: false, info: false});
   var dueTable=$("#dueTable").dataTable();
   
@@ -177,7 +176,6 @@ function imgError(image) {
     dueTable.remove()
     $("#dueTitle").html('No Due Payments')
   }
-
   var payments = <%-JSON.stringify(payments)%>;
   var name=''
   payments.forEach(function(payment){

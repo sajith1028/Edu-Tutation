@@ -193,6 +193,46 @@
     var subID = $('#subID').text().split(' ');
     subID=subID[subID.length-1];
     
+    $('#stID').click(function(){
+        $('#stID').removeClass('is-invalid');
+    })
+    
+    $('#checkBtn').click(function(){
+        if($('#stID').val()==''){
+            swal({
+              title: "Please enter a student ID number",
+              icon: "error",
+              dangerMode: true,
+            });
+            
+            $('#stID').addClass('is-invalid');
+        }
+        else{
+            var stid = $('#stID').val();
+            
+            if(stid.substr(0, 4)!="S-20" || stid.charAt(6)!="-" || stid.length!=10){
+                swal({
+                  title: "Incorrect format. Please insert a valid student ID",
+                  icon: "error",
+                  dangerMode: true,
+                });
+                
+                $('#stID').addClass('is-invalid');
+            }
+            
+            else{$.ajax({
+                    url: "/admin/payments/name",
+                    type: "POST",
+                    contentType:"application/json",
+                    data: JSON.stringify({stID:{"stID":stid}})
+                })
+                .done(function(rs2){
+                    $("#name").val(rs2);
+                })
+            }
+        }
+    });
+    
     $('.chkbxs').change(function(){
         if($(this).prop('checked')){
             var id=$(this).val();

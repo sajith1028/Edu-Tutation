@@ -119,6 +119,9 @@
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-body clck">
                                     <h1>Your next class is in</h1>
+                                    <%if (firstTime[0].login===0){%>
+                                            <h1>Welcome</h1>
+                                        <%}%>
                                     <div class="row class-details">
                                         <div class="col-lg-6">
                                             <div id="clockdiv">
@@ -328,6 +331,8 @@
         </div>
     </div>
 </div>
+
+
 <script>
 var myself = <%-JSON.stringify(myself)%>;
 

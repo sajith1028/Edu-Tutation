@@ -11,6 +11,11 @@ $("#img").error(function () {
 
 $('#submitBtn').click(function(){
     var valid=true;
+    var pwd1=$('#pwd1').val()
+    var pwd2=$('#pwd2').val()
+     
+     if(pwd1==pwd2)
+    {
     //Empty name
     var name=$('#name2').val();
        if(name==''){
@@ -28,7 +33,7 @@ $('#submitBtn').click(function(){
             var RegExpression = /^[a-zA-Z\s]*$/; 
         
             if (RegExpression.test(stname)) {
-              //if true name is correct
+              //if name is correct
                     
                       //Empty email
                     if($('#email2').val()==''){
@@ -83,6 +88,8 @@ $('#submitBtn').click(function(){
                                                             obj.email=email;
                                                             obj.gender=gender;
                                                             obj.address=address;
+                                                            obj.pwd1=pwd;
+                                                            obj.pwd2=pwd2;
 
                                                             $.ajax({
                                                             url: "/student/profile",
@@ -166,6 +173,18 @@ $('#submitBtn').click(function(){
     //             }
     // }
        }
+    }
+    else
+     {
+        swal({
+                            title: "Password mismatch",
+                            text:"Please re-enter the password",
+                            icon: "error",
+                            dangerMode: true,
+                            });
+                        
+                        $('#pwd2').addClass('is-invalid');
+    }
             });
             
             
@@ -249,6 +268,7 @@ $('#submitBtnLec').click(function(){
                                 obj.qualif=qualif;
                                 obj.pwd1=pwd;
                                 obj.pwd2=pwd2;
+                                obj.address=$('#address').val();
                                 
                                 $.ajax({
                                     url: "/lecturer/profile",

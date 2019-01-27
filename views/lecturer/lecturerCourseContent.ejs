@@ -25,7 +25,8 @@
         <!-- particles -->
             <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         <!-- End of particles -->  
-    
+        <script src="../../scripts/parsley.js"></script>
+        
         <script>
             particlesJS.load('particles-js', '/json/particles.json');
             
@@ -120,31 +121,31 @@
                                     <h3 class="panel-title">Subject <%= content.id.id  %> - Course Content</h3>
                                 </div>
                                 <% var source = "/lecturer/addNewCourseContent/"+content.id.id; %>
-                                <form action=<%= source %> method="POST" ref='uploadForm' onsubmit="return validateForm()" id='uploadForm' encType="multipart/form-data">
+                                <form action=<%= source %> method="POST" onsubmit="return validate()" ref='uploadForm' data-parsley-validate id='form' encType="multipart/form-data">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Section</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" name="section" placeholder="Section" class="form-control" required>
+                                                    <input type="text" name="section" placeholder="Section" data-parsley-type="alphanum" minlength="5" class="form-control" required>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Content Title</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" name="title" placeholder="Title" class="form-control" required>
+                                                    <input type="text" name="title" placeholder="Title" data-parsley-type="alphanum" minlength="5" class="form-control" required>
                                                 </div>
                                             </div>
                                                 
                                             <div class="row">    
-                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Description</label>
+                                                <label class="col-sm-1 control-label label" data-parsley-type="alphanum" minlength="5" style="margin-top:25px">Description</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" name="desc" placeholder="Description" class="form-control" style="margin-top:25px" required>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label" style="margin-top:25px">Chooses File</label>
                                                 <div class="col-sm-4">
-                                                    <div class="input-group input-file" name="courseFile">
-                                                		<input type="text" class="form-control"  id="courseFile" placeholder='Choose a file...' />			
+                                                    <div class="input-group input-file" name="courseFile" accept="application/pdf,application/vnd.ms-excel,audio/*,video/*,image/*">
+                                                		<input type="text" class="form-control"  id="courseFile"  required placeholder='Choose a file...' />			
                                                         <span class="input-group-btn">
                                                     		<button class="btn btn-default btn-choose" style="background-color:#4f5563; color:white; border-top-left-radius:0; border-bottom-left-radius:0; height:100%; font-size:12px" type="button">CHOOSE</button>
                                                 		</span>                        
