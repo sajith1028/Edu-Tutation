@@ -2,7 +2,7 @@ var express         =   require("express");
 var router          =   express.Router();
 var mysql           =   require("mysql");
 var SqlString       =   require('sqlstring');
-
+var bcrypt          =   require("bcrypt"); // for encryption
 var moment          =   require('moment'); //To parse, validate, manipulate, and display dates and times
 
 var pool = mysql.createPool({
@@ -64,9 +64,24 @@ router.get("/profile",isLoggedIn, function(req,res){
 });
 
 router.post("/profile",function(req,res){
+    var pwd1=req.body.pwd1;
+    var pwd2=req.body.pwd2;
+    
     var sql="Update student s set s.name="+SqlString.escape(req.body.name)+",s.school="+SqlString.escape(req.body.school)+",s.teleres="+SqlString.escape(req.body.teleres)+",s.telemob="+SqlString.escape(req.body.telemob)+",s.email="+SqlString.escape(req.body.email)+",s.gender="+SqlString.escape(req.body.gender)+",s.address="+SqlString.escape(req.body.address)+" where s.stID='"+req.user.username+"';";
     pool.query(sql,(err,res2,cols)=>{
         if(err) throw err;
+        if(pwd1!=''){
+           //Hash new password 
+            bcrypt.hash(pwd1, 10, function(err, newhash) {
+                        //Update password
+                        var sql2="UPDATE user SET password='"+newhash+"' WHERE username='"+req.user.username+"'";
+                        pool.query(sql2,(err,res4,cols)=>{
+                            if(err) throw err;
+                        });
+                
+            })
+            
+        }
         
     });
     res.redirect("/student/profile");
@@ -269,6 +284,39 @@ router.get("/news",isLoggedIn, function(req,res){
     });
 });
 
+router.post("/home/notifications",isLoggedIn, function(req,res){
+    var notifs=[]
+    var sql="SELECT s.title, s.created from sch_changes s, user where username='"+req.user.username+"' and lastLogin<created";
+    
+    pool.query(sql,(err,schChanges,cols)=>{
+        schChanges.forEach(function(sc){
+            sc.type='sc';
+            notifs.push(sc)
+        })
+        sql="select d.title, d.author, d.authorName, d.subID, d.postedAt from enrolment e, discussion_posts d, user u where u.lastLogin<d.postedAt and u.username='"+req.user.username+"' and e.stID='"+req.user.username+"' and e.subID=d.subID;"        
+        pool.query(sql,(err,posts,cols)=>{
+            posts.forEach(function(ps){
+                ps.type='ps';
+                notifs.push(ps)
+            })
+            sql="select c.created, c.subID, c.title, c.section from content c, enrolment e, user u where u.lastLogin<c.created and u.username='"+req.user.username+"' and e.stID='"+req.user.username+"' and e.subID=c.subID;"        
+            pool.query(sql,(err,content,cols)=>{
+                content.forEach(function(cn){
+                    cn.type='cn';
+                    notifs.push(cn)
+                })
+                sql="select c.authorName, c.author, d.title, c.postedAt, c.subID from comments c, discussion_posts d, user u where u.lastLogin<c.postedAt and u.username='"+req.user.username+"' and d.author='"+req.user.username+"' and d.postID=c.postID;"        
+                pool.query(sql,(err,comment,cols)=>{
+                    comment.forEach(function(cm){
+                        cm.type='cm';
+                        notifs.push(cm)
+                    })
+                    res.send(notifs);
+                });
+            });
+        });
+    });
+});
 
 module.exports = router;
 

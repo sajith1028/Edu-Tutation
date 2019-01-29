@@ -63,9 +63,47 @@ router.get("/register/student",isLoggedIn, function(req,res){
     res.render("admin/adminRegisterStudent");
 });
 
+//enrol existing student in new subject
+router.post("/register/student/subject",function(req, res) {
+    var subjects=req.body.subject;
+    var stID='S-2019-042';
+   
+    if(Array.isArray(subjects)){
+            subjects.forEach(function(subject){    
+                var sql3="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subject)+","+SqlString.escape(stID)+");";
+                console.log(sql3);
+                con.query(sql3, function (err, result) {
+                    if (err) throw err;
+                });
+                
+                var datetime = new Date();
+                var curDate = datetime.toJSON();
+            
+                var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+                var d = new Date();
+                var curMonth = months[d.getMonth()];        
+                var year=(new Date()).getFullYear();
+                
+                var sql5="INSERT INTO payment (date,month,amount,stID,subID,year) values('"+curDate+"','"+curMonth+"','3000',"+SqlString.escape(stID)+","+SqlString.escape(subject)+",'"+year+"');";
+                
+                con.query(sql5, function (err, result) {
+                    if (err) throw err;
+                });
+            });
+        }
+        else
+        {
+            var sql4="INSERT INTO enrolment (subID, stID) values("+SqlString.escape(subjects)+","+SqlString.escape(stID)+");";
+        }
+})
+
+
+
+
 //register new student
 router.post("/register/student/new",function(req, res) {
     //getting details of the student
+    
     var name=req.body.firstname+" "+req.body.lastname;
     var email=req.body.email;
     var ALyear=req.body.ALYear;
@@ -307,7 +345,7 @@ router.post("/payments/new",function(req, res) {
         
         subjects.forEach(function(sub){
             var subsplit=sub.split(',');
-            
+             
             var subject =subsplit[0];
             var month=subsplit[1];
             var fee=subsplit[2];
@@ -378,7 +416,7 @@ router.post("/payments/new",function(req, res) {
     //move file1.htm from 'test/' to 'test/dir_1/'
     moveFile('invoice.pdf', 'public');
     
-    req.flash("success","Payment added! Click here to print an invoice.");
+    req.flash("success","Payment successful! Click here to print an invoice.");
     res.redirect("/admin/payments");
 
 });
@@ -386,6 +424,84 @@ router.post("/payments/new",function(req, res) {
 //get register lecturer page
 router.get("/register/lecturer",isLoggedIn, function(req,res){
     res.render("admin/adminRegisterLecturer",{lecID:0});
+});
+
+router.get("/manage",isLoggedIn,function(req, res) {
+    var sql1="SELECT stID, name FROM student";
+    pool.query(sql1,(err,res1,cols)=>{
+        if(err) throw err;
+        
+        var sql2="SELECT lecID, name FROM lecturer";
+        pool.query(sql2,(err,res2,cols)=>{
+            if(err) throw err;
+            
+            res.render("admin/adminManageUsers",{lecturers:res2,students:res1}); 
+            res.end();
+        })
+        
+    })
+   
+});
+
+router.post("/manage/student",function(req, res) {
+    var stID=req.body.studentID;
+    
+    var sql1="DELETE FROM assignment WHERE stID='"+stID+"'";
+    pool.query(sql1,(err,res1,cols)=>{
+    
+        var sql3="DELETE FROM enrolment WHERE stID='"+stID+"'";
+        pool.query(sql3,(err,res3,cols)=>{
+            
+            var sql4="DELETE FROM payment WHERE stID='"+stID+"'";
+            pool.query(sql4,(err,res4,cols)=>{
+                
+                var sql2="DELETE FROM student WHERE stID='"+stID+"'";
+                pool.query(sql2,(err,res2,cols)=>{
+                    if(err) throw err;
+                    
+                    var sql5="DELETE FROM user WHERE username='"+stID+"'";
+                    pool.query(sql5,(err,res5,cols)=>{
+                        if(err) throw err;
+                        
+                        var sql6="DELETE FROM comments WHERE author='"+stID+"'";
+                        pool.query(sql6,(err,res6,cols)=>{
+                            
+                            res.redirect("/admin/manage");
+                        })
+                        
+                    })
+                    
+                })      
+            })
+        })
+    })
+});
+
+router.post("/manage/lecturer",function(req, res) {
+    var lecID=req.body.lecturerID;
+    
+    var sql1="DELETE FROM user WHERE username='"+lecID+"'";
+    console.log(sql1)
+    pool.query(sql1,(err,res2,cols)=>{
+    if(err) throw err;
+    
+        var sql2="DELETE FROM comments WHERE author='"+lecID+"'";
+        console.log(sql2)
+        pool.query(sql2,(err,res3,cols)=>{
+            if(err) throw err;
+            
+            var sql="DELETE FROM lecturer WHERE lecID='"+lecID+"'";
+            console.log(sql)
+            
+            pool.query(sql,(err,res1,cols)=>{
+                if(err) throw err;
+                
+                res.redirect("/admin/manage");
+            })  
+            
+        })
+         
+    })
 });
 
 //register a lecturer to a new class
@@ -449,6 +565,27 @@ router.post("/register/subject/new", function(req,res){
     
     
   
+});
+
+//delete subject
+router.post("/delete/subject/:subID",function(req, res) {
+   
+   var subID=req.params.subID;
+   var sql="DELETE FROM subject WHERE subID='" +subID+"'";
+   
+   pool.query(sql,(err,res1,cols)=>{
+       if(err) throw err;
+       var sql2="DELETE FROM assignment WHERE subID='" +subID+"'";
+   
+       pool.query(sql2,(err,res2,cols)=>{
+           if(err) throw err;
+           var sql3="DELETE FROM enrolment WHERE subID='" +subID+"'";
+   
+           pool.query(sql3,(err,res1,cols)=>{
+               if(err) throw err;
+           })
+   })
+   })
 });
 
 router.post("/register/subject/update", function(req,res){

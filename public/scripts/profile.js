@@ -88,7 +88,7 @@ $('#submitBtn').click(function(){
                                                             obj.email=email;
                                                             obj.gender=gender;
                                                             obj.address=address;
-                                                            obj.pwd1=pwd;
+                                                            obj.pwd1=pwd1;
                                                             obj.pwd2=pwd2;
 
                                                             $.ajax({

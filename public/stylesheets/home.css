@@ -565,3 +565,23 @@ h1{
   margin-bottom:20px;
   
 }
+
+.aNotif{
+  color:black;
+}
+
+.aNotif:link {
+  text-decoration: none;
+}
+
+.aNotif:visited {
+  text-decoration: none;
+}
+
+.aNotif:hover {
+  text-decoration: underline;
+}
+
+.aNotif:active {
+  text-decoration: none;
+}

@@ -194,6 +194,11 @@ router.get("/addCourseContent/:id",isLoggedIn, function(req,res){
 router.post("/addNewCourseContent/:id", function(req,res){
     var id = req.params.id;
     var sql="SELECT count(contentID) as noc from content where subID='"+id+"';";
+    
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var created = dte.toJSON();
+    
     pool.query(sql, (err, res2, cols)=>{
         if(err) 
             throw err;
@@ -225,7 +230,7 @@ router.post("/addNewCourseContent/:id", function(req,res){
             return console.log("done");
         });
         
-        var sql2="INSERT INTO content values ('"+fileName+"','"+req.body.section+"','"+req.body.title+"','"+req.body.desc+"','"+id+"');";
+        var sql2="INSERT INTO content values ('"+fileName+"','"+req.body.section+"','"+req.body.title+"','"+req.body.desc+"','"+id+"', "+SqlString.escape(created)+");";
         
         con.query(sql2, function (err, result) {
             if (err) throw err;

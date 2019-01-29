@@ -24,7 +24,17 @@ var changeTable = function(alyears){
 };
 
 $('#submitbtn').click(function(){
-    document.getElementById("registernew").submit();
+    var selectedTab= $('.nav-tabs .active').text();
+        
+    if(selectedTab=="New Student") 
+    {
+        document.getElementById("registernew").submit();
+    }
+    else
+    {
+        document.getElementById("registerexisting").submit();
+        
+    }
 });
 
 

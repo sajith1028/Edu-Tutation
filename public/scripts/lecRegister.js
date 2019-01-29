@@ -119,11 +119,53 @@ $('#submitBtn').click(function(){
                     });
                                     }
                 
-                            }, 2000);
+                            }, 2500);
             
         }
  });
  
+$('#deleteBtn').click(function(){
+    
+        //if selected tab is not new lecturer, delete class
+        var selectedTab= $('.nav-tabs .active').text();
+        
+        if(selectedTab!="New Lecturer") {
+            //send subject ID to be deleted
+            var subID=document.getElementsByName("subjectID")[0].value;
+            var subname=document.getElementsByName("subName")[0].value;
+            
+          swal({
+            title: "Are you sure?",
+            text: "The subject "+subID+" "+subname+" will be deleted!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("The subject has been deleted!", {
+                icon: "success",
+              });
+              
+             $.ajax({
+                url: "/admin/delete/subject/"+subID,
+                type: "POST",
+                contentType:"application/json"
+            })
+            .done(function(result){
+            })
+            }
+            setTimeout(function(){$('#Check').click();}, 1000);
+          });
+            
+           
+        }
+    
+});
+            
+            
+            
+            
 //On page load, if LecID is sent change tab to Assign Class 
 $(document).ready(function(){
     //After registering a new lecturer, continue to assign a class
@@ -135,7 +177,10 @@ $(document).ready(function(){
 //Display the update button only for Assign Class tab
  var selectedTab= $('.nav-tabs .active').text();
         if(selectedTab=="New Lecturer")
-            {document.getElementById("updateBtn").style.visibility="hidden";} 
+            {
+                document.getElementById("updateBtn").style.visibility="hidden";
+                document.getElementById("deleteBtn").style.visibility="hidden";
+            } 
  });
 
 $('#Check').click(function(){
@@ -155,6 +200,7 @@ $('#Check').click(function(){
     
     //Let the class details be updated
     document.getElementById("updateBtn").style.visibility="visible";
+    document.getElementById("deleteBtn").style.visibility="visible";
 });                
 
 

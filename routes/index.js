@@ -22,18 +22,20 @@ var con             =   mysql.createConnection({
 });
 
 router.post("/login", passport.authenticate("local-login", 
-    {
+{
     failureRedirect: "/login"
     }), function(req, res){
-        req.flash("success","You logged in!");
-        if(req.user.username.charAt(0)=='A')
-        res.redirect("/admin");
-        else if(req.user.username.substring(0,2)=="SA")
-        res.redirect("/superadmin");
-        else if(req.user.username.charAt(0)=='S')
-        res.redirect("/student");
-        else if(req.user.username.charAt(0)=='L')
-        res.redirect("/lecturer");
+        
+    req.flash("success","You logged in!");
+    if(req.user.username.charAt(0)=='A')
+    res.redirect("/admin");
+    else if(req.user.username.substring(0,2)=="SA")
+    res.redirect("/superadmin");
+    else if(req.user.username.charAt(0)=='S')
+    res.redirect("/student");
+    else if(req.user.username.charAt(0)=='L')
+    res.redirect("/lecturer"); 
+
 });
 
 router.get("/login",function(req,res)
@@ -87,6 +89,16 @@ router.post("/register",function(req,res){
 });
 
 router.get('/logout', (req, res)=>{
+    var dte = new Date();
+    dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
+    var created = dte.toJSON();       
+    
+    var sql="update user set lastLogin="+SqlString.escape(created)+" where username='"+req.user.username+"';";
+    
+    pool.query(sql, (err, res2, cols)=>{
+        if(err) throw err;
+    })
+        
     req.logout();
     req.flash("success","You logged out!");
     res.redirect("/");
