@@ -82,8 +82,8 @@ app.listen(process.env.PORT, process.env.IP, function(){
         
         //configuring the AWS environment
         AWS.config.update({
-            accessKeyId: "AKIAIQCMFM6IRC4DKZ3A",
-            secretAccessKey: "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"
+            accessKeyId: "",
+            secretAccessKey: ""
           });
         
         var s3 = new AWS.S3();
