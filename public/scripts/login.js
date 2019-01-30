@@ -10,3 +10,11 @@ $(document).ready(function(){
   else if(hour > 18 || hour <= 5)
     $('body').css({"background-image":'url("https://i.imgur.com/pQrc1hx.png")', "background-size": "cover", "background-repeat": "no-repeat"});
 });
+
+$('#recovery').click(function(){
+  swal({
+          title: "Recovery Email Sent",
+          icon: "success",
+          dangerMode: false
+        });
+})

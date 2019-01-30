@@ -94,3 +94,40 @@
     color: #000;
     float: left;
 }
+
+
+.modal{
+  background-color: rgba(0,0,0,0.5);
+}  
+
+.modal-header{
+  background-color: rgba(0,0,0,0.8);
+  color:white;
+  font-size:15px;
+}
+
+.modal-body{
+  padding-bottom: 0 !important;
+}
+
+.modal-content{
+  background-color: #FBFFD2;
+  border:none;
+}
+
+.inner-title{
+  height:80px;
+  text-align: center;
+}
+
+.fbtn {
+    font-size: 15px;
+  border-color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.8);
+  background-color: rgba(0,0,0,.7);
+  width: 70%;
+  height: 40px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}

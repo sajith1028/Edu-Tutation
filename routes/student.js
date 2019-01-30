@@ -284,6 +284,47 @@ router.get("/news",isLoggedIn, function(req,res){
     });
 });
 
+router.get("/notifications",isLoggedIn, function(req,res){
+    var notifs=[]
+    var sql="SELECT s.title, s.created from sch_changes s, user where username='"+req.user.username+"' limit 10;";
+    
+    pool.query(sql,(err,schChanges,cols)=>{
+        schChanges.forEach(function(sc){
+            sc.type='sc';
+            sc.date=sc.created;
+            notifs.push(sc);
+        })
+        sql="select d.title, d.author, d.authorName, d.subID, d.postedAt from enrolment e, discussion_posts d, user u where d.author<>'"+req.user.username+"' and u.username='"+req.user.username+"' and e.stID='"+req.user.username+"' and e.subID=d.subID  limit 10;"        
+        pool.query(sql,(err,posts,cols)=>{
+            posts.forEach(function(ps){
+                ps.type='ps';
+                ps.date=ps.postedAt;
+                notifs.push(ps);
+            })
+            sql="select c.created, c.subID, c.title, c.section from content c, enrolment e, user u where u.username='"+req.user.username+"' and e.stID='"+req.user.username+"' and e.subID=c.subID  limit 10;"        
+            pool.query(sql,(err,content,cols)=>{
+                content.forEach(function(cn){
+                    cn.type='cn';
+                    cn.date=cn.created;
+                    notifs.push(cn);
+                })
+                sql="select c.authorName, c.author, d.title, c.postedAt, c.subID from comments c, discussion_posts d, user u where c.author<>'"+req.user.username+"' and u.username='"+req.user.username+"' and d.author='"+req.user.username+"' and d.postID=c.postID  limit 10;"        
+                pool.query(sql,(err,comment,cols)=>{
+                    comment.forEach(function(cm){
+                        cm.type='cm';
+                        cm.date=cm.postedAt;
+                        notifs.push(cm);
+                    })
+                    
+                    notifs.sort(function(a, b){return a.date - b.date});
+                    notifs.reverse();
+                    res.render("student/studentNotifications",{notifs});
+                });
+            });
+        });
+    });
+});
+
 router.post("/home/notifications",isLoggedIn, function(req,res){
     var notifs=[]
     var sql="SELECT s.title, s.created from sch_changes s, user where username='"+req.user.username+"' and lastLogin<created";
@@ -291,26 +332,32 @@ router.post("/home/notifications",isLoggedIn, function(req,res){
     pool.query(sql,(err,schChanges,cols)=>{
         schChanges.forEach(function(sc){
             sc.type='sc';
-            notifs.push(sc)
+            sc.date=sc.created;
+            notifs.push(sc);
         })
-        sql="select d.title, d.author, d.authorName, d.subID, d.postedAt from enrolment e, discussion_posts d, user u where u.lastLogin<d.postedAt and u.username='"+req.user.username+"' and e.stID='"+req.user.username+"' and e.subID=d.subID;"        
+        sql="select d.title, d.author, d.authorName, d.subID, d.postedAt from enrolment e, discussion_posts d, user u where d.author<>'"+req.user.username+"' and u.lastLogin<d.postedAt and u.username='"+req.user.username+"' and e.stID='"+req.user.username+"' and e.subID=d.subID;"        
         pool.query(sql,(err,posts,cols)=>{
             posts.forEach(function(ps){
                 ps.type='ps';
-                notifs.push(ps)
+                ps.date=ps.postedAt;
+                notifs.push(ps);
             })
             sql="select c.created, c.subID, c.title, c.section from content c, enrolment e, user u where u.lastLogin<c.created and u.username='"+req.user.username+"' and e.stID='"+req.user.username+"' and e.subID=c.subID;"        
             pool.query(sql,(err,content,cols)=>{
                 content.forEach(function(cn){
                     cn.type='cn';
-                    notifs.push(cn)
+                    cn.date=cn.created;
+                    notifs.push(cn);
                 })
-                sql="select c.authorName, c.author, d.title, c.postedAt, c.subID from comments c, discussion_posts d, user u where u.lastLogin<c.postedAt and u.username='"+req.user.username+"' and d.author='"+req.user.username+"' and d.postID=c.postID;"        
+                sql="select c.authorName, c.author, d.title, c.postedAt, c.subID from comments c, discussion_posts d, user u where c.author<>'"+req.user.username+"' and u.lastLogin<c.postedAt and u.username='"+req.user.username+"' and d.author='"+req.user.username+"' and d.postID=c.postID;"        
                 pool.query(sql,(err,comment,cols)=>{
                     comment.forEach(function(cm){
                         cm.type='cm';
-                        notifs.push(cm)
+                        cm.date=cm.postedAt;
+                        notifs.push(cm);
                     })
+                    
+                    notifs.sort(function(a, b){return a.date - b.date});
                     res.send(notifs);
                 });
             });

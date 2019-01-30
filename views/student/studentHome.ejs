@@ -129,7 +129,7 @@
                                 <div class="panel-body clck">
                                     <h1>Your next class is in</h1>
                                         <%if (firstTime[0].login===0){%>
-                                            <h1>Welcome</h1>
+                                           
                                         <% } %>
                                     <div class="row class-details">
                                         <div class="col-lg-6">
@@ -435,12 +435,12 @@ $.ajax({
         if(i==0){
             str='<li class="notification-box"><center>No new notifications</center></li>'
             $('#notifs').append(str);
-            $('#notifs').append('<li class="footer bg-dark text-center"><a href="" class="text-light">View History</a></li>'); 
+            $('#notifs').append('<li class="footer bg-dark text-center"><a href="/student/notifications" class="text-light">View History</a></li>'); 
         }
         else{
             if(localStorage.getItem("viewed")!=1 || localStorage.getItem("number")!=i)
                 $('#ball').append('<i class="fas fa-circle" style="margin-left:-6px; margin-bottom:-12px; padding-top:15px; color:red; font-size:10px"></i>')
-            $('#notifs').append('<li class="footer bg-dark text-center"><a href="" class="text-light">View All</a></li>'); 
+            $('#notifs').append('<li class="footer bg-dark text-center"><a href="/student/notifications" class="text-light">View All</a></li>'); 
         }
 
         localStorage.setItem("number", i);
@@ -485,12 +485,12 @@ setInterval(function() {
                 if(i==0){
                     str='<li class="notification-box"><center>No new notifications</center></li>'
                     $('#notifs').append(str);
-                    $('#notifs').append('<li class="footer bg-dark text-center"><a href="" class="text-light">View History</a></li>'); 
+                    $('#notifs').append('<li class="footer bg-dark text-center"><a href="/student/notifications" class="text-light">View History</a></li>'); 
                 }
                 else{
                     if(localStorage.getItem("viewed")!=1 || localStorage.getItem("number")!=i)
                         $('#ball').append('<i class="fas fa-circle" style="margin-left:-6px; margin-bottom:-12px; padding-top:15px; color:red; font-size:10px"></i>')
-                    $('#notifs').append('<li class="footer bg-dark text-center"><a href="" class="text-light">View All</a></li>'); 
+                    $('#notifs').append('<li class="footer bg-dark text-center"><a href="/student/notifications" class="text-light">View All</a></li>'); 
                 }
         
                 localStorage.setItem("number", i);

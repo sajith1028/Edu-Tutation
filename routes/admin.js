@@ -452,7 +452,7 @@ router.post("/manage/student",function(req, res) {
         var sql3="DELETE FROM enrolment WHERE stID='"+stID+"'";
         pool.query(sql3,(err,res3,cols)=>{
             
-            var sql4="DELETE FROM payment WHERE stID='"+stID+"'";
+            var sql4="DELETE FROM attendance WHERE stID='"+stID+"'";
             pool.query(sql4,(err,res4,cols)=>{
                 
                 var sql2="DELETE FROM student WHERE stID='"+stID+"'";

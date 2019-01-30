@@ -8,12 +8,19 @@ var session         =   require('express-session');
 var CookieParser    =   require('cookie-parser');
 var passport        =   require('passport');
 var passportConfig  =   require('./config/passport');
+var moment   = require('moment');
+var schedule = require('node-schedule');
 var con             =   mysql.createConnection({
                         host: "localhost",
                         user: "nimesha",
                         password: "",
                         database: "akura"
 });
+
+const AWS = require('aws-sdk');
+const fs = require('fs');
+const path = require('path');
+
 var fileUpload      =   require('express-fileupload'); //for images
 
 //ok
@@ -68,5 +75,74 @@ var superAdminRoutes    = require("./routes/superadmin");
 app.use("/superAdmin", superAdminRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
+    var backUp = schedule.scheduleJob({hour: 00, minute: 00, dayOfWeek: 0}, function(){
+        var exec = require('child_process').exec;
+        var name = 'mysql-backup-' + moment().format('YYYY-MM-DD-HH-mm-ss') + '.sql'
+        var child = exec(' mysqldump -u nimesha akura > ' + name);
+        
+        //configuring the AWS environment
+        AWS.config.update({
+            accessKeyId: "AKIAIQCMFM6IRC4DKZ3A",
+            secretAccessKey: "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"
+          });
+        
+        var s3 = new AWS.S3();
+        var filePath = name;
+        
+        //configuring parameters
+        var params = {
+          Bucket: 'akura',
+          Body : fs.createReadStream(filePath),
+          Key :filePath
+        };
+        
+        s3.upload(params, function (err, data) {
+          //handle error
+          if (err) {
+            console.log("Error", err);
+          }
+        
+          //success
+          if (data) {
+            console.log("Uploaded in:", data.Location);
+          }
+        });  
+    });
+    
+    //uncomment this to prove its happening
+    
+    // var exec = require('child_process').exec;
+    // var name = 'mysql-backup-' + moment().format('YYYY-MM-DD-HH-mm-ss') + '.sql'
+    // var child = exec(' mysqldump -u nimesha akura > ' + name);
+    
+    // //configuring the AWS environment
+    // AWS.config.update({
+    //     accessKeyId: "AKIAIQCMFM6IRC4DKZ3A",
+    //     secretAccessKey: "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"
+    //   });
+    
+    // var s3 = new AWS.S3();
+    // var filePath = name;
+    
+    // //configuring parameters
+    // var params = {
+    //   Bucket: 'akura',
+    //   Body : fs.createReadStream(filePath),
+    //   Key :filePath
+    // };
+    
+    // s3.upload(params, function (err, data) {
+    //   //handle error
+    //   if (err) {
+    //     console.log("Error", err);
+    //   }
+    
+    //   //success
+    //   if (data) {
+    //     console.log("Uploaded in:", data.Location);
+    //   }
+    // });
+    
+    
     console.log("Akura server has started ...");
 }); 

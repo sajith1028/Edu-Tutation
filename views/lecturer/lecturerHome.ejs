@@ -31,6 +31,7 @@
 		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
 		    
 		</script>
+		<link rel="stylesheet" type="text/css" href="../stylesheets/notifications.css"> 
     </head>
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -44,25 +45,40 @@
     <ul class="navbar-nav mr-auto">
         <a> </a>
     </ul>
-    
-    <ul class="nav navbar-nav navbar-right">
-           <% if(!currentUser){ %>
-    <a  id="register"href="/login">
-      <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
-    </a>
-   <% } else { %>
-    <ul class="navbar-nav nav-link">
-        <a class="links"  href="/lecturer/profile">
-          <%=currentUser.username%> 
-          <img src="../images/users/<%=currentUser.username%>.jpg" class="rounded-circle border user-image" alt="profile-image" id="img">
-        </a>
+<ul class="nav navbar-nav navbar-right">
+        <% if(!currentUser){ %>
+            <a  id="register"href="/login">
+              <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+            </a>
+        <% } else { %>
+            <li class="nav-item dropdown" >
+                  <a class="nav-link text-light" id="bell"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bell" style='font-size: 18px; padding-top:5px'></i>
+                    <span id="ball"></span>
+                  </a>
+                    <ul class="dropdown-menu" id="notifs" style="box-shadow: 0px 0px 1px 5000px rgba(0,0,0,0.6);">
+                      <li class="head text-light bg-dark">
+                        <div class="row">
+                          <div class="col-lg-12 col-sm-12 col-12">
+                            <span>Notifications</span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                </li>
+            <li class="navbar-nav nav-link">
+                <a class="links"  href="/student/profile">
+                  <%=currentUser.username%> 
+                  <img src="../images/users/<%=currentUser.username%>.jpg" onerror="imgError(this);" class="rounded-circle border user-image"  id="img">
+                </a>
+            </li>
+            <li class="navbar-nav nav-link">
+                <a  id="register"href="/logout">
+                  <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                </a>
+            </li>
+        <% } %>
     </ul>
-    <ul class="navbar-nav nav-link">
-        <a  id="register"href="/logout">
-          <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
-        </a>
-    </ul>
-    <% } %>
   </div>
 </nav>
 <div id="particles-js">
@@ -120,7 +136,7 @@
                                 <div class="panel-body clck">
                                     <h1>Your next class is in</h1>
                                     <%if (firstTime[0].login===0){%>
-                                            <h1>Welcome</h1>
+                                            
                                         <%}%>
                                     <div class="row class-details">
                                         <div class="col-lg-6">
@@ -401,9 +417,106 @@ var x = setInterval(function() {
         minutes='0' + minutes
     minutesSpan.innerHTML = minutes;
     if(seconds<10)
-        seconds='0' + second
+        seconds='0' + seconds
     secondsSpan.innerHTML = seconds
     
 }, 1000);
+
+
+
+var nOfItems = 0
+
+$.ajax({
+    url: "/lecturer/home/notifications",
+    type: "POST",
+    contentType:"application/json",
+    
+    'success': function (data) {
+        data=data.reverse()
+        var i=0
+        var str=''
+        nOfItems=data.length
+        data.forEach(function(subArray){
+            if(i%2==0){
+                 str='<li class="notification-box">'
+            }
+            else{
+                 str='<li class="notification-box bg-gray">'
+            }
+            i++
+            str=str+'<div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center" style="padding-top:0px">'
+            if(subArray.type=='sc')
+                str=str+'<a class="aNotif" href="/lecturer/news"><img src="../images/users/admin.png" class="w-50 rounded-circle"></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">Admin - Schedule Changes</strong><div>'+ subArray.title +'</div><small class="text-warning">'+ subArray.created.substring(0,10)+'   -   '+ subArray.created.substring(12,16)+'</small></div></a></div></li>'            
+            else if(subArray.type=='ps')
+                str=str+'<a class="aNotif" href="/lecturer/forums/'+subArray.subID+'"><img src="../images/users/'+subArray.author+'.jpg" class="w-50 rounded-circle"></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">'+ subArray.authorName +' posted on '+ subArray.subID +'</strong><div>'+ subArray.title +'</div><small class="text-warning">'+ subArray.postedAt.substring(0,10)+'   -   '+ subArray.postedAt.substring(12,16)+'</small></div></a></div></li>'            
+            else
+                str=str+'<a class="aNotif" href="/lecturer/forums/'+subArray.subID+'"><img src="../images/users/'+subArray.author+'.jpg" class="w-50 rounded-circle"></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">'+ subArray.authorName +' commented on '+ subArray.title +'</strong><div>'+ subArray.title +'</div><small class="text-warning">'+ subArray.postedAt.substring(0,10)+'   -   '+ subArray.postedAt.substring(12,16)+'</small></div></a></div></li>'                         
+            $('#notifs').append(str);                     
+        })
+        
+        if(i==0){
+            str='<li class="notification-box"><center>No new notifications</center></li>'
+            $('#notifs').append(str);
+            $('#notifs').append('<li class="footer bg-dark text-center"><a href="/lecturer/notifications" class="text-light">View History</a></li>'); 
+        }
+        else{
+            if(localStorage.getItem("viewed")!=1 || localStorage.getItem("number")!=i)
+                $('#ball').append('<i class="fas fa-circle" style="margin-left:-6px; margin-bottom:-12px; padding-top:15px; color:red; font-size:10px"></i>')
+            $('#notifs').append('<li class="footer bg-dark text-center"><a href="/lecturer/notifications" class="text-light">View All</a></li>'); 
+        }
+
+        localStorage.setItem("number", i);
+    }
+})
+
+setInterval(function() {
+    $.ajax({
+        url: "/lecturer/home/notifications",
+        type: "POST",
+        contentType:"application/json",
+        
+        'success': function (data) {
+            if(nOfItems!=data.length){
+                nOfItems=data.length
+                document.getElementById("ball").innerHTML =''
+                document.getElementById("notifs").innerHTML =''
+                $("#notifs").append('<li class="head text-light bg-dark"><div class="row"><div class="col-lg-12 col-sm-12 col-12"><span>Notifications</span></div></div></li>')
+                var i=0
+                var str=''
+                data=data.reverse()
+                data.forEach(function(subArray){
+                    if(i%2==0){
+                         str='<li class="notification-box">'
+                    }
+                    else{
+                         str='<li class="notification-box bg-gray">'
+                    }
+                    i++
+                    str=str+'<div class="row"><div class="col-lg-3 col-sm-3 col-3 text-center" style="padding-top:0px">'
+                    if(subArray.type=='sc')
+                        str=str+'<a class="aNotif" href="/lecturer/news"><img src="../images/users/admin.png" class="w-50 rounded-circle"></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">Admin - Schedule Changes</strong><div>'+ subArray.title +'</div><small class="text-warning">'+ subArray.created.substring(0,10)+'   -   '+ subArray.created.substring(12,16)+'</small></div></a></div></li>'            
+                    else if(subArray.type=='ps')
+                        str=str+'<a class="aNotif" href="/lecturer/forums/'+subArray.subID+'"><img src="../images/users/'+subArray.author+'.jpg" class="w-50 rounded-circle"></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">'+ subArray.authorName +' posted on '+ subArray.subID +'</strong><div>'+ subArray.title +'</div><small class="text-warning">'+ subArray.postedAt.substring(0,10)+'   -   '+ subArray.postedAt.substring(12,16)+'</small></div></a></div></li>'            
+                    else
+                        str=str+'<a class="aNotif" href="/lecturer/forums/'+subArray.subID+'"><img src="../images/users/'+subArray.author+'.jpg" class="w-50 rounded-circle"></div><div class="col-lg-8 col-sm-8 col-8"><strong class="text-info">'+ subArray.authorName +' commented on '+ subArray.title +'</strong><div>'+ subArray.title +'</div><small class="text-warning">'+ subArray.postedAt.substring(0,10)+'   -   '+ subArray.postedAt.substring(12,16)+'</small></div></a></div></li>'                         
+                    $('#notifs').append(str);                     
+                })
+                
+                if(i==0){
+                    str='<li class="notification-box"><center>No new notifications</center></li>'
+                    $('#notifs').append(str);
+                    $('#notifs').append('<li class="footer bg-dark text-center"><a href="/lecturer/notifications" class="text-light">View History</a></li>'); 
+                }
+                else{
+                    if(localStorage.getItem("viewed")!=1 || localStorage.getItem("number")!=i)
+                        $('#ball').append('<i class="fas fa-circle" style="margin-left:-6px; margin-bottom:-12px; padding-top:15px; color:red; font-size:10px"></i>')
+                    $('#notifs').append('<li class="footer bg-dark text-center"><a href="/lecturer/notifications" class="text-light">View All</a></li>'); 
+                }
+        
+                localStorage.setItem("number", i);
+            }
+        }
+    })
+}, 5000);
 </script>
 <% include ../partials/footer %>

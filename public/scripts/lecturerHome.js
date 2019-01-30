@@ -23,7 +23,3 @@ function Forums(){
     var href = "/lecturer/forums/"+subjectId;
     window.location=href;
 }
-
-$("img").error(function () {
-  $(this).unbind("error").attr("src", "../images/users/notFound.png");
-});
