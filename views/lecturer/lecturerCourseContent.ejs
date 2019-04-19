@@ -68,7 +68,7 @@
 <!--End of calculating the years for hisroty-->
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/"><img id="AkuraBrand"src="images/img/GwaGx2B.png" ></a>
+      <a class="navbar-brand" href="/"><img id="AkuraBrand"src="/images/img/GwaGx2B.png" ></a>
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -154,17 +154,17 @@
                                             </div>
 
                                             <div class="row">
-                                                <label class="col-sm-1 control-label label">Accpet Responses?</label>
+                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Accpet Responses?</label>
                                                 <div class="col-sm-4">
-                                                    <input type="checkbox" name="accResponse" data-parsley-type="alphanum" class="form-control">
+                                                    <input type="checkbox" name="accResponse" class="" style="margin-top:35px">
                                                 </div>
                                                 <div class="col-sm-2"></div>
-                                                <label class="col-sm-1 control-label label">Due Date and Time</label>
+                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Due Date and Time</label>
                                                 <div class="col-sm-2">
-                                                    <input type="date" name="dueDate"  data-parsley-type="date" class="form-control" required>
+                                                    <input type="date" name="dueDate"  data-parsley-type="date" class="form-control" style="margin-top:25px">
                                                 </div>
                                                 <div class="col-sm-2">
-                                                    <input type="time" name="dueTime"  data-parsley-type="time" class="form-control" required>
+                                                    <input type="time" name="dueTime"  placeholder="hrs:min" data-parsley-type="time" class="form-control" style="margin-top:25px">
                                                 </div>
                                             </div>
 
@@ -260,5 +260,26 @@
     </div>
 </div>
 
+<script>
+//Make due date and time required when "Accept Responses?" is checked
+var checkBox = document.querySelector('input[type="checkbox"]');
+    var dateInput = document.querySelector('input[type="date"]');
+    var timeInput = document.querySelector('input[type="time"]');
+
+    function toggleRequired() {
+
+        if (dateInput.hasAttribute('required') !== true || timeInput.hasAttribute('required') !== true) {
+            dateInput.setAttribute('required','required');
+            timeInput.setAttribute('required','required');
+        }
+
+        else {
+            dateInput.removeAttribute('required');  
+            timeInput.removeAttribute('required'); 
+        }
+    }
+
+    checkBox.addEventListener('change',toggleRequired,false);
+</script>
 <script src="/scripts/register.js"></script>
 <% include ../partials/footer %>

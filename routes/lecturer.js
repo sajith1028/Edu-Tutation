@@ -214,8 +214,19 @@ router.post("/addNewCourseContent/:id", function(req,res){
         // Get the file format
         var format = courseFile.name.substring(courseFile.name.lastIndexOf('.'));
         
-        var fileName;
         
+        //Accept Responses?
+        var accResponse = 'y';
+
+        if(!req.body.accResponse)
+            accResponse = 'n';
+
+        //Due date and time format
+        var dueDate = req.body.dueDate;
+        var dueTime = req.body.dueTime;
+
+        var fileName;
+
         // Increment content id
         if(noc<10)
             fileName = id+"-0"+noc+format;
@@ -230,7 +241,7 @@ router.post("/addNewCourseContent/:id", function(req,res){
             return console.log("done");
         });
         
-        var sql2="INSERT INTO content values ('"+fileName+"','"+req.body.section+"','"+req.body.title+"','"+req.body.desc+"','"+id+"', "+SqlString.escape(created)+");";
+        var sql2="INSERT INTO content values ('"+fileName+"','"+req.body.section+"','"+req.body.title+"','"+req.body.desc+"','"+id+"', "+SqlString.escape(created)+",'"+accResponse+"', '"+dueDate+"', '"+dueTime+"' );";
         
         con.query(sql2, function (err, result) {
             if (err) throw err;
