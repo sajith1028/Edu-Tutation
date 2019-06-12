@@ -22,3 +22,8 @@ function results(){
     var href = "student/viewResults/"+subjectId;
     window.location=href;
 }
+
+function submit(){
+    var href = "student/viewSubmission/"+subjectId;
+    window.location=href;
+}

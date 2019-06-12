@@ -10,7 +10,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": "T.K. Jayasekara, T.N. Wickramasinghe, K.W.M.R.I.A Bandaranayake, R.M.T.G.K. Bandara",
+  "author": "T.K. Jayasekara, T.N. Wickramasinghe, K.W.M.R.I.A Bandaranayake, R.M.T.G.K. Bandara, S.L.Pathirathne",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.395.0",
@@ -28,6 +28,8 @@
     "jsonwebtoken": "^8.3.0",
     "jwt-simple": "^0.5.1",
     "localStorage": "^1.0.3",
+    "lodash": "^4.17.11",
+    "mime-types": "^2.1.24",
     "mocha": "^5.2.0",
     "moment": "^2.22.2",
     "mysql": "^2.15.0",
@@ -38,8 +40,10 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pdfmake": "^0.1.38",
+    "plagiarism-checker": "^1.2.1",
     "randomstring": "^1.1.5",
     "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "sqlstring": "^2.3.1",
     "store": "^2.0.12",
     "sweetalert": "^2.1.0",
