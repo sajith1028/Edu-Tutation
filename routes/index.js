@@ -91,9 +91,11 @@ router.post("/register",function(req,res){
 router.get('/logout', (req, res)=>{
     var dte = new Date();
     dte.setTime(dte.getTime() +(dte.getTimezoneOffset()+330)*60*1000);
-    var created = dte.toJSON();       
+    var created = SqlString.escape(dte.toJSON());
+    var createdDate = created.substr(0, created.length - 6) + "'";
+    console.log(createdDate);
     
-    var sql="update user set lastLogin="+SqlString.escape(created)+" where username='"+req.user.username+"';";
+    var sql="update user set lastLogin="+createdDate+" where username='"+req.user.username+"';";
     
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
