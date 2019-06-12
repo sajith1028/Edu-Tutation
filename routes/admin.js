@@ -290,6 +290,11 @@ router.post("/register/student/new",function(req, res) {
     req.flash("success","Student registration successful! Click here to print the student ID.");
     res.redirect("/admin/register/student");
 });
+//end of student registration
+
+//register parent
+
+router.post("/admin/register/parent")
 
 router.post("/register/alyear", function(req,res){
     var sql ="SELECT distinct l.name, s.* FROM subject s, lecturer l where s.lecID=l.lecID and year='"+req.body.alyears.year+"'";
