@@ -294,7 +294,11 @@ router.post("/register/student/new",function(req, res) {
 
 //register parent
 
-router.post("/admin/register/parent")
+router.get("/register/parent", isLoggedIn, function(req,res){
+    res.render("admin/adminRegisterParent")
+});
+
+//end of register parent
 
 router.post("/register/alyear", function(req,res){
     var sql ="SELECT distinct l.name, s.* FROM subject s, lecturer l where s.lecID=l.lecID and year='"+req.body.alyears.year+"'";

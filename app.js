@@ -65,6 +65,9 @@ app.use("/",indexRoutes);
 var studentRoutes    = require("./routes/student");
 app.use("/student", studentRoutes);
 
+// var parentRoutes    = require("./routes/parent");
+// app.use("/parent", parentRoutes);
+
 var lecturerRoutes    = require("./routes/lecturer");
 app.use("/lecturer", lecturerRoutes);
 
