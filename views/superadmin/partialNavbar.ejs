@@ -1,0 +1,35 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/"><img id="AkuraBrand"src="/images/img/GwaGx2B.png" ></a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/superadmin">Home</a>
+          </ul>
+          <ul class="navbar-nav nav-link">
+            <a class="links" href="/superadmin/results">Results</a>
+          </ul>
+        </ul>
+    
+    <% if(!currentUser){ %>
+            <a  id="register"href="/login">
+                <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+            </a>
+        <% } else { %>
+            <ul class="navbar-nav nav-link">
+                <a id="user" class="links" style="margin-right:20px"  href="#">
+                    <%= currentUser.username %> 
+                </a>
+            </ul>
+            <ul class="navbar-nav nav-link">
+                <a  id="register"href="/logout">
+                    <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                </a>
+            </ul>
+        <% } %>
+  </div>
+</nav>

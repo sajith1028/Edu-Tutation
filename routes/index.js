@@ -35,6 +35,18 @@ router.post("/login", passport.authenticate("local-login", { failureRedirect: "/
 });
 
 router.get("/login", function (req, res) {
+    if(req.isAuthenticated()) {
+        if (req.user.username.charAt(0) == 'A')
+            res.redirect("/admin");
+        else if (req.user.username.substring(0, 2) == "SA")
+            res.redirect("/superadmin");
+        else if (req.user.username.charAt(0) == 'S')
+            res.redirect("/student");
+        else if (req.user.username.charAt(0) == 'L')
+            res.redirect("/lecturer");
+        
+        return;
+    }
     res.render("login");
 });
 
