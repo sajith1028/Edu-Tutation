@@ -27,14 +27,6 @@ function isLoggedIn(req, res, next) {
 }
 
 //creates the mysql connection to the database
-var pool = mysql.createPool({
-    host: "localhost",
-    user: "nimesha",
-    password: "",
-    database: "akura",
-    charset: "utf8"
-});
-
 var con = mysql.createConnection({
     host: "localhost",
     user: "nimesha",
@@ -48,7 +40,7 @@ router.get("/", isLoggedIn, function (req, res) {
 
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     var sql = "SELECT * from subject where day ='" + days[day] + "';"; //get today's classes
-    pool.query(sql, (err, res2, cols) => { //run sql query
+    con.query(sql, (err, res2, cols) => { //run sql query
         if (err)
             throw err;
 
@@ -96,9 +88,6 @@ router.post("/register/student/subject", function (req, res) {
     }
 })
 
-
-
-
 //register new student
 router.post("/register/student/new", function (req, res) {
     //getting details of the student
@@ -114,7 +103,7 @@ router.post("/register/student/new", function (req, res) {
     var sql = "select count(stID) as numberOfStudents from student where ALyear=" + ALyear + ";";
 
 
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err)
             throw err;
         nos = parseInt(res2[0].numberOfStudents, 10) + 1;
@@ -292,17 +281,15 @@ router.post("/register/student/new", function (req, res) {
 //end of student registration
 
 //register parent
-
 router.get("/register/parent", isLoggedIn, function (req, res) {
     res.render("admin/adminRegisterParent")
 });
 
 //end of register parent
-
 router.post("/register/alyear", function (req, res) {
     var sql = "SELECT distinct l.name, s.* FROM subject s, lecturer l where s.lecID=l.lecID and year='" + req.body.alyears.year + "'";
 
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.render("../views/admin/ajaxRegisterTableTemplate", { subjects: res2 });
         res.end();
@@ -322,7 +309,7 @@ router.post("/payments/name", function (req, res) {
 
     var sql1 = "SELECT name from student where stID='" + req.body.stID.stID + "'";
 
-    pool.query(sql1, (err, res2, cols) => {
+    con.query(sql1, (err, res2, cols) => {
         if (err) throw err;
         var name = res2[0].name;
         res.render("admin/ajaxUpdateName", { name: res2[0].name });
@@ -336,7 +323,7 @@ router.post("/payments/id", function (req, res) {
     studentID = req.body.stID.stID;
 
     var sql = "SELECT name,subID, subname, month, fee FROM (SELECT st.name, s.subID,s.subname,p.month,s.fee from subject s,payment p, student st where p.stID='" + studentID + "' && p.subID=s.subID && st.stID='" + studentID + "' order by date desc) as t2 group by subname;"
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.render("../views/admin/ajaxPaymentTableTemplate", { payments: res2 });
         res.end();
@@ -375,7 +362,7 @@ router.post("/payments/new", function (req, res) {
 
             var sql3 = "INSERT INTO payment(date,month,amount,stID,subID,year) values('" + newDate + "','" + newMonth + "'," + fee + ",'" + studentID + "','" + subject + "','" + year + "');";
             console.log(sql3);
-            pool.query(sql3, (err, res3, cols) => {
+            con.query(sql3, (err, res3, cols) => {
                 if (err)
                     throw err;
             });
@@ -436,11 +423,11 @@ router.get("/register/lecturer", isLoggedIn, function (req, res) {
 
 router.get("/manage", isLoggedIn, function (req, res) {
     var sql1 = "SELECT stID, name FROM student";
-    pool.query(sql1, (err, res1, cols) => {
+    con.query(sql1, (err, res1, cols) => {
         if (err) throw err;
 
         var sql2 = "SELECT lecID, name FROM lecturer";
-        pool.query(sql2, (err, res2, cols) => {
+        con.query(sql2, (err, res2, cols) => {
             if (err) throw err;
 
             res.render("admin/adminManageUsers", { lecturers: res2, students: res1 });
@@ -455,24 +442,24 @@ router.post("/manage/student", function (req, res) {
     var stID = req.body.studentID;
 
     var sql1 = "DELETE FROM assignment WHERE stID='" + stID + "'";
-    pool.query(sql1, (err, res1, cols) => {
+    con.query(sql1, (err, res1, cols) => {
 
         var sql3 = "DELETE FROM enrolment WHERE stID='" + stID + "'";
-        pool.query(sql3, (err, res3, cols) => {
+        con.query(sql3, (err, res3, cols) => {
 
             var sql4 = "DELETE FROM attendance WHERE stID='" + stID + "'";
-            pool.query(sql4, (err, res4, cols) => {
+            con.query(sql4, (err, res4, cols) => {
 
                 var sql2 = "DELETE FROM student WHERE stID='" + stID + "'";
-                pool.query(sql2, (err, res2, cols) => {
+                con.query(sql2, (err, res2, cols) => {
                     if (err) throw err;
 
                     var sql5 = "DELETE FROM user WHERE username='" + stID + "'";
-                    pool.query(sql5, (err, res5, cols) => {
+                    con.query(sql5, (err, res5, cols) => {
                         if (err) throw err;
 
                         var sql6 = "DELETE FROM comments WHERE author='" + stID + "'";
-                        pool.query(sql6, (err, res6, cols) => {
+                        con.query(sql6, (err, res6, cols) => {
 
                             res.redirect("/admin/manage");
                         })
@@ -490,18 +477,18 @@ router.post("/manage/lecturer", function (req, res) {
 
     var sql1 = "DELETE FROM user WHERE username='" + lecID + "'";
     console.log(sql1)
-    pool.query(sql1, (err, res2, cols) => {
+    con.query(sql1, (err, res2, cols) => {
         if (err) throw err;
 
         var sql2 = "DELETE FROM comments WHERE author='" + lecID + "'";
         console.log(sql2)
-        pool.query(sql2, (err, res3, cols) => {
+        con.query(sql2, (err, res3, cols) => {
             if (err) throw err;
 
             var sql = "DELETE FROM lecturer WHERE lecID='" + lecID + "'";
             console.log(sql)
 
-            pool.query(sql, (err, res1, cols) => {
+            con.query(sql, (err, res1, cols) => {
                 if (err) throw err;
 
                 res.redirect("/admin/manage");
@@ -517,7 +504,7 @@ router.post("/register/lecturer/new/class", function (req, res) {
 
     var sql = "SELECT * FROM subject s where s.lecID='" + req.body.lecID.lecID + "'";
 
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.render("../views/admin/ajaxRegisterLecTableTemplate", { subjects: res2 });
         res.end();
@@ -530,7 +517,7 @@ router.post("/register/subject/new", function (req, res) {
     //Confirm whether selected hall is free in the selected time slot
     var sql_validate = "SELECT * FROM subject WHERE day='" + req.body.day + "' AND hall='" + req.body.hall + "' AND ((fromTime>='" + req.body.from + "' AND fromTime<='" + req.body.to + "') OR (toTime<='" + req.body.to + "' AND toTime>='" + req.body.from + "'))";
 
-    pool.query(sql_validate, (err, res_validate, cols) => {
+    con.query(sql_validate, (err, res_validate, cols) => {
         if (err)
             throw err;
         //Hall is FREE
@@ -538,7 +525,7 @@ router.post("/register/subject/new", function (req, res) {
             var subID = "S";
             var sql = "select count(subID) as numberOfSubjects from subject";
 
-            pool.query(sql, (err, res3, cols) => {
+            con.query(sql, (err, res3, cols) => {
                 if (err)
                     throw err;
                 nos = parseInt(res3[0].numberOfSubjects, 10) + 1;
@@ -551,12 +538,12 @@ router.post("/register/subject/new", function (req, res) {
                 //Insert subject details into DB        
                 var sql2 = "INSERT INTO subject VALUES('" + subID + "','" + req.body.subname + "','" + req.body.medium + "','" + req.body.hall + "','" + req.body.from + "','" + req.body.to + "','" + req.body.year + "','" + req.body.day + "','" + req.body.lecID + "','" + req.body.fee + "')";
 
-                pool.query(sql2, (err, res2, cols) => {
+                con.query(sql2, (err, res2, cols) => {
                     if (err) throw err;
 
                     //Retrieve data to reload the table
                     var sql3 = "SELECT * FROM subject s where s.lecID='" + req.body.lecID + "'";
-                    pool.query(sql3, (err, res4, cols) => {
+                    con.query(sql3, (err, res4, cols) => {
                         if (err) throw err;
                         res.render("../views/admin/ajaxRegisterLecTableTemplate", { subjects: res4 });
                         res.end();
@@ -580,15 +567,15 @@ router.post("/delete/subject/:subID", function (req, res) {
     var subID = req.params.subID;
     var sql = "DELETE FROM subject WHERE subID='" + subID + "'";
 
-    pool.query(sql, (err, res1, cols) => {
+    con.query(sql, (err, res1, cols) => {
         if (err) throw err;
         var sql2 = "DELETE FROM assignment WHERE subID='" + subID + "'";
 
-        pool.query(sql2, (err, res2, cols) => {
+        con.query(sql2, (err, res2, cols) => {
             if (err) throw err;
             var sql3 = "DELETE FROM enrolment WHERE subID='" + subID + "'";
 
-            pool.query(sql3, (err, res1, cols) => {
+            con.query(sql3, (err, res1, cols) => {
                 if (err) throw err;
             })
         })
@@ -599,12 +586,12 @@ router.post("/register/subject/update", function (req, res) {
 
     var sql = "UPDATE subject SET subname='" + req.body.subname + "',medium='" + req.body.medium + "',hall='" + req.body.hall + "', fromTime='" + req.body.from + "' ,toTime='" + req.body.to + "',year='" + req.body.year + "',day='" + req.body.day + "',fee='" + req.body.fee + "' WHERE subID='" + req.body.subID + "'";
 
-    pool.query(sql, (err, res1, cols) => {
+    con.query(sql, (err, res1, cols) => {
         if (err)
             throw err;
 
         var sql2 = "SELECT * FROM subject s where s.lecID='" + req.body.lecID + "'";
-        pool.query(sql2, (err, res2, cols) => {
+        con.query(sql2, (err, res2, cols) => {
             if (err) throw err;
             res.render("../views/admin/ajaxRegisterLecTableTemplate", { subjects: res2 });
             res.end();
@@ -628,7 +615,7 @@ router.post("/register/lecturer/new", function (req, res) {
     var lecID = "L-AKURA-";
 
     var sql = "select count(lecID) as numberOfLecturers from lecturer;";
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err)
             throw err;
         nos = parseInt(res2[0].numberOfLecturers, 10) + 1;
@@ -700,7 +687,7 @@ router.post("/register/lecturer/new", function (req, res) {
 router.post("/register/alyear", function (req, res) {
     var sql = "SELECT distinct l.name, s.* FROM subject s, lecturer l where s.lecID=l.lecID and year='" + req.body.alyears.year + "'";
 
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.render("../views/admin/ajaxRegisterTableTemplate", { subjects: res2 });
         res.end();
@@ -713,7 +700,7 @@ router.get("/attendance/:subject", isLoggedIn, function (req, res) {
 
     var sql = "SELECT distinct s.subID, s.subname,s.year,st.name,st.stID FROM subject s,student st,enrolment e where e.subID=s.subID and s.subID='" + subID + "' and e.stID=st.stID;";
 
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.render("admin/adminMarkAttendance", { subject: res2, moment: moment });
         res.end();
@@ -754,7 +741,7 @@ router.get("/newsfeeds", isLoggedIn, function (req, res) {
     dte.setTime(dte.getTime() + (dte.getTimezoneOffset() + 330) * 60 * 1000);
     var timeNow = dte.toJSON();
 
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         res.render("admin/adminNews", { posts: res2, moment: moment, time: timeNow });
     });
 });
@@ -769,7 +756,7 @@ router.post("/newsfeed/new", function (req, res) {
     var created = dte.toJSON();
 
     var sql = "INSERT INTO sch_changes (title,content,created) VALUES (" + SqlString.escape(title) + "," + SqlString.escape(content) + "," + SqlString.escape(created) + ");"
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.redirect("/admin/newsfeeds");
         res.end();
@@ -782,7 +769,7 @@ router.post("/newsfeed/delete/:id", function (req, res) {
 
     var sql = "DELETE FROM sch_changes where sch_ID=" + id + ";";
 
-    pool.query(sql, (err, res2, cols) => {
+    con.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.redirect("/admin/newsfeeds");
     });
@@ -842,6 +829,5 @@ var moveFile = (file, dir2) => {
         else console.log('Successfully moved');
     });
 };
-
 
 module.exports = router;

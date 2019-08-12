@@ -21,11 +21,7 @@ var con = mysql.createConnection({
     database: "akura"
 });
 
-router.post("/login", passport.authenticate("local-login",
-    {
-        failureRedirect: "/login"
-    }), function (req, res) {
-
+router.post("/login", passport.authenticate("local-login", { failureRedirect: "/login" }), (req, res) => {
         req.flash("success", "You logged in!");
         if (req.user.username.charAt(0) == 'A')
             res.redirect("/admin");
@@ -36,14 +32,14 @@ router.post("/login", passport.authenticate("local-login",
         else if (req.user.username.charAt(0) == 'L')
             res.redirect("/lecturer");
 
-    });
+});
 
 router.get("/login", function (req, res) {
     res.render("login");
 });
 
 router.get("/", function (req, res) {
-
+    // Select all the classes
     var sql = "SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID order by l.name;";
     pool.query(sql, (err, res2, cols) => {
         if (err) throw err;
