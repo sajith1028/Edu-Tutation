@@ -25,7 +25,8 @@ router.get("/",function(req, res) {
     
     var sql2="SELECT count(lecID) as numOfLecturers from lecturer";
     
-    var sql3="select *,sum(amount) as amount from payment where YEAR(date) = YEAR(CURDATE()) group by subID,month";
+    var sql3="select subID, month ,sum(amount) as amount from payment where YEAR(date) = YEAR(CURDATE()) group by subID,month";
+
     pool.query(sql, (err, res2, cols)=>{
         if(err) throw err;
         
