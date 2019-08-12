@@ -1,15 +1,9 @@
 var LocalStrategy   =   require('passport-local').Strategy; //Login using local credentials
-var mysql           =   require('mysql');
 var bcrypt          =   require("bcrypt");
-var connection      =   mysql.createConnection({
-                        host: "localhost",
-                        user: "nimesha",
-                        password: "",
-                        database: "akura"
-});
+const dbPool        =   require("./database").connections;
 
 //Select database
-connection.query('USE akura');
+dbPool.query('USE akura');
 
 module.exports = function(passport) { //Passport session setup
 
@@ -20,7 +14,7 @@ module.exports = function(passport) { //Passport session setup
 
     //Fetches user object with the help of the key
     passport.deserializeUser(function(id, done) {
-		connection.query("select * from user where id = "+id,function(err,rows){	
+		dbPool.query("select * from user where id = "+id,function(err,rows){	
 			done(err, rows[0]);
 		});
     });
@@ -35,7 +29,7 @@ module.exports = function(passport) { //Passport session setup
     function(req, username, password, done) {
 
 		// we are checking to see if the user trying to signup already exists
-        connection.query("select * from user where username = '"+username+"'",function(err,rows){
+        dbPool.query("select * from user where username = '"+username+"'",function(err,rows){
 			console.log(rows);
 			console.log("above row object");
 			if (err)
@@ -53,7 +47,7 @@ module.exports = function(passport) { //Passport session setup
 			
 				var insertQuery = "INSERT INTO user ( username, password ) values ('" + username +"','"+ password +"')";
 				console.log(insertQuery);
-				connection.query(insertQuery,function(err,rows){
+				dbPool.query(insertQuery,function(err,rows){
 				newUserMysql.id = rows.insertId;
 				
 				return done(null, newUserMysql);
@@ -70,7 +64,7 @@ module.exports = function(passport) { //Passport session setup
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, username, password, done) { // callback with email and password from our form
-        connection.query("SELECT * FROM user WHERE username = '" + username + "';",function(err,rows){
+        dbPool.query("SELECT * FROM user WHERE username = '" + username + "';",function(err,rows){
     		if (err)
                 return done(err);
     		if (!rows.length) {

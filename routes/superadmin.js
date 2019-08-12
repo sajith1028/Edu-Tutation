@@ -1,15 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var mysql = require("mysql");
-var moment = require('moment'); //To parse, validate, manipulate, and display dates and times
-
-var pool = mysql.createPool({
-    host: "localhost",
-    user: "nimesha",
-    password: "",
-    database: "akura",
-    charset: "utf8"
-});
+const dbPool = require("../config/database").connections;
 
 //Ensure user is logged in
 function isLoggedIn(req, res, next) {
