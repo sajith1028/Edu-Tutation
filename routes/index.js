@@ -64,7 +64,7 @@ router.post("/register", function (req, res) {
     //Convert the password to a hash
     bcrypt.hash(password, 10, function (err, hash) { //hash contains the encrypted password 
         var users = {
-            "username": req.body.username,
+            "username": username,
             "password": hash
         }
 
@@ -93,7 +93,6 @@ router.get('/logout', (req, res) => {
     dte.setTime(dte.getTime() + (dte.getTimezoneOffset() + 330) * 60 * 1000);
     var created = SqlString.escape(dte.toJSON());
     var createdDate = created.substr(0, created.length - 6) + "'";
-    console.log(createdDate);
 
     var sql = "update user set lastLogin=" + createdDate + " where username='" + req.user.username + "';";
 
