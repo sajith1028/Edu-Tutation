@@ -37,7 +37,7 @@ router.get("/login", function (req, res) {
 router.get("/", function (req, res) {
     // Select all the classes
     var sql = "SELECT s.*, l.* from subject s, lecturer l where s.lecID=l.lecID order by l.name;";
-    pool.query(sql, (err, res2, cols) => {
+    dbPool.query(sql, (err, res2, cols) => {
         if (err) throw err;
         res.render("landing", { 'classes': res2 });
         res.end();
@@ -81,6 +81,10 @@ router.post("/register", function (req, res) {
 });
 
 router.get('/logout', (req, res) => {
+    if(!req.user) {
+        res.redirect("/");
+        return;
+    }
     var dte = new Date();
     dte.setTime(dte.getTime() + (dte.getTimezoneOffset() + 330) * 60 * 1000);
     var created = SqlString.escape(dte.toJSON());
@@ -88,7 +92,7 @@ router.get('/logout', (req, res) => {
 
     var sql = "update user set lastLogin=" + createdDate + " where username='" + req.user.username + "';";
 
-    pool.query(sql, (err, res2, cols) => {
+    dbPool.query(sql, (err, res2, cols) => {
         if (err) throw err;
     })
 
