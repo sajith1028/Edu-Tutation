@@ -689,6 +689,14 @@ router.get("/attendance/:subject", isLoggedIn, function (req, res) {
 
     dbPool.query(sql, (err, res2, cols) => {
         if (err) throw err;
+        if(!res2.length) {
+            const sql = `SELECT subname, year FROM subject WHERE subID='${subID}'`;
+            dbPool.query(sql, (err, res3, cols) => {
+                res.render("admin/adminMarkAttendance", { subject: res3, moment: moment });
+                res.end();
+            });
+            return;
+        }
         res.render("admin/adminMarkAttendance", { subject: res2, moment: moment });
         res.end();
     });
