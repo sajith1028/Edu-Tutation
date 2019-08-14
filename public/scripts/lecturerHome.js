@@ -23,3 +23,8 @@ function Forums(){
     var href = "/lecturer/forums/"+subjectId;
     window.location=href;
 }
+
+function plagiarismCheck(){
+    var href = "/lecturer/plagiarismCheck";
+    window.location=href;
+}
