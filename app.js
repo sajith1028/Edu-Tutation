@@ -5,14 +5,7 @@ var flash           =   require("connect-flash");
 var CookieParser    =   require('cookie-parser');
 var passport        =   require('passport');
 var passportConfig  =   require('./config/passport');
-var moment   = require('moment');
-var schedule = require('node-schedule');
-
-const AWS = require('aws-sdk');
-const fs = require('fs');
-
 var fileUpload      =   require('express-fileupload'); //for images
-
 
 app.use(CookieParser());
 

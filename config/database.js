@@ -9,4 +9,6 @@ const pool = mysql.createPool({
     charset: "utf8"
 });
 
+console.log("MySQL connection pool initialized!");
+
 exports.connections = pool;
