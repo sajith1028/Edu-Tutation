@@ -1,3 +1,5 @@
+USE akura;
+
 INSERT INTO `assignment` (`assID`, `subID`, `stID`, `result`) VALUES
 ('Integration', 'S01', 'S-2019-001', 50),
 ('Calculus', 'S01', 'S-2019-001', 70),

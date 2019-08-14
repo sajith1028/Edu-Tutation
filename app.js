@@ -1,10 +1,7 @@
 var express         =   require("express");
-var app             =   express(),
-    bodyParser  = require("body-parser");
-var mysql           =   require("mysql");
+var app             =   express(), bodyParser  = require("body-parser");
+
 var flash           =   require("connect-flash");
-var bcrypt          =   require("bcrypt");
-var session         =   require('express-session');
 var CookieParser    =   require('cookie-parser');
 var passport        =   require('passport');
 var passportConfig  =   require('./config/passport');
@@ -19,7 +16,6 @@ var con             =   mysql.createConnection({
 
 const AWS = require('aws-sdk');
 const fs = require('fs');
-const path = require('path');
 
 var fileUpload      =   require('express-fileupload'); //for images
 
