@@ -101,7 +101,7 @@
                         <!--End of register button-->
                         
                         <!--select student or lecturer-->
-                         <div class="modal fade" id="stulec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="stulec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -285,6 +285,107 @@
                             </div>
                         </div>
                         <!--end of todays classes popup-->
+
+                        <!-- Inventory button -->
+                        <div class="col-md-6 col-lg-3 featured-responsive c2 c1">
+                            <div class="featured-place-wrap" data-toggle="modal" data-target="#sstoris">
+                                <a href="#">
+                                    <div class="image">
+                                        <img src="https://www.logisticsbureau.com/blog/wp-content/uploads/2012/05/Blog_What-is-Inventory.png" class="img-fluid" alt="#">
+                                    </div>
+                                    <span class="featured-rating"><i class="fas fa-bars"></i></span>
+                                    <div class="featured-title-box">
+                                        <h6>Inventory</h6>
+                                        <p>Stocks </p> <span>• </span>
+                                        <p>Issue</p> <span> </span>
+                                        <ul>
+                                            <li>
+                                            <span><i class="fas fa-th inner-icons"></i></span>
+                                                <p>Update stocks</p>
+                                            </li>
+                                            <li><span><i class="fas fa-chalkboard-teacher inner-icons"></i></span>
+                                                <p>Check requests</p>
+                                            </li>
+                                            <li><span><i class="fas fa-check inner-icons"></i></span>
+                                                <p>Issue items</p>
+                                            </li>
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="closed-now">Click here start managing inventory</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Select stock or issue -->
+                        <div class="modal fade" id="sstoris" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLabel">Select Option</h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="color:white;">&times;</span>
+                                        </button>
+                                    </div>
+                            
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row" style="margin-top:20px;">
+                                                <!--stocks button-->
+                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                                    <div class="featured-place-wrap">
+                                                        <a href="/admin/register/lecturer">
+                                                            <div class="image">
+                                                                <img src="https://www.toolshero.com/wp-content/uploads/2018/03/inventory-count-toolshero-696x351.jpg" style="height:100%" class="img-fluid" alt="#">
+                                                            </div>
+                                                            <div class="featured-title-box inner-title">
+                                                                <h6 style="margin:-10px">Stocks</h6>
+                                                                <ul>
+                                                                    <li><span class="icon-location-pin"></span>
+                                                                        <p>Check and manage stocks</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!--end of stocks button-->
+
+                                                <!--issue items button-->
+                                                <div class="col-lg-6 col-md-6 featured-responsive c2">
+                                                    <div class="featured-place-wrap">
+                                                        <a href="/admin/register/lecturer">
+                                                            <div class="image">
+                                                                <img src="https://www.lawtrades.com/wp-content/uploads/2018/09/lawtrades-how-to-issue-stock.jpg" style="height:100%" class="img-fluid" alt="#">
+                                                            </div>
+                                                            <div class="featured-title-box inner-title">
+                                                                <h6 style="margin:-10px">Issue Items</h6>
+                                                                <ul>
+                                                                    <li><span class="icon-location-pin"></span>
+                                                                        <p>Check inventory requests and issue items</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!--end issue items button-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end of select stock or issue-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 responsive-wrap">
+                    <div class="row detail-options-wrap">
+
+                        
                         
                         <!--news feed button-->
                         <div class="col-md-6 col-lg-3 featured-responsive">
@@ -318,7 +419,6 @@
                             </div>
                         </div>
                         <!--end of news feed button-->
-                        
                     </div>
                 </div>
             </div>
