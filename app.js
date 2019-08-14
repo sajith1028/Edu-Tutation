@@ -77,6 +77,9 @@ app.use("/admin", adminRoutes);
 var superAdminRoutes    = require("./routes/superadmin");
 app.use("/superAdmin", superAdminRoutes);
 
+process.env.PORT = 8000;
+process.env.IP = "127.0.0.1";
+
 app.listen(process.env.PORT, process.env.IP, function(){
     var backUp = schedule.scheduleJob({hour: 00, minute: 00, dayOfWeek: 0}, function(){
         var exec = require('child_process').exec;

@@ -8,7 +8,8 @@
   "description": "The web app of Akura Institute Management System",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "run": "node app.js"
   },
   "author": "T.K. Jayasekara, T.N. Wickramasinghe, K.W.M.R.I.A Bandaranayake, R.M.T.G.K. Bandara, S.L.Pathirathne",
   "license": "ISC",
