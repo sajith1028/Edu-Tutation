@@ -7,6 +7,8 @@ var passport        =   require('passport');
 var passportConfig  =   require('./config/passport');
 var fileUpload      =   require('express-fileupload'); //for images
 
+require('dotenv').config();
+
 app.use(CookieParser());
 
 app.use(bodyParser.urlencoded({extended:true}));
