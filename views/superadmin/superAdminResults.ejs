@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Income</title>
+        <!-- Bootstrap -->
+            <!-- Responsive screen size -->
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+            <!-- End of responsive screen size -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- End of Bootstrap -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+        
+        <!-- Simple line Icon -->
+        <link rel="stylesheet" type="text/css" href="../stylesheets/form.css"> 
+        
+        <!-- Particles -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script>
+            particlesJS.load('particles-js', '../json/particles.json')
+        </script>
+        <!-- End of Particles -->    
+    
+        <!-- For Charts -->  
+        <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script src= "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		    <script> 
+		    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+		    </script>
+	      <!-- End of For Charts --> 
+    </head>
+<body>
+<% include ./partialNavbar %>
+<div id="particles-js">
+    <div id="overlay">
+        <h2 id="topic">RESULTS</h2>
+    </div>
+</div>
+
+<% include ../partials/footer %> 
