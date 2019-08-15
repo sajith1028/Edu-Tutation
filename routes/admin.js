@@ -7,6 +7,7 @@ var nodemailer = require('nodemailer'); //for mailing purposes
 var randomstring = require("randomstring"); //to generate random strings as passwords
 var bcrypt = require("bcrypt"); // for encryption
 var dateTime = require('get-date'); //returns current date
+const inventory = require("../custom_modules/inventory");
 
 var moment = require('moment'); //To parse, validate, manipulate, and display dates and times
 
@@ -772,6 +773,21 @@ router.post("/newsfeed/delete/:id", function (req, res) {
 
 });
 
+// Inventory routes
+router.get('/stocks', (req, res) => {
+    dbPool.getConnection((err, conn) => {
+        inventory.init(conn);
+
+        inventory.getAllItems((result) => {
+            res.render('admin/adminManageStocks', {items: result});
+        });
+    });
+})
+
+router.get('/issue-stocks', (req, res) => {
+
+    res.render('admin/adminIssueStocks', {});
+})
 
 function generateInvoice(invoice, filename, success, error) {
     var postData = JSON.stringify(invoice);
@@ -824,6 +840,7 @@ var moveFile = (file, dir2) => {
         else dbPoolsole.log('Successfully moved');
     });
 };
+
 
 
 module.exports = router;
