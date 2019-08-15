@@ -788,6 +788,48 @@ router.get('/stocks', (req, res) => {
     });
 })
 
+router.get('/issue-stocks', (req, res) => {
+    dbPool.getConnection((e, c) => {
+        inventory.init(c);
+        inventory.getAllIssueRequests((requests) => {
+            res.render('admin/adminIssueStocks', { requests });
+        });
+    });
+});
+
+// API inventory
+router.get('/api/item', (req, res) => {
+    if(req.query.itID) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.getItem(req.query.itID, (r) => {
+                res.send(r[0]);
+            });
+        });
+    } else {
+        res.send({msg: "no item it in the request"});
+    }
+});
+
+router.get('/api/issue', (req, res) => {
+    if(req.query.itID && req.query.issueQty) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.getItem(req.query.itID, (item) => {
+                if (req.query.issueQty > item[0].inStockQty) {
+                    
+                    res.send({title: 'Ohh! There are no enough stocks', text: 'Please check stocks and order new stocks', icon: 'warning'});
+                    return;
+                }
+                inventory.addToIssuedItems(req.query.itID, req.query.issueQty, "This is remark", (result) => {
+                    res.send({title: 'Success!', text: "You've successfully issued the stocks"});
+                });
+            })
+        });
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
 
 function generateInvoice(invoice, filename, success, error) {
     var postData = JSON.stringify(invoice);

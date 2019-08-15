@@ -78,22 +78,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <% requests.forEach((request) => { %>
                                                         <form>
-                                                            <input type="hidden" name="itID" value="lecID">                                                            
-                                                            <input type="hidden" name="description" value="lecID">                                                            
-                                                            <input type="hidden" name="unit" value="lecID">                                                            
-                                                            <input type="hidden" name="receivedQty" value="lecID">                                                            
-                                                            <input type="hidden" name="issuedQty" value="lecID">                                                            
-                                                            <input type="hidden" name="inStockQty" value="lecID">
-                                                            <input type="hidden" name="Remarks" value="lecID">                                                            
+                                                            <input type="hidden" name="reqID" value="<% request.reqID %>" hidden>                                                                       
 
                                                             <tr>
-                                                                <td class="column1">=it.itID </td>
-                                                                <td class="column2">=it.description </td>
-                                                                <td class="column3">=it.unit </td>
-                                                                <td class="column4">=it.receivedQty </td>
-                                                                <td class="column5">=it.issuedQty </td>
-                                                                <td class="column5">=it.inStockQty </td>
+                                                                <td class="column1"> <%= request.itID %> </td>
+                                                                <td class="column2"> <%= request.reqID %> </td>
+                                                                <td class="column5"> <%= request.unit %> </td>
+                                                                <td class="column3"> <%= request.description %> </td>
+                                                                <td class="column4"> <%= request.qty %> </td>
+                                                                <td class="column5"> <%= request.inStockQty %> </td>
                                                                 <td class="column5">
                                                                     <div class="row">
                                                                         <button type="submit" id="acceptBtn" class="btn btn-primary" style="width:100px">Accept</button>
@@ -102,6 +97,7 @@
                                                                 </td>
                                                             </tr>
                                                         </form>
+                                                        <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -125,33 +121,33 @@
                                                 <label class="col-sm-1 control-label label">Item ID</label>
                                                 <div class="col-sm-4">
                                                     <div class="input-group mb-3">
-                                                     <input type="text" id="checkID" class="form-control"  placeholder="Item ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                     <input type="text" id="itID" class="form-control" name="itID"  placeholder="Item ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                                       <div class="input-group-append">
-                                                        <button class="btn btn-primary" id="Check" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                        <button class="btn btn-primary" id="check-btn" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
                                                       </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Unit</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="subID" readonly>
+                                                    <input id="unit" class="form-control" type="text" name="subID" readonly>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Description</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="description" readonly>
+                                                    <input id="description" class="form-control" type="text" name="description" readonly>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">In Stock Qty</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="inStockQty" readonly>
+                                                    <input id="instock-qty" class="form-control" type="text" name="inStockQty" readonly>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <label class="col-sm-1 control-label label">Requested Qty</label>
+                                                <label class="col-sm-1 control-label label">Issue Qty</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="reqQty">
+                                                    <input id="issue-qty" class="form-control" type="text" name="issueQty">
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label"></label>
@@ -168,7 +164,7 @@
 
                     <center>
                         <div class="form-group">
-                            <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100px">Issue</button>
+                            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100px">Issue</button>
                         </div>
                     </center>
                 </div> 
