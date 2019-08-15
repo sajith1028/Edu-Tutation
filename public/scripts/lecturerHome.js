@@ -23,3 +23,8 @@ function Forums(){
     var href = "/lecturer/forums/"+subjectId;
     window.location=href;
 }
+
+function openInventoryAskPage() {
+    const href = `/lecturer/ask-inventory/${subjectId}`;
+    window.location = href;
+}
