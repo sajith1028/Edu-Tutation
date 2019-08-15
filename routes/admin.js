@@ -831,6 +831,47 @@ router.get('/api/issue', (req, res) => {
     }
 });
 
+router.get('/api/accept-issue-request', (req, res) => {
+    if(req.query.reqID) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.getInventoryRequest(req.query.reqID, (request) => {
+                inventory.getItem(request.itID, (item) => {
+                    if(item[0].inStockQty < request.qty) {
+                        res.send({ title: 'Ohh! There are no enough stocks', text: 'Please check stocks and order new stocks', icon: 'warning' });
+                    } else {
+                        inventory.acceptIssueRequest(request.reqID, "Remarks", (done) => {
+                            if(done) {
+                                res.send({ title: 'Success!', text: "You've successfully issued the stocks" });
+                            }
+                            res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+                        });
+                    }
+                });
+            });
+        });
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
+
+router.get('/api/deny-issue-request', (req, res) => {
+    if(req.query.reqID) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.denyIssueRequest(req.query.reqID, (denied) => {
+                if(denied) {
+                    res.send({ title: 'Request has been cancelled!', text: 'Issue request has been denied and no further action required', icon: 'info' });    
+                    return;
+                }
+                res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+            });
+        })
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
+
 function generateInvoice(invoice, filename, success, error) {
     var postData = JSON.stringify(invoice);
     var options = {

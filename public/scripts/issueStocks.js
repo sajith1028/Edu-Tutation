@@ -22,3 +22,26 @@ $("#submit-btn").click(() => {
         });
     }
 });
+
+$("#accept-btn").click(() => {
+    console.log("Gee");
+    $.ajax({
+        url: 'http://localhost:8080/admin/api/accept-issue-request',
+        data: { reqID: $("#req-id").attr("data-reqid")}
+    }).done((data) => {
+        swal(data).then((res) => {
+            location.reload();
+        });
+    });
+});
+
+$("#deny-btn").click(() => {
+    $.ajax({
+        url: 'http://localhost:8080/admin/api/deny-issue-request',
+        data: { reqID: $("#req-id").attr("data-reqid") }
+    }).done((data) => {
+        swal(data).then(res => {
+            location.reload();
+        });
+    })
+});

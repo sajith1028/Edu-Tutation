@@ -132,5 +132,6 @@ module.exports = {
     acceptIssueRequest,
     denyIssueRequest,
     getIssueRequestStatus,
-    getItem
+    getItem,
+    getInventoryRequest
 };
