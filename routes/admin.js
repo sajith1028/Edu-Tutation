@@ -778,16 +778,16 @@ router.get('/stocks', (req, res) => {
     dbPool.getConnection((err, conn) => {
         inventory.init(conn);
 
-        inventory.getAllItems((result) => {
-            res.render('admin/adminManageStocks', {items: result});
+        inventory.getAllItems((items) => {
+            inventory.getAllReceivedItems((receivedItems) => {
+                inventory.getAllIssuedItems((issuedItems) => {
+                    res.render('admin/adminManageStocks', { items, receivedItems, issuedItems });
+                });
+            });
         });
     });
 })
 
-router.get('/issue-stocks', (req, res) => {
-
-    res.render('admin/adminIssueStocks', {});
-})
 
 function generateInvoice(invoice, filename, success, error) {
     var postData = JSON.stringify(invoice);

@@ -75,32 +75,25 @@
                                                         <thead>
                                                             <tr class="table100-head">
                                                                 <th class="column3">Item ID</th>
-                                                                <th class="column3">Request ID</th>
-                                                                <th class="column3">Unit</th>
                                                                 <th class="column3">Description</th>
-                                                                <th class="column3">Requested Qty</th>
+                                                                <th class="column3">Unit</th>
+                                                                <th class="column3">Received Qty</th>
+                                                                <th class="column3">InStock Qty</th>
                                                                 <th class="column3">In Stock Qty</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <form>
-                                                                <input type="hidden" name="itID" value="lecID">
-                                                                <input type="hidden" name="description" value="lecID">
-                                                                <input type="hidden" name="unit" value="lecID">
-                                                                <input type="hidden" name="receivedQty" value="lecID">
-                                                                <input type="hidden" name="issuedQty" value="lecID">
-                                                                <input type="hidden" name="inStockQty" value="lecID">
+                                                            <% items.forEach((item) => { %>
+                                                            <tr>
+                                                                <td class="column1"> <%=item.itID %> </td>
+                                                                <td class="column2"> <%=item.description %> </td>
+                                                                <td class="column3"> <%=item.unit %> </td>
+                                                                <td class="column4"> <%=item.receivedQty %> </td>
+                                                                <td class="column5"> <%=item.issuedQty %> </td>
+                                                                <td class="column5"> <%=item.inStockQty %> </td>
 
-                                                                <tr>
-                                                                    <td class="column1">=it.itID </td>
-                                                                    <td class="column2">=it.description </td>
-                                                                    <td class="column3">=it.unit </td>
-                                                                    <td class="column4">=it.receivedQty </td>
-                                                                    <td class="column5">=it.issuedQty </td>
-                                                                    <td class="column5">=it.inStockQty </td>
-                                                            
-                                                                </tr>
-                                                            </form>
+                                                            </tr>
+                                                            <% }); %>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -118,35 +111,26 @@
                                         <div class="container-table100">
                                             <div class="wrap-table100">
                                                 <div class="table100">
-                                                    <table id="receivedTable" style="border:1px solid gray; margin-top:0px">
+                                                    <table id="receivedTable"
+                                                        style="border:1px solid gray; margin-top:0px">
                                                         <thead>
                                                             <tr class="table100-head">
                                                                 <th class="column3">Item ID</th>
-                                                                <th class="column3">Request ID</th>
-                                                                <th class="column3">Unit</th>
                                                                 <th class="column3">Description</th>
-                                                                <th class="column3">Requested Qty</th>
-                                                                <th class="column3">In Stock Qty</th>
+                                                                <th class="column3">Unit</th>
+                                                                <th class="column3">Quantity</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <form>
-                                                                <input type="hidden" name="itID" value="lecID">
-                                                                <input type="hidden" name="description" value="lecID">
-                                                                <input type="hidden" name="unit" value="lecID">
-                                                                <input type="hidden" name="receivedQty" value="lecID">
-                                                                <input type="hidden" name="issuedQty" value="lecID">
-                                                                <input type="hidden" name="inStockQty" value="lecID">
-                        
-                                                                <tr>
-                                                                    <td class="column1">=it.itID </td>
-                                                                    <td class="column2">=it.description </td>
-                                                                    <td class="column3">=it.unit </td>
-                                                                    <td class="column4">=it.receivedQty </td>
-                                                                    <td class="column5">=it.issuedQty </td>
-                                                                    <td class="column5">=it.inStockQty </td>
-                                                                </tr>
-                                                            </form>
+                                                            <% console.log(receivedItems) %>
+                                                            <% receivedItems.forEach((item) => { %>
+                                                            <tr>
+                                                                <td class="column1"> <%=item.itID %> </td>
+                                                                <td class="column2"> <%=item.description %> </td>
+                                                                <td class="column3"> <%=item.unit %> </td>
+                                                                <td class="column4"> <%=item.qty %> </td>
+                                                            </tr>
+                                                            <% }); %>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -164,35 +148,25 @@
                                         <div class="container-table100">
                                             <div class="wrap-table100">
                                                 <div class="table100">
-                                                    <table id="issuedTable" style="border:1px solid gray; margin-top:0px">
+                                                    <table id="issuedTable"
+                                                        style="border:1px solid gray; margin-top:0px">
                                                         <thead>
                                                             <tr class="table100-head">
                                                                 <th class="column3">Item ID</th>
-                                                                <th class="column3">Request ID</th>
-                                                                <th class="column3">Unit</th>
                                                                 <th class="column3">Description</th>
-                                                                <th class="column3">Requested Qty</th>
-                                                                <th class="column3">In Stock Qty</th>
+                                                                <th class="column3">Unit</th>
+                                                                <th class="column3">Quantity</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <form>
-                                                                <input type="hidden" name="itID" value="lecID">
-                                                                <input type="hidden" name="description" value="lecID">
-                                                                <input type="hidden" name="unit" value="lecID">
-                                                                <input type="hidden" name="receivedQty" value="lecID">
-                                                                <input type="hidden" name="issuedQty" value="lecID">
-                                                                <input type="hidden" name="inStockQty" value="lecID">
-                        
-                                                                <tr>
-                                                                    <td class="column1">=it.itID </td>
-                                                                    <td class="column2">=it.description </td>
-                                                                    <td class="column3">=it.unit </td>
-                                                                    <td class="column4">=it.receivedQty </td>
-                                                                    <td class="column5">=it.issuedQty </td>
-                                                                    <td class="column5">=it.inStockQty </td>
-                                                                </tr>
-                                                            </form>
+                                                            <% issuedItems.forEach((item) => { %>
+                                                            <tr>
+                                                                <td class="column1"> <%=item.itID %> </td>
+                                                                <td class="column2"> <%=item.description %> </td>
+                                                                <td class="column3"> <%=item.unit %> </td>
+                                                                <td class="column4"> <%=item.qty %> 
+                                                            </tr>
+                                                            <% }); %>
                                                         </tbody>
                                                     </table>
                                                 </div>
