@@ -122,9 +122,14 @@
                                     <form id="newsubject">
                                         <div class="form-group">
                                             <div class="row">
-                                                <label class="col-sm-1 control-label label">Request ID</label>
-                                                <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="reqID" readonly>
+                                                <label class="col-sm-1 control-label label">Item ID</label>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group mb-3">
+                                                     <input type="text" id="checkID" class="form-control"  placeholder="Item ID" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                      <div class="input-group-append">
+                                                        <button class="btn btn-primary" id="Check" type="button" style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                      </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Unit</label>
@@ -149,9 +154,8 @@
                                                     <input class="form-control" type="text" name="reqQty">
                                                 </div>
                                                 <div class="col-sm-2"></div>
-                                                <label class="col-sm-1 control-label label">Issue Qty</label>
+                                                <label class="col-sm-1 control-label label"></label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input class="form-control" type="text" name="issueQty">
                                                 </div>
                                             </div>
                                             <input type="hidden" name="lecturer" id="lecturer" value="lecID">
