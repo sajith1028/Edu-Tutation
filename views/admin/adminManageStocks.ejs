@@ -67,32 +67,30 @@
                             <div class="col-lg-12">
                                 <div class="panel panel-default panel-fill">
                                     <div class="panel-body">
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <label class="col-sm-1 control-label label">Unit</label>
-                                                    <div class="col-sm-4">
-                                                        <input id="n-unit" type="text" name="title" placeholder="Unit"
-                                                            data-parsley-type="alphanum" minlength="5"
-                                                            class="form-control" required>
-                                                    </div>
-                                                    <label class="col-sm-1 control-label label">Description</label>
-                                                    <div class="col-sm-4">
-                                                        <input id="n-description" type="text" name="title" placeholder="Description"
-                                                         data-parsley-type="alphanum" minlength="5"
-                                                            class="form-control" required>
-                                                    </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Unit</label>
+                                                <div class="col-sm-4">
+                                                    <input id="n-unit" type="text" name="title" placeholder="Unit"
+                                                        data-parsley-type="alphanum" minlength="5" class="form-control"
+                                                        required>
                                                 </div>
-                                                <div class="row">
-                                                    <label class="col-sm-1 control-label label">Remarks</label>
-                                                    <div class="col-sm-4">
-                                                        <input id="n-remarks" type="text" name="title" placeholder="Remarks"
-                                                            id="remarks" data-parsley-type="alphanum" minlength="5"
-                                                            class="form-control" required>
-                                                    </div>
-                                                    <button type="submit" id="n-submit-btn" class="btn btn-primary">ADD
-                                                        NEW ITEM</button>
+                                                <label class="col-sm-1 control-label label">Description</label>
+                                                <div class="col-sm-4">
+                                                    <input id="n-description" type="text" name="title"
+                                                        placeholder="Description" data-parsley-type="alphanum"
+                                                        minlength="5" class="form-control" required>
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Remarks</label>
+                                                <div class="col-sm-4">
+                                                    <input id="n-remarks" type="text" name="title" placeholder="Remarks"
+                                                        id="remarks" data-parsley-type="alphanum" minlength="5"
+                                                        class="form-control" required>
+                                                </div>
+                                                <button type="submit" id="n-submit-btn" class="btn btn-primary">ADD
+                                                    NEW ITEM</button>
                                             </div>
                                         </div>
                                         <div class="container-table100">
@@ -141,8 +139,9 @@
                                                 <label class="col-sm-1 control-label label">Item ID</label>
                                                 <div class="col-sm-4">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" id="itID" class="form-control" name="itID" placeholder="Item ID"
-                                                            aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                        <input type="text" id="itID" class="form-control" name="itID"
+                                                            placeholder="Item ID" aria-label="Recipient's username"
+                                                            aria-describedby="basic-addon2" required>
                                                         <div class="input-group-append">
                                                             <button class="btn btn-primary" id="check-btn" type="button"
                                                                 style="margin-bottom:0;font-size:12px;">CHECK</button>
@@ -152,56 +151,59 @@
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">Unit</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input id="unit" class="form-control" type="text" name="subID" readonly>
+                                                    <input id="unit" class="form-control" type="text" name="subID"
+                                                        readonly>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Description</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input id="description" class="form-control" type="text" name="description" readonly>
+                                                    <input id="description" class="form-control" type="text"
+                                                        name="description" readonly>
                                                 </div>
                                                 <div class="col-sm-2"></div>
                                                 <label class="col-sm-1 control-label label">In Stock Qty</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input id="instock-qty" class="form-control" type="text" name="inStockQty" readonly>
+                                                    <input id="instock-qty" class="form-control" type="text"
+                                                        name="inStockQty" readonly>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label class="col-sm-1 control-label label">Received Qty</label>
                                                 <div class="col-sm-4 input-group-append">
-                                                    <input id="received-qty" class="form-control" type="text" name="receivedQty">
+                                                    <input id="received-qty" class="form-control" type="text"
+                                                        name="receivedQty">
                                                 </div>
-                                                <button type="submit" id="r-submit-btn" class="btn btn-primary">ADD</button>
-                                                </div>
+                                                <button type="submit" id="r-submit-btn"
+                                                    class="btn btn-primary">ADD</button>
                                             </div>
-                                            <input type="hidden" name="lecturer" id="lecturer" value="lecID">
                                         </div>
-                                        <div class="container-table100">
-                                            <div class="wrap-table100">
-                                                <div class="table100">
-                                                    <table id="receivedTable"
-                                                        style="border:1px solid gray; margin-top:0px">
-                                                        <thead>
-                                                            <tr class="table100-head">
-                                                                <th class="column3">Item ID</th>
-                                                                <th class="column3">Description</th>
-                                                                <th class="column3">Unit</th>
-                                                                <th class="column3">Quantity</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <% console.log(receivedItems) %>
-                                                            <% receivedItems.forEach((item) => { %>
-                                                            <tr>
-                                                                <td class="column1"> <%=item.itID %> </td>
-                                                                <td class="column2"> <%=item.description %> </td>
-                                                                <td class="column3"> <%=item.unit %> </td>
-                                                                <td class="column4"> <%=item.qty %> </td>
-                                                            </tr>
-                                                            <% }); %>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                        <input type="hidden" name="lecturer" id="lecturer" value="lecID">
+                                    </div>
+                                    <div class="container-table100">
+                                        <div class="wrap-table100">
+                                            <div class="table100">
+                                                <table id="receivedTable" style="border:1px solid gray; margin-top:0px">
+                                                    <thead>
+                                                        <tr class="table100-head">
+                                                            <th class="column3">Item ID</th>
+                                                            <th class="column3">Description</th>
+                                                            <th class="column3">Unit</th>
+                                                            <th class="column3">Quantity</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% console.log(receivedItems) %>
+                                                        <% receivedItems.forEach((item) => { %>
+                                                        <tr>
+                                                            <td class="column1"> <%=item.itID %> </td>
+                                                            <td class="column2"> <%=item.description %> </td>
+                                                            <td class="column3"> <%=item.unit %> </td>
+                                                            <td class="column4"> <%=item.qty %> </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -213,12 +215,11 @@
                             <div class="col-lg-12">
                                 <div class="panel panel-default panel-fill">
                                     <div class="panel-body">
-                            
+                        
                                         <div class="container-table100">
                                             <div class="wrap-table100">
                                                 <div class="table100">
-                                                    <table id="issuedTable"
-                                                        style="border:1px solid gray; margin-top:0px">
+                                                    <table id="issuedTable" style="border:1px solid gray; margin-top:0px">
                                                         <thead>
                                                             <tr class="table100-head">
                                                                 <th class="column3">Item ID</th>
@@ -246,9 +247,12 @@
                             </div>
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <script>
         $("#itemsTable").dataTable();
