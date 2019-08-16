@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Register</title>
+    <!-- Responsive screen size -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <!-- End of responsive screen size -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- End of Bootstrap -->
+
+    <!--Sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/form.css">
+    <!-- End of Custom Stylesheet -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- End of jQuery -->
+
+    <!-- particles -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- End of particles -->
+    <script src="../../scripts/parsley.js"></script>
+    <script>
+        particlesJS.load('particles-js', '/json/particles.json');
+    </script>
+</head>
+
+<body>
+    <!--Calculationfor A/L Year-->
+    <% var years = new Date().getFullYear();   %>
+    <!--End of calculating the years for hisroty-->
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><img id="AkuraBrand" src="images/img/GwaGx2B.png"></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav nav-link">
+                    <a class="links" href="/lecturer">Home</a>
+                </ul>
+                <ul class="navbar-nav nav-link">
+                    <a class="links" href="/lecturer/income">Payments</a>
+                </ul>
+                <ul class="navbar-nav nav-link">
+                    <a class="links" href="/lecturer/newsfeeds">Newsfeed</a>
+                </ul>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <% if(!currentUser){ %>
+                <a id="register" href="/login">
+                    <button class="custombtn btn btn-outline-primary btn-sm" type="submit">Log In</span></button>
+                </a>
+                <% } else { %>
+                <ul class="navbar-nav nav-link">
+                    <a id="user" class="links" href="/student/profile">
+                        <%= currentUser.username %>
+                    </a>
+                </ul>
+                <ul class="navbar-nav nav-link">
+                    <a id="register" href="/logout">
+                        <button class="btn btn-outline-primary btn-sm custombtn" type="submit">Logout</button>
+                    </a>
+                </ul>
+                <% } %>
+        </div>
+    </nav>
+
+    <div id="particles-js">
+        <div id="overlay">
+            <h2 id="topic">REQUEST ITEMS FOR YOUR CLASS</h2>
+
+            <div class="container">
+                <div id="content-background">
+                    <div class="tab-content">
+                        <div class="row tab-pane active" id="newStudent">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default panel-fill">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Ask for inventory</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Item</label>
+                                                <div class="col-sm-4 form-group">
+                                                    <select id="itID" class="form-control combobox">
+                                                        <% items.forEach(item => { %>
+                                                        <option value="<%= item.itID %>"><%= item.description %></option>
+                                                        <% }); %>
+                                                    </select>
+                                                </div>
+                                                <label class="col-sm-1 control-label label">Quantity</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="qty" class="form-control" type="number" name="qty" required>
+                                                </div>
+                                                <input id="subID" value="<%= subID %>" name="subID" hidden>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <center>
+                            <div class="form-group">
+                                <button type="submit" id="submitResult" class="btn btn-primary">Request</button>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/lecturerAskInventory.js"></script>
+    <% include ../partials/footer %>

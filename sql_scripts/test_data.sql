@@ -1,3 +1,103 @@
+USE akura;
+
+INSERT INTO `student` (`stID`, `name`, `school`, `teleres`, `telemob`, `email`, `gender`, `address`, `ALyear`, `login`) VALUES
+('S-2019-001', 'Kamalika Jayasekara', 'Musaeus College', 112456543, 770088515, 'tharushi68@gmail.com', NULL, '', 2019, 1),
+('S-2019-002', 'Ashera Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-003', 'Kasuni Hasanga', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-004', 'Anne De Silva', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-005', 'Anne De Silva', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-006', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-007', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-008', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-009', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-010', 'Mahela Jayasekara', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-011', 'Isuru Akalanka', NULL, NULL, NULL, 'bandaranayake11@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-012', 'Tharuka Nimesha', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-013', 'Asela Jayasekara', '', 0, 0, 'tharushi68@gmail.com', NULL, '', 2019, 1),
+('S-2019-014', 'Hasanga Jayasekara', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-015', 'Narmada Jayasekara', 'Musaeus College', 0, 0, 'tharushi68@gmail.com', NULL, '', 2019, 0),
+('S-2019-016', 'Kasuni Weliwita', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-017', 'Tharushi Jayasekara', 'Musaeus College', 0, 0, 'tharushi68@gmail.com', NULL, '', 2019, 0),
+('S-2019-018', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-019', 'test test', 'Musaeus College', 0, 0, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
+('S-2019-020', 'test test', 'Musaeus College', 0, 0, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
+('S-2019-021', 'test test', 'Musaeus College', 712839284, 712839284, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
+('S-2019-022', 'interim interim', 'Musaeus College', 718274837, 718274837, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
+('S-2019-023', 'interimd interim', 'Musaeus College', 712837261, 712837261, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
+('S-2019-024', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-025', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-026', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-027', 'aas asda', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-028', 'as as', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-029', ' ', NULL, NULL, NULL, '', NULL, NULL, 2019, 0),
+('S-2019-030', 'Leshani ', NULL, NULL, NULL, '', NULL, NULL, 2019, 0),
+('S-2019-031', 'Leshani Silva', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-032', 'Dasuni Geeganage', 'Musaeus College', 112412611, 770092736, 'tharushi68@gmail.com', NULL, '', 2019, 1),
+('S-2019-033', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-034', 'ssssss sss', NULL, NULL, NULL, 'bandaranayake11@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-035', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-036', 'FInal Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-037', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-038', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-039', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-040', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
+('S-2019-041', 'Kasuni Jayasekara', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 1),
+('s001', 'Nimesha Wickramasinghe', 'St.Josephs College', 112635244, 718283728, 'nimesha@gmail.com', 'Male', '2,Wattala road, Hunupitiya', NULL, 0),
+('s002', 'Tharushi Jayasekara', 'Musaeus College', 112412811, 778908909, 'tharushi68@gmail.com', 'Female', '23,Pelawatte', NULL, 0),
+('s003', 'Ashera Silva', NULL, NULL, NULL, 'ashera@gmail.com', NULL, NULL, NULL, 0),
+('s004', 'test test', NULL, NULL, NULL, 'test', NULL, NULL, NULL, 0),
+('s005', 'Dilina Dehigama', NULL, NULL, NULL, 'dilina@gmail.com', NULL, NULL, NULL, 0);
+
+INSERT INTO `lecturer` (`lecID`, `nic`, `name`, `tele`, `email`, `qualification`, `address`, `login`) VALUES
+('L-AKURA-001', '908765787V', 'Kasun Perera', 779283745, 'kasunperera@gmail.com', 'BSc Mathematics UCSC', 'No:5, Reid Avenue, Colombo', 1),
+('L-AKURA-002', '907687987V', 'Akila Rangoda', 716576879, 'akila@gmail.com', 'Bsc (Hons) Physics', NULL, 0),
+('L-AKURA-003', '913827392V', 'Isuru Bandaranayake', 712938729, 'isuru@gmail.com', 'Bsc Chemistry', NULL, 0),
+('L-AKURA-004', '853824792V', 'Thusitha Bandara', 702839128, 'thusitha@yahoo.com', 'Bsc (Hons) Microbiology', NULL, 0),
+('L-AKURA-005', '908767283V', 'Narmada Weliwita', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
+('L-AKURA-006', '908767283V', 'Narmada Weliwita', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
+('L-AKURA-007', '886374657V', 'Mahela Withana', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
+('L-AKURA-008', '908767283V', 'Nimmi Welikala', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
+('L-AKURA-009', '886374657V', 'Asela Kodikara', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
+('L-AKURA-010', '908767283V', 'Mahela Jayasekara', NULL, 'narmada@gmail.com', NULL, NULL, 0),
+('L-AKURA-011', '908767283V', 'Mahela Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-012', '908767283V', 'Narmada Silva', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-013', '886374657V', 'Tharushi Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-014', '886374657V', 'Narmada Withana', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-015', '886374657V', 'Mahela Withana', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-016', '886374657V', 'Mahela Withana', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-017', '886374657V', 'Nimmi Welikala', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-018', '886374657V', 'Tharushi Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-019', '886374657V', 'Mahela Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-020', '', 'test test', NULL, 'nimesha1996@gmail.com', NULL, NULL, 0),
+('L-AKURA-021', '908767283V', 'Narmada Jayasekara', 770065786, 'tharushi68@gmail.com', 'BSc Maths', '', 1),
+('L-AKURA-022', '908767283V', 'Hashini Perera', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
+('L-AKURA-023', '886374657V', 'Ashera Silva', 776543212, 'tharushi68@gmail.com', 'Bsc', NULL, 0),
+('L-AKURA-024', '886374657V', 'Sanduni Kariyawasam', 778678765, 'tharushi68@gmail.com', 'Bsc', NULL, 0);
+
+INSERT INTO `parent` (`paID`, `stID`, `name`, `teleres`, `telemob`, `email`, `relationship`) VALUES
+('P-2019-001', 'S-2019-001', 'Amali Jayasekara', 112456543, 770088515, 'amalij@gmail.com', 'Mother');
+
+INSERT INTO `subject` (`subID`, `subname`, `medium`, `hall`, `fromTime`, `toTime`, `year`, `day`, `lecID`, `fee`) VALUES
+('S01', 'Combined Maths', 'S', 'Hall A', '15:00:00', '19:00:00', '2019', 'Monday', 'L-AKURA-001', 2000),
+('S02', 'Chemistry', 'S', 'Hall B', '15:00:00', '19:00:00', '2020', 'Monday', 'L-AKURA-003', 2500),
+('S03', 'Biology', 'S', 'Hall A', '15:00:00', '19:00:00', '2021', 'Friday', 'L-AKURA-004', 2000),
+('S04', 'Physics', 'E', 'Hall A', '16:00:00', '19:00:00', '2019', 'Thursday', 'L-AKURA-002', 3000),
+('S05', 'Combined Maths', 'S', 'Hall C', '10:00:00', '14:00:00', '2020', 'Saturday', 'L-AKURA-001', 2000),
+('S06', 'Physics', 'S', 'Hall A', '14:03:00', '17:06:00', '2019', 'Tuesday', 'L-AKURA-014', 2000),
+('S07', 'Physics', 'E', 'Hall A', '15:45:00', '18:07:00', '2020', 'Tuesday', 'L-AKURA-014', 2200),
+('S08', 'Physics', 'E', 'Hall C', '14:03:00', '16:05:00', '2021', 'Saturday', 'L-AKURA-014', 2100),
+('S09', '', '', '', NULL, NULL, NULL, '', '', NULL),
+('S10', 'Combined Maths', 'E', 'Hall B', '15:00:00', '17:00:00', '2019', 'Wednesday', 'L-AKURA-021', 2500),
+('S11', 'Combined Maths', 'S', 'Hall B', '08:00:00', '10:00:00', '2019', 'Tuesday', 'L-AKURA-021', 2500),
+('S12', 'Physics', 'S', 'Hall A', '20:00:00', '22:00:00', '2020', 'Friday', 'L-AKURA-002', 3000),
+('S13', '', '', '', NULL, NULL, NULL, '', '', NULL),
+('S14', '', '', '', NULL, NULL, NULL, '', '', NULL),
+('S15', 'ICT', 'E', 'Hall C', '13:00:00', '15:00:00', '2019', 'Sunday', 'L-AKURA-028', 2200),
+('S16', 'ICT', 'E', 'Hall B', '13:00:00', '15:00:00', '2019', 'Sunday', 'L-AKURA-028', 2200),
+('S17', 'Biology', 'S', 'Hall C', '06:00:00', '08:00:00', '2019', 'Wednesday', 'L-AKURA-022', 2200),
+('S18', '', '', '', NULL, NULL, NULL, '', '', NULL),
+('S19', 'Biology', 'E', 'Hall A', '06:00:00', '08:00:00', '2019', 'Sunday', 'L-AKURA-023', 2500);
+
 INSERT INTO `assignment` (`assID`, `subID`, `stID`, `result`) VALUES
 ('Integration', 'S01', 'S-2019-001', 50),
 ('Calculus', 'S01', 'S-2019-001', 70),
@@ -65,6 +165,13 @@ INSERT INTO `attendance` (`aID`, `stuID`, `subID`, `date`) VALUES
 (58, 'S-2019-039', 'S01', '2019-01-09 09:13:17'),
 (59, 'S-2019-041', 'S01', '2019-01-28 23:48:36');
 
+INSERT INTO `discussion_posts` (`postID`, `title`, `descr`, `subID`, `sub_sec`, `postedAt`, `author`, `authorName`) VALUES
+(1, 'sin(pi)=0?!', 'Why does sin(pi)=0?', 'S01', 'Trig', '2018-09-25 17:47:27', 'S-2019-001', 'Kamalika Jayasekara'),
+(2, 'cos(0)=0?', 'What is the value of cos(0)?', 'S01', 'Trig', '2018-09-26 17:47:27', 'S-2020-001', 'Tharushi Silva'),
+(24, 'ODE', 'Why does sin(pi)=0?', 'S01', 'Integration', '2019-01-09 14:44:05', 'L-AKURA-001', 'Kasun Perera'),
+(32, 'Equations', 'What are cos functions?', 'S01', 'Trig', '2019-01-10 10:55:34', 'L-AKURA-001', 'Kasun Perera'),
+(37, 'final', 'Assignment guidlines', 'S01', 'Trig', '2019-01-30 11:18:59', 'L-AKURA-001', 'Kasun Perera');
+
 INSERT INTO `comments` (`cID`, `comment`, `postID`, `postedAt`, `author`, `subID`, `authorName`) VALUES
 (34, '1', 2, '2019-01-07 16:54:36', 'L-AKURA-001', 'S01', 'Kasun Perera');
 
@@ -86,13 +193,6 @@ INSERT INTO `course_topics` (`topicID`, `lecID`, `subID`, `title`) VALUES
 (3, 'L-AKURA-001', 'S01', 'Integration');
 
 
-INSERT INTO `discussion_posts` (`postID`, `title`, `descr`, `subID`, `sub_sec`, `postedAt`, `author`, `authorName`) VALUES
-(1, 'sin(pi)=0?!', 'Why does sin(pi)=0?', 'S01', 'Trig', '2018-09-25 17:47:27', 'S-2019-001', 'Kamalika Jayasekara'),
-(2, 'cos(0)=0?', 'What is the value of cos(0)?', 'S01', 'Trig', '2018-09-26 17:47:27', 'S-2020-001', 'Tharushi Silva'),
-(24, 'ODE', 'Why does sin(pi)=0?', 'S01', 'Integration', '2019-01-09 14:44:05', 'L-AKURA-001', 'Kasun Perera'),
-(32, 'Equations', 'What are cos functions?', 'S01', 'Trig', '2019-01-10 10:55:34', 'L-AKURA-001', 'Kasun Perera'),
-(37, 'final', 'Assignment guidlines', 'S01', 'Trig', '2019-01-30 11:18:59', 'L-AKURA-001', 'Kasun Perera');
-
 INSERT INTO `enrolment` (`subID`, `stID`, `average`) VALUES
 ('S01', 'S-2019-001', 59),
 ('S01', 'S-2019-002', 44),
@@ -102,35 +202,6 @@ INSERT INTO `enrolment` (`subID`, `stID`, `average`) VALUES
 ('S02', 'S-2019-001', 60),
 ('S04', 'S-2019-041', 0),
 ('S05', 'S-2019-002', 85);
-
-INSERT INTO `lecturer` (`lecID`, `nic`, `name`, `tele`, `email`, `qualification`, `address`, `login`) VALUES
-('L-AKURA-001', '908765787V', 'Kasun Perera', 779283745, 'kasunperera@gmail.com', 'BSc Mathematics UCSC', 'No:5, Reid Avenue, Colombo', 1),
-('L-AKURA-002', '907687987V', 'Akila Rangoda', 716576879, 'akila@gmail.com', 'Bsc (Hons) Physics', NULL, 0),
-('L-AKURA-003', '913827392V', 'Isuru Bandaranayake', 712938729, 'isuru@gmail.com', 'Bsc Chemistry', NULL, 0),
-('L-AKURA-004', '853824792V', 'Thusitha Bandara', 702839128, 'thusitha@yahoo.com', 'Bsc (Hons) Microbiology', NULL, 0),
-('L-AKURA-005', '908767283V', 'Narmada Weliwita', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
-('L-AKURA-006', '908767283V', 'Narmada Weliwita', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
-('L-AKURA-007', '886374657V', 'Mahela Withana', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
-('L-AKURA-008', '908767283V', 'Nimmi Welikala', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
-('L-AKURA-009', '886374657V', 'Asela Kodikara', NULL, 'tharushi96@gmail.com', NULL, NULL, 0),
-('L-AKURA-010', '908767283V', 'Mahela Jayasekara', NULL, 'narmada@gmail.com', NULL, NULL, 0),
-('L-AKURA-011', '908767283V', 'Mahela Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-012', '908767283V', 'Narmada Silva', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-013', '886374657V', 'Tharushi Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-014', '886374657V', 'Narmada Withana', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-015', '886374657V', 'Mahela Withana', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-016', '886374657V', 'Mahela Withana', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-017', '886374657V', 'Nimmi Welikala', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-018', '886374657V', 'Tharushi Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-019', '886374657V', 'Mahela Jayasekara', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-020', '', 'test test', NULL, 'nimesha1996@gmail.com', NULL, NULL, 0),
-('L-AKURA-021', '908767283V', 'Narmada Jayasekara', 770065786, 'tharushi68@gmail.com', 'BSc Maths', '', 1),
-('L-AKURA-022', '908767283V', 'Hashini Perera', NULL, 'tharushi68@gmail.com', NULL, NULL, 0),
-('L-AKURA-023', '886374657V', 'Ashera Silva', 776543212, 'tharushi68@gmail.com', 'Bsc', NULL, 0),
-('L-AKURA-024', '886374657V', 'Sanduni Kariyawasam', 778678765, 'tharushi68@gmail.com', 'Bsc', NULL, 0);
-
-INSERT INTO `parent` (`paID`, `stID`, `name`, `teleres`, `telemob`, `email`, `relationship`) VALUES
-('P-2019-001', 'S-2019-001', 'Amali Jayasekara', 112456543, 770088515, 'amalij@gmail.com', 'Mother');
 
 INSERT INTO `payment` (`pID`, `date`, `month`, `amount`, `stID`, `subID`, `year`) VALUES
 (3, '2018-08-10', 'August', 2000, 's001', 'S01', 2018),
@@ -232,78 +303,6 @@ INSERT INTO `sch_changes` (`sch_ID`, `title`, `content`, `created`) VALUES
 (17, 'Poya day holiday', 'Akura institute will be closed on 13th May due to Poya holiday.', '2018-10-08 21:53:25'),
 (23, 'Independence Day Holiday', 'Akura Institute will be closed on February 4th in celebration of Independence Day', '2019-01-07 23:36:35');
 
-
-INSERT INTO `student` (`stID`, `name`, `school`, `teleres`, `telemob`, `email`, `gender`, `address`, `ALyear`, `login`) VALUES
-('S-2019-001', 'Kamalika Jayasekara', 'Musaeus College', 112456543, 770088515, 'tharushi68@gmail.com', NULL, '', 2019, 1),
-('S-2019-002', 'Ashera Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-003', 'Kasuni Hasanga', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-004', 'Anne De Silva', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-005', 'Anne De Silva', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-006', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-007', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-008', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-009', 'Anne De Silva', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-010', 'Mahela Jayasekara', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-011', 'Isuru Akalanka', NULL, NULL, NULL, 'bandaranayake11@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-012', 'Tharuka Nimesha', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-013', 'Asela Jayasekara', '', 0, 0, 'tharushi68@gmail.com', NULL, '', 2019, 1),
-('S-2019-014', 'Hasanga Jayasekara', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-015', 'Narmada Jayasekara', 'Musaeus College', 0, 0, 'tharushi68@gmail.com', NULL, '', 2019, 0),
-('S-2019-016', 'Kasuni Weliwita', NULL, NULL, NULL, 'tharushi96@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-017', 'Tharushi Jayasekara', 'Musaeus College', 0, 0, 'tharushi68@gmail.com', NULL, '', 2019, 0),
-('S-2019-018', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-019', 'test test', 'Musaeus College', 0, 0, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
-('S-2019-020', 'test test', 'Musaeus College', 0, 0, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
-('S-2019-021', 'test test', 'Musaeus College', 712839284, 712839284, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
-('S-2019-022', 'interim interim', 'Musaeus College', 718274837, 718274837, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
-('S-2019-023', 'interimd interim', 'Musaeus College', 712837261, 712837261, 'nimesha1996@gmail.com', NULL, '', 2019, 0),
-('S-2019-024', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-025', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-026', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-027', 'aas asda', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-028', 'as as', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-029', ' ', NULL, NULL, NULL, '', NULL, NULL, 2019, 0),
-('S-2019-030', 'Leshani ', NULL, NULL, NULL, '', NULL, NULL, 2019, 0),
-('S-2019-031', 'Leshani Silva', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-032', 'Dasuni Geeganage', 'Musaeus College', 112412611, 770092736, 'tharushi68@gmail.com', NULL, '', 2019, 1),
-('S-2019-033', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-034', 'ssssss sss', NULL, NULL, NULL, 'bandaranayake11@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-035', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-036', 'FInal Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-037', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-038', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-039', 'Final Silva', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-040', 'test test', NULL, NULL, NULL, 'nimesha1996@gmail.com', NULL, NULL, 2019, 0),
-('S-2019-041', 'Kasuni Jayasekara', NULL, NULL, NULL, 'tharushi68@gmail.com', NULL, NULL, 2019, 1),
-('s001', 'Nimesha Wickramasinghe', 'St.Josephs College', 112635244, 718283728, 'nimesha@gmail.com', 'Male', '2,Wattala road, Hunupitiya', NULL, 0),
-('s002', 'Tharushi Jayasekara', 'Musaeus College', 112412811, 778908909, 'tharushi68@gmail.com', 'Female', '23,Pelawatte', NULL, 0),
-('s003', 'Ashera Silva', NULL, NULL, NULL, 'ashera@gmail.com', NULL, NULL, NULL, 0),
-('s004', 'test test', NULL, NULL, NULL, 'test', NULL, NULL, NULL, 0),
-('s005', 'Dilina Dehigama', NULL, NULL, NULL, 'dilina@gmail.com', NULL, NULL, NULL, 0);
-
-
-
-INSERT INTO `subject` (`subID`, `subname`, `medium`, `hall`, `fromTime`, `toTime`, `year`, `day`, `lecID`, `fee`) VALUES
-('S01', 'Combined Maths', 'S', 'Hall A', '15:00:00', '19:00:00', '2019', 'Monday', 'L-AKURA-001', 2000),
-('S02', 'Chemistry', 'S', 'Hall B', '15:00:00', '19:00:00', '2020', 'Monday', 'L-AKURA-003', 2500),
-('S03', 'Biology', 'S', 'Hall A', '15:00:00', '19:00:00', '2021', 'Friday', 'L-AKURA-004', 2000),
-('S04', 'Physics', 'E', 'Hall A', '16:00:00', '19:00:00', '2019', 'Thursday', 'L-AKURA-002', 3000),
-('S05', 'Combined Maths', 'S', 'Hall C', '10:00:00', '14:00:00', '2020', 'Saturday', 'L-AKURA-001', 2000),
-('S06', 'Physics', 'S', 'Hall A', '14:03:00', '17:06:00', '2019', 'Tuesday', 'L-AKURA-014', 2000),
-('S07', 'Physics', 'E', 'Hall A', '15:45:00', '18:07:00', '2020', 'Tuesday', 'L-AKURA-014', 2200),
-('S08', 'Physics', 'E', 'Hall C', '14:03:00', '16:05:00', '2021', 'Saturday', 'L-AKURA-014', 2100),
-('S09', '', '', '', NULL, NULL, NULL, '', '', NULL),
-('S10', 'Combined Maths', 'E', 'Hall B', '15:00:00', '17:00:00', '2019', 'Wednesday', 'L-AKURA-021', 2500),
-('S11', 'Combined Maths', 'S', 'Hall B', '08:00:00', '10:00:00', '2019', 'Tuesday', 'L-AKURA-021', 2500),
-('S12', 'Physics', 'S', 'Hall A', '20:00:00', '22:00:00', '2020', 'Friday', 'L-AKURA-002', 3000),
-('S13', '', '', '', NULL, NULL, NULL, '', '', NULL),
-('S14', '', '', '', NULL, NULL, NULL, '', '', NULL),
-('S15', 'ICT', 'E', 'Hall C', '13:00:00', '15:00:00', '2019', 'Sunday', 'L-AKURA-028', 2200),
-('S16', 'ICT', 'E', 'Hall B', '13:00:00', '15:00:00', '2019', 'Sunday', 'L-AKURA-028', 2200),
-('S17', 'Biology', 'S', 'Hall C', '06:00:00', '08:00:00', '2019', 'Wednesday', 'L-AKURA-022', 2200),
-('S18', '', '', '', NULL, NULL, NULL, '', '', NULL),
-('S19', 'Biology', 'E', 'Hall A', '06:00:00', '08:00:00', '2019', 'Sunday', 'L-AKURA-023', 2500);
-
 INSERT INTO `user` (`id`, `password`, `username`, `lastLogin`) VALUES
 (1, '$2a$10$BCYu4wAXWMDXpjnqb9PdSeNi2lUtqRCHvUYv6oWxaOKjEgiJN4Sz2', 'Admin', NULL),
 (3, 'abc', 'tj', NULL),
@@ -384,4 +383,3 @@ INSERT INTO `user` (`id`, `password`, `username`, `lastLogin`) VALUES
 (79, '$2b$10$5YRLVVDm.arXVobqr.k2zufeISEErsDKKBoE6xM.HNl4RJs0BHRpa', 'L-AKURA-024', NULL),
 (86, '$2b$10$.BdueDfnuw3PJTuM7DYJSetw5On1rZUC10KUFpH6zvQES3Au2d7x.', 'S-2019-042', NULL),
 (91, '$2b$10$DaNchodge3CbSCnuvZryzOn9fYvR0NhR5Wq7xXChfEonv/GzJXzPG', 'S-2019-041', NULL);
-

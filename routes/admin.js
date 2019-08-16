@@ -7,6 +7,7 @@ var nodemailer = require('nodemailer'); //for mailing purposes
 var randomstring = require("randomstring"); //to generate random strings as passwords
 var bcrypt = require("bcrypt"); // for encryption
 var dateTime = require('get-date'); //returns current date
+const inventory = require("../custom_modules/inventory");
 
 var moment = require('moment'); //To parse, validate, manipulate, and display dates and times
 
@@ -725,6 +726,14 @@ router.get("/attendance/:subject", isLoggedIn, function (req, res) {
 
     dbPool.query(sql, (err, res2, cols) => {
         if (err) throw err;
+        if(!res2.length) {
+            const sql = `SELECT subname, year FROM subject WHERE subID='${subID}'`;
+            dbPool.query(sql, (err, res3, cols) => {
+                res.render("admin/adminMarkAttendance", { subject: res3, moment: moment });
+                res.end();
+            });
+            return;
+        }
         res.render("admin/adminMarkAttendance", { subject: res2, moment: moment });
         res.end();
     });
@@ -800,6 +809,136 @@ router.post("/newsfeed/delete/:id", function (req, res) {
 
 });
 
+// Inventory routes
+router.get('/stocks', (req, res) => {
+    dbPool.getConnection((err, conn) => {
+        inventory.init(conn);
+
+        inventory.getAllItems((items) => {
+            inventory.getAllReceivedItems((receivedItems) => {
+                inventory.getAllIssuedItems((issuedItems) => {
+                    res.render('admin/adminManageStocks', { items, receivedItems, issuedItems });
+                });
+            });
+        });
+    });
+})
+
+router.get('/issue-stocks', (req, res) => {
+    dbPool.getConnection((e, c) => {
+        inventory.init(c);
+        inventory.getAllIssueRequests((requests) => {
+            res.render('admin/adminIssueStocks', { requests });
+        });
+    });
+});
+
+// API inventory
+router.get('/api/item', (req, res) => {
+    if(req.query.itID) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.getItem(req.query.itID, (r) => {
+                res.send(r[0]);
+            });
+        });
+    } else {
+        res.send({msg: "no item it in the request"});
+    }
+});
+
+router.get('/api/issue', (req, res) => {
+    if(req.query.itID && req.query.issueQty) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.getItem(req.query.itID, (item) => {
+                if (req.query.issueQty > item[0].inStockQty) {
+                    
+                    res.send({title: 'Ohh! There are no enough stocks', text: 'Please check stocks and order new stocks', icon: 'warning'});
+                    return;
+                }
+                inventory.addToIssuedItems(req.query.itID, req.query.issueQty, "This is remark", (result) => {
+                    res.send({title: 'Success!', text: "You've successfully issued the stocks"});
+                });
+            })
+        });
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
+
+router.get('/api/accept-issue-request', (req, res) => {
+    if(req.query.reqID) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.getInventoryRequest(req.query.reqID, (request) => {
+                inventory.getItem(request.itID, (item) => {
+                    if(item[0].inStockQty < request.qty) {
+                        res.send({ title: 'Ohh! There are no enough stocks', text: 'Please check stocks and order new stocks', icon: 'warning' });
+                    } else {
+                        inventory.acceptIssueRequest(request.reqID, "Remarks", (done) => {
+                            if(done) {
+                                res.send({ title: 'Success!', text: "You've successfully issued the stocks", icon: 'success' });
+                            }
+                            res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+                        });
+                    }
+                });
+            });
+        });
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
+
+router.get('/api/deny-issue-request', (req, res) => {
+    if(req.query.reqID) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.denyIssueRequest(req.query.reqID, (denied) => {
+                if(denied) {
+                    res.send({ title: 'Request has been cancelled!', text: 'Issue request has been denied and no further action required', icon: 'info' });    
+                    return;
+                }
+                res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+            });
+        })
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
+
+router.post('/api/add-item', (req, res) => {
+    if (req.body.unit && req.body.description && req.body.remarks) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.addItem(req.body.unit, req.body.description, req.body.remarks, (done) => {
+                if (done) {
+                    res.send({ title: 'Success!', text: "You've successfully listed an item", icon: 'success' });
+                    return;
+                }
+                res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+            });
+        });
+    }
+});
+
+router.post('/api/add-received-item', (req, res) => {
+    if(req.body.itID && req.body.qty) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.addToReceivedItems(req.body.itID, req.body.qty, "This is a remark", (done) => {
+                if (done) {
+                    res.send({ title: 'Success!', text: "You've successfully added to the received stocks", icon: 'success' });
+                    return;
+                }
+                res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+            });
+        });
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
 
 function generateInvoice(invoice, filename, success, error) {
     var postData = JSON.stringify(invoice);
@@ -852,5 +991,7 @@ var moveFile = (file, dir2) => {
         // else //.log('Successfully moved');
     });
 };
+
+
 
 module.exports = router;

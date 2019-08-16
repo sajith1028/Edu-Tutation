@@ -4,6 +4,7 @@ const dbPool = require("../config/database").connections;
 var SqlString = require('sqlstring');
 var moment = require('moment'); //To parse, validate, manipulate, and display dates and times
 var bcrypt = require("bcrypt"); // for encryption
+const inventory = require("../custom_modules/inventory");
 
 //Ensure user is logged in
 function isLoggedIn(req, res, next) {
@@ -487,4 +488,34 @@ router.get("/news", isLoggedIn, function (req, res) {
     });
 });
 
+
+// Inventory routes
+router.get("/ask-inventory/:subID", (req, res) => {
+    const subID = req.params.subID;
+    dbPool.getConnection((e, c) => {
+        inventory.init(c);
+        inventory.getAllItems((items) => {
+            res.render('lecturer/lecturerAskInventory', {items, subID});            
+        });
+    });
+});
+
+router.post("/ask-inventory/:subID", (req, res) => {
+    const subID = req.params.subID;
+    const itID = req.body.itID;
+    const qty = req.body.qty;
+
+    console.log(itID);
+
+    dbPool.getConnection((e, c) => {
+        inventory.init(c);
+        inventory.addToIssueRequests(itID, subID, qty, (success) => {
+            if(success) {
+                res.send({title: 'Success!', text: 'Your request has been successfully added.', icon: 'success'});
+                return;
+            }
+            res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+        });
+    });
+});
 module.exports = router;

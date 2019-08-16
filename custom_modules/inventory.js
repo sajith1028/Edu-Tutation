@@ -104,6 +104,18 @@ const getIssueRequestStatus = (reqID, callback) => {
     }, 'retrieving issue request status');
 }
 
+const getItem = (itID, callback) => {
+    const sql = `SELECT * FROM item WHERE itID = '${itID}'`;
+    makeQuery(sql, callback, 'retrieving item')
+}
+
+
+const getInventoryRequest = (reqID, callback) => {
+    const sql = `SELECT * FROM issue_request WHERE reqID = '${reqID}'`;
+    makeQuery(sql, (result) => {
+        callback(result[0]);
+    }), 'retrieving issue request';
+};
 
 
 module.exports = {
@@ -119,5 +131,7 @@ module.exports = {
     getAllIssueRequests,
     acceptIssueRequest,
     denyIssueRequest,
-    getIssueRequestStatus
+    getIssueRequestStatus,
+    getItem,
+    getInventoryRequest
 };

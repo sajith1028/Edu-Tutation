@@ -1,35 +1,13 @@
 var express         =   require("express");
-var app             =   express(),
-    bodyParser  = require("body-parser");
-var mysql           =   require("mysql");
+var app             =   express(), bodyParser  = require("body-parser");
+
 var flash           =   require("connect-flash");
-var bcrypt          =   require("bcrypt");
-var session         =   require('express-session');
 var CookieParser    =   require('cookie-parser');
 var passport        =   require('passport');
 var passportConfig  =   require('./config/passport');
-var moment   = require('moment');
-var schedule = require('node-schedule');
-var con             =   mysql.createConnection({
-                        host: "localhost",
-                        user: "nimesha",
-                        password: "",
-                        database: "akura"
-});
-
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const path = require('path');
-
 var fileUpload      =   require('express-fileupload'); //for images
 
-//ok
-con.connect(function(err){
-    if(err) 
-        throw err;
-    console.log("Connected to mysql!");
-});
-
+require('dotenv').config();
 
 app.use(CookieParser());
 
@@ -76,6 +54,7 @@ app.use("/admin", adminRoutes);
 
 var superAdminRoutes    = require("./routes/superadmin");
 app.use("/superAdmin", superAdminRoutes);
+
 
 process.env.PORT = 8000;
 process.env.IP = "127.0.0.1";
@@ -148,8 +127,6 @@ app.listen(process.env.PORT, process.env.IP, function(){
     //     console.log("Uploaded in:", data.Location);
     //   }
     // });
-    
-    
     console.log("Akura server has started at ...");
     console.log(process.env.IP+":"+process.env.PORT);
 }); 

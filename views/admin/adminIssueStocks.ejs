@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Stocks</title>
+    <!-- Responsive screen size -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <!-- End of responsive screen size -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- End of Bootstrap -->
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/form.css">
+    <!-- End of Custom Stylesheet -->
+
+    <!-- Sweet Alerts -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- End of Sweet Alerts -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- End of jQuery -->
+
+    <!-- particles -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', '/json/particles.json');
+    </script>
+    <!-- End of particles -->
+</head>
+
+<body>
+    <!--Calculationfor A/L Year-->
+    <% var years = new Date().getFullYear();   %>
+    <!--End of calculating the years for hisroty-->
+
+    <% include ./navbarPartial %>
+
+    <div id="particles-js">
+        <div id="overlay">
+            <h2 id="topic">Issue Stocks</h2>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#isreq">Inventory Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#isinven">Issue Inventory</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="content-background">
+                    <div class="tab-content">
+                        <div class="row tab-pane active" id="isreq">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default panel-fill">
+                                    <div class="panel-body">
+                                        <div class="container-table100">
+                                            <div class="wrap-table100">
+                                                <div class="table100">
+                                                    <table id="stockTable"
+                                                        style="border:1px solid gray; margin-top:0px">
+                                                        <thead>
+                                                            <tr class="table100-head">
+                                                                <th class="column3">Item ID</th>
+                                                                <th class="column3">Request ID</th>
+                                                                <th class="column3">Unit</th>
+                                                                <th class="column3">Description</th>
+                                                                <th class="column3">Requested Qty</th>
+                                                                <th class="column3">In Stock Qty</th>
+                                                                <th class="column3">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% requests.forEach((request) => { %>
+                                                            <tr>
+                                                                <td class="column1"> <%= request.itID %>
+                                                                </td>
+                                                                <td id="req-id" data-reqid="<%= request.reqID %>"
+                                                                    class="column2"> <%= request.reqID %> </td>
+                                                                <td class="column5"> <%= request.unit %> </td>
+                                                                <td class="column3"> <%= request.description %>
+                                                                </td>
+                                                                <td class="column4"> <%= request.qty %> </td>
+                                                                <td class="column5"> <%= request.inStockQty %> </td>
+                                                                <% if(request.pending) { %>
+                                                                <td class="column5">
+                                                                    <div class="row">
+                                                                        <button type="submit" id="accept-btn"
+                                                                            class="btn btn-primary"
+                                                                            style="width:100px">Accept</button>
+                                                                        <button type="submit" id="deny-btn"
+                                                                            class="btn btn-primary"
+                                                                            style="width:100px">Deny</button>
+                                                                    </div>
+                                                                </td>
+                                                                <% } else if(request.accepted) { %>
+                                                                <td class="column5"> <span
+                                                                        class="badge badge-pill badge-primary">Accepted</span>
+                                                                </td>
+                                                                <% } else { %>
+                                                                <td class="column5"><span
+                                                                        class="badge badge-pill badge-danger">Denied</span>
+                                                                </td>
+                                                                <% } %>
+                                                            </tr>
+                                                            <% }); %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row tab-pane fade" id="isinven">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default panel-fill">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Please review details</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Item ID</label>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" id="itID" class="form-control" name="itID"
+                                                            placeholder="Item ID" aria-label="Recipient's username"
+                                                            aria-describedby="basic-addon2" required>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-primary" id="check-btn" type="button"
+                                                                style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">Unit</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="unit" class="form-control" type="text" name="subID"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Description</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="description" class="form-control" type="text"
+                                                        name="description" readonly>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">In Stock Qty</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="instock-qty" class="form-control" type="text"
+                                                        name="inStockQty" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Issue Qty</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="issue-qty" class="form-control" type="text"
+                                                        name="issueQty">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label"></label>
+                                                <div class="col-sm-4 input-group-append">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="lecturer" id="lecturer" value="lecID">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <center>
+                            <div class="form-group">
+                                <button type="submit" id="submit-btn" class="btn btn-primary"
+                                    style="width:100px">Issue</button>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/issueStocks.js"></script>
+    <% include ../partials/footer %>
