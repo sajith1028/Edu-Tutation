@@ -842,7 +842,7 @@ router.get('/api/accept-issue-request', (req, res) => {
                     } else {
                         inventory.acceptIssueRequest(request.reqID, "Remarks", (done) => {
                             if(done) {
-                                res.send({ title: 'Success!', text: "You've successfully issued the stocks" });
+                                res.send({ title: 'Success!', text: "You've successfully issued the stocks", icon: 'success' });
                             }
                             res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
                         });
@@ -867,6 +867,38 @@ router.get('/api/deny-issue-request', (req, res) => {
                 res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
             });
         })
+    } else {
+        res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+    }
+});
+
+router.post('/api/add-item', (req, res) => {
+    if (req.body.unit && req.body.description && req.body.remarks) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.addItem(req.body.unit, req.body.description, req.body.remarks, (done) => {
+                if (done) {
+                    res.send({ title: 'Success!', text: "You've successfully listed an item", icon: 'success' });
+                    return;
+                }
+                res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+            });
+        });
+    }
+});
+
+router.post('/api/add-received-item', (req, res) => {
+    if(req.body.itID && req.body.qty) {
+        dbPool.getConnection((e, c) => {
+            inventory.init(c);
+            inventory.addToReceivedItems(req.body.itID, req.body.qty, "This is a remark", (done) => {
+                if (done) {
+                    res.send({ title: 'Success!', text: "You've successfully added to the received stocks", icon: 'success' });
+                    return;
+                }
+                res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
+            });
+        });
     } else {
         res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
     }

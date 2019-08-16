@@ -86,7 +86,8 @@
                                                             <tr>
                                                                 <td class="column1"> <%= request.itID %>
                                                                 </td>
-                                                                <td id="req-id" data-reqid="<%= request.reqID %>" class="column2"> <%= request.reqID %> </td>
+                                                                <td id="req-id" data-reqid="<%= request.reqID %>"
+                                                                    class="column2"> <%= request.reqID %> </td>
                                                                 <td class="column5"> <%= request.unit %> </td>
                                                                 <td class="column3"> <%= request.description %>
                                                                 </td>
@@ -131,57 +132,53 @@
                                         <h3 class="panel-title">Please review details</h3>
                                     </div>
                                     <div class="panel-body">
-                                        <form id="newsubject">
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <label class="col-sm-1 control-label label">Item ID</label>
-                                                    <div class="col-sm-4">
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" id="itID" class="form-control"
-                                                                name="itID" placeholder="Item ID"
-                                                                aria-label="Recipient's username"
-                                                                aria-describedby="basic-addon2" required>
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-primary" id="check-btn"
-                                                                    type="button"
-                                                                    style="margin-bottom:0;font-size:12px;">CHECK</button>
-                                                            </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Item ID</label>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" id="itID" class="form-control" name="itID"
+                                                            placeholder="Item ID" aria-label="Recipient's username"
+                                                            aria-describedby="basic-addon2" required>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-primary" id="check-btn" type="button"
+                                                                style="margin-bottom:0;font-size:12px;">CHECK</button>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-2"></div>
-                                                    <label class="col-sm-1 control-label label">Unit</label>
-                                                    <div class="col-sm-4 input-group-append">
-                                                        <input id="unit" class="form-control" type="text" name="subID"
-                                                            readonly>
-                                                    </div>
                                                 </div>
-                                                <div class="row">
-                                                    <label class="col-sm-1 control-label label">Description</label>
-                                                    <div class="col-sm-4 input-group-append">
-                                                        <input id="description" class="form-control" type="text"
-                                                            name="description" readonly>
-                                                    </div>
-                                                    <div class="col-sm-2"></div>
-                                                    <label class="col-sm-1 control-label label">In Stock Qty</label>
-                                                    <div class="col-sm-4 input-group-append">
-                                                        <input id="instock-qty" class="form-control" type="text"
-                                                            name="inStockQty" readonly>
-                                                    </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">Unit</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="unit" class="form-control" type="text" name="subID"
+                                                        readonly>
                                                 </div>
-                                                <div class="row">
-                                                    <label class="col-sm-1 control-label label">Issue Qty</label>
-                                                    <div class="col-sm-4 input-group-append">
-                                                        <input id="issue-qty" class="form-control" type="text"
-                                                            name="issueQty">
-                                                    </div>
-                                                    <div class="col-sm-2"></div>
-                                                    <label class="col-sm-1 control-label label"></label>
-                                                    <div class="col-sm-4 input-group-append">
-                                                    </div>
-                                                </div>
-                                                <input type="hidden" name="lecturer" id="lecturer" value="lecID">
                                             </div>
-                                        </form>
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Description</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="description" class="form-control" type="text"
+                                                        name="description" readonly>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">In Stock Qty</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="instock-qty" class="form-control" type="text"
+                                                        name="inStockQty" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Issue Qty</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="issue-qty" class="form-control" type="text"
+                                                        name="issueQty">
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label"></label>
+                                                <div class="col-sm-4 input-group-append">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="lecturer" id="lecturer" value="lecID">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

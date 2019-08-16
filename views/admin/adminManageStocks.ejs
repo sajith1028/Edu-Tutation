@@ -50,23 +50,51 @@
                     <div class="col-lg-12">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#isreq">Items</a>
+                                <a class="nav-link active" data-toggle="tab" href="#items-tab">Items</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#isinven">Received</a>
+                                <a class="nav-link" data-toggle="tab" href="#received-tab">Received</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#isinven">Issued</a>
+                                <a class="nav-link" data-toggle="tab" href="#issued-tab">Issued</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div id="content-background">
                     <div class="tab-content">
-                        <div class="row tab-pane active" id="isreq">
+                        <div class="row tab-pane active" id="items-tab">
                             <div class="col-lg-12">
                                 <div class="panel panel-default panel-fill">
                                     <div class="panel-body">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-sm-1 control-label label">Unit</label>
+                                                    <div class="col-sm-4">
+                                                        <input id="n-unit" type="text" name="title" placeholder="Unit"
+                                                            data-parsley-type="alphanum" minlength="5"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <label class="col-sm-1 control-label label">Description</label>
+                                                    <div class="col-sm-4">
+                                                        <input id="n-description" type="text" name="title" placeholder="Description"
+                                                         data-parsley-type="alphanum" minlength="5"
+                                                            class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-sm-1 control-label label">Remarks</label>
+                                                    <div class="col-sm-4">
+                                                        <input id="n-remarks" type="text" name="title" placeholder="Remarks"
+                                                            id="remarks" data-parsley-type="alphanum" minlength="5"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <button type="submit" id="n-submit-btn" class="btn btn-primary">ADD
+                                                        NEW ITEM</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="container-table100">
                                             <div class="wrap-table100">
                                                 <div class="table100">
@@ -104,10 +132,50 @@
                             </div>
                         </div>
 
-                        <div class="row tab-pane fade" id="isinven">
+                        <div class="row tab-pane fade" id="received-tab">
                             <div class="col-lg-12">
                                 <div class="panel panel-default panel-fill">
                                     <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Item ID</label>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" id="itID" class="form-control" name="itID" placeholder="Item ID"
+                                                            aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-primary" id="check-btn" type="button"
+                                                                style="margin-bottom:0;font-size:12px;">CHECK</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">Unit</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="unit" class="form-control" type="text" name="subID" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Description</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="description" class="form-control" type="text" name="description" readonly>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <label class="col-sm-1 control-label label">In Stock Qty</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="instock-qty" class="form-control" type="text" name="inStockQty" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-1 control-label label">Received Qty</label>
+                                                <div class="col-sm-4 input-group-append">
+                                                    <input id="received-qty" class="form-control" type="text" name="receivedQty">
+                                                </div>
+                                                <button type="submit" id="r-submit-btn" class="btn btn-primary">ADD</button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="lecturer" id="lecturer" value="lecID">
+                                        </div>
                                         <div class="container-table100">
                                             <div class="wrap-table100">
                                                 <div class="table100">
@@ -141,10 +209,11 @@
                             </div>
                         </div>
 
-                        <div class="row tab-pane fade" id="isinven">
+                        <div class="row tab-pane fade" id="issued-tab">
                             <div class="col-lg-12">
                                 <div class="panel panel-default panel-fill">
                                     <div class="panel-body">
+                            
                                         <div class="container-table100">
                                             <div class="wrap-table100">
                                                 <div class="table100">
@@ -164,7 +233,7 @@
                                                                 <td class="column1"> <%=item.itID %> </td>
                                                                 <td class="column2"> <%=item.description %> </td>
                                                                 <td class="column3"> <%=item.unit %> </td>
-                                                                <td class="column4"> <%=item.qty %> 
+                                                                <td class="column4"> <%=item.qty %>
                                                             </tr>
                                                             <% }); %>
                                                         </tbody>
@@ -186,4 +255,5 @@
         $("#receivedTable").dataTable();
         $("#issuedTable").dataTable();
     </script>
+    <script src="/scripts/adminManageStocks.js"></script>
     <% include ../partials/footer %>

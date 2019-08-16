@@ -24,7 +24,6 @@ $("#submit-btn").click(() => {
 });
 
 $("#accept-btn").click(() => {
-    console.log("Gee");
     $.ajax({
         url: 'http://localhost:8080/admin/api/accept-issue-request',
         data: { reqID: $("#req-id").attr("data-reqid")}
