@@ -879,6 +879,7 @@ router.get('/api/accept-issue-request', (req, res) => {
                         inventory.acceptIssueRequest(request.reqID, "Remarks", (done) => {
                             if(done) {
                                 res.send({ title: 'Success!', text: "You've successfully issued the stocks", icon: 'success' });
+                                return;
                             }
                             res.send({ title: 'Something went wrong!', text: 'Please try again...', icon: 'error' });
                         });
