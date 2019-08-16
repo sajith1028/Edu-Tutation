@@ -124,24 +124,29 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
-                                                <label class="col-sm-1 control-label label">Section</label>
+                                                <label class="col-sm-1 control-label label">Enter a URL to Check</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" name="section" placeholder="Section" data-parsley-type="alphanum" minlength="5" class="form-control" required>
                                                 </div>
                                                 <div class="col-sm-2"></div>
-                                                <label class="col-sm-1 control-label label">Content Title</label>
+                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Choose File One</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" name="title" placeholder="Title" data-parsley-type="alphanum" minlength="5" class="form-control" required>
-                                                </div>
+                                                    <div class="input-group input-file" name="courseFile" accept="application/pdf,application/vnd.ms-excel,audio/*,video/*,image/*">
+                                                		<input type="text" class="form-control"  id="courseFile"  required placeholder='Choose a file...' />			
+                                                        <span class="input-group-btn">
+                                                    		<button class="btn btn-default btn-choose" style="background-color:#4f5563; color:white; border-top-left-radius:0; border-bottom-left-radius:0; height:100%; font-size:12px" type="button">CHOOSE</button>
+                                                		</span>                        
+                                            		</div>
+                                            	</div>
                                             </div>
                                                 
                                             <div class="row">    
-                                                <label class="col-sm-1 control-label label" data-parsley-type="alphanum" minlength="5" style="margin-top:25px">Description</label>
+                                                <label class="col-sm-1 control-label label" data-parsley-type="alphanum" minlength="5" style="margin-top:25px">Plagiarism Check Name</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" name="desc" placeholder="Description" class="form-control" style="margin-top:25px" required>
                                                 </div>
                                                 <div class="col-sm-2"></div>
-                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Choose File</label>
+                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Choose File Two</label>
                                                 <div class="col-sm-4">
                                                     <div class="input-group input-file" name="courseFile" accept="application/pdf,application/vnd.ms-excel,audio/*,video/*,image/*">
                                                 		<input type="text" class="form-control"  id="courseFile"  required placeholder='Choose a file...' />			
@@ -158,7 +163,10 @@
                                     <br>
                                     <center>
                                         <div class="form-group">
-                                            <button type="submit" id="submitbtn" class="btn btn-primary">CHECK FILES</button>
+                                            <button type="button" id="submitbtn" class="btn btn-primary">CHECK FILES</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="useSite" class="btn btn-primary">USE COPYLEAKS SITE? </button>
                                         </div>
                                     </center>
                                 </form>
@@ -171,6 +179,7 @@
     </div>
 </div>
 
+<script src="/scripts/plagiarism.js"></script>
 <script src="/scripts/register.js"></script>
 <script src="/scripts/addResults.js"></script>
 <% include ../partials/footer %>
