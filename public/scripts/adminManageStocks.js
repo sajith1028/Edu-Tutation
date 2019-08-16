@@ -1,6 +1,6 @@
 $("#check-btn").click(() => {
     $.ajax({
-        url: `http://localhost:8080/admin/api/item`,
+        url: `/admin/api/item`,
         data: { itID: $("#itID").val() }
     }).done((data) => {
         console.log(data);
@@ -23,7 +23,7 @@ $("#n-submit-btn").click(() => {
         swal("Empty fields!", "Please fill all fields", "warning");
     } else {
         $.ajax({
-            url: 'http://localhost:8080/admin/api/add-item',
+            url: '/admin/api/add-item',
             data: {
                 unit: unitInput.val(),
                 remarks: remarksInput.val(),
@@ -44,7 +44,7 @@ $("#r-submit-btn").click(() => {
         swal("Empty fields!", "Please fill all fields", "warning");
     } else {
         $.ajax({
-            url: 'http://localhost:8080/admin/api/add-received-item',
+            url: '/admin/api/add-received-item',
             data: {
                 itID: itIDInput.val(),
                 qty: receivedQtyInput.val()
