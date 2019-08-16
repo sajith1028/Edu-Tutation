@@ -28,3 +28,8 @@ function openInventoryAskPage() {
     const href = `/lecturer/ask-inventory/${subjectId}`;
     window.location = href;
 }
+
+function plagiarismCheck(){
+    var href = "/lecturer/plagiarismCheck";
+    window.location=href;
+}

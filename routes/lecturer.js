@@ -164,6 +164,11 @@ router.post("/addAssignmentResults/:id", function (req, res) {
     res.end();
 });
 
+//plagiarism check page
+router.get("/plagiarismCheck/", isLoggedIn, function(req,res){
+    res.render("lecturer/lecturerPlagiarismCheck");
+});
+
 //add course content page
 router.get("/addCourseContent/:id", isLoggedIn, function (req, res) {
     var id = req.params.id;

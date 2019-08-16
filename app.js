@@ -55,7 +55,78 @@ app.use("/admin", adminRoutes);
 var superAdminRoutes    = require("./routes/superadmin");
 app.use("/superAdmin", superAdminRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function(){    
+
+process.env.PORT = 8000;
+process.env.IP = "127.0.0.1";
+
+app.listen(process.env.PORT, process.env.IP, function(){
+    var backUp = schedule.scheduleJob({hour: 00, minute: 00, dayOfWeek: 0}, function(){
+        var exec = require('child_process').exec;
+        var name = 'mysql-backup-' + moment().format('YYYY-MM-DD-HH-mm-ss') + '.sql'
+        var child = exec(' mysqldump -u nimesha akura > ' + name);
+        
+        //configuring the AWS environment
+        AWS.config.update({
+            accessKeyId: "",
+            secretAccessKey: ""
+          });
+        
+        var s3 = new AWS.S3();
+        var filePath = name;
+        
+        //configuring parameters
+        var params = {
+          Bucket: 'akura',
+          Body : fs.createReadStream(filePath),
+          Key :filePath
+        };
+        
+        s3.upload(params, function (err, data) {
+          //handle error
+          if (err) {
+            console.log("Error", err);
+          }
+        
+          //success
+          if (data) {
+            console.log("Uploaded in:", data.Location);
+          }
+        });  
+    });
+    
+    //uncomment this to prove its happening
+    
+    // var exec = require('child_process').exec;
+    // var name = 'mysql-backup-' + moment().format('YYYY-MM-DD-HH-mm-ss') + '.sql'
+    // var child = exec(' mysqldump -u nimesha akura > ' + name);
+    
+    // //configuring the AWS environment
+    // AWS.config.update({
+    //     accessKeyId: "",
+    //     secretAccessKey: ""
+    //   });
+    
+    // var s3 = new AWS.S3();
+    // var filePath = name;
+    
+    // //configuring parameters
+    // var params = {
+    //   Bucket: 'akura',
+    //   Body : fs.createReadStream(filePath),
+    //   Key :filePath
+    // };
+    
+    // s3.upload(params, function (err, data) {
+    //   //handle error
+    //   if (err) {
+    //     console.log("Error", err);
+    //   }
+    
+    //   //success
+    //   if (data) {
+    //     console.log("Uploaded in:", data.Location);
+    //   }
+    // });
     console.log("Akura server has started at ...");
     console.log(process.env.IP+":"+process.env.PORT);
 }); 

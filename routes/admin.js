@@ -51,7 +51,7 @@ router.post("/register/student/subject", function (req, res) {
     if (Array.isArray(subjects)) {
         subjects.forEach(function (subject) {
             var sql3 = "INSERT INTO enrolment (subID, stID) values(" + SqlString.escape(subject) + "," + SqlString.escape(stID) + ");";
-            dbPoolsole.log(sql3);
+            //.log(sql3);
             dbPool.query(sql3, function (err, result) {
                 if (err) throw err;
             });
@@ -119,7 +119,7 @@ router.post("/register/student/new", function (req, res) {
         if (Array.isArray(subjects)) {
             subjects.forEach(function (subject) {
                 var sql3 = "INSERT INTO enrolment (subID, stID) values(" + SqlString.escape(subject) + "," + SqlString.escape(stID) + ");";
-                dbPoolsole.log(sql3);
+                //.log(sql3);
                 dbPool.query(sql3, function (err, result) {
                     if (err) throw err;
                 });
@@ -269,11 +269,47 @@ router.post("/register/student/new", function (req, res) {
 //end of student registration
 
 //register parent
+
+//load register parent page
 router.get("/register/parent", isLoggedIn, function (req, res) {
     res.render("admin/adminRegisterParent")
 });
 
+//register new parent
+router.post("/register/parent/new", function (req,res){
+    //getting details of parent
+
+    var name = req.body.firstname + " " + req.body.lastname;
+    var email = req.body.email;
+    var stID = req.body.studentID;
+    var pID;
+    var ALyear;
+    var sql = "SELECT ALyear as ALYear from student where stID=" + SqlString.escape(stID) + ";";
+
+    dbPool.query(sql, (err, res2, cols) => {
+        if(err) throw err;
+        if(typeof res2[0] !== 'undefined' && typeof res2[0].ALYear !== 'undefined'){    
+            ALyear = res2[0].ALYear;
+        }
+        //creating parent id
+        pID = "P" + stID.substring(1);
+        console.log(ALyear);
+
+        var sql1 = "INSERT INTO parent (paID,stID,name,email) VALUES(" + SqlString.escape(pID) + "," + SqlString.escape(stID) + "," + SqlString.escape(name) + "," + SqlString.escape(email) + ");";
+
+        dbPool.query(sql1, function(err,result){
+            if(err) throw err;
+        });
+    });
+    
+    req.flash("success", "Parent registration successful!");
+    res.redirect("/admin/register/parent");
+
+});
+
 //end of register parent
+
+
 router.post("/register/alyear", function (req, res) {
     var sql = "SELECT distinct l.name, s.* FROM subject s, lecturer l where s.lecID=l.lecID and year='" + req.body.alyears.year + "'";
 
@@ -349,7 +385,7 @@ router.post("/payments/new", function (req, res) {
             var year = (new Date()).getFullYear();
 
             var sql3 = "INSERT INTO payment(date,month,amount,stID,subID,year) values('" + newDate + "','" + newMonth + "'," + fee + ",'" + studentID + "','" + subject + "','" + year + "');";
-            dbPoolsole.log(sql3);
+            //.log(sql3);
             dbPool.query(sql3, (err, res3, cols) => {
                 if (err)
                     throw err;
@@ -388,11 +424,11 @@ router.post("/payments/new", function (req, res) {
     };
 
     generateInvoice(invoice, 'invoice.pdf', function () {
-        dbPoolsole.log("Saved invoice to invoice.pdf");
+        //.log("Saved invoice to invoice.pdf");
 
     },
         function (error) {
-            dbPoolsole.error(error);
+            //.error(error);
         }
     );
 
@@ -464,17 +500,17 @@ router.post("/manage/lecturer", function (req, res) {
     var lecID = req.body.lecturerID;
 
     var sql1 = "DELETE FROM user WHERE username='" + lecID + "'";
-    dbPoolsole.log(sql1)
+    //.log(sql1)
     dbPool.query(sql1, (err, res2, cols) => {
         if (err) throw err;
 
         var sql2 = "DELETE FROM comments WHERE author='" + lecID + "'";
-        dbPoolsole.log(sql2)
+        //.log(sql2)
         dbPool.query(sql2, (err, res3, cols) => {
             if (err) throw err;
 
             var sql = "DELETE FROM lecturer WHERE lecID='" + lecID + "'";
-            dbPoolsole.log(sql)
+            //.log(sql)
 
             dbPool.query(sql, (err, res1, cols) => {
                 if (err) throw err;
@@ -589,7 +625,7 @@ router.post("/register/subject/update", function (req, res) {
 });
 
 router.post("/register/lecturer/class", function (req, res) {
-    dbPoolsole.log(req.body);
+    //.log(req.body);
 });
 
 router.post("/register/lecturer/new", function (req, res) {
@@ -952,7 +988,7 @@ var moveFile = (file, dir2) => {
 
     fs.rename(file, dest, (err) => {
         if (err) throw err;
-        else dbPoolsole.log('Successfully moved');
+        // else //.log('Successfully moved');
     });
 };
 

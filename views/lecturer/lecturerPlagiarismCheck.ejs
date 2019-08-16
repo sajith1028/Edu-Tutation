@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Add Content</title>
+        <title>Register</title>
         <!-- Responsive screen size -->
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
         <!-- End of responsive screen size -->
@@ -10,23 +10,23 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- End of Bootstrap -->    
     
+        <!--Sweet alert -->
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- Google fonts -->
             <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
 
         <!-- Custom Stylesheet -->
             <link rel="stylesheet" type="text/css" href="/stylesheets/form.css"> 
-            <script src="/scripts/lecturerCourseContent.js"></script>
         <!-- End of Custom Stylesheet -->    
         
         <!-- jQuery -->
             <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <!-- End of jQuery -->  
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
         <!-- particles -->
             <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         <!-- End of particles -->  
         <script src="../../scripts/parsley.js"></script>
-        
         <script>
             particlesJS.load('particles-js', '/json/particles.json');
             
@@ -106,22 +106,21 @@
     <% } %>
       </div>
     </nav>
-
+    
 <div id="particles-js">
     <div id="overlay">
-        <h2 id="topic">ADD COURSE CONTENT</h2>
+        <h2 id="topic">PLAGIARISM CHECK</h2>
             
-        <div class="container">
+        <div class="container" style="padding-bottom: 20px;">
             <div id="content-background">
                 <div class="tab-content">
                     <div class="row tab-pane active" id="newStudent">
                         <div class="col-lg-12">
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Subject <%= content.id.id  %> - Course Content</h3>
+                                    <h3 class="panel-title">Select Files</h3>
                                 </div>
-                                <% var source = "/lecturer/addNewCourseContent/"+content.id.id; %>
-                                <form action=<%= source %> method="POST" onsubmit="return validate()" ref='uploadForm' data-parsley-validate id='form' encType="multipart/form-data">
+                                <form>
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="row">
@@ -153,27 +152,13 @@
                                             	</div>
                                             </div>
 
-                                            <div class="row">
-                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Accpet Responses?</label>
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" name="accResponse" class="" style="margin-top:35px">
-                                                </div>
-                                                <div class="col-sm-2"></div>
-                                                <label class="col-sm-1 control-label label" style="margin-top:25px">Due Date and Time</label>
-                                                <div class="col-sm-2">
-                                                    <input type="date" name="dueDate"  data-parsley-type="date" class="form-control" style="margin-top:25px">
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <input type="time" name="dueTime"  placeholder="hrs:min" data-parsley-type="time" class="form-control" style="margin-top:25px">
-                                                </div>
-                                            </div>
 
                                         </div>
                                     </div>
                                     <br>
                                     <center>
                                         <div class="form-group">
-                                            <button type="submit" id="submitbtn" class="btn btn-primary">ADD CONTENT</button>
+                                            <button type="submit" id="submitbtn" class="btn btn-primary">CHECK FILES</button>
                                         </div>
                                     </center>
                                 </form>
@@ -183,103 +168,9 @@
                 </div> 
             </div>
         </div>
-        
-        <div class="container">
-            <div id="content-background">
-                <div class="tab-content">
-                    <div class="row tab-pane active" id="newStudent">
-                        <div class="col-lg-12">
-                            <div class="panel panel-default panel-fill">
-                                <!--check whether the course content array is empty-->
-                                <% if (content.length!=0) { %> 
-                                    <center><h4>Previously Uploaded Course Content - Subject <%= content.id.id %></h4></center><br>
-                                    <!--adding a new section-->
-                                    <% var section = '' %>
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><%= content[0].section %></h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                    <% var section = content[0].section%>
-                                   
-                                    <% for(var i =0; i< content.length; i++) { %>
-                                    <!--checking whether the section is the same to add a new section-->
-                                        <% if (section != content[i].section && i>0) {%>
-                                            </div> <!-- row.// -->
-                                                </div>
-                                                    <br>
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><%= content[i].section %></h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="row">
-                                        <% } else if (section != content[i].section) {%>
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title"><%= content[i].section %></h3>
-                                            </div>
-                                            <div class="panel-body">
-                                        <% }%>
-                                        
-                                                <!--add content with description-->
-                                                <div class="col-md-3">
-                                                	<figure class="card card-product" style="border:1px gray solid; background-color:#e9efff80">
-                                                	    <div>
-                                                			<h6 class="title text-dots" style="color:black; padding-left:15px; padding-top:10px; padding-bottom:10px; background:#96a8da80"><%= content[i].title %></h6>
-                                                		</div>
-                                                		<figcaption class="info-wrap" style="gray solid">
-                                                			<div class="action-wrap">
-                                                				<div class="price-wrap h6">
-                                                					<span class="price-new" style="color:black;"><%= content[i].description %></span>
-                                                				</div> <!-- price-wrap.// -->
-                                                				<br>
-                                                				<form action="/lecturer/deleteCourseContent/<%= content.id.id %>/<%= content[i].contentID %>" id="deleteCC" method="POST">
-                                                				    <button type="button" class="btn btn-danger btn-sm float-right"style="margin-left:5px;width:83px;border:1px solid black" id="deleteBTN"> Delete </button>
-                                                				</form>
-                                                				<a href="../../CourseContent/<%= content[i].contentID %>" class="btn btn-primary btn-sm float-right"> Download </a>
-                                                			</div>
-                                                		</figcaption>
-                                                	</figure>
-                                                </div> 
-                                                <!--end of add content with description-->
-                                        <% section = content[i].section %>
-                                    <% } %>    
-                                     </div> <!-- row.// -->
-                                </div>
-                                <% }else{ %>
-                                    <center><h4>Previously Uploaded Course Content Not Found - Subject <%= content.id.id %></h4></center><br>
-                                    <br>
-                                <% } %>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-        
     </div>
 </div>
 
-<script>
-//Make due date and time required when "Accept Responses?" is checked
-var checkBox = document.querySelector('input[type="checkbox"]');
-    var dateInput = document.querySelector('input[type="date"]');
-    var timeInput = document.querySelector('input[type="time"]');
-
-    function toggleRequired() {
-
-        if (dateInput.hasAttribute('required') !== true || timeInput.hasAttribute('required') !== true) {
-            dateInput.setAttribute('required','required');
-            timeInput.setAttribute('required','required');
-        }
-
-        else {
-            dateInput.removeAttribute('required');  
-            timeInput.removeAttribute('required'); 
-        }
-    }
-
-    checkBox.addEventListener('change',toggleRequired,false);
-</script>
 <script src="/scripts/register.js"></script>
+<script src="/scripts/addResults.js"></script>
 <% include ../partials/footer %>

@@ -30,6 +30,10 @@ $('#submitbtn').click(function(){
     {
         document.getElementById("registernew").submit();
     }
+    else if(selectedTab=="Register a Parent")
+    {
+        document.getElementById("registernewparent").submit();
+    }
     else
     {
         document.getElementById("registerexisting").submit();
