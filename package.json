@@ -14,7 +14,7 @@
   "author": "T.K. Jayasekara, T.N. Wickramasinghe, K.W.M.R.I.A Bandaranayake, R.M.T.G.K. Bandara, S.L.Pathirathne",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.395.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
