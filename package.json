@@ -27,7 +27,7 @@
     "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
     "get-date": "^1.0.2",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "jwt-simple": "^0.5.1",
     "localStorage": "^1.0.3",
     "lodash": "^4.17.19",
